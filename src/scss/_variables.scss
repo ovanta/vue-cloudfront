@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600|Material+Icons');
 
 $font-family-open-sans: 'Open Sans';
 
@@ -6,6 +6,9 @@ $font-family-open-sans: 'Open Sans';
 $palette-white-bright: #f6fafb;
 $palette-white-middle: #f2f2f2;
 $palette-white-dark: #e6e6e6;
+
+$palette-grayish-blue: #667788;
+$palette-deep-blue: #1a284d;
 
 // Transition durations
 $transition-short: 0.2s;

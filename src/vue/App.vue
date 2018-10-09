@@ -1,11 +1,18 @@
 <template>
-        <div id="app">
-            Hello World
-        </div>
+    <div id="app">
+        <main-content></main-content>
+    </div>
 </template>
 
 <script>
+
+    // Components
+    import MainContent from './components/main-content/MainContent';
+
     export default {
+
+        components: {MainContent},
+
         data() {
             return {};
         }

@@ -3,4 +3,10 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({});
+// Modules
+import {nodes} from './nodes';
+import {location} from './location';
+
+export default new Vuex.Store({
+    modules: {nodes, location},
+});
