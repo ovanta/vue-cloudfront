@@ -1,0 +1,87 @@
+@mixin apply($args, $props...) {
+    @for $i from 1 through length($args) {
+        $val: nth($args, $i);
+
+        @if $val != null {
+            #{nth($props, $i)}: $val;
+        }
+    }
+}
+
+// position: position(top, right, bottom, left)
+@mixin position($args...) {
+    @include apply($args, top, right, bottom, left)
+}
+
+// height(height, min-width, max-width)
+@mixin width($args...) {
+    @include apply($args, width, min-width, max-width);
+}
+
+// fixed-height(width)
+@mixin fixed-width($base) {
+    @include width($base, $base, $base);
+}
+
+// height(height, min-height, max-height)
+@mixin height($args...) {
+    @include apply($args, height, min-height, max-height);
+}
+
+// fixed-height(height)
+@mixin fixed-height($base) {
+    @include height($base, $base, $base);
+}
+
+// size(width: auto, height: width)
+@mixin size($width: auto, $height: $width) {
+    width: $width;
+    height: $height;
+}
+
+// pseudo(position: absolute, content: '')
+@mixin pseudo($position: absolute, $content: '', $position...) {
+    @include apply(($position, $content), position, content)
+}
+
+// font(weight, size, spacing)
+@mixin font($args...) {
+    @include apply($args, font-weight, font-size, letter-spacing);
+}
+
+// stroke(stroke, stroke-width, stroke-linecap, stroke-dasharray, stroke-dashoffset)
+@mixin stroke($args...) {
+    @include apply($args, stroke, stroke-width, stroke-linecap, stroke-dasharray, stroke-dashoffset);
+}
+
+// flex(flex-direction, align-items, justify-content, flex-base);
+@mixin flex($args...) {
+    display: flex;
+    @include apply($args, flex-direction, align-items, justify-content, flex-base)
+}
+
+// inline-flex(flex-direction, align-items, justify-content, flex-base);
+@mixin inline-flex($args...) {
+    display: inline-flex;
+    @include apply($args, flex-direction, align-items, justify-content, flex-base)
+}
+
+// animate(props) {timeline}
+@mixin animate($props: '') {
+    $animation-name: 'a'+ random(100000);
+
+    @keyframes #{$animation-name} {
+        @content
+    }
+
+    animation: #{$animation-name} #{$props};
+}
+
+// Sequential animation delay based on childcount and a multiplier
+@mixin sequentialAnimationDelay($child-count, $multiplier) {
+    @for $i from 0 through $child-count {
+        &:nth-child(#{$i}) {
+            animation-delay: #{($i - 1) * $multiplier};
+        }
+    }
+}
