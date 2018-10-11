@@ -2,7 +2,7 @@
     <section class="hierarchy">
 
         <div class="node" v-for="(node, index) of nodes">
-            <span class="name" @click="$store.commit('location/update', node.hash)">{{ node.name }}</span>
+            <span class="name" @click="updateLocation(node.hash)">{{ node.name }}</span>
             <i class="material-icons" v-if="index < nodes.length - 1">keyboard_arrow_right</i>
         </div>
 
@@ -23,6 +23,12 @@
 
         data() {
             return {};
+        },
+
+        methods: {
+            updateLocation(hash) {
+                this.$store.commit('location/update', hash);
+            }
         }
 
     };
@@ -36,6 +42,7 @@
 
         .node {
             @include inline-flex(row, center);
+            user-select: none;
             color: rgba($palette-deep-blue, 0.8);
 
             .name {

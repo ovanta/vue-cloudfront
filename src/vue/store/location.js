@@ -6,7 +6,7 @@ export const location = {
      * Example location matching the current nodes list,
      * will be replaced with random generated data.
      */
-    state: ['7db715e9f7a', '48e7ff6313b'],
+    state: [],
 
     mutations: {
 
@@ -21,7 +21,7 @@ export const location = {
 
             const idx = state.indexOf(hash);
             if (~idx) {
-                idx && state.splice(state.indexOf(hash), state.length);
+                state.splice(state.indexOf(hash) + 1, state.length);
             } else {
                 state.push(hash);
             }
@@ -29,5 +29,4 @@ export const location = {
         }
 
     }
-
 };
