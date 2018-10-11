@@ -6,6 +6,9 @@
 
 <script>
 
+    // Global filters
+    import './filters';
+
     // Components
     import MainContent from './components/main-content/MainContent';
 
@@ -49,7 +52,8 @@
                     const node = {
                         hash: genHash(),
                         parent: parent,
-                        type: Math.random() < 0.5 ? 'file' : 'folder'
+                        type: Math.random() < 0.5 ? 'file' : 'folder',
+                        lastModified: Math.floor(Math.random() * Date.now())
                     };
 
                     node.name = `${node.type}-${genHash().substring(0, 3)}`;
@@ -57,6 +61,10 @@
                     // Fill folder
                     if (node.type === 'folder') {
                         generateNodes(maxDirectChilds, node.hash, depth - 1);
+                    } else {
+
+                        // Add folder-specific attributes
+                        node.size = Math.floor(Math.random() * 1000000000); // Maximal 5GB
                     }
 
                     // Save node

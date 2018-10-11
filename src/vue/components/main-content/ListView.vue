@@ -1,15 +1,35 @@
 <template>
     <section class="list-view">
 
-
-        <div class="folder" v-for="node of nodes.folder" @dblclick="updateLocation(node.hash)">
-            <i class="material-icons">folder</i>
-            <span class="name">{{ node.name }}</span>
+        <!-- Table header -->
+        <div class="header">
+            <i class="material-icons" style="opacity: 0">folder</i>
+            <span class="name">Name</span>
+            <span class="detail">Last modified</span>
+            <span class="detail">Size</span>
         </div>
 
-        <div class="file" v-for="node of nodes.file">
+
+        <!-- Folders and files -->
+        <div v-for="node of nodes.folder"
+             :class="{folder: 1, selected: selected.includes(node)}"
+             @dblclick="updateLocation(node.hash)"
+             @click="select($event, node)">
+
+            <i class="material-icons">folder</i>
+            <span class="name">{{ node.name }}</span>
+            <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
+            <span class="detail">{{ node.size | readableByteCount }}</span>
+        </div>
+
+        <div v-for="node of nodes.file"
+             :class="{file: 1, selected: selected.includes(node)}"
+             @click="select($event, node)">
+
             <i class="material-icons">insert_drive_file</i>
             <span class="name">{{ node.name }}</span>
+            <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
+            <span class="detail">{{ node.size | readableByteCount }}</span>
         </div>
 
 
@@ -37,6 +57,17 @@
                     }
                 });
 
+                const calcFolderSize = (hash) => {
+                    return this.$store.state.nodes.filter(v => v.parent === hash).reduce((size, val) => (
+                        size + (val.type === 'folder' ? calcFolderSize(val.hash) : val.size)
+                    ), 0);
+                };
+
+                // Calculate recursivly the size of each folder
+                for (const folder of nodes.folder) {
+                    folder.size = calcFolderSize(folder.hash);
+                }
+
                 return nodes;
             }
 
@@ -49,9 +80,28 @@
         },
 
         methods: {
+
             updateLocation(hash) {
                 this.$store.commit('location/update', hash);
+                this.selected.splice(0, this.selected.length - 1);
+            },
+
+            select(e, node) {
+                const idx = this.selected.indexOf(node);
+                if (!~idx) {
+
+                    // Check if user select multiple elements via ctrl key
+                    if (e.ctrlKey) {
+                        this.selected.push(node);
+                    } else {
+                        this.selected.splice(0, this.selected.length, node);
+                    }
+
+                } else {
+                    this.selected.splice(idx, 1);
+                }
             }
+
         }
 
     };
@@ -61,20 +111,46 @@
 <style lang="scss" scoped>
 
     .folder,
-    .file {
+    .file,
+    .header {
         @include flex(row, center);
         user-select: none;
         padding: 0.4em 0;
         border-bottom: 1px solid rgba($palette-deep-blue, 0.08);
+        transition: all 0.3s;
+        cursor: pointer;
+        font-size: 0.8em;
 
         i {
             color: $palette-grayish-blue;
+            transition: all 0.3s;
+        }
+
+        &.selected {
+
+            .name,
+            .detail,
+            i {
+                color: $palette-cloud-blue;
+
+            }
+
+        }
+
+        .name,
+        .detail {
+            color: $palette-deep-blue;
         }
 
         .name {
             width: 100%;
-            color: $palette-deep-blue;
             margin-left: 0.5em;
+            font-weight: 600;
+        }
+
+        .detail {
+            width: 60%;
+            opacity: 0.8;
         }
 
         &:nth-last-child(1) {
@@ -82,8 +158,9 @@
         }
     }
 
-    .folder {
-        cursor: pointer;
+    .header {
+        font-weight: 600;
+        border-bottom: 1px solid rgba($palette-deep-blue, 0.2);
     }
 
 </style>
