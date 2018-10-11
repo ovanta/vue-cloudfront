@@ -25,6 +25,7 @@
 
             // Generate random data
             const genHash = () => Math.round(Math.random() * 1e13).toString(16);
+            const random = arr => arr[Math.floor(Math.random() * arr.length)];
             const nodes = [];
 
             // Root hash
@@ -38,6 +39,13 @@
 
             // Generate random nodes (children)
             (function generateNodes(maxDirectChilds, parent, depth) {
+
+                // File / folder names
+                const fileNames = ['Test', 'Holiday', 'Timetable', 'Todos', 'Web-App ideas', 'Receips', 'Keys', 'Discord', 'Apple-Presentation', 'Earnings', 'Passwords', 'Application'];
+                const fileExtension = ['', 'mp4', 'mp4', 'webm', 'docx', 'pptx', 'txt', 'json', 'zip', 'rar', 'csv'];
+                const folderNames = ['Downloads', 'University', 'School', 'Projects - GitHub', 'Todos', 'Private', 'Videos', 'Movies', 'Images', 'Documents', 'Music'];
+                const genFileName = () => `${random(fileNames)}.${random(fileExtension)}`;
+                const genFolderName = () => random(folderNames);
 
                 // Check tree can go deeper
                 if (depth === 0) {
@@ -60,10 +68,10 @@
 
                     // Fill folder
                     if (node.type === 'folder') {
+                        node.name = genFolderName();
                         generateNodes(maxDirectChilds, node.hash, depth - 1);
                     } else {
-
-                        // Add folder-specific attributes
+                        node.name = genFileName();
                         node.size = Math.floor(Math.random() * 1000000000); // Maximal 5GB
                     }
 
