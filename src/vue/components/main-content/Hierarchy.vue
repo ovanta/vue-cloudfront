@@ -42,7 +42,6 @@
 
         .node {
             @include inline-flex(row, center);
-            user-select: none;
             color: rgba($palette-deep-blue, 0.8);
 
             .name {
@@ -59,8 +58,11 @@
             }
 
             i {
-                margin: 0 0.1em;
                 opacity: 0.75;
+            }
+
+            &:first-child .name {
+                padding-left: 0;
             }
         }
     }

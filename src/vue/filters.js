@@ -5,6 +5,11 @@ import Vue from 'vue';
  */
 Vue.filter('readableByteCount', bytes => {
     bytes = Number(bytes);
+
+    if (!bytes) {
+        return 'Empty';
+    }
+
     const si = true;
     const unit = si ? 1000 : 1024;
     const block = bytes / unit;

@@ -5,12 +5,13 @@
         <div class="nav">
             <hierarchy></hierarchy>
 
-            <i class="material-icons" v-show="viewType === 'grid'">widgets</i>
-            <i class="material-icons" v-show="viewType === 'list'">view_list</i>
+            <i class="material-icons" v-show="viewType === 'grid'" @click="viewType = 'list'">widgets</i>
+            <i class="material-icons" v-show="viewType === 'list'" @click="viewType = 'grid'">view_list</i>
         </div>
 
         <!-- Folder / file -views -->
         <list-view class="view" v-show="viewType === 'list'"></list-view>
+        <grid-view class="view" v-show="viewType === 'grid'"></grid-view>
 
 
     </section>
@@ -21,18 +22,20 @@
     // Components
     import Hierarchy from './Hierarchy';
     import ListView from './ListView';
+    import GridView from './GridView';
 
     export default {
 
         components: {
             Hierarchy,
-            ListView
+            ListView,
+            GridView
         },
 
         data() {
             return {
-                viewType: 'list',
-            }
+                viewType: 'list'
+            };
         }
     };
 </script>
@@ -47,11 +50,27 @@
             color: $palette-grayish-blue;
             margin-left: auto;
             cursor: pointer;
+            @include animate('1s ease forwards') {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
         }
     }
 
     .view {
         margin-top: 0.5em;
+        @include animate('1s ease forwards') {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
     }
 
 </style>

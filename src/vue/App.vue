@@ -127,6 +127,7 @@
         margin: auto;
         display: flex;
         flex-direction: column;
+        user-select: none;
         @include position(0, 0, 0, 0);
         @include width(70vw, 0, 1400px);
         @include height(90vh, 0, 950px);

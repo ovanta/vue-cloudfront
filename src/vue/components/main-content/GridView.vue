@@ -1,37 +1,32 @@
 <template>
-    <section class="list-view">
+    <section class="grid-view">
 
-        <!-- Table header -->
-        <div class="header">
-            <i class="material-icons" style="opacity: 0">folder</i>
-            <span class="name">Name</span>
-            <span class="detail">Last modified</span>
-            <span class="detail">Size</span>
-        </div>
 
+        <h1 v-if="nodes.folder.length">Folders</h1>
 
         <!-- Folders and files -->
-        <div v-for="node of nodes.folder"
-             :class="{folder: 1, selected: selected.includes(node)}"
-             @dblclick="updateLocation(node.hash)"
-             @click="select($event, node)">
+        <div class="grid-container">
+            <div v-for="node of nodes.folder"
+                 :class="{folder: 1, selected: selected.includes(node)}"
+                 @dblclick="updateLocation(node.hash)"
+                 @click="select($event, node)">
 
-            <i class="material-icons">folder</i>
-            <span class="name">{{ node.name }}</span>
-            <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
-            <span class="detail">{{ node.size | readableByteCount }}</span>
+                <i class="material-icons">folder</i>
+                <span class="name">{{ node.name }}</span>
+            </div>
         </div>
 
-        <div v-for="node of nodes.file"
-             :class="{file: 1, selected: selected.includes(node)}"
-             @click="select($event, node)">
+        <h1 v-if="nodes.file.length">Files</h1>
 
-            <i class="material-icons">insert_drive_file</i>
-            <span class="name">{{ node.name }}</span>
-            <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
-            <span class="detail">{{ node.size | readableByteCount }}</span>
+        <div class="grid-container">
+            <div v-for="node of nodes.file"
+                 :class="{file: 1, selected: selected.includes(node)}"
+                 @click="select($event, node)">
+
+                <i class="material-icons">insert_drive_file</i>
+                <span class="name">{{ node.name }}</span>
+            </div>
         </div>
-
 
     </section>
 </template>
@@ -110,13 +105,28 @@
 
 <style lang="scss" scoped>
 
-    .folder,
-    .file,
-    .header {
-        @include flex(row, center);
-        user-select: none;
-        padding: 0.4em 0;
+    h1 {
+        font-size: 1em;
         border-bottom: 1px solid rgba($palette-deep-blue, 0.08);
+        padding: 0.8em 0 0.2em;
+        margin-bottom: 0.75em;
+        font-weight: 400;
+        color: $palette-deep-blue;
+    }
+
+    .grid-container {
+        @include flex(row, flex-start);
+        flex-wrap: wrap;
+    }
+
+    .folder,
+    .file {
+        position: relative;
+        @include flex(row, center);
+        padding: 0.5em 0.9em;
+        margin-right: 0.5em;
+        border-radius: 0.15em;
+        border: 1px solid rgba($palette-deep-blue, 0.08);
         transition: all 0.3s;
         cursor: pointer;
         font-size: 0.8em;
@@ -127,6 +137,8 @@
         }
 
         &.selected {
+            background: rgba($palette-cloud-blue, 0.1);
+            border-color: rgba($palette-cloud-blue, 0.2);
 
             .name,
             .detail,
@@ -145,20 +157,5 @@
             margin-left: 0.5em;
             font-weight: 600;
         }
-
-        .detail {
-            width: 60%;
-            opacity: 0.8;
-        }
-
-        &:nth-last-child(1) {
-            border-bottom: none;
-        }
     }
-
-    .header {
-        font-weight: 600;
-        border-bottom: 1px solid rgba($palette-deep-blue, 0.2);
-    }
-
 </style>
