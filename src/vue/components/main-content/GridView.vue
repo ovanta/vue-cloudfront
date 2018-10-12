@@ -11,7 +11,7 @@
                  @dblclick="updateLocation(node.hash)"
                  @click="select($event, node)">
 
-                <i class="material-icons">folder</i>
+                <i class="material-icons" :style="{color: node.color}">folder</i>
                 <span class="name">{{ node.name }}</span>
             </div>
         </div>
@@ -124,7 +124,7 @@
         position: relative;
         @include flex(row, center);
         padding: 0.5em 0.9em;
-        margin-right: 0.5em;
+        margin: 0.5em 0.5em 0 0;
         border-radius: 0.15em;
         border: 1px solid rgba($palette-deep-blue, 0.08);
         transition: all 0.3s;
@@ -137,8 +137,8 @@
         }
 
         &.selected {
-            background: rgba($palette-cloud-blue, 0.1);
-            border-color: rgba($palette-cloud-blue, 0.2);
+            background: rgba($palette-cloud-blue, 0.05);
+            border-color: rgba($palette-cloud-blue, 0.5);
 
             .name,
             .detail,

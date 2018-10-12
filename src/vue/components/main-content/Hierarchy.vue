@@ -52,7 +52,7 @@
                 border-radius: 0.1em;
 
                 &:hover {
-                    background: rgba($palette-deep-blue, 0.04);
+                    color: $palette-cloud-blue;
                 }
 
             }

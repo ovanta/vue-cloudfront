@@ -44,8 +44,10 @@
                 const fileNames = ['Test', 'Holiday', 'Timetable', 'Todos', 'Web-App ideas', 'Receips', 'Keys', 'Discord', 'Apple-Presentation', 'Earnings', 'Passwords', 'Application'];
                 const fileExtension = ['', 'mp4', 'mp4', 'webm', 'docx', 'pptx', 'txt', 'json', 'zip', 'rar', 'csv'];
                 const folderNames = ['Downloads', 'University', 'School', 'Projects - GitHub', 'Todos', 'Private', 'Videos', 'Movies', 'Images', 'Documents', 'Music'];
+                const folderColors = ['EF5350', '#EC407A', '#AB47BC', '#7E57C2', '#5C6BC0', '#42A5F5', '#29B6F6', '#26C6DA', '#26A69A', '#66BB6A', '#9CCC65', '#D4E157', '#FFEE58', '#FFCA28', '#FFA726', '#FF7043', '#8D6E63', '#BDBDBD', '#78909C'];
                 const genFileName = () => `${random(fileNames)}.${random(fileExtension)}`;
                 const genFolderName = () => random(folderNames);
+                const genFolderColor = () => random(folderColors);
 
                 // Check tree can go deeper
                 if (depth === 0) {
@@ -60,7 +62,7 @@
                     const node = {
                         hash: genHash(),
                         parent: parent,
-                        type: Math.random() < 0.5 ? 'file' : 'folder',
+                        type: Math.random() < 0.75 ? 'file' : 'folder',
                         lastModified: Math.floor(Math.random() * Date.now())
                     };
 
@@ -69,6 +71,7 @@
                     // Fill folder
                     if (node.type === 'folder') {
                         node.name = genFolderName();
+                        node.color = genFolderColor();
                         generateNodes(maxDirectChilds, node.hash, depth - 1);
                     } else {
                         node.name = genFileName();
@@ -78,7 +81,7 @@
                     // Save node
                     nodes.push(node);
                 }
-            })(10, root.hash, 4); // Trigger recursive generating
+            })(15, root.hash, 4); // Trigger recursive generating
 
 
             this.$store.commit('nodes/update', nodes);
@@ -118,7 +121,7 @@
     }
 
     body {
-        background: $palette-white-bright;
+        background: $palette-snow-white;
     }
 
     #app {

@@ -16,7 +16,7 @@
              @dblclick="updateLocation(node.hash)"
              @click="select($event, node)">
 
-            <i class="material-icons">folder</i>
+            <i class="material-icons" :style="{color: node.color}">folder</i>
             <span class="name">{{ node.name }}</span>
             <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
             <span class="detail">{{ node.size | readableByteCount }}</span>
