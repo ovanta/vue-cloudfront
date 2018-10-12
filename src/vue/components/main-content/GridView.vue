@@ -6,10 +6,8 @@
 
         <!-- Folders and files -->
         <div class="grid-container">
-            <div v-for="node of nodes.folder"
-                 :class="{folder: 1, selected: selected.includes(node)}"
-                 @dblclick="updateLocation(node.hash)"
-                 @click="select($event, node)">
+            <div v-for="node of nodes.folder" class="selectable folder"
+                 @dblclick="updateLocation(node.hash)">
 
                 <i class="material-icons" :style="{color: node.color}">folder</i>
                 <span class="name">{{ node.name }}</span>
@@ -19,9 +17,7 @@
         <h1 v-if="nodes.file.length">Files</h1>
 
         <div class="grid-container">
-            <div v-for="node of nodes.file"
-                 :class="{file: 1, selected: selected.includes(node)}"
-                 @click="select($event, node)">
+            <div v-for="node of nodes.file" class="selectable file">
 
                 <i class="material-icons">insert_drive_file</i>
                 <span class="name">{{ node.name }}</span>
@@ -69,32 +65,13 @@
         },
 
         data() {
-            return {
-                selected: []
-            };
+            return { };
         },
 
         methods: {
 
             updateLocation(hash) {
                 this.$store.commit('location/update', hash);
-                this.selected.splice(0, this.selected.length - 1);
-            },
-
-            select(e, node) {
-                const idx = this.selected.indexOf(node);
-                if (!~idx) {
-
-                    // Check if user select multiple elements via ctrl key
-                    if (e.ctrlKey) {
-                        this.selected.push(node);
-                    } else {
-                        this.selected.splice(0, this.selected.length, node);
-                    }
-
-                } else {
-                    this.selected.splice(idx, 1);
-                }
             }
 
         }
