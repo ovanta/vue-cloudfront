@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" @contextmenu="preventDefault">
         <main-content></main-content>
     </div>
 </template>
@@ -20,6 +20,13 @@
             return {};
         },
 
+        methods: {
+
+            preventDefault(e) {
+                e.preventDefault();
+            }
+
+        },
 
         mounted() {
 
@@ -62,7 +69,7 @@
                     const node = {
                         hash: genHash(),
                         parent: parent,
-                        type: Math.random() < 0.75 ? 'file' : 'folder',
+                        type: Math.random() < 0.5 ? 'file' : 'folder',
                         lastModified: Math.floor(Math.random() * Date.now())
                     };
 

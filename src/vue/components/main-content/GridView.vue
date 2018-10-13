@@ -7,7 +7,8 @@
         <!-- Folders and files -->
         <div class="grid-container">
             <div v-for="node of nodes.folder" class="selectable folder"
-                 @dblclick="updateLocation(node.hash)">
+                 @dblclick="updateLocation(node.hash)"
+                 :data-hash="node.hash">
 
                 <i class="material-icons" :style="{color: node.color}">folder</i>
                 <span class="name">{{ node.name }}</span>
@@ -17,7 +18,9 @@
         <h1 v-if="nodes.file.length">Files</h1>
 
         <div class="grid-container">
-            <div v-for="node of nodes.file" class="selectable file">
+            <div v-for="node of nodes.file"
+                 class="selectable file"
+                 :data-hash="node.hash">
 
                 <i class="material-icons">insert_drive_file</i>
                 <span class="name">{{ node.name }}</span>
@@ -109,7 +112,7 @@
         font-size: 0.8em;
 
         i {
-            color: $palette-grayish-blue;
+            color: $palette-deep-blue;
             transition: all 0.3s;
         }
 

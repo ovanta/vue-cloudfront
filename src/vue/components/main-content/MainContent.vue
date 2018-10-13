@@ -1,5 +1,5 @@
 <template>
-    <section class="node-rep">
+    <section class="node-rep" @contextmenu="openMenu($event)">
 
         <!-- Navigation bar with hierarchy -->
         <div class="nav">
@@ -13,6 +13,8 @@
         <list-view class="view" v-show="viewType === 'list'"></list-view>
         <grid-view class="view" v-show="viewType === 'grid'"></grid-view>
 
+        <!-- Context menu -->
+        <context-menu ref="contextMenu"></context-menu>
 
     </section>
 </template>
@@ -27,13 +29,15 @@
     import Hierarchy from './Hierarchy';
     import ListView from './ListView';
     import GridView from './GridView';
+    import ContextMenu from './ContextMenu';
 
     export default {
 
         components: {
             Hierarchy,
             ListView,
-            GridView
+            GridView,
+            ContextMenu
         },
 
         data() {
@@ -43,22 +47,57 @@
             };
         },
 
+        methods: {
+
+            openMenu(evt) {
+
+                // Get selection or use a empty array as fallback value.
+                const nodes = (this.selection && this.selection.getSelection()) || [];
+
+                // Resolve nodes
+                const storeNodes = this.$store.state.nodes;
+                const resolvedNodes = [];
+
+                for (const node of nodes) {
+                    const hash = node.getAttribute('data-hash');
+
+                    // Check if hash is present
+                    if (hash) {
+                        const resolved = storeNodes.find(v => v.hash === hash);
+
+                        // Check if hash has been correctly resolved
+                        if (resolved) {
+                            resolvedNodes.push(resolved);
+                        }
+                    }
+                }
+
+                // Open menu, pass mousevent and resolved nodes
+                this.$refs.contextMenu.$emit('show', evt, resolvedNodes);
+
+                evt.stopImmediatePropagation();
+                evt.preventDefault();
+            }
+
+        },
+
         updated() {
-            mountSelectionJs(this);
+            mountSelectionJs.call(this);
         },
 
         mounted() {
-            mountSelectionJs(this);
+            mountSelectionJs.call(this);
         }
     };
 
-    function mountSelectionJs(vueinst) {
+    function mountSelectionJs() {
 
-        if (vueinst.selection) {
-            vueinst.selection.disable();
+        if (this.selection) {
+            this.selection.disable();
         }
 
-        vueinst.selection = Selection.create({
+        const vueInst = this;
+        this.selection = Selection.create({
 
             class: 'selection-area',
 
@@ -66,7 +105,24 @@
 
             selectables: ['.selectable'],
 
+            validateStart(evt) {
+                let parent = evt.target;
+
+                while (true) {
+                    if (parent.classList.contains('selected')) {
+                        return false;
+                    } else if (parent.parentElement) {
+                        parent = parent.parentElement;
+                    } else {
+                        return true;
+                    }
+                }
+            },
+
             onSelect(evt) {
+
+                // Close context menu
+                vueInst.$refs.contextMenu.$emit('hide');
 
                 // Remove class if the user don't pressed the control key or ⌘ key and the
                 // current target is already selected
@@ -94,6 +150,9 @@
             },
 
             onStart(evt) {
+
+                // Close context menu
+                vueInst.$refs.contextMenu.$emit('hide');
 
                 // Remove class if the user don't pressed the control key or ⌘ key
                 if (!evt.originalEvent.ctrlKey && !evt.originalEvent.metaKey) {
