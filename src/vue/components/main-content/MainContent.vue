@@ -1,5 +1,5 @@
 <template>
-    <section class="node-rep" @contextmenu="openMenu($event)">
+    <section class="node-rep" @contextmenu.prevent="openMenu($event)">
 
         <!-- Navigation bar with hierarchy -->
         <div class="nav">
@@ -74,25 +74,31 @@
 
                 // Open menu, pass mousevent and resolved nodes
                 this.$refs.contextMenu.$emit('show', evt, resolvedNodes);
-
-                evt.stopImmediatePropagation();
-                evt.preventDefault();
             }
 
         },
 
-        updated() {
-            mountSelectionJs.call(this);
-        },
-
         mounted() {
-            mountSelectionJs.call(this);
+
+            // Cancel selection / close menu on new location
+            this.$store.subscribe(mutation => {
+                if (mutation.type === 'location/update') {
+
+                    // Hide menu
+                    this.$refs.contextMenu.$emit('hide');
+
+                    // Re-mount selectionjs
+                    mountSelectionjs.call(this);
+                }
+            });
         }
     };
 
-    function mountSelectionJs() {
+    function mountSelectionjs() {
 
+        // Clear selection and disable instance
         if (this.selection) {
+            this.selection.getSelection().forEach(element => element.classList.remove('selected'));
             this.selection.disable();
         }
 
