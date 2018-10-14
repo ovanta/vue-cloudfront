@@ -16,7 +16,7 @@
              :data-hash="node.hash">
 
             <i class="material-icons" :style="{color: node.color}">folder</i>
-            <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
+            <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)" v-select-all="node.editable">{{ node.name }}</span>
             <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
             <span class="detail">{{ node.size | readableByteCount }}</span>
         </div>
@@ -26,7 +26,7 @@
              :data-hash="node.hash">
 
             <i class="material-icons">insert_drive_file</i>
-            <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
+            <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)" v-select-all="node.editable">{{ node.name }}</span>
             <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
             <span class="detail">{{ node.size | readableByteCount }}</span>
         </div>

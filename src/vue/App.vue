@@ -9,6 +9,9 @@
     // Global filters
     import './filters';
 
+    // Global directives
+    import './directives';
+
     // Components
     import MainContent from './components/main-content/MainContent';
 
