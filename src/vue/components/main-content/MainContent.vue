@@ -76,7 +76,7 @@
                 this.$refs.contextMenu.$emit('show', evt, resolvedNodes);
             },
 
-            clearSelection(){
+            clearSelection() {
                 if (this.selection) {
                     this.selection.getSelection().forEach(element => element.classList.remove('selected'));
                     this.selection.clearSelection();
@@ -203,6 +203,10 @@
 
 
 <style lang="scss" scoped>
+
+    .node-rep {
+        flex-grow: 1;
+    }
 
     .nav {
         @include flex(row);
