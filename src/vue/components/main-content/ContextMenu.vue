@@ -11,7 +11,7 @@
             <span class="name">Download</span>
         </div>
 
-        <div class="option">
+        <div class="option" @click="newFolder()">
             <i class="material-icons">create_new_folder</i>
             <span class="name">New Folder</span>
         </div>
@@ -50,6 +50,13 @@
                     this.nodes[0].editable = true;
                     this.open = false;
                 }
+            },
+
+            newFolder() {
+                const locHash = this.$store.getters['location/currentLocation'];
+                const destination = this.$store.state.nodes.find(v => v.hash === locHash);
+                this.$store.commit('nodes/newFolder', destination);
+                this.open = false;
             }
 
         },

@@ -8,6 +8,12 @@ export const location = {
      */
     state: [],
 
+    getters: {
+        currentLocation(state) {
+            return state[state.length - 1];
+        }
+    },
+
     mutations: {
 
         /**
