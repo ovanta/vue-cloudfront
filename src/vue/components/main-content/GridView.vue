@@ -11,7 +11,7 @@
                  :data-hash="node.hash">
 
                 <i class="material-icons" :style="{color: node.color}">folder</i>
-                <span class="name">{{ node.name }}</span>
+                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
             </div>
         </div>
 
@@ -23,7 +23,7 @@
                  :data-hash="node.hash">
 
                 <i class="material-icons">insert_drive_file</i>
-                <span class="name">{{ node.name }}</span>
+                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
             </div>
         </div>
 
@@ -75,6 +75,14 @@
 
             updateLocation(hash) {
                 this.$store.commit('location/update', hash);
+            },
+
+            renameNode(evt, node) {
+                node.editable = false;
+                this.$store.commit('nodes/rename', {
+                    node,
+                    newName: evt.target.innerHTML
+                });
             }
 
         }
@@ -134,8 +142,17 @@
 
         .name {
             width: 100%;
-            margin-left: 0.5em;
+            margin: 0 0.5em;
+            padding: 0.15em 0 0.15em;
             font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+
+            &[contenteditable=true] {
+                border-color: $palette-cloud-blue;
+                cursor: text;
+                outline: none;
+            }
         }
     }
 </style>

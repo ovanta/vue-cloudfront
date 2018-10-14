@@ -16,7 +16,7 @@
             <span class="name">New Folder</span>
         </div>
 
-        <div class="option" v-if="nodes.length === 1">
+        <div class="option" v-if="nodes.length === 1" @click="edit()">
             <i class="material-icons">edit</i>
             <span class="name">Rename</span>
         </div>
@@ -43,6 +43,13 @@
             del() {
                 this.$store.commit('nodes/delete', this.nodes);
                 this.open = false;
+            },
+
+            edit() {
+                if (this.nodes.length === 1) {
+                    this.nodes[0].editable = true;
+                    this.open = false;
+                }
             }
 
         },

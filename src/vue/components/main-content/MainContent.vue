@@ -10,8 +10,8 @@
         </div>
 
         <!-- Folder / file -views -->
-        <list-view class="view" v-show="viewType === 'list'"></list-view>
-        <grid-view class="view" v-show="viewType === 'grid'"></grid-view>
+        <list-view class="view" v-if="viewType === 'list'"></list-view>
+        <grid-view class="view" v-if="viewType === 'grid'"></grid-view>
 
         <!-- Context menu -->
         <context-menu ref="contextMenu"></context-menu>
@@ -74,14 +74,23 @@
 
                 // Open menu, pass mousevent and resolved nodes
                 this.$refs.contextMenu.$emit('show', evt, resolvedNodes);
+            },
+
+            clearSelection(){
+                if (this.selection) {
+                    this.selection.getSelection().forEach(element => element.classList.remove('selected'));
+                    this.selection.clearSelection();
+                }
             }
 
         },
 
         mounted() {
 
-            // Cancel selection / close menu on new location
             this.$store.subscribe(mutation => {
+
+
+                // Cancel selection / close menu on new location
                 if (mutation.type === 'location/update') {
 
                     // Hide menu
@@ -90,6 +99,12 @@
                     // Re-mount selectionjs
                     mountSelectionjs.call(this);
                 }
+
+                // Clear selection if delete action was performed
+                if (mutation.type === 'nodes/delete') {
+                    this.clearSelection();
+                }
+
             });
         }
     };
@@ -98,8 +113,8 @@
 
         // Clear selection and disable instance
         if (this.selection) {
-            this.selection.getSelection().forEach(element => element.classList.remove('selected'));
-            this.selection.disable();
+            this.clearSelection();
+            this.selection.destroy();
         }
 
         const vueInst = this;

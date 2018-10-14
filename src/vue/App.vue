@@ -69,6 +69,7 @@
                     const node = {
                         hash: genHash(),
                         parent: parent,
+                        editable: false,
                         type: Math.random() < 0.5 ? 'file' : 'folder',
                         lastModified: Math.floor(Math.random() * Date.now())
                     };
@@ -90,7 +91,7 @@
                 }
             })(15, root.hash, 4); // Trigger recursive generating
 
-
+            console.log(`[INI] ${nodes.length} Nodes generated.`);
             this.$store.commit('nodes/update', nodes);
             this.$store.commit('location/update', root.hash);
         }

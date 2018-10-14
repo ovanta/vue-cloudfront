@@ -36,6 +36,27 @@ export const nodes = {
                 // Remove node
                 state.splice(state.indexOf(node), 1);
             });
+        },
+
+        /**
+         * Renames one node
+         * @param state
+         * @param node
+         */
+        rename(state, {node, newName}) {
+
+            // Validate node
+            if (!node || !~state.indexOf(node)) {
+                throw 'Node not present in state or invalid: ' + JSON.stringify(node);
+            }
+
+            // Validate new name
+            if (!newName || newName.length === 0) {
+                throw 'Node name cannot be empty.';
+            }
+
+            // Perform rename
+            node.name = newName;
         }
     }
 };
