@@ -11,7 +11,8 @@
                  :data-hash="node.hash">
 
                 <i class="material-icons" :style="{color: node.color}">folder</i>
-                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)" v-select-all="node.editable">{{ node.name }}</span>
+                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
+                      v-select-all="node.editable">{{ node.name }}</span>
             </div>
         </div>
 
@@ -23,7 +24,8 @@
                  :data-hash="node.hash">
 
                 <i class="material-icons">insert_drive_file</i>
-                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)" v-select-all="node.editable">{{ node.name }}</span>
+                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
+                      v-select-all="node.editable">{{ node.name }}</span>
             </div>
         </div>
 
@@ -38,28 +40,21 @@
         computed: {
 
             nodes() {
+                const stateNodes = this.$store.state.nodes;
+                const stateNodesAmount = stateNodes.length;
+
                 const loc = this.$store.state.location;
                 const locHash = loc[loc.length - 1];
                 const nodes = {file: [], folder: []}; // Seperate files and folders
 
                 // Find folder and files which has the current locations as parent
-                this.$store.state.nodes.forEach(n => {
+                for (let i = 0, n; n = stateNodes[i], i < stateNodesAmount; i++) {
 
                     // Check if parent is the current location
                     if (n.parent === locHash) {
-                        nodes[n.type].push(n);
+                        const {type} = n;
+                        nodes[type].push(n);
                     }
-                });
-
-                const calcFolderSize = (hash) => {
-                    return this.$store.state.nodes.filter(v => v.parent === hash).reduce((size, val) => (
-                        size + (val.type === 'folder' ? calcFolderSize(val.hash) : val.size)
-                    ), 0);
-                };
-
-                // Calculate recursivly the size of each folder
-                for (const folder of nodes.folder) {
-                    folder.size = calcFolderSize(folder.hash);
                 }
 
                 return nodes;
@@ -68,7 +63,7 @@
         },
 
         data() {
-            return { };
+            return {};
         },
 
         methods: {
