@@ -127,17 +127,24 @@
             selectables: ['.selectable'],
 
             validateStart(evt) {
-                let parent = evt.target;
 
-                while (true) {
-                    if (parent.classList.contains('selected')) {
-                        return false;
-                    } else if (parent.parentElement) {
-                        parent = parent.parentElement;
-                    } else {
-                        return true;
+                // If left click, check if user is currently
+                // hovering a selected area, if yes cancel new selection.
+                // Otherwise start as default.
+                if(evt.button === 2){
+                    let parent = evt.target;
+                    while (true) {
+                        if (parent.classList.contains('selected')) {
+                            return false;
+                        } else if (parent.parentElement) {
+                            parent = parent.parentElement;
+                        } else {
+                            return true;
+                        }
                     }
                 }
+
+                return true;
             },
 
             onSelect(evt) {
