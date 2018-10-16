@@ -6,7 +6,8 @@
 
         <!-- Folders and files -->
         <div class="grid-container">
-            <div v-for="node of nodes.folder" class="selectable folder"
+            <div v-for="node of nodes.folder"
+                 :class="{selectable: 1, folder: 1, cutted: node.cutted}"
                  @dblclick="updateLocation(node.hash)"
                  :data-hash="node.hash">
 
@@ -20,7 +21,7 @@
 
         <div class="grid-container">
             <div v-for="node of nodes.file"
-                 class="selectable file"
+                 :class="{selectable: 1, file: 1, cutted: node.cutted}"
                  :data-hash="node.hash">
 
                 <i class="material-icons">insert_drive_file</i>
@@ -128,6 +129,10 @@
             i {
                 color: $palette-cloud-blue;
             }
+        }
+
+        &.cutted {
+            opacity: 0.75;
         }
 
         .name,

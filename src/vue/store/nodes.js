@@ -85,6 +85,42 @@ export const nodes = {
                 color: '#7E58C2',
                 editable: true
             });
+        },
+
+
+        /**
+         * Move nodes to another folder
+         * @param state
+         * @param nodes
+         * @param destination
+         */
+        move(state, {nodes, destination}) {
+
+            // Validate
+            if (!nodes || !nodes.length || !destination) {
+                throw 'No nodes, nodes array empty or no destination. Abort move action.';
+            }
+
+            // Check if user paste folder into itself or one of its siblings
+            function getSubFolders(hash) {
+                const subfolder = [hash];
+
+                for (let i = 0, n; n = state[i], i < state.length; i++) {
+                    if (n.parent === hash && n.type === 'folder') {
+                        subfolder.push(...getSubFolders(n.hash));
+                    }
+                }
+
+                return subfolder;
+            }
+
+            const subfolder = getSubFolders(nodes[0].hash);
+            if (subfolder.includes(destination)) {
+                throw 'Cannt paste nodes into a sub-tree of itself.';
+            }
+
+            // Move nodes
+            nodes.forEach(n => n.parent = destination);
         }
     }
 };

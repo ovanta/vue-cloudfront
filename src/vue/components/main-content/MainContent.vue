@@ -43,16 +43,17 @@
         data() {
             return {
                 viewType: 'list',
-                selection: null
+                selection: null,
+                storeUnsubscription: null
             };
         },
 
         methods: {
 
-            openMenu(evt) {
+            resolveSelectedNodes() {
 
                 // Get selection or use a empty array as fallback value.
-                const nodes = (this.selection && this.selection.getSelection()) || [];
+                const nodes = ((this.selection && this.selection.getSelection()) || []);
 
                 // Resolve nodes
                 const storeNodes = this.$store.state.nodes;
@@ -72,8 +73,13 @@
                     }
                 }
 
+                return resolvedNodes;
+            },
+
+            openMenu(evt) {
+
                 // Open menu, pass mousevent and resolved nodes
-                this.$refs.contextMenu.$emit('show', evt, resolvedNodes);
+                this.$refs.contextMenu.$emit('show', evt, this.resolveSelectedNodes());
             },
 
             clearSelection() {
@@ -81,14 +87,46 @@
                     this.selection.getSelection().forEach(element => element.classList.remove('selected'));
                     this.selection.clearSelection();
                 }
-            }
+            },
 
+            keyboardEvent(evt) {
+                const selectedNodes = this.resolveSelectedNodes();
+                const nodes = this.$store.state.nodes;
+
+                // Check for cut event
+                if (selectedNodes.length && evt.code === 'KeyX' && evt.ctrlKey) {
+
+                    // Apply state
+                    nodes.forEach(n => n.cutted = false);
+                    selectedNodes.forEach(n => n.cutted = true);
+
+                    // Save to clipboard
+                    this.$store.commit('clipboard/insert', {
+                        nodes: selectedNodes,
+                        type: 'cut'
+                    });
+
+                    return;
+                }
+
+                // Check for paste event
+                const clipboardNodes = this.$store.state.clipboard.nodes;
+                const locHash = this.$store.getters['location/currentLocation'];
+                if (clipboardNodes.length && evt.code === 'KeyV' && evt.ctrlKey) {
+
+                    // Move elements
+                    this.$store.commit('nodes/move', {nodes: clipboardNodes, destination: locHash});
+
+                    // Clear clipboard
+                    this.$store.commit('clipboard/clear');
+                }
+
+            }
         },
 
         mounted() {
 
-            this.$store.subscribe(mutation => {
-
+            this.storeUnsubscription = this.$store.subscribe(mutation => {
 
                 // Cancel selection / close menu on new location
                 if (mutation.type === 'location/update') {
@@ -104,8 +142,22 @@
                 if (mutation.type === 'nodes/delete') {
                     this.clearSelection();
                 }
-
             });
+
+
+            // Listen for keyboard events
+            window.addEventListener('keyup', this.keyboardEvent);
+        },
+
+        destroyed() {
+
+            // Unsubscribe from store if existing
+            if (this.storeUnsubscription) {
+                this.storeUnsubscription();
+            }
+
+            // Unbind keyevent listener
+            window.removeEventListener('keyup', this.keyboardEvent);
         }
     };
 
@@ -131,7 +183,7 @@
                 // If left click, check if user is currently
                 // hovering a selected area, if yes cancel new selection.
                 // Otherwise start as default.
-                if(evt.button === 2){
+                if (evt.button === 2) {
                     let parent = evt.target;
                     while (true) {
                         if (parent.classList.contains('selected')) {
