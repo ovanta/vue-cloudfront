@@ -6,7 +6,7 @@
         <!-- Folders and files -->
         <div class="grid-container">
             <div v-for="node of nodes.folder"
-                 :class="{selected: $store.state.selection.includes(node), folder: 1, cutted:  $store.state.clipboard.nodes.includes(node)}"
+                 :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
                  @dblclick="updateLocation(node.hash)"
                  @click.right="select($event, node)"
                  @click.left="select($event, node)"
@@ -25,7 +25,7 @@
 
         <div class="grid-container">
             <div v-for="node of nodes.file"
-                 :class="{selected: $store.state.selection.includes(node), file: 1, cutted:  $store.state.clipboard.nodes.includes(node)}"
+                 :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                  @click.right="select($event, node)"
                  @click.left="select($event, node)"
                  :data-hash="node.hash">
@@ -52,6 +52,7 @@
             nodes() {
                 const selectionNodes = this.$store.state.selection;
                 const clipboardNodes = this.$store.state.clipboard.nodes;
+                const editableNode = this.$store.state.editable.node;
                 const stateNodes = this.$store.state.nodes;
                 const stateNodesAmount = stateNodes.length;
 
@@ -69,6 +70,7 @@
                         // Pre-checks
                         n.cutted = clipboardNodes.includes(n);
                         n.selected = selectionNodes.includes(n);
+                        n.editable = n === editableNode;
                         nodes[type].push(n);
                     }
                 }
@@ -89,7 +91,7 @@
             },
 
             renameNode(evt, node) {
-                node.editable = false;
+                this.$store.commit('editable/reset');
                 this.$store.commit('nodes/rename', {
                     node,
                     newName: evt.target.innerHTML

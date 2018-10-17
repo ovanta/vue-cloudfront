@@ -63,7 +63,7 @@
 
             edit() {
                 if (this.nodes.length === 1) {
-                    this.nodes[0].editable = true;
+                    this.$store.commit('editable/set', this.nodes[0]);
                     this.open = false;
                 }
             },

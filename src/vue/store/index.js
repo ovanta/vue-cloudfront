@@ -8,7 +8,8 @@ import {nodes} from './nodes';
 import {location} from './location';
 import {clipboard} from './clipboard';
 import {selection} from './selection';
+import {editable} from './editable';
 
 export default new Vuex.Store({
-    modules: {nodes, location, clipboard, selection},
+    modules: {nodes, location, clipboard, selection, editable},
 });

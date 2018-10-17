@@ -52,6 +52,7 @@
             nodes() {
                 const selectionNodes = this.$store.state.selection;
                 const clipboardNodes = this.$store.state.clipboard.nodes;
+                const editableNode = this.$store.state.editable.node;
                 const stateNodes = this.$store.state.nodes;
                 const stateNodesAmount = stateNodes.length;
 
@@ -90,6 +91,7 @@
                         // Pre-checks
                         n.cutted = clipboardNodes.includes(n);
                         n.selected = selectionNodes.includes(n);
+                        n.editable = n === editableNode;
                         nodes[type].push(n);
 
                         // Calculate recursivly the size of each folder
@@ -115,7 +117,7 @@
             },
 
             renameNode(evt, node) {
-                node.editable = false;
+                this.$store.commit('editable/reset');
                 this.$store.commit('nodes/rename', {
                     node,
                     newName: evt.target.innerHTML

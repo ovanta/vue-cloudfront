@@ -99,7 +99,6 @@ export const nodes = {
             });
         },
 
-
         /**
          * Move nodes to another folder
          * @param state
