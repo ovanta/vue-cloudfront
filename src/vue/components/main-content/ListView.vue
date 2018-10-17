@@ -12,8 +12,10 @@
 
         <!-- Folders and files -->
         <div v-for="node of nodes.folder"
-             :class="{selectable: 1, folder: 1, cutted: node.cutted}"
+             :class="{selected: $store.state.selection.includes(node), folder: 1, cutted: node.cutted}"
              @dblclick="updateLocation(node.hash)"
+             @click.right="select($event, node)"
+             @click.left="select($event, node)"
              :data-hash="node.hash">
 
             <i class="material-icons" :style="{color: node.color}">folder</i>
@@ -24,7 +26,9 @@
         </div>
 
         <div v-for="node of nodes.file"
-             :class="{selectable: 1, file: 1, cutted: node.cutted}"
+             :class="{selected: $store.state.selection.includes(node), file: 1, cutted: node.cutted}"
+             @click.right="select($event, node)"
+             @click.left="select($event, node)"
              :data-hash="node.hash">
 
             <i class="material-icons">insert_drive_file</i>
@@ -110,8 +114,17 @@
                     node,
                     newName: evt.target.innerHTML
                 });
-            }
+            },
 
+            select(evt, node) {
+
+                if (!evt.ctrlKey) {
+                    this.$store.commit('selection/clear');
+                }
+
+                this.$store.commit('selection/append', [node]);
+                this.$forceUpdate();
+            }
         }
 
     };

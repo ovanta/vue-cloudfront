@@ -1,18 +1,22 @@
 <template>
     <section class="grid-view">
 
-
         <h1 v-if="nodes.folder.length">Folders</h1>
 
         <!-- Folders and files -->
         <div class="grid-container">
             <div v-for="node of nodes.folder"
-                 :class="{selectable: 1, folder: 1, cutted: node.cutted}"
+                 :class="{selected: $store.state.selection.includes(node), folder: 1, cutted: node.cutted}"
                  @dblclick="updateLocation(node.hash)"
+                 @click.right="select($event, node)"
+                 @click.left="select($event, node)"
                  :data-hash="node.hash">
 
                 <i class="material-icons" :style="{color: node.color}">folder</i>
-                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
+                <span class="name"
+                      :contenteditable="node.editable"
+                      spellcheck="false"
+                      @keydown.enter.prevent="renameNode($event, node)"
                       v-select-all="node.editable">{{ node.name }}</span>
             </div>
         </div>
@@ -21,11 +25,16 @@
 
         <div class="grid-container">
             <div v-for="node of nodes.file"
-                 :class="{selectable: 1, file: 1, cutted: node.cutted}"
+                 :class="{selected: $store.state.selection.includes(node), file: 1, cutted: node.cutted}"
+                 @click.right="select($event, node)"
+                 @click.left="select($event, node)"
                  :data-hash="node.hash">
 
                 <i class="material-icons">insert_drive_file</i>
-                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
+                <span class="name"
+                      :contenteditable="node.editable"
+                      spellcheck="false"
+                      @keydown.enter.prevent="renameNode($event, node)"
                       v-select-all="node.editable">{{ node.name }}</span>
             </div>
         </div>
@@ -79,8 +88,17 @@
                     node,
                     newName: evt.target.innerHTML
                 });
-            }
+            },
 
+            select(evt, node) {
+
+                if (!evt.ctrlKey) {
+                    this.$store.commit('selection/clear');
+                }
+
+                this.$store.commit('selection/append', [node]);
+                this.$forceUpdate();
+            }
         }
 
     };
