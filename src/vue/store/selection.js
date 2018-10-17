@@ -13,8 +13,9 @@ export const selection = {
          */
         append(state, nodes) {
 
-            if (!nodes) {
-                throw 'Cannot append [no] nodes';
+            // Validate
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform APPEND in selection. nodes isn't an Array.`;
             }
 
             nodes.forEach(v => !state.includes(v) && state.push(v));

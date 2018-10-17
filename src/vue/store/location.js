@@ -25,6 +25,11 @@ export const location = {
          */
         update(state, hash) {
 
+            // Validate
+            if (typeof hash !== 'string') {
+                throw 'Cannot perform UPDATE in location. hash is not a string';
+            }
+
             const idx = state.indexOf(hash);
             if (~idx) {
                 state.splice(state.indexOf(hash) + 1, state.length);

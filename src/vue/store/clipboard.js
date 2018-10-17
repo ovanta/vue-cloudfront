@@ -27,8 +27,8 @@ export const clipboard = {
         insert(state, {nodes, type}) {
 
             // Validate
-            if (!nodes || !nodes.length || !(type === 'copy' || type === 'cut')) {
-                throw `No nodes, nodes array empty or invalid type. Clipboard copy (${type}) aborted`;
+            if (!Array.isArray(nodes) || !(type === 'copy' || type === 'cut')) {
+                throw `Cannot perform INSERT in clipboard. nodes isn't an Array or type is invalid. Got type ${type}`;
             }
 
             state.type = type;

@@ -15,6 +15,12 @@ export const nodes = {
          * @param newNodes
          */
         update(state, newNodes) {
+
+            // Validate
+            if (!Array.isArray(newNodes)) {
+                throw 'Cannot perform UPDATE in nodes. newNodes is not a Array.';
+            }
+
             if (newNodes && newNodes.length) {
                 state.splice(0, state.length, ...newNodes);
             }
@@ -26,6 +32,12 @@ export const nodes = {
          * @param nodes
          */
         delete(state, nodes) {
+
+            // Validate
+            if (!Array.isArray(nodes)) {
+                throw 'Cannot perform DELETE in nodes. Nodes is not a Array.';
+            }
+
             nodes.forEach(function rm(node) {
 
                 // If folder, delete all siblings first
@@ -48,12 +60,12 @@ export const nodes = {
 
             // Validate node
             if (!node || !~state.indexOf(node)) {
-                throw 'Node not present in state or invalid: ' + JSON.stringify(node);
+                throw 'Cannot perform RENAME in nodes. Node invalid or not present in set.';
             }
 
             // Validate new name
             if (!newName || newName.length === 0) {
-                throw 'Node name cannot be empty.';
+                throw 'Cannot perform RENAME in nodes. Node name cannot be empty, null or undefined.';
             }
 
             // Perform rename
@@ -69,7 +81,7 @@ export const nodes = {
 
             // Validate destination
             if (!parent || !~state.indexOf(parent)) {
-                throw 'Parent not present in state or invalid: ' + JSON.stringify(parent);
+                throw 'Cannot perform NEWFOLDER in nodes. Parent invalid or not present in set.';
             }
 
             // TODO: Do centralized generating / createing of folders
@@ -96,9 +108,14 @@ export const nodes = {
          */
         move(state, {nodes, destination}) {
 
-            // Validate
-            if (!nodes || !nodes.length || !destination) {
-                throw 'No nodes, nodes array empty or no destination. Abort move action.';
+            // Validate nodes
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform MOVE in nodes. nodes isn't an Array.`;
+            }
+
+            // Validate destination
+            if (typeof destination !== 'string') {
+                throw `Cannot perform MOVE in nodes. destination isn't a String.`;
             }
 
             // Check if user paste folder into itself or one of its siblings
@@ -116,7 +133,7 @@ export const nodes = {
 
             const subfolder = getSubFolders(nodes[0].hash);
             if (subfolder.includes(destination)) {
-                throw 'Cannt paste nodes into a sub-tree of itself.';
+                throw 'Cannot perform MOVE in nodes. Tried to put a folder into itself or similar.';
             }
 
             // Move nodes
