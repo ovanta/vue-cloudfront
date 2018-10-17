@@ -78,10 +78,6 @@
             cut() {
                 if (this.nodes.length) {
 
-                    // Apply state
-                    this.$store.state.nodes.forEach(n => n.cutted = false);
-                    this.nodes.forEach(n => n.cutted = true);
-
                     // Save to clipboard
                     this.$store.commit('clipboard/insert', {
                         nodes: this.nodes,
@@ -95,8 +91,6 @@
                 const clipboardNodes = this.$store.state.clipboard.nodes;
                 const locHash = this.$store.getters['location/currentLocation'];
                 if (clipboardNodes.length) {
-
-                    clipboardNodes.forEach(n => n.cutted = false);
 
                     // Move elements
                     this.$store.commit('nodes/move', {nodes: clipboardNodes, destination: locHash});

@@ -6,7 +6,7 @@
         <!-- Folders and files -->
         <div class="grid-container">
             <div v-for="node of nodes.folder"
-                 :class="{selected: $store.state.selection.includes(node), folder: 1, cutted: node.cutted}"
+                 :class="{selected: $store.state.selection.includes(node), folder: 1, cutted:  $store.state.clipboard.nodes.includes(node)}"
                  @dblclick="updateLocation(node.hash)"
                  @click.right="select($event, node)"
                  @click.left="select($event, node)"
@@ -25,7 +25,7 @@
 
         <div class="grid-container">
             <div v-for="node of nodes.file"
-                 :class="{selected: $store.state.selection.includes(node), file: 1, cutted: node.cutted}"
+                 :class="{selected: $store.state.selection.includes(node), file: 1, cutted:  $store.state.clipboard.nodes.includes(node)}"
                  @click.right="select($event, node)"
                  @click.left="select($event, node)"
                  :data-hash="node.hash">
@@ -50,6 +50,8 @@
         computed: {
 
             nodes() {
+                const selectionNodes = this.$store.state.selection;
+                const clipboardNodes = this.$store.state.clipboard.nodes;
                 const stateNodes = this.$store.state.nodes;
                 const stateNodesAmount = stateNodes.length;
 
@@ -63,6 +65,10 @@
                     // Check if parent is the current location
                     if (n.parent === locHash) {
                         const {type} = n;
+
+                        // Pre-checks
+                        n.cutted = clipboardNodes.includes(n);
+                        n.selected = selectionNodes.includes(n);
                         nodes[type].push(n);
                     }
                 }

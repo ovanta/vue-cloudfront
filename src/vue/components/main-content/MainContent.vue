@@ -56,12 +56,7 @@
 
                 // Check for cut event
                 const selectedNodes = this.$store.state.selection;
-                const nodes = this.$store.state.nodes;
                 if (selectedNodes.length && evt.code === 'KeyX' && evt.ctrlKey) {
-
-                    // Apply state
-                    nodes.forEach(n => n.cutted = false);
-                    selectedNodes.forEach(n => n.cutted = true);
 
                     // Save to clipboard
                     this.$store.commit('clipboard/insert', {
@@ -76,8 +71,6 @@
                 const clipboardNodes = this.$store.state.clipboard.nodes;
                 const locHash = this.$store.getters['location/currentLocation'];
                 if (clipboardNodes.length && evt.code === 'KeyV' && evt.ctrlKey) {
-
-                    clipboardNodes.forEach(n => n.cutted = false);
 
                     // Move elements
                     this.$store.commit('nodes/move', {nodes: clipboardNodes, destination: locHash});
