@@ -5,8 +5,14 @@
         <div class="nav">
             <hierarchy></hierarchy>
 
-            <i class="material-icons" v-show="viewType === 'grid'" @click="viewType = 'list'">widgets</i>
-            <i class="material-icons" v-show="viewType === 'list'" @click="viewType = 'grid'">view_list</i>
+            <div class="controls">
+                <!-- Node-views, grid and list -->
+                <i class="material-icons" v-show="viewType === 'grid'" @click="viewType = 'list'">widgets</i>
+                <i class="material-icons" v-show="viewType === 'list'" @click="viewType = 'grid'">view_list</i>
+
+                <!-- Show keyboard-shortcuts button -->
+                <i class="material-icons" @click="$refs.keyboardShortcuts.$emit('toggle')">keyboard</i>
+            </div>
         </div>
 
         <!-- Folder / file -views -->
@@ -15,6 +21,9 @@
 
         <!-- Context menu -->
         <context-menu ref="contextMenu"></context-menu>
+
+        <!-- KeyBoard-shortcuts info -->
+        <key-board-shortcuts ref="keyboardShortcuts"></key-board-shortcuts>
 
     </section>
 </template>
@@ -26,6 +35,7 @@
     import ListView from './ListView';
     import GridView from './GridView';
     import ContextMenu from './ContextMenu';
+    import KeyBoardShortcuts from './KeyBoardShortcuts';
 
     export default {
 
@@ -33,7 +43,8 @@
             Hierarchy,
             ListView,
             GridView,
-            ContextMenu
+            ContextMenu,
+            KeyBoardShortcuts
         },
 
         data() {
@@ -69,14 +80,53 @@
 
                 // Check for paste event
                 const clipboardNodes = this.$store.state.clipboard.nodes;
-                const locHash = this.$store.getters['location/currentLocation'];
                 if (clipboardNodes.length && evt.code === 'KeyV' && evt.ctrlKey) {
 
                     // Move elements
-                    this.$store.commit('nodes/move', {nodes: clipboardNodes, destination: locHash});
+                    this.$store.commit('nodes/move', {
+                        nodes: clipboardNodes,
+                        destination: this.$store.getters['location/currentLocation']
+                    });
 
                     // Clear clipboard
                     this.$store.commit('clipboard/clear');
+                    return;
+                }
+
+                // Hierarchy up event
+                if (evt.code === 'KeyU' && this.$store.state.location.length > 1) {
+                    this.$store.commit('location/goUp');
+                    return;
+                }
+
+                // Change to grid / list
+                if (evt.code === 'KeyG' && this.viewType !== 'grid') {
+                    this.viewType = 'grid';
+                    return;
+                }
+
+                if (evt.code === 'KeyL' && this.viewType !== 'list') {
+                    this.viewType = 'list';
+                    return;
+                }
+
+                // Select everything
+                if (evt.code === 'KeyA' && evt.ctrlKey) {
+                    const locHash = this.$store.getters['location/currentLocation'];
+
+                    // Select all nodes which are currently under the current location
+                    this.$store.commit('selection/append', this.$store.state.nodes.filter(n => n.parent === locHash));
+                    return;
+                }
+
+                // Delete nodes
+                if (evt.code === 'Delete' && selectedNodes.length) {
+                    this.$store.commit('nodes/delete', selectedNodes);
+                }
+
+                // Delete nodes
+                if (evt.code === 'Delete' && selectedNodes.length) {
+                    this.$store.commit('nodes/delete', selectedNodes);
                 }
             }
         },
@@ -130,16 +180,26 @@
     .nav {
         @include flex(row);
 
-        i {
-            color: $palette-grayish-blue;
+        .controls {
             margin-left: auto;
-            cursor: pointer;
-            @include animate('1s ease forwards') {
-                from {
-                    opacity: 0;
+
+            i {
+                color: $palette-grayish-blue;
+                cursor: pointer;
+                margin-left: 0.5em;
+                transition: all 0.3s;
+
+                @include animate('1s ease forwards') {
+                    from {
+                        opacity: 0;
+                    }
+                    to {
+                        opacity: 1;
+                    }
                 }
-                to {
-                    opacity: 1;
+
+                &:hover {
+                    color: $palette-cloud-blue;
                 }
             }
         }

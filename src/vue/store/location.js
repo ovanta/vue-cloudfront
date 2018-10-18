@@ -37,6 +37,19 @@ export const location = {
                 state.push(hash);
             }
 
+        },
+
+        /**
+         * Goes one up in the hierarchy
+         * @param state
+         */
+        goUp(state) {
+
+            if (state.length < 2) {
+                throw 'Cannot perform GOUP in location. There is no level upwards';
+            }
+
+            state.splice(state.length - 1, 1);
         }
 
     }
