@@ -21,6 +21,15 @@
             <span class="name">Rename</span>
         </div>
 
+        <div class="option sub" v-if="type === 'folder'">
+            <i class="material-icons">color_lens</i>
+            <span class="name">Change color</span>
+
+            <div class="sub-menu colors">
+                <div class="color" v-for="color of $store.state.colors" :style="{background: color}" @click="setColor(color)"></div>
+            </div>
+        </div>
+
         <div class="option" v-if="$store.state.nodes.find(v => $store.state.selection.includes(v))" @click="cut()">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path
@@ -103,6 +112,11 @@
                     // Clear clipboard
                     this.$store.commit('clipboard/clear');
                 }
+                this.open = false;
+            },
+
+            setColor(color) {
+                this.$store.commit('nodes/changeColor', {nodes: this.nodes, color});
                 this.open = false;
             }
 
@@ -208,8 +222,49 @@
             &.delete:hover {
                 color: $palette-tomatoe-red;
             }
-        }
 
+            &.sub {
+                position: relative;
+
+                .sub-menu {
+                    position: absolute;
+                    z-index: 10;
+                    transform: translateX(-10px);
+                    left: 128%;
+                    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
+                    background: white;
+                    padding: 1em;
+                    visibility: hidden;
+                    opacity: 0;
+                    transition: transform 0.3s, opacity 0.3s, visibility 0.3s 0s;
+                    cursor: default;
+                }
+
+                &:hover .sub-menu {
+                    opacity: 1;
+                    transform: none;
+                    visibility: visible;
+                }
+
+                .sub-menu.colors {
+                    display: grid;
+                    grid-template-columns: repeat(5, 1fr);
+                    grid-gap: 5px;
+
+                    .color {
+                        @include size(20px);
+                        border: 1px solid rgba(black, 0.1);
+                        border-radius: 2px;
+                        cursor: pointer;
+                        transition: all 0.3s;
+
+                        &:hover {
+                            filter: brightness(0.95);
+                        }
+                    }
+                }
+            }
+        }
     }
 
 </style>

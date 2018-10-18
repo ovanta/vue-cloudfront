@@ -110,6 +110,21 @@ export const nodes = {
 
             // Move nodes
             nodes.forEach(n => n.parent = destination);
+        },
+
+        changeColor(state, {nodes, color}) {
+
+            // Validate nodes
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform CHANGECOLOR in nodes. nodes isn't an Array.`;
+            }
+
+            if (typeof color !== 'string') {
+                throw `Cannot perform CHANGECOLOR in nodes. color isn't an String.`;
+            }
+
+            // Override color
+            nodes.forEach(n => n.color = color);
         }
     },
 
