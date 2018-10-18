@@ -78,11 +78,9 @@
             },
 
             newFolder() {
-                const locHash = this.$store.getters['location/currentLocation'];
-                const destination = this.$store.state.nodes.find(v => v.hash === locHash);
 
                 // Create a folder and immediatly make it editable
-                this.$store.dispatch('nodes/createFolder', destination).then(folderNode => {
+                this.$store.dispatch('nodes/createFolder', this.$store.getters['location/currentLocation']).then(folderNode => {
                     this.$store.commit('editable/set', folderNode);
                 });
 
@@ -117,7 +115,6 @@
 
             setColor(color) {
                 this.$store.commit('nodes/changeColor', {nodes: this.nodes, color});
-                this.open = false;
             }
 
         },

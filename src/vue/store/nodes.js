@@ -134,12 +134,12 @@ export const nodes = {
          * Creates a new folder within the parent.
          * @param commit
          * @param state
-         * @param parent
+         * @param parentHash
          */
-        createFolder({commit, state}, parent) {
+        createFolder({commit, state}, parentHash) {
 
             // Validate destination
-            if (!parent || !~state.indexOf(parent)) {
+            if (typeof parentHash !== 'string' || !~state.find(v => v.hash === parentHash)) {
                 throw 'Cannot perform NEWFOLDER in nodes. Parent invalid or not present in set.';
             }
 
@@ -149,7 +149,7 @@ export const nodes = {
 
                 // TODO: create colission resistend function / backend to generate the hash
                 hash: Math.round(Math.random() * 1e13).toString(16),
-                parent: parent.hash,
+                parent: parentHash,
                 type: 'folder',
                 name: 'New Folder',
                 lastModified: Date.now(),
