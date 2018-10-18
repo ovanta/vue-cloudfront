@@ -71,7 +71,12 @@
             newFolder() {
                 const locHash = this.$store.getters['location/currentLocation'];
                 const destination = this.$store.state.nodes.find(v => v.hash === locHash);
-                this.$store.commit('nodes/newFolder', destination);
+
+                // Create a folder and immediatly make it editable
+                this.$store.dispatch('nodes/createFolder', destination).then(folderNode => {
+                    this.$store.commit('editable/set', folderNode);
+                });
+
                 this.open = false;
             },
 

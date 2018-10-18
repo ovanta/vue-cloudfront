@@ -73,33 +73,6 @@ export const nodes = {
         },
 
         /**
-         * Creates a new folder within the parent.
-         * @param state
-         * @param parent
-         */
-        newFolder(state, parent) {
-
-            // Validate destination
-            if (!parent || !~state.indexOf(parent)) {
-                throw 'Cannot perform NEWFOLDER in nodes. Parent invalid or not present in set.';
-            }
-
-            // TODO: Do centralized generating / createing of folders
-            // Create folder
-            state.push({
-
-                // TODO: create colission resistend function / backend to generate the hash
-                hash: Math.round(Math.random() * 1e13).toString(16),
-                parent: parent.hash,
-                type: 'folder',
-                name: 'New Folder',
-                lastModified: Date.now(),
-                color: '#7E58C2',
-                editable: true
-            });
-        },
-
-        /**
          * Move nodes to another folder
          * @param state
          * @param nodes
@@ -138,5 +111,40 @@ export const nodes = {
             // Move nodes
             nodes.forEach(n => n.parent = destination);
         }
+    },
+
+    actions: {
+
+        /**
+         * Creates a new folder within the parent.
+         * @param commit
+         * @param state
+         * @param parent
+         */
+        createFolder({commit, state}, parent) {
+
+            // Validate destination
+            if (!parent || !~state.indexOf(parent)) {
+                throw 'Cannot perform NEWFOLDER in nodes. Parent invalid or not present in set.';
+            }
+
+            // TODO: Do centralized generating / createing of folders
+            // Create folder
+            const newFolder = {
+
+                // TODO: create colission resistend function / backend to generate the hash
+                hash: Math.round(Math.random() * 1e13).toString(16),
+                parent: parent.hash,
+                type: 'folder',
+                name: 'New Folder',
+                lastModified: Date.now(),
+                color: '#7E58C2',
+                editable: true
+            };
+
+            state.push(newFolder);
+            return newFolder;
+        }
+
     }
 };
