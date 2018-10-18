@@ -126,7 +126,9 @@
 
             select(evt, node) {
 
-                if (!evt.ctrlKey) {
+                // If user dont do a multi-selection (via ctrl key) and
+                // didn't pressed the right button for menu, clear selection.
+                if (!evt.ctrlKey && evt.button !== 2) {
                     this.$store.commit('selection/clear');
                 }
 
