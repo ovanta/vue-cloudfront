@@ -1,5 +1,5 @@
 <template>
-    <div :class="{menu: 1, open}" :style="style">
+    <div :class="{menu: 1, open}" :style="style" ref="menuRoot">
 
         <div class="option delete" v-if="type === 'files' || type === 'folder' || type === 'mixed'" @click="del()">
             <i class="material-icons">delete</i>
@@ -108,6 +108,14 @@
             // Close via escape key
             window.addEventListener('keyup', e => e.key === 'Escape' && (this.open = false));
 
+            // Function to check, if menu is open, if the user has clicked
+            // outside of the menu. Only active is menu is visible.
+            const detectOutsideClick = evt => {
+                if (!this.eventPath(evt).includes(this.$refs.menuRoot)) {
+                    this.open = false;
+                }
+            };
+
             /**
              *  Event to show the menu.
              *  Nodes is an array of currently selected nodes and
@@ -129,6 +137,9 @@
                     this.type = 'none';
                 }
 
+                // Set listener for out-of-bounds clicks
+                window.addEventListener('mousedown', detectOutsideClick);
+
                 // Set postion
                 this.style.left = `${evt.clientX + 5}px`;
                 this.style.top = `${evt.clientY + 5}px`;
@@ -136,7 +147,10 @@
             });
 
             // Event to hide the menu
-            this.$on('hide', () => this.open = false);
+            this.$on('hide', () => {
+                window.removeEventListener('mousedown', detectOutsideClick);
+                this.open = false;
+            });
         }
 
     };

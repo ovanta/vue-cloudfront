@@ -12,6 +12,9 @@
     // Global directives
     import './directives';
 
+    // Global mixins
+    import './mixins';
+
     // Components
     import MainContent from './components/main-content/MainContent';
 
