@@ -7,10 +7,10 @@
         <div class="grid-container">
             <div v-for="node of nodes.folder"
                  :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
+                 :data-hash="node.hash"
                  @dblclick="updateLocation(node.hash)"
                  @click.right="select($event, node)"
-                 @click.left="select($event, node)"
-                 :data-hash="node.hash">
+                 @click.left="select($event, node)">
 
                 <i class="material-icons" :style="{color: node.color}">folder</i>
                 <span class="name"
@@ -26,9 +26,9 @@
         <div class="grid-container">
             <div v-for="node of nodes.file"
                  :class="{selected: node.selected, file: 1, cutted: node.cutted}"
+                 :data-hash="node.hash"
                  @click.right="select($event, node)"
-                 @click.left="select($event, node)"
-                 :data-hash="node.hash">
+                 @click.left="select($event, node)">
 
                 <i class="material-icons">insert_drive_file</i>
                 <span class="name"
@@ -56,8 +56,7 @@
                 const stateNodes = this.$store.state.nodes;
                 const stateNodesAmount = stateNodes.length;
 
-                const loc = this.$store.state.location;
-                const locHash = loc[loc.length - 1];
+                const locHash = this.$store.getters['location/currentLocation'];
                 const nodes = {file: [], folder: []}; // Seperate files and folders
 
                 // Find folder and files which has the current locations as parent
@@ -108,6 +107,10 @@
 
                 this.$store.commit('selection/append', [node]);
                 this.$forceUpdate();
+            },
+
+            startDrag(evt) {
+                console.log(evt);
             }
         }
 

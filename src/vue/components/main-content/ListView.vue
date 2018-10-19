@@ -13,10 +13,10 @@
         <!-- Folders and files -->
         <div v-for="node of nodes.folder"
              :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
+             :data-hash="node.hash"
              @dblclick="updateLocation(node.hash)"
              @click.right="select($event, node)"
-             @click.left="select($event, node)"
-             :data-hash="node.hash">
+             @click.left="select($event, node)">
 
             <i class="material-icons" :style="{color: node.color}">folder</i>
             <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
@@ -27,9 +27,9 @@
 
         <div v-for="node of nodes.file"
              :class="{selected: node.selected, file: 1, cutted: node.cutted}"
+             :data-hash="node.hash"
              @click.right="select($event, node)"
-             @click.left="select($event, node)"
-             :data-hash="node.hash">
+             @click.left="select($event, node)">
 
             <i class="material-icons">insert_drive_file</i>
             <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
@@ -56,8 +56,7 @@
                 const stateNodes = this.$store.state.nodes;
                 const stateNodesAmount = stateNodes.length;
 
-                const loc = this.$store.state.location;
-                const locHash = loc[loc.length - 1];
+                const locHash = this.$store.getters['location/currentLocation'];
                 const nodes = {file: [], folder: []}; // Seperate files and folders
 
                 function calcFolderSize(hash) {
@@ -130,10 +129,24 @@
                 // didn't pressed the right button for menu, clear selection.
                 if (!evt.ctrlKey && evt.button !== 2) {
                     this.$store.commit('selection/clear');
+                } else if (evt.ctrlKey && evt.shiftKey) {
+
+                    // Select all nodes from 0 or an already selected to the target node
+                    const selection = this.$store.state.selection;
+                    const nodes = this.nodes.folder.concat(this.nodes.file);
+
+                    // Find start and end point
+                    const [start, end] = [
+                        selection.length ? nodes.indexOf(selection[0]) : 0,
+                        nodes.indexOf(node)
+                    ].sort((a, b) => a - b);
+
+                    // Append rage-nodes to selection
+                    this.$store.commit('selection/append', nodes.slice(start, end + 1));
+                    return;
                 }
 
                 this.$store.commit('selection/append', [node]);
-                this.$forceUpdate();
             }
         }
 
