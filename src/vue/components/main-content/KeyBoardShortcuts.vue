@@ -35,6 +35,7 @@
                     {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
                     {keys: ['ctrl', 'a'], action: 'Select everything.'},
                     {keys: ['ctrl', 'shift'], action: 'Select everything up to current element.'},
+                    {keys: ['n', 'f'], action: 'Create new folder.'},
                     {keys: ['s', 'd'], action: 'Select all folders.'},
                     {keys: ['s', 'f'], action: 'Select all files.'},
                     {keys: ['v', 'l'], action: 'Change view to list.'},

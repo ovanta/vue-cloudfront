@@ -64,7 +64,7 @@
                 this.$refs.contextMenu.$emit('show', evt);
             },
 
-            keyboardEvent(keys) {
+            keyboardEvent(keys, event) {
 
                 // Check for cut event
                 const selectedNodes = this.$store.state.selection;
@@ -155,6 +155,20 @@
                 // Show keyboard shortcuts
                 if (keys.KeyH && keys.KeyK) {
                     this.$refs.keyboardShortcuts.$emit('show');
+                    return;
+                }
+
+                // Create new folder
+                if(keys.KeyN && keys.KeyF){
+
+                    // Create a folder and immediatly make it editable
+                    this.$store.dispatch('nodes/createFolder', this.$store.getters['location/currentLocation']).then(folderNode => {
+                        this.$store.commit('editable/set', folderNode);
+                    });
+
+                    // Prevent setting the letter 'f' as folder name because the freshly created
+                    // folder is editable.
+                    event.preventDefault();
                 }
             }
         },

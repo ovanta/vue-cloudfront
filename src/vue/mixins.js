@@ -61,7 +61,7 @@ Vue.mixin({
                 keys['metaKey'] = e.metaKey;
 
                 keys[e.code] = true;
-                cb(keys);
+                cb(keys, e);
             };
 
             // Bind listener
