@@ -112,22 +112,49 @@
                 }
 
                 // Select everything
-                if (keys.KeyA && keys.ctrlKey) {
-                    const locHash = this.$store.getters['location/currentLocation'];
+                const locHash = this.$store.getters['location/currentLocation'];
+                if (keys.ctrlKey && keys.KeyA) {
 
                     // Select all nodes which are currently under the current location
                     this.$store.commit('selection/append', this.$store.state.nodes.filter(n => n.parent === locHash));
                     return;
                 }
 
-                // Delete nodes
-                if (keys.Delete && selectedNodes.length) {
-                    this.$store.commit('nodes/delete', selectedNodes);
+                // Select all folders
+                if (keys.KeyS && keys.KeyD) {
+
+                    // Clear selection to remove previously selected files
+                    this.$store.commit('selection/clear');
+
+                    // Select all folders which are currently under the current location
+                    this.$store.commit('selection/append',
+                        this.$store.state.nodes.filter(n => n.parent === locHash && n.type === 'folder')
+                    );
+                    return;
+                }
+
+                // Select all files
+                if (keys.KeyS && keys.KeyF) {
+
+                    // Clear selection to remove previously selected folders
+                    this.$store.commit('selection/clear');
+
+                    // Select all files which are currently under the current location
+                    this.$store.commit('selection/append',
+                        this.$store.state.nodes.filter(n => n.parent === locHash && n.type === 'file')
+                    );
+                    return;
                 }
 
                 // Delete nodes
                 if (keys.Delete && selectedNodes.length) {
                     this.$store.commit('nodes/delete', selectedNodes);
+                    return;
+                }
+
+                // Show keyboard shortcuts
+                if (keys.KeyH && keys.KeyK) {
+                    this.$refs.keyboardShortcuts.$emit('show');
                 }
             }
         },

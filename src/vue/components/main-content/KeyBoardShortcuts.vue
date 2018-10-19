@@ -34,9 +34,12 @@
                     {keys: ['ctrl', 'x'], action: 'Cut folder / files.'},
                     {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
                     {keys: ['ctrl', 'a'], action: 'Select everything.'},
+                    {keys: ['s', 'd'], action: 'Select all folders.'},
+                    {keys: ['s', 'f'], action: 'Select all files.'},
                     {keys: ['v', 'l'], action: 'Change view to list.'},
                     {keys: ['v', 'g'], action: 'Change view to grid.'},
                     {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
+                    {keys: ['h', 'k'], action: 'Show keyboard shortcuts.'},
                     {keys: ['esc'], action: 'Close any popup like menu or this page.'},
                     {keys: ['delete'], action: 'Deletes currently selected files / folders.'}
                 ]
@@ -49,6 +52,7 @@
             window.addEventListener('keyup', e => e.key === 'Escape' && (this.open = false));
 
             this.$on('toggle', () => this.open = !this.open);
+            this.$on('show', () => this.open = true);
         }
     };
 
