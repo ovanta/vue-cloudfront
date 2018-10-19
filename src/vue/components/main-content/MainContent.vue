@@ -51,7 +51,8 @@
             return {
                 viewType: 'list',
                 selection: null,
-                storeUnsubscription: null
+                storeUnsubscription: null,
+                detectKeyCombinationsUnsubscription: null
             };
         },
 
@@ -63,11 +64,11 @@
                 this.$refs.contextMenu.$emit('show', evt);
             },
 
-            keyboardEvent(evt) {
+            keyboardEvent(keys) {
 
                 // Check for cut event
                 const selectedNodes = this.$store.state.selection;
-                if (selectedNodes.length && evt.code === 'KeyX' && evt.ctrlKey) {
+                if (selectedNodes.length && keys.KeyX && keys.ctrlKey) {
 
                     // Save to clipboard
                     this.$store.commit('clipboard/insert', {
@@ -80,7 +81,7 @@
 
                 // Check for paste event
                 const clipboardNodes = this.$store.state.clipboard.nodes;
-                if (clipboardNodes.length && evt.code === 'KeyV' && evt.ctrlKey) {
+                if (clipboardNodes.length && keys.KeyV && keys.ctrlKey) {
 
                     // Move elements
                     this.$store.commit('nodes/move', {
@@ -94,24 +95,24 @@
                 }
 
                 // Hierarchy up event
-                if (evt.code === 'KeyU' && this.$store.state.location.length > 1) {
+                if (keys.KeyG && keys.KeyU && this.$store.state.location.length > 1) {
                     this.$store.commit('location/goUp');
                     return;
                 }
 
-                // Change to grid / list
-                if (evt.code === 'KeyG' && this.viewType !== 'grid') {
+                // Change views
+                if (keys.KeyV && keys.KeyG && this.viewType !== 'grid') {
                     this.viewType = 'grid';
                     return;
                 }
 
-                if (evt.code === 'KeyL' && this.viewType !== 'list') {
+                if (keys.KeyV && keys.KeyL && this.viewType !== 'list') {
                     this.viewType = 'list';
                     return;
                 }
 
                 // Select everything
-                if (evt.code === 'KeyA' && evt.ctrlKey) {
+                if (keys.KeyA && keys.ctrlKey) {
                     const locHash = this.$store.getters['location/currentLocation'];
 
                     // Select all nodes which are currently under the current location
@@ -120,12 +121,12 @@
                 }
 
                 // Delete nodes
-                if (evt.code === 'Delete' && selectedNodes.length) {
+                if (keys.Delete && selectedNodes.length) {
                     this.$store.commit('nodes/delete', selectedNodes);
                 }
 
                 // Delete nodes
-                if (evt.code === 'Delete' && selectedNodes.length) {
+                if (keys.Delete && selectedNodes.length) {
                     this.$store.commit('nodes/delete', selectedNodes);
                 }
             }
@@ -151,9 +152,7 @@
                 }
             });
 
-
-            // Listen for keyboard events
-            window.addEventListener('keyup', this.keyboardEvent);
+            this.detectKeyCombinationsUnsubscription = this.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body);
         },
 
         destroyed() {
@@ -163,8 +162,10 @@
                 this.storeUnsubscription();
             }
 
-            // Unbind keyevent listener
-            window.removeEventListener('keyup', this.keyboardEvent);
+            // Unbind detectKeyCombinationsListener
+            if (this.detectKeyCombinationsUnsubscription) {
+                this.detectKeyCombinationsUnsubscription();
+            }
         }
     };
 

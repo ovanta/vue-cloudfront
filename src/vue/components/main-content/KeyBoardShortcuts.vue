@@ -1,7 +1,6 @@
 <template>
     <section :class="{shortcuts: 1, open}">
 
-
         <div class="container">
 
             <div class="header">
@@ -35,11 +34,11 @@
                     {keys: ['ctrl', 'x'], action: 'Cut folder / files.'},
                     {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
                     {keys: ['ctrl', 'a'], action: 'Select everything.'},
-                    {keys: ['l'], action: 'Change view to list.'},
-                    {keys: ['g'], action: 'Change view to grid.'},
-                    {keys: ['u'], action: 'Go up in hierarchy.'},
+                    {keys: ['v', 'l'], action: 'Change view to list.'},
+                    {keys: ['v', 'g'], action: 'Change view to grid.'},
+                    {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
                     {keys: ['esc'], action: 'Close any popup like menu or this page.'},
-                    {keys: ['delete'], action: 'Deletes currently selected files / folders.'},
+                    {keys: ['delete'], action: 'Deletes currently selected files / folders.'}
                 ]
             };
         },
