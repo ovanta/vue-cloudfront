@@ -42,7 +42,6 @@
     </section>
 </template>
 
-
 <script>
 
     export default {
@@ -50,10 +49,11 @@
         computed: {
 
             nodes() {
-                const selectionNodes = this.$store.state.selection;
-                const clipboardNodes = this.$store.state.clipboard.nodes;
-                const editableNode = this.$store.state.editable.node;
-                const stateNodes = this.$store.state.nodes;
+                const state = this.$store.state;
+                const selectionNodes = state.selection;
+                const clipboardNodes = state.clipboard.nodes;
+                const editableNode = state.editable.node;
+                const stateNodes = state.nodes;
                 const stateNodesAmount = stateNodes.length;
 
                 const locHash = this.$store.getters['location/currentLocation'];
@@ -119,6 +119,10 @@
 </script>
 
 <style lang="scss" scoped>
+
+    .grid-view {
+        overflow: auto;
+    }
 
     h1 {
         font-size: 1em;

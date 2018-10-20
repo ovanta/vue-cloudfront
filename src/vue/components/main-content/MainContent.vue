@@ -216,6 +216,7 @@
 <style lang="scss" scoped>
 
     .node-rep {
+        @include flex(column);
         flex-grow: 1;
     }
 

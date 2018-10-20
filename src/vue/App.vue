@@ -75,7 +75,7 @@
                     const node = {
                         hash: genHash(),
                         parent: parent,
-                        type: Math.random() < 0.5 ? 'file' : 'folder',
+                        type: Math.random() < 0.6 ? 'file' : 'folder',
                         lastModified: Math.floor(Math.random() * Date.now())
                     };
 
@@ -94,7 +94,7 @@
                     // Save node
                     nodes.push(node);
                 }
-            })(15, root.hash, 4); // Trigger recursive generating
+            })(20, root.hash, 4); // Trigger recursive generating
 
             console.log(`[INI] ${nodes.length} Nodes generated.`);
             this.$store.commit('nodes/update', nodes);
@@ -124,6 +124,16 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0.5em;
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: lighten($palette-grayish-blue, 10);
+        border-radius: 0;
     }
 
     // Actual app layout

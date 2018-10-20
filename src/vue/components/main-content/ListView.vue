@@ -9,39 +9,41 @@
             <span class="detail">Size</span>
         </div>
 
+        <div class="list">
 
-        <!-- Folders and files -->
-        <div v-for="node of nodes.folder"
-             :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
-             :data-hash="node.hash"
-             @dblclick="updateLocation(node.hash)"
-             @click.right="select($event, node)"
-             @click.left="select($event, node)">
+            <!-- Folders and files -->
+            <div v-for="node of nodes.folder"
+                 :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
+                 :data-hash="node.hash"
+                 @dblclick="updateLocation(node.hash)"
+                 @click.right="select($event, node)"
+                 @click.left="select($event, node)">
 
-            <i class="material-icons" :style="{color: node.color}">folder</i>
-            <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
-                  v-select-all="node.editable">{{ node.name }}</span>
-            <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
-            <span class="detail">{{ node.size | readableByteCount }}</span>
-        </div>
+                <i class="material-icons" :style="{color: node.color}">folder</i>
+                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
+                      v-select-all="node.editable">{{ node.name }}</span>
+                <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
+                <span class="detail">{{ node.size | readableByteCount }}</span>
+            </div>
 
-        <div v-for="node of nodes.file"
-             :class="{selected: node.selected, file: 1, cutted: node.cutted}"
-             :data-hash="node.hash"
-             @click.right="select($event, node)"
-             @click.left="select($event, node)">
+            <div v-for="node of nodes.file"
+                 :class="{selected: node.selected, file: 1, cutted: node.cutted}"
+                 :data-hash="node.hash"
+                 @click.right="select($event, node)"
+                 @click.left="select($event, node)">
 
-            <i class="material-icons">insert_drive_file</i>
-            <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
-                  v-select-all="node.editable">{{ node.name }}</span>
-            <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
-            <span class="detail">{{ node.size | readableByteCount }}</span>
+                <i class="material-icons">insert_drive_file</i>
+                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
+                      v-select-all="node.editable">{{ node.name }}</span>
+                <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
+                <span class="detail">{{ node.size | readableByteCount }}</span>
+            </div>
+
         </div>
 
 
     </section>
 </template>
-
 
 <script>
 
@@ -50,10 +52,11 @@
         computed: {
 
             nodes() {
-                const selectionNodes = this.$store.state.selection;
-                const clipboardNodes = this.$store.state.clipboard.nodes;
-                const editableNode = this.$store.state.editable.node;
-                const stateNodes = this.$store.state.nodes;
+                const state = this.$store.state;
+                const selectionNodes = state.selection;
+                const clipboardNodes = state.clipboard.nodes;
+                const editableNode = state.editable.node;
+                const stateNodes = state.nodes;
                 const stateNodesAmount = stateNodes.length;
 
                 const locHash = this.$store.getters['location/currentLocation'];
@@ -155,6 +158,19 @@
 </script>
 
 <style lang="scss" scoped>
+
+    .list-view {
+        @include flex(column);
+    }
+
+    .list {
+        flex-shrink: 1;
+        overflow: auto;
+    }
+
+    .header {
+        flex-shrink: 0;
+    }
 
     .folder,
     .file,
