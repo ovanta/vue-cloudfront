@@ -65,13 +65,18 @@
             },
 
             keyboardEvent(keys, event) {
+                const store = this.$store;
+                const state = store.state;
+
+                const selectedNodes = state.selection;
+                const clipboardNodes = state.clipboard.nodes;
+                const locHash = store.getters['location/currentLocation'];
 
                 // Check for cut event
-                const selectedNodes = this.$store.state.selection;
                 if (selectedNodes.length && keys.KeyX && keys.ctrlKey) {
 
                     // Save to clipboard
-                    this.$store.commit('clipboard/insert', {
+                    store.commit('clipboard/insert', {
                         nodes: selectedNodes,
                         type: 'cut'
                     });
@@ -80,23 +85,22 @@
                 }
 
                 // Check for paste event
-                const clipboardNodes = this.$store.state.clipboard.nodes;
                 if (clipboardNodes.length && keys.KeyV && keys.ctrlKey) {
 
                     // Move elements
-                    this.$store.commit('nodes/move', {
+                    store.commit('nodes/move', {
                         nodes: clipboardNodes,
-                        destination: this.$store.getters['location/currentLocation']
+                        destination: locHash
                     });
 
                     // Clear clipboard
-                    this.$store.commit('clipboard/clear');
+                    store.commit('clipboard/clear');
                     return;
                 }
 
                 // Hierarchy up event
-                if (keys.KeyG && keys.KeyU && this.$store.state.location.length > 1) {
-                    this.$store.commit('location/goUp');
+                if (keys.KeyG && keys.KeyU && state.location.length > 1) {
+                    store.commit('location/goUp');
                     return;
                 }
 
@@ -111,12 +115,16 @@
                     return;
                 }
 
+                // Define nodes as function to prevent
+                // useless calculations. Returns, if there is, the search result
+                // or all nodes which are currently into view.
+                const nodes = () => state.search.active ? state.search.nodes : state.nodes.filter(n => n.parent === locHash)
+
                 // Select everything
-                const locHash = this.$store.getters['location/currentLocation'];
                 if (keys.ctrlKey && keys.KeyA) {
 
                     // Select all nodes which are currently under the current location
-                    this.$store.commit('selection/append', this.$store.state.nodes.filter(n => n.parent === locHash));
+                    store.commit('selection/append', nodes());
                     return;
                 }
 
@@ -124,12 +132,10 @@
                 if (keys.KeyS && keys.KeyD) {
 
                     // Clear selection to remove previously selected files
-                    this.$store.commit('selection/clear');
+                    store.commit('selection/clear');
 
                     // Select all folders which are currently under the current location
-                    this.$store.commit('selection/append',
-                        this.$store.state.nodes.filter(n => n.parent === locHash && n.type === 'folder')
-                    );
+                    store.commit('selection/append', nodes().filter(n => n.type === 'folder'));
                     return;
                 }
 
@@ -137,18 +143,16 @@
                 if (keys.KeyS && keys.KeyF) {
 
                     // Clear selection to remove previously selected folders
-                    this.$store.commit('selection/clear');
+                    store.commit('selection/clear');
 
                     // Select all files which are currently under the current location
-                    this.$store.commit('selection/append',
-                        this.$store.state.nodes.filter(n => n.parent === locHash && n.type === 'file')
-                    );
+                    store.commit('selection/append', nodes().filter(n => n.type === 'file'));
                     return;
                 }
 
                 // Delete nodes
                 if (keys.Delete && selectedNodes.length) {
-                    this.$store.commit('nodes/delete', selectedNodes);
+                    store.commit('nodes/delete', selectedNodes);
                     return;
                 }
 
@@ -159,11 +163,11 @@
                 }
 
                 // Create new folder
-                if(keys.KeyN && keys.KeyF){
+                if (keys.KeyN && keys.KeyF) {
 
                     // Create a folder and immediatly make it editable
-                    this.$store.dispatch('nodes/createFolder', this.$store.getters['location/currentLocation']).then(folderNode => {
-                        this.$store.commit('editable/set', folderNode);
+                    store.dispatch('nodes/createFolder', store.getters['location/currentLocation']).then(folderNode => {
+                        store.commit('editable/set', folderNode);
                     });
 
                     // Prevent setting the letter 'f' as folder name because the freshly created
@@ -222,6 +226,7 @@
 
     .nav {
         @include flex(row);
+        flex-shrink: 0;
 
         .controls {
             margin-left: auto;

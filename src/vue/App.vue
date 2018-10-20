@@ -1,5 +1,6 @@
 <template>
     <div id="app" @contextmenu="preventDefault">
+        <search-bar></search-bar>
         <main-content></main-content>
     </div>
 </template>
@@ -17,10 +18,11 @@
 
     // Components
     import MainContent from './components/main-content/MainContent';
+    import SearchBar from './components/SearchBar';
 
     export default {
 
-        components: {MainContent},
+        components: {MainContent, SearchBar},
 
         data() {
             return {};
@@ -75,7 +77,7 @@
                     const node = {
                         hash: genHash(),
                         parent: parent,
-                        type: Math.random() < 0.6 ? 'file' : 'folder',
+                        type: Math.random() < 0.8 ? 'file' : 'folder',
                         lastModified: Math.floor(Math.random() * Date.now())
                     };
 

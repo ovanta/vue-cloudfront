@@ -53,7 +53,9 @@
                 const selectionNodes = state.selection;
                 const clipboardNodes = state.clipboard.nodes;
                 const editableNode = state.editable.node;
-                const stateNodes = state.nodes;
+                const search = state.search;
+
+                const stateNodes = search.active ? search.nodes : state.nodes;
                 const stateNodesAmount = stateNodes.length;
 
                 const locHash = this.$store.getters['location/currentLocation'];
@@ -63,7 +65,7 @@
                 for (let i = 0, n; n = stateNodes[i], i < stateNodesAmount; i++) {
 
                     // Check if parent is the current location
-                    if (n.parent === locHash) {
+                    if (search.active || n.parent === locHash) {
                         const {type} = n;
 
                         // Pre-checks
