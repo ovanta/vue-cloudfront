@@ -17,7 +17,7 @@
     import './mixins';
 
     // Components
-    import MainContent from './components/main-content/MainContent';
+    import MainContent from './components/navigator/Navigator';
     import SearchBar from './components/SearchBar';
 
     export default {

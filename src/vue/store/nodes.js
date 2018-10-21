@@ -77,6 +77,9 @@ export const nodes = {
                 throw 'Cannot perform RENAME in nodes. Node name cannot be empty, null or undefined.';
             }
 
+            // Update last-modified
+            node.lastModified = Date.now();
+
             // Perform rename
             node.name = newName;
         },

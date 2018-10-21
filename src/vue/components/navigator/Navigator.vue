@@ -32,8 +32,8 @@
 
     // Components
     import Hierarchy from './Hierarchy';
-    import ListView from './ListView';
-    import GridView from './GridView';
+    import ListView from './views/ListView';
+    import GridView from './views/GridView';
     import ContextMenu from './ContextMenu';
     import KeyBoardShortcuts from './KeyBoardShortcuts';
 
