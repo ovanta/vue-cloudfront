@@ -7,15 +7,39 @@
             <i :class="{'material-icons': 1, visible: searchQuery.length}" @click="clear">clear</i>
         </div>
 
+        <!-- Options -->
+        <div class="options">
+
+            <div :class="{option: 1, active: options.regex}">
+                <check-box class="checkbox" :checked="options.regex" @change="setRegexOption"></check-box>
+                <span class="title">Regex</span>
+            </div>
+
+        </div>
+
     </section>
 </template>
 
 <script>
+
+    // UI Components
+    import CheckBox from '../ui/Checkbox';
+
     export default {
+
+        components: {
+            CheckBox
+        },
 
         data() {
             return {
                 searchQuery: '',
+
+                // Search options
+                options: {
+                    regex: false
+                },
+
                 storeUnsubscription: null
             };
         },
@@ -23,11 +47,19 @@
         methods: {
 
             updateSearch() {
-                this.$store.dispatch('search/update', this.searchQuery);
+                this.$store.dispatch('search/update', {
+                    query: this.searchQuery,
+                    regex: this.options.regex
+                });
             },
 
             clear() {
                 this.searchQuery = '';
+                this.updateSearch();
+            },
+
+            setRegexOption(state) {
+                this.options.regex = state;
                 this.updateSearch();
             }
         },
@@ -70,7 +102,7 @@
         position: relative;
         @include flex(row, center);
         padding: 0.25em 0.1em;
-        margin-bottom: 0.75em;
+        margin-bottom: 0.5em;
         border-bottom: 1px solid rgba($palette-grayish-blue, 0.2);
 
         input {
@@ -93,6 +125,36 @@
             &.visible {
                 visibility: visible;
                 opacity: 1;
+            }
+        }
+    }
+
+    .options {
+        @include flex(row, center);
+        margin-bottom: 0.5em;
+
+        .option {
+            @include flex(row, center);
+
+            .checkbox {
+                @include size(16px);
+            }
+
+            .title {
+                color: rgba($palette-grayish-blue, 0.75);
+                font-size: 0.8em;
+                margin-left: 0.5em;
+            }
+
+            &.active {
+
+                /deep/ .checkbox path {
+                    stroke: $palette-happy-green;
+                }
+
+                .title {
+                    color: $palette-happy-green;
+                }
             }
         }
     }
