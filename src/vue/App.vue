@@ -77,7 +77,7 @@
                     const node = {
                         hash: genHash(),
                         parent: parent,
-                        type: Math.random() < 0.8 ? 'file' : 'folder',
+                        type: Math.random() < 0.65 ? 'file' : 'folder',
                         lastModified: Math.floor(Math.random() * Date.now())
                     };
 

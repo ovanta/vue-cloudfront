@@ -38,16 +38,25 @@ export const nodes = {
                 throw 'Cannot perform DELETE in nodes. Nodes is not a Array.';
             }
 
-            nodes.forEach(function rm(node) {
+            function rm(node) {
 
                 // If folder, delete all siblings first
                 if (node.type === 'folder') {
-                    state.filter(v => v.parent === node.hash).forEach(rm);
+                    for (let i = 0, n; n = state[i], i < state.length; i++) {
+                        if (n.parent === node.hash) {
+                            rm(n);
+                        }
+                    }
                 }
 
                 // Remove node
                 state.splice(state.indexOf(node), 1);
-            });
+            }
+
+            // Delete folder / files recursivly
+            for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
+                rm(n);
+            }
         },
 
         /**

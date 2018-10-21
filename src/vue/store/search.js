@@ -13,7 +13,16 @@ export const search = {
             state.active = !!query;
 
             if (state.active) {
-                state.nodes = rootState.nodes.filter(n => n.name.includes(query));
+
+                state.nodes = [];
+                const nodes = rootState.nodes;
+                for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
+
+                    // Find nodes where the name matches the query
+                    if (n.name.includes(query)) {
+                        state.nodes.push(n);
+                    }
+                }
             }
         }
 

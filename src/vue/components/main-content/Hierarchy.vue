@@ -24,9 +24,19 @@
         computed: {
 
             nodes() {
-                return this.$store.state.location.map(
-                    n => this.$store.state.nodes.find(sn => sn.hash === n)
-                );
+                const nodes = this.$store.state.nodes;
+                const loc = this.$store.state.location;
+                const res = new Array(loc.length);
+
+                // Resolve nodes in current hierarchy
+                let index;
+                for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
+                    if (n.type === 'folder' && ~(index = loc.indexOf(n.hash))) {
+                        res[index] = n;
+                    }
+                }
+
+                return res;
             },
 
             searchResult() {
