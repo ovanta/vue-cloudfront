@@ -15,8 +15,8 @@ export const search = {
             if (state.active) {
 
                 // Check if regexp and try to parse
-                let query = opt.query;
-                if (opt.regex) {
+                let {query, options} = opt;
+                if (options.regex) {
                     try {
                         query = new RegExp(query);
                     } catch (e) {
@@ -28,10 +28,16 @@ export const search = {
 
                 state.nodes = [];
                 const nodes = rootState.nodes;
+                const {type, regex} = options;
                 for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
 
-                    // Find nodes where the name matches the query
-                    if (opt.regex ? query.test(n.name) : n.name.includes(query)) {
+                    // Check type
+                    if (type !== 'all' && n.type !== type) {
+                        continue;
+                    }
+
+                    // Check if regex, apply or use simple includes
+                    if (regex ? query.test(n.name) : n.name.includes(query)) {
                         state.nodes.push(n);
                     }
                 }

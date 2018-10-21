@@ -10,9 +10,12 @@
         <!-- Options -->
         <div class="options">
 
-            <div :class="{option: 1, active: options.regex}">
-                <check-box class="checkbox" :checked="options.regex" @change="setRegexOption"></check-box>
-                <span class="title">Regex</span>
+            <div :class="{option: 1}">
+                <multi-switch-button :active="0" :options="['All', 'File', 'Folder']" @change="setTypeOption"></multi-switch-button>
+            </div>
+
+            <div :class="{option: 1}">
+                <simple-button text="Regex" @change="setRegexOption"></simple-button>
             </div>
 
         </div>
@@ -23,12 +26,14 @@
 <script>
 
     // UI Components
-    import CheckBox from '../ui/Checkbox';
+    import MultiSwitchButton from '../ui/MultiSwitchButton';
+    import SimpleButton from '../ui/SimpleButton';
 
     export default {
 
         components: {
-            CheckBox
+            SimpleButton,
+            MultiSwitchButton
         },
 
         data() {
@@ -37,7 +42,8 @@
 
                 // Search options
                 options: {
-                    regex: false
+                    regex: false,
+                    type: 'all' // Can be folder / file or all
                 },
 
                 storeUnsubscription: null
@@ -49,7 +55,7 @@
             updateSearch() {
                 this.$store.dispatch('search/update', {
                     query: this.searchQuery,
-                    regex: this.options.regex
+                    options: this.options
                 });
             },
 
@@ -60,6 +66,11 @@
 
             setRegexOption(state) {
                 this.options.regex = state;
+                this.updateSearch();
+            },
+
+            setTypeOption(state){
+                this.options.type = state.toLowerCase();
                 this.updateSearch();
             }
         },
@@ -130,32 +141,12 @@
     }
 
     .options {
-        @include flex(row, center);
+        @include flex(row, stretch);
         margin-bottom: 0.5em;
 
         .option {
             @include flex(row, center);
-
-            .checkbox {
-                @include size(16px);
-            }
-
-            .title {
-                color: rgba($palette-grayish-blue, 0.75);
-                font-size: 0.8em;
-                margin-left: 0.5em;
-            }
-
-            &.active {
-
-                /deep/ .checkbox path {
-                    stroke: $palette-happy-green;
-                }
-
-                .title {
-                    color: $palette-happy-green;
-                }
-            }
+            margin-right: 0.5em;
         }
     }
 
