@@ -105,10 +105,24 @@
                 // didn't pressed the right button for menu, clear selection.
                 if (!evt.ctrlKey && evt.button !== 2) {
                     this.$store.commit('selection/clear');
+                } else if (evt.ctrlKey && evt.shiftKey) {
+
+                    // Select all nodes from 0 or an already selected to the target node
+                    const selection = this.$store.state.selection;
+                    const nodes = this.nodes.folder.concat(this.nodes.file);
+
+                    // Find start and end point
+                    const [start, end] = [
+                        selection.length ? nodes.indexOf(selection[0]) : 0,
+                        nodes.indexOf(node)
+                    ].sort((a, b) => a - b);
+
+                    // Append rage-nodes to selection
+                    this.$store.commit('selection/append', nodes.slice(start, end + 1));
+                    return;
                 }
 
                 this.$store.commit('selection/append', [node]);
-                this.$forceUpdate();
             },
 
             startDrag(evt) {

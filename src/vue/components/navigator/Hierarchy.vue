@@ -75,7 +75,6 @@
 
 <style lang="scss" scoped>
 
-
     .hierarchy {
         @include flex(row, center);
 
@@ -91,7 +90,7 @@
                 border-radius: 0.1em;
 
                 &:hover {
-                    color: $palette-cloud-blue;
+                    color: $palette-deep-blue;
                 }
 
             }
@@ -108,6 +107,7 @@
 
     .search-info {
         color: $palette-deep-blue;
+        font-size: 0.9em;
     }
 
 </style>

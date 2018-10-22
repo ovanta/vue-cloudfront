@@ -232,7 +232,7 @@
             margin-left: auto;
 
             i {
-                color: $palette-grayish-blue;
+                color: rgba($palette-grayish-blue, 0.75);
                 cursor: pointer;
                 margin-left: 0.5em;
                 transition: all 0.3s;
@@ -247,7 +247,7 @@
                 }
 
                 &:hover {
-                    color: $palette-cloud-blue;
+                    color: $palette-deep-blue;
                 }
             }
         }

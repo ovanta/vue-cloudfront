@@ -84,6 +84,10 @@
 
         &.active {
             color: $palette-snow-white;
+
+            &:hover {
+                color: $palette-snow-white;
+            }
         }
     }
 
