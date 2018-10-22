@@ -4,19 +4,48 @@ export const search = {
 
     state: {
         active: false,
+        options: {
+            type: 'all',
+            regex: false
+        },
         nodes: []
+    },
+
+    mutations: {
+
+        /**
+         * Sets a option property
+         * @param state
+         * @param key
+         * @param value
+         */
+        setOption(state, {key, value}) {
+            state.options[key] = value;
+        }
+
     },
 
     actions: {
 
-        update({state, rootState}, opt) {
-            state.active = !!opt.query;
+        /**
+         * Updates the current search
+         * @param state
+         * @param rootState
+         * @param query
+         */
+        update({state, rootState}, query) {
+
+            // If the query is empty, search should be disabled
+            state.active = !!query;
 
             if (state.active) {
 
+                // Extract options properties for further usage
+                const {type, regex} = state.options;
+                console.log(regex);
+
                 // Check if regexp and try to parse
-                let {query, options} = opt;
-                if (options.regex) {
+                if (regex) {
                     try {
                         query = new RegExp(query);
                     } catch (e) {
@@ -28,7 +57,6 @@ export const search = {
 
                 state.nodes = [];
                 const nodes = rootState.nodes;
-                const {type, regex} = options;
                 for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
 
                     // Check type
@@ -43,7 +71,6 @@ export const search = {
                 }
             }
         }
-
     }
 
 };

@@ -39,13 +39,6 @@
         data() {
             return {
                 searchQuery: '',
-
-                // Search options
-                options: {
-                    regex: false,
-                    type: 'all' // Can be folder / file or all
-                },
-
                 storeUnsubscription: null
             };
         },
@@ -53,10 +46,7 @@
         methods: {
 
             updateSearch() {
-                this.$store.dispatch('search/update', {
-                    query: this.searchQuery,
-                    options: this.options
-                });
+                this.$store.dispatch('search/update', this.searchQuery);
             },
 
             clear() {
@@ -65,12 +55,22 @@
             },
 
             setRegexOption(state) {
-                this.options.regex = state;
+
+                this.$store.commit('search/setOption', {
+                    key: 'regex',
+                    value: state
+                });
+
                 this.updateSearch();
             },
 
             setTypeOption(state){
-                this.options.type = state.toLowerCase();
+
+                this.$store.commit('search/setOption', {
+                    key: 'type',
+                    value: state.toLowerCase()
+                });
+
                 this.updateSearch();
             }
         },

@@ -123,10 +123,6 @@
                 }
 
                 this.$store.commit('selection/append', [node]);
-            },
-
-            startDrag(evt) {
-                console.log(evt);
             }
         }
 

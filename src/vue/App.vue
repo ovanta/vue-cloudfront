@@ -96,7 +96,7 @@
                     // Save node
                     nodes.push(node);
                 }
-            })(20, root.hash, 4); // Trigger recursive generating
+            })(25, root.hash, 4); // Trigger recursive generating
 
             console.log(`[INI] ${nodes.length} Nodes generated.`);
             this.$store.commit('nodes/update', nodes);
