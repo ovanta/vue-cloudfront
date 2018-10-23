@@ -93,7 +93,8 @@
                 @include flex(row);
 
                 .title {
-                    color: $palette-grayish-blue;
+                    color: $palette-deep-blue;
+                    font-weight: 600;
                 }
 
                 .close-btn {
@@ -104,7 +105,7 @@
                     cursor: pointer;
 
                     &:hover {
-                        color: darken($palette-grayish-blue, 15);
+                        color: $palette-tomatoe-red;
                     }
                 }
             }
@@ -122,9 +123,9 @@
 
                 .key {
                     margin-right: 0.5em;
-                    color: $palette-grayish-blue;
-                    border: 1px solid rgba($palette-grayish-blue, 0.75);
-                    border-bottom: 2px solid rgba($palette-grayish-blue, 0.9);
+                    color: $palette-cloud-blue;
+                    border: 1px solid rgba($palette-cloud-blue, 0.75);
+                    border-bottom: 2px solid rgba($palette-cloud-blue, 0.9);
                     border-radius: 2px;
                     padding: 0.1em 0.45em 0.15em 0.45em;
                 }

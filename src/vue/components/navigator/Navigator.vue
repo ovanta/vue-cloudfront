@@ -7,8 +7,8 @@
 
             <div class="controls">
                 <!-- Node-views, grid and list -->
-                <i class="material-icons" v-show="viewType === 'grid'" @click="viewType = 'list'">widgets</i>
-                <i class="material-icons" v-show="viewType === 'list'" @click="viewType = 'grid'">view_list</i>
+                <i class="material-icons" v-show="viewType === 'grid'" @click="viewType = 'list'">grid_on</i>
+                <i class="material-icons" v-show="viewType === 'list'" @click="viewType = 'grid'">grid_off</i>
 
                 <!-- Show keyboard-shortcuts button -->
                 <i class="material-icons" @click="$refs.keyboardShortcuts.$emit('toggle')">keyboard</i>
@@ -49,7 +49,7 @@
 
         data() {
             return {
-                viewType: 'list',
+                viewType: 'grid',
                 selection: null,
                 storeUnsubscription: null,
                 detectKeyCombinationsUnsubscription: null
@@ -118,7 +118,7 @@
                 // Define nodes as function to prevent
                 // useless calculations. Returns, if there is, the search result
                 // or all nodes which are currently into view.
-                const nodes = () => state.search.active ? state.search.nodes : state.nodes.filter(n => n.parent === locHash)
+                const nodes = () => state.search.active ? state.search.nodes : state.nodes.filter(n => n.parent === locHash);
 
                 // Select everything
                 if (keys.ctrlKey && keys.KeyA) {
@@ -227,6 +227,8 @@
     .nav {
         @include flex(row);
         flex-shrink: 0;
+        border-bottom: 2px solid $palette-grayish-blue-transparent;
+        padding-bottom: 1em;
 
         .controls {
             margin-left: auto;
@@ -247,14 +249,13 @@
                 }
 
                 &:hover {
-                    color: $palette-deep-blue;
+                    color: $palette-cloud-blue;
                 }
             }
         }
     }
 
     .view {
-        margin-top: 0.5em;
         @include animate('1s ease forwards') {
             from {
                 opacity: 0;

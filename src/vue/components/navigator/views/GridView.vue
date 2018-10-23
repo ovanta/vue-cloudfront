@@ -134,15 +134,16 @@
 
     .grid-view {
         overflow: auto;
+        padding-bottom: 0.2em;
     }
 
     h1 {
-        font-size: 1em;
-        border-bottom: 1px solid rgba($palette-deep-blue, 0.08);
-        padding: 0.8em 0 0.2em;
-        margin-bottom: 0.75em;
-        font-weight: 400;
+        display: inline-block;
+        font-size: 0.95em;
         color: $palette-deep-blue;
+        padding: 0.15em 0.5em 0.25em;
+        border-radius: 0.15em;
+        margin: 1.5em 0 0.2em;
     }
 
     .grid-container {
@@ -157,10 +158,12 @@
         padding: 0.5em 0.9em;
         margin: 0.5em 0.5em 0 0;
         border-radius: 0.15em;
-        border: 1px solid rgba($palette-deep-blue, 0.08);
         transition: all 0.3s;
         cursor: pointer;
         font-size: 0.8em;
+        box-shadow: 0 1px 3px 0 rgba(black, 0.05);
+        background: lighten($palette-snow-white, 1.5);
+        border: 1px solid transparent;
 
         i {
             color: $palette-deep-blue;
@@ -168,8 +171,8 @@
         }
 
         &.selected {
-            background: rgba($palette-cloud-blue, 0.05);
-            border-color: rgba($palette-cloud-blue, 0.5);
+            border-color: rgba($palette-cloud-blue, 0.4);
+            box-shadow: 0 1px 4px 0 rgba($palette-cloud-blue, 0.1);
 
             .name,
             .detail,

@@ -70,7 +70,7 @@
         position: relative;
         @include flex(row, center);
         @include font(600, 0.7em);
-        background: rgba($palette-grayish-blue, 0.15);
+        background: $palette-grayish-blue-transparent;
         border-radius: 50em;
         padding-bottom: 0.1em;
         height: 21px;
@@ -96,7 +96,7 @@
         transition: all 0.3s;
         border-radius: 50em;
         height: 100%;
-        background: $palette-deep-blue;
+        background: $palette-cloud-blue;
         z-index: -1;
         left: 0;
         top: 0;

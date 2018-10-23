@@ -42,7 +42,6 @@ export const search = {
 
                 // Extract options properties for further usage
                 const {type, regex} = state.options;
-                console.log(regex);
 
                 // Check if regexp and try to parse
                 if (regex) {

@@ -3,7 +3,7 @@
 
         <div class="node" v-for="(node, index) of nodes" v-if="!searchResult">
             <span class="name" @click="updateLocation(node.hash)">{{ node.name }}</span>
-            <i class="material-icons" v-if="index < nodes.length - 1">keyboard_arrow_right</i>
+            <i class="material-icons" v-if="index < nodes.length - 1">arrow_right</i>
         </div>
 
         <div class="search-info" v-if="searchResult">
@@ -80,27 +80,30 @@
 
         .node {
             @include inline-flex(row, center);
-            color: rgba($palette-deep-blue, 0.8);
+            color: $palette-deep-blue;
+            font-size: 0.9em;
 
             .name {
                 position: relative;
                 cursor: pointer;
                 transition: all 0.3s;
-                padding: 0.2em 0.5em;
-                border-radius: 0.1em;
+                padding: 0.2em 0.65em;
+                border-radius: 0.25em;
+                background: $palette-grayish-blue-transparent;
 
                 &:hover {
-                    color: $palette-deep-blue;
+                    background: $palette-grayish-blue-transparent-dark;
                 }
-
             }
 
             i {
-                opacity: 0.75;
+                color: rgba(black, 0.25);
+                opacity: 0.5;
             }
 
-            &:first-child .name {
-                padding-left: 0;
+            &:last-child .name {
+                background: $palette-cloud-blue;
+                color: white;
             }
         }
     }

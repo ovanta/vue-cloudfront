@@ -3,8 +3,10 @@
 
         <!-- Search-bar with filter functions -->
         <div class="search-field">
+            <i class="material-icons">search</i>
             <input type="text" placeholder="Search all files" spellcheck="false" v-model="searchQuery" @input="updateSearch()">
-            <i :class="{'material-icons': 1, visible: searchQuery.length}" @click="clear">clear</i>
+            <i :class="{delete: 1,'material-icons': 1, visible: searchQuery.length}" @click="clear">clear</i>
+            <div class="line"></div>
         </div>
 
         <!-- Options -->
@@ -64,7 +66,7 @@
                 this.updateSearch();
             },
 
-            setTypeOption(state){
+            setTypeOption(state) {
 
                 this.$store.commit('search/setOption', {
                     key: 'type',
@@ -109,33 +111,50 @@
 
 <style lang="scss" scoped>
 
+    .search-bar {
+        margin-bottom: 1em;
+    }
+
     .search-field {
         position: relative;
         @include flex(row, center);
-        padding: 0.25em 0.1em;
+        padding: 0.5em 0.1em;
+        border-radius: 50em;
+        transition: all 0.3s;
+        background: $palette-grayish-blue-transparent;
         margin-bottom: 0.5em;
-        border-bottom: 1px solid rgba($palette-grayish-blue, 0.2);
 
         input {
+            @include font(400, 0.85em);
+            color: $palette-deep-blue;
             flex-grow: 1;
-            font-weight: 600;
-            color: $palette-grayish-blue;
 
             &::placeholder {
-                color: rgba($palette-grayish-blue, 0.5);
+                color: rgba($palette-deep-blue, 0.75);
             }
         }
 
         i {
-            color: $palette-grayish-blue;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0s 0s;
+            color: rgba($palette-deep-blue, 0.45);
+            padding: 0 0.6em;
+            font-size: 1.3em;
 
-            &.visible {
-                visibility: visible;
-                opacity: 1;
+            &.delete {
+                cursor: pointer;
+                opacity: 0;
+                visibility: hidden;
+                transform: rotate(90deg);
+                transition: all 0.3s;
+
+                &.visible {
+                    visibility: visible;
+                    transform: none;
+                    opacity: 1;
+                }
+
+                &:hover {
+                    color: $palette-tomatoe-red;
+                }
             }
         }
     }

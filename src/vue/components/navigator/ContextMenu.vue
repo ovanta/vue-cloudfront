@@ -21,15 +21,6 @@
             <span class="name">Rename</span>
         </div>
 
-        <div class="option sub" v-if="type === 'folder'">
-            <i class="material-icons">color_lens</i>
-            <span class="name">Change color</span>
-
-            <div class="sub-menu colors">
-                <div class="color" v-for="color of $store.state.colors" :style="{background: color}" @click="setColor(color)"></div>
-            </div>
-        </div>
-
         <div class="option" v-if="$store.state.nodes.find(v => $store.state.selection.includes(v))" @click="cut()">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path
@@ -44,6 +35,15 @@
                     d="M19 2h-4.18C14.4.84 13.3 0 12 0c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm7 18H5V4h2v3h10V4h2v16z"></path>
             </svg>
             <span class="name">Paste</span>
+        </div>
+
+        <div class="option sub" v-if="type === 'folder'">
+            <i class="material-icons">color_lens</i>
+            <span class="name">Change color <i class="material-icons">keyboard_arrow_right</i></span>
+
+            <div class="sub-menu colors">
+                <div class="color" v-for="color of $store.state.colors" :style="{background: color}" @click="setColor(color)"></div>
+            </div>
         </div>
 
     </div>
@@ -204,6 +204,7 @@
 
             svg {
                 fill: $palette-deep-blue;
+                transition: all 0.3s;
             }
 
             .name {
@@ -214,6 +215,10 @@
 
             &:hover {
                 color: $palette-cloud-blue;
+
+                svg {
+                    fill: $palette-cloud-blue;
+                }
             }
 
             &.delete:hover {
@@ -222,6 +227,14 @@
 
             &.sub {
                 position: relative;
+
+                .name {
+                    @include flex(row, center);
+
+                    i {
+                        margin-left: 0.5em;
+                    }
+                }
 
                 .sub-menu {
                     position: absolute;

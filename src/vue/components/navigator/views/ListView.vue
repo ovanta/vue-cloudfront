@@ -172,6 +172,7 @@
 
     .header {
         flex-shrink: 0;
+        margin-top: 1.5em;
     }
 
     .folder,
@@ -180,7 +181,7 @@
         @include flex(row, center);
         user-select: none;
         padding: 0.4em 0;
-        border-bottom: 1px solid rgba($palette-deep-blue, 0.08);
+        border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
         transition: all 0.3s;
         cursor: pointer;
         font-size: 0.8em;

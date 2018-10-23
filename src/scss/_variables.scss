@@ -3,12 +3,14 @@
 $font-family-open-sans: 'Open Sans';
 
 // Color palette
-$palette-snow-white: #f6fafb;
-$palette-grayish-blue: #78909C;
-$palette-deep-blue: #263238;
+$palette-snow-white: #f4f4f4;
+$palette-grayish-blue: #979899;
+$palette-deep-blue: #333333;
 $palette-cloud-blue: #4285f4;
 $palette-tomatoe-red: #f24444;
-$palette-happy-green: #2b912b;
+
+$palette-grayish-blue-transparent: rgba($palette-grayish-blue, 0.15);
+$palette-grayish-blue-transparent-dark: rgba($palette-grayish-blue, 0.3);
 
 // Transition durations
 $transition-short: 0.2s;

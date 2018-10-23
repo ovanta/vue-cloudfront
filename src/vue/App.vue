@@ -96,7 +96,7 @@
                     // Save node
                     nodes.push(node);
                 }
-            })(25, root.hash, 4); // Trigger recursive generating
+            })(25, root.hash, 5); // Trigger recursive generating
 
             console.log(`[INI] ${nodes.length} Nodes generated.`);
             this.$store.commit('nodes/update', nodes);
@@ -129,7 +129,7 @@
     }
 
     ::-webkit-scrollbar {
-        width: 0.5em;
+        width: 0.3em;
         background: transparent;
     }
 
