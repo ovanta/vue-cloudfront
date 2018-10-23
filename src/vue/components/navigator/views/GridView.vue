@@ -100,15 +100,20 @@
             },
 
             select(evt, node) {
+                const state = this.$store.state;
 
-                // If user dont do a multi-selection (via ctrl key) and
-                // didn't pressed the right button for menu, clear selection.
-                if (!evt.ctrlKey && evt.button !== 2) {
+                /**
+                 * Clear selection if
+                 *  - User hasn't pressed the ctrlKey and used NOT right click (which would open the menu)
+                 *  - User used right click AND the node isn't already selected
+                 */
+                if ((!evt.ctrlKey && evt.button !== 2) ||
+                    (evt.button === 2 && !state.selection.includes(node))) {
                     this.$store.commit('selection/clear');
                 } else if (evt.ctrlKey && evt.shiftKey) {
 
                     // Select all nodes from 0 or an already selected to the target node
-                    const selection = this.$store.state.selection;
+                    const selection = state.selection;
                     const nodes = this.nodes.folder.concat(this.nodes.file);
 
                     // Find start and end point
@@ -122,10 +127,11 @@
                     return;
                 }
 
-                this.$store.commit('selection/append', [node]);
+                // Toggle
+                const action = evt.button !== 2 && state.selection.includes(node) ? 'remove' : 'append';
+                this.$store.commit(`selection/${action}`, [node]);
             }
         }
-
     };
 
 </script>
