@@ -8,14 +8,19 @@
                 <i class="material-icons close-btn" @click="open = false">close</i>
             </div>
 
-            <div class="shortcut" v-for="shortcut of shortcuts">
 
-                <div class="keys">
-                    <span class="key" v-for="key of shortcut.keys">{{ key }}</span>
+            <section class="shortcut-section" v-for="sec of sections">
+
+                <h2>{{ sec.name }}</h2>
+
+                <div class="shortcut" v-for="shortcut of sec.shortcuts">
+                    <div class="keys">
+                        <span class="key" v-for="key of shortcut.keys">{{ key }}</span>
+                    </div>
+
+                    <p>{{ shortcut.action }}</p>
                 </div>
-
-                <p>{{ shortcut.action }}</p>
-            </div>
+            </section>
 
         </div>
 
@@ -30,21 +35,40 @@
         data() {
             return {
                 open: false,
-                shortcuts: [
-                    {keys: ['ctrl', 'x'], action: 'Cut folder / files.'},
-                    {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
-                    {keys: ['ctrl', 'a'], action: 'Select everything.'},
-                    {keys: ['ctrl', 'shift'], action: 'Select everything up to current element.'},
-                    {keys: ['n', 'f'], action: 'Create new folder.'},
-                    {keys: ['s', 'd'], action: 'Select all folders.'},
-                    {keys: ['s', 'f'], action: 'Select all files.'},
-                    {keys: ['s', 'i'], action: 'Invert selection.'},
-                    {keys: ['v', 'l'], action: 'Change view to list.'},
-                    {keys: ['v', 'g'], action: 'Change view to grid.'},
-                    {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
-                    {keys: ['h', 'k'], action: 'Show keyboard shortcuts.'},
-                    {keys: ['esc'], action: 'Close any popup like menu or this page.'},
-                    {keys: ['delete'], action: 'Deletes currently selected files / folders.'}
+                sections: [
+
+                    {
+                        name: 'Selecting',
+                        shortcuts: [
+                            {keys: ['ctrl', 'shift'], action: 'Select everything up to current element.'},
+                            {keys: ['ctrl', 'a'], action: 'Select everything.'},
+                            {keys: ['s', 'd'], action: 'Select all folders.'},
+                            {keys: ['s', 'f'], action: 'Select all files.'},
+                            {keys: ['s', 'i'], action: 'Invert selection.'}
+                        ]
+                    },
+
+                    {
+                        name: 'Actions',
+                        shortcuts: [
+                            {keys: ['ctrl', 'x'], action: 'Cut folder / files.'},
+                            {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
+                            {keys: ['n', 'f'], action: 'Create new folder.'}
+                        ]
+                    },
+
+                    {
+                        name: 'General',
+                        shortcuts: [
+                            {keys: ['v', 'l'], action: 'Change view to list.'},
+                            {keys: ['v', 'g'], action: 'Change view to grid.'},
+                            {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
+                            {keys: ['h', 'k'], action: 'Show keyboard shortcuts.'},
+                            {keys: ['esc'], action: 'Close any popup like menu or this page.'},
+                            {keys: ['delete'], action: 'Deletes currently selected files / folders.'}
+                        ]
+                    }
+
                 ]
             };
         },
@@ -112,30 +136,41 @@
             }
         }
 
-        .shortcut {
-            @include flex(row, center);
-            padding-bottom: 0.5em;
+        .shortcut-section {
+            @include flex(column);
 
-            .keys {
-                flex-grow: 1;
-                font-family: monospace;
-                font-weight: 600;
-                margin-right: 2em;
-
-                .key {
-                    margin-right: 0.5em;
-                    color: $palette-cloud-blue;
-                    border: 1px solid rgba($palette-cloud-blue, 0.75);
-                    border-bottom: 2px solid rgba($palette-cloud-blue, 0.9);
-                    border-radius: 2px;
-                    padding: 0.1em 0.45em 0.15em 0.45em;
-                }
+            h2 {
+                @include font(400, 0.9em);
+                padding: 0.75em 0 0.25em;
+                border-bottom: 1px solid $palette-grayish-blue-transparent;
+                margin-bottom: 0.5em;
             }
 
-            p {
-                font-size: 0.8em;
-                font-weight: 600;
-                color: darken($palette-grayish-blue, 15);
+            .shortcut {
+                @include flex(row, center);
+                padding-bottom: 0.5em;
+
+                .keys {
+                    flex-grow: 1;
+                    font-family: monospace;
+                    font-weight: 600;
+                    margin-right: 2em;
+
+                    .key {
+                        margin-right: 0.5em;
+                        color: $palette-cloud-blue;
+                        border: 1px solid rgba($palette-cloud-blue, 0.75);
+                        border-bottom: 2px solid rgba($palette-cloud-blue, 0.9);
+                        border-radius: 2px;
+                        padding: 0.1em 0.45em 0.15em 0.45em;
+                    }
+                }
+
+                p {
+                    font-size: 0.8em;
+                    font-weight: 600;
+                    color: darken($palette-grayish-blue, 15);
+                }
             }
         }
 

@@ -121,8 +121,12 @@
         padding: 0.5em 0.1em;
         border-radius: 50em;
         transition: all 0.3s;
-        background: $palette-grayish-blue-transparent;
+        background: $palette-grayish-blue-transparent-decent;
         margin-bottom: 0.5em;
+
+        &:focus-within {
+            background: $palette-grayish-blue-transparent;
+        }
 
         input {
             @include font(400, 0.85em);
@@ -135,7 +139,7 @@
         }
 
         i {
-            color: rgba($palette-deep-blue, 0.45);
+            color: rgba($palette-deep-blue, 0.4);
             padding: 0 0.6em;
             font-size: 1.3em;
 
@@ -161,7 +165,7 @@
 
     .options {
         @include flex(row, stretch);
-        margin-bottom: 0.5em;
+        margin: 0 0.75em 0.5em 0.75em;
 
         .option {
             @include flex(row, center);
