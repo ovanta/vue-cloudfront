@@ -150,6 +150,18 @@
                     return;
                 }
 
+                // Inverse selection all files
+                if (keys.KeyS && keys.KeyI) {
+                    const notSelected = nodes().filter(v => !selectedNodes.includes(v));
+
+                    // Clear selection
+                    store.commit('selection/clear');
+
+                    // Append previously not
+                    store.commit('selection/append', notSelected);
+                    return;
+                }
+
                 // Delete nodes
                 if (keys.Delete && selectedNodes.length) {
                     store.commit('nodes/delete', selectedNodes);

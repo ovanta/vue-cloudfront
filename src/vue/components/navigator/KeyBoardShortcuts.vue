@@ -38,6 +38,7 @@
                     {keys: ['n', 'f'], action: 'Create new folder.'},
                     {keys: ['s', 'd'], action: 'Select all folders.'},
                     {keys: ['s', 'f'], action: 'Select all files.'},
+                    {keys: ['s', 'i'], action: 'Invert selection.'},
                     {keys: ['v', 'l'], action: 'Change view to list.'},
                     {keys: ['v', 'g'], action: 'Change view to grid.'},
                     {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
