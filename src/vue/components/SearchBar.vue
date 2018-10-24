@@ -12,12 +12,16 @@
         <!-- Options -->
         <div class="options">
 
-            <div :class="{option: 1}">
+            <div class="option">
                 <multi-switch-button :active="0" :options="['All', 'File', 'Folder']" @change="setTypeOption"></multi-switch-button>
             </div>
 
-            <div :class="{option: 1}">
+            <div class="option">
                 <simple-button text="Regex" @change="setRegexOption"></simple-button>
+            </div>
+
+            <div class="option">
+                <simple-button text="Case insensitiv" @change="setCaseInsensitivOption"></simple-button>
             </div>
 
         </div>
@@ -60,6 +64,16 @@
 
                 this.$store.commit('search/setOption', {
                     key: 'regex',
+                    value: state
+                });
+
+                this.updateSearch();
+            },
+
+            setCaseInsensitivOption(state) {
+
+                this.$store.commit('search/setOption', {
+                    key: 'ignoreCase',
                     value: state
                 });
 

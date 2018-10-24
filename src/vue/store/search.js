@@ -41,17 +41,22 @@ export const search = {
             if (state.active) {
 
                 // Extract options properties for further usage
-                const {type, regex} = state.options;
+                const {type, regex, ignoreCase} = state.options;
 
                 // Check if regexp and try to parse
                 if (regex) {
                     try {
-                        query = new RegExp(query);
+                        query = new RegExp(query, ignoreCase ? 'i' : '');
                     } catch (e) {
                         console.log(`[SRH] Invalid regexp skipped: '${query}'`);
                         state.active = false;
                         return;
                     }
+                }
+
+                // Convert to lowercase if ignorecase is set
+                if (ignoreCase) {
+                    query = query.toLowerCase();
                 }
 
                 state.nodes = [];
@@ -63,8 +68,12 @@ export const search = {
                         continue;
                     }
 
-                    // Check if regex, apply or use simple includes
-                    if (regex ? query.test(n.name) : n.name.includes(query)) {
+                    // Check for regex
+                    if (regex && query.test(n.name)) {
+                        state.nodes.push(n);
+                    } else if (ignoreCase && n.name.toLowerCase().includes(query)) {
+                        state.nodes.push(n);
+                    } else if (n.name.includes(query)) {
                         state.nodes.push(n);
                     }
                 }
