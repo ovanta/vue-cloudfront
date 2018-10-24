@@ -77,7 +77,7 @@
                     const node = {
                         hash: genHash(),
                         parent: parent,
-                        type: Math.random() < 0.65 ? 'file' : 'folder',
+                        type: Math.random() < 0.75 ? 'file' : 'folder',
                         lastModified: Math.floor(Math.random() * Date.now())
                     };
 
@@ -159,5 +159,10 @@
         @include position(0, 0, 0, 0);
         @include width(70vw, 0, 1400px);
         @include height(90vh, 0, 950px);
+    }
+
+    .selection-area {
+        background: rgba($palette-cloud-blue, 0.02);
+        border: 1px solid rgba($palette-cloud-blue, 0.6);
     }
 </style>

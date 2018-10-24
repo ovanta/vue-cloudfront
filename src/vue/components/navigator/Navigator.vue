@@ -30,6 +30,9 @@
 
 <script>
 
+    // Modules
+    import Selection from '@simonwep/selection-js';
+
     // Components
     import Hierarchy from './Hierarchy';
     import ListView from './views/ListView';
@@ -51,6 +54,8 @@
             return {
                 viewType: 'grid',
                 selection: null,
+
+                selectionInstance: null,
                 storeUnsubscription: null,
                 detectKeyCombinationsUnsubscription: null
             };
@@ -191,6 +196,8 @@
 
         mounted() {
 
+            // TODO Zentralized array of nodes which are in the current location
+            let currentNodes = [];
             this.storeUnsubscription = this.$store.subscribe(mutation => {
 
                 // Cancel selection / close menu on new location
@@ -201,6 +208,10 @@
 
                     // Clear selection
                     this.$store.commit('selection/clear');
+
+                    // Update current nodes
+                    const locHash = this.$store.getters['location/currentLocation'];
+                    currentNodes = this.$store.state.nodes.filter(v => v.parent === locHash);
                 }
 
                 // Clear selection if delete action was performed
@@ -210,6 +221,55 @@
             });
 
             this.detectKeyCombinationsUnsubscription = this.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body);
+
+            // Create selection instance
+            const vueInst = this;
+            this.selection = new Selection({
+
+                class: 'selection-area',
+
+                singleClick: false, // Single click is handled by GridView and ListView
+
+                startThreshold: 2,
+
+                selectables: ['.file', '.folder'],
+                startareas: ['.node-rep'],
+                boundaries: ['.node-rep'],
+
+                onStart(evt) {
+
+                    // Every non-ctrlKey causes a selection reset
+                    if (!evt.originalEvent.ctrlKey) {
+                        vueInst.$store.commit('selection/clear');
+                    }
+                },
+
+                onMove(evt) {
+                    const {changedElements} = evt;
+
+                    /**
+                     * Only add / remove selected class to increase selection performance.
+                     */
+                    changedElements.added.forEach(v => v.classList.add('selected'));
+                    changedElements.removed.forEach(v => v.classList.remove('selected'));
+                },
+
+                onStop(evt) {
+                    const {selectedElements} = evt;
+
+                    // Remove selected class, this is getting handled by vue
+                    selectedElements.forEach(v => v.classList.remove('selected'));
+
+                    /**
+                     * Every element has a data-hash property wich is used
+                     * to find the selected nodes. Find these and append they
+                     * to the current selection.
+                     */
+                    const selectedHashes = selectedElements.map(v => v.getAttribute('data-hash'));
+                    const selectedNodes = currentNodes.filter(v => selectedHashes.includes(v.hash));
+                    vueInst.$store.commit('selection/append', selectedNodes);
+                }
+            });
         },
 
         destroyed() {
@@ -222,6 +282,11 @@
             // Unbind detectKeyCombinationsListener
             if (this.detectKeyCombinationsUnsubscription) {
                 this.detectKeyCombinationsUnsubscription();
+            }
+
+            // Destory selection instance
+            if (this.selection) {
+                this.selection.destroy();
             }
         }
     };
