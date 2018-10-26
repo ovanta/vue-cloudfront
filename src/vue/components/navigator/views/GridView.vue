@@ -3,39 +3,43 @@
 
         <h1 v-if="nodes.folder.length">Folders</h1>
 
-        <!-- Folders and files -->
-        <div class="grid-container">
-            <div v-for="node of nodes.folder"
-                 :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
-                 :data-hash="node.hash"
-                 @dblclick="updateLocation(node.hash)"
-                 @click.right="select($event, node)"
-                 @click.left="select($event, node)">
 
-                <i class="material-icons" :style="{color: node.color}">folder</i>
-                <span class="name"
-                      :contenteditable="node.editable"
-                      spellcheck="false"
-                      @keydown.enter.prevent="renameNode($event, node)"
-                      v-select-all="node.editable">{{ node.name }}</span>
+        <div class="list">
+
+            <!-- Folders and files -->
+            <div class="grid-container">
+                <div v-for="node of nodes.folder"
+                     :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
+                     :data-hash="node.hash"
+                     @dblclick="updateLocation(node.hash)"
+                     @click.right="select($event, node)"
+                     @click.left="select($event, node)">
+
+                    <i class="material-icons" :style="{color: node.color}">folder</i>
+                    <span class="name"
+                          :contenteditable="node.editable"
+                          spellcheck="false"
+                          @keydown.enter.prevent="renameNode($event, node)"
+                          v-select-all="node.editable">{{ node.name }}</span>
+                </div>
             </div>
-        </div>
 
-        <h1 v-if="nodes.file.length">Files</h1>
+            <h1 v-if="nodes.file.length">Files</h1>
 
-        <div class="grid-container">
-            <div v-for="node of nodes.file"
-                 :class="{selected: node.selected, file: 1, cutted: node.cutted}"
-                 :data-hash="node.hash"
-                 @click.right="select($event, node)"
-                 @click.left="select($event, node)">
+            <div class="grid-container">
+                <div v-for="node of nodes.file"
+                     :class="{selected: node.selected, file: 1, cutted: node.cutted}"
+                     :data-hash="node.hash"
+                     @click.right="select($event, node)"
+                     @click.left="select($event, node)">
 
-                <i class="material-icons">insert_drive_file</i>
-                <span class="name"
-                      :contenteditable="node.editable"
-                      spellcheck="false"
-                      @keydown.enter.prevent="renameNode($event, node)"
-                      v-select-all="node.editable">{{ node.name }}</span>
+                    <i class="material-icons">insert_drive_file</i>
+                    <span class="name"
+                          :contenteditable="node.editable"
+                          spellcheck="false"
+                          @keydown.enter.prevent="renameNode($event, node)"
+                          v-select-all="node.editable">{{ node.name }}</span>
+                </div>
             </div>
         </div>
 
@@ -139,8 +143,13 @@
 <style lang="scss" scoped>
 
     .grid-view {
-        overflow: auto;
+        @include flex(column);
         padding-bottom: 0.2em;
+    }
+
+    .list {
+        flex-shrink: 1;
+        overflow: auto;
     }
 
     h1 {

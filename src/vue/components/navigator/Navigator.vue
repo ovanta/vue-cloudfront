@@ -196,8 +196,6 @@
 
         mounted() {
 
-            // TODO Zentralized array of nodes which are in the current location
-            let currentNodes = [];
             this.storeUnsubscription = this.$store.subscribe(mutation => {
 
                 // Cancel selection / close menu on new location
@@ -208,10 +206,6 @@
 
                     // Clear selection
                     this.$store.commit('selection/clear');
-
-                    // Update current nodes
-                    const locHash = this.$store.getters['location/currentLocation'];
-                    currentNodes = this.$store.state.nodes.filter(v => v.parent === locHash);
                 }
 
                 // Clear selection if delete action was performed
@@ -233,8 +227,8 @@
                 startThreshold: 2,
 
                 selectables: ['.file', '.folder'],
-                startareas: ['.node-rep'],
-                boundaries: ['.node-rep'],
+                startareas: ['.list'],
+                boundaries: ['.list'],
 
                 onStart(evt) {
 
@@ -266,7 +260,7 @@
                      * to the current selection.
                      */
                     const selectedHashes = selectedElements.map(v => v.getAttribute('data-hash'));
-                    const selectedNodes = currentNodes.filter(v => selectedHashes.includes(v.hash));
+                    const selectedNodes = vueInst.$store.state.nodes.filter(v => selectedHashes.includes(v.hash));
                     vueInst.$store.commit('selection/append', selectedNodes);
                 }
             });
