@@ -11,7 +11,7 @@
                 <i class="material-icons" v-show="viewType === 'list'" @click="viewType = 'grid'">grid_off</i>
 
                 <!-- Show keyboard-shortcuts button -->
-                <i class="material-icons" @click="$refs.keyboardShortcuts.$emit('toggle')">keyboard</i>
+                <i class="material-icons" @click="$store.commit('keyboardShortcuts', true)">keyboard</i>
             </div>
         </div>
 
@@ -21,9 +21,6 @@
 
         <!-- Context menu -->
         <context-menu ref="contextMenu"></context-menu>
-
-        <!-- KeyBoard-shortcuts info -->
-        <key-board-shortcuts ref="keyboardShortcuts"></key-board-shortcuts>
 
     </section>
 </template>
@@ -38,7 +35,6 @@
     import ListView from './views/ListView';
     import GridView from './views/GridView';
     import ContextMenu from './ContextMenu';
-    import KeyBoardShortcuts from './KeyBoardShortcuts';
 
     export default {
 
@@ -46,8 +42,7 @@
             Hierarchy,
             ListView,
             GridView,
-            ContextMenu,
-            KeyBoardShortcuts
+            ContextMenu
         },
 
         data() {
@@ -56,8 +51,7 @@
                 selection: null,
 
                 selectionInstance: null,
-                storeUnsubscription: null,
-                detectKeyCombinationsUnsubscription: null
+                storeUnsubscription: null
             };
         },
 
@@ -67,136 +61,8 @@
 
                 // Open menu, pass mousevent and resolved nodes
                 this.$refs.contextMenu.$emit('show', evt);
-            },
-
-            keyboardEvent(keys, event) {
-                const store = this.$store;
-                const state = store.state;
-
-                const selectedNodes = state.selection;
-                const clipboardNodes = state.clipboard.nodes;
-                const locHash = store.getters['location/currentLocation'];
-
-                // Check for cut event
-                if (selectedNodes.length && keys.KeyX && keys.ctrlKey) {
-
-                    // Save to clipboard
-                    store.commit('clipboard/insert', {
-                        nodes: selectedNodes,
-                        type: 'cut'
-                    });
-
-                    return;
-                }
-
-                // Check for paste event
-                if (clipboardNodes.length && keys.KeyV && keys.ctrlKey) {
-
-                    // Move elements
-                    store.commit('nodes/move', {
-                        nodes: clipboardNodes,
-                        destination: locHash
-                    });
-
-                    // Clear clipboard
-                    store.commit('clipboard/clear');
-                    return;
-                }
-
-                // Hierarchy up event
-                if (keys.KeyG && keys.KeyU && state.location.length > 1) {
-                    store.commit('location/goUp');
-                    return;
-                }
-
-                // Change views
-                if (keys.KeyV && keys.KeyG && this.viewType !== 'grid') {
-                    this.viewType = 'grid';
-                    return;
-                }
-
-                if (keys.KeyV && keys.KeyL && this.viewType !== 'list') {
-                    this.viewType = 'list';
-                    return;
-                }
-
-                // Define nodes as function to prevent
-                // useless calculations. Returns, if there is, the search result
-                // or all nodes which are currently into view.
-                const nodes = () => state.search.active ? state.search.nodes : state.nodes.filter(n => n.parent === locHash);
-
-                // Select everything
-                if (keys.ctrlKey && keys.KeyA) {
-
-                    // Select all nodes which are currently under the current location
-                    store.commit('selection/append', nodes());
-                    return;
-                }
-
-                // Select all folders
-                if (keys.KeyS && keys.KeyD) {
-
-                    // Clear selection to remove previously selected files
-                    store.commit('selection/clear');
-
-                    // Select all folders which are currently under the current location
-                    store.commit('selection/append', nodes().filter(n => n.type === 'folder'));
-                    return;
-                }
-
-                // Select all files
-                if (keys.KeyS && keys.KeyF) {
-
-                    // Clear selection to remove previously selected folders
-                    store.commit('selection/clear');
-
-                    // Select all files which are currently under the current location
-                    store.commit('selection/append', nodes().filter(n => n.type === 'file'));
-                    return;
-                }
-
-                // Clear selection
-                if (keys.KeyS && keys.Escape) {
-                    store.commit('selection/clear');
-                }
-
-                // Inverse selection all files
-                if (keys.KeyS && keys.KeyI) {
-                    const notSelected = nodes().filter(v => !selectedNodes.includes(v));
-
-                    // Clear selection
-                    store.commit('selection/clear');
-
-                    // Append previously not
-                    store.commit('selection/append', notSelected);
-                    return;
-                }
-
-                // Delete nodes
-                if (keys.Delete && selectedNodes.length) {
-                    store.commit('nodes/delete', selectedNodes);
-                    return;
-                }
-
-                // Show keyboard shortcuts
-                if (keys.KeyH && keys.KeyK) {
-                    this.$refs.keyboardShortcuts.$emit('show');
-                    return;
-                }
-
-                // Create new folder
-                if (keys.KeyN && keys.KeyF) {
-
-                    // Create a folder and immediatly make it editable
-                    store.dispatch('nodes/createFolder', store.getters['location/currentLocation']).then(folderNode => {
-                        store.commit('editable/set', folderNode);
-                    });
-
-                    // Prevent setting the letter 'f' as folder name because the freshly created
-                    // folder is editable.
-                    event.preventDefault();
-                }
             }
+
         },
 
         mounted() {
@@ -218,8 +84,6 @@
                     this.$store.commit('selection/clear');
                 }
             });
-
-            this.detectKeyCombinationsUnsubscription = this.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body);
 
             // Create selection instance
             const vueInst = this;
@@ -276,11 +140,6 @@
             // Unsubscribe from store if existing
             if (this.storeUnsubscription) {
                 this.storeUnsubscription();
-            }
-
-            // Unbind detectKeyCombinationsListener
-            if (this.detectKeyCombinationsUnsubscription) {
-                this.detectKeyCombinationsUnsubscription();
             }
 
             // Destory selection instance

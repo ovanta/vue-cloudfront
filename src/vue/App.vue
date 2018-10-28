@@ -1,7 +1,16 @@
 <template>
     <div id="app" @contextmenu="preventDefault">
+
+        <!-- Main app components -->
         <search-bar></search-bar>
         <main-content></main-content>
+
+        <!-- Debug screen -->
+        <debug-screen></debug-screen>
+
+        <!-- KeyBoard-shortcuts info -->
+        <key-board-shortcuts ref="keyboardShortcuts"></key-board-shortcuts>
+
     </div>
 </template>
 
@@ -19,10 +28,12 @@
     // Components
     import MainContent from './components/navigator/Navigator';
     import SearchBar from './components/SearchBar';
+    import DebugScreen from './components/DebugScreen';
+    import KeyBoardShortcuts from './components/KeyBoardShortcuts';
 
     export default {
 
-        components: {MainContent, SearchBar},
+        components: {MainContent, SearchBar, DebugScreen, KeyBoardShortcuts},
 
         data() {
             return {};
@@ -159,8 +170,8 @@
         @include position(0, 0, 0, 0);
         @include width(70vw, 0, 1400px);
         @include height(90vh, 0, 950px);
-        border-radius: 0.5em;
         box-shadow: 0 0.4em 2.5em 0 rgba($palette-deep-blue, 0.13);
+        border-radius: 0.5em;
         overflow: hidden;
     }
 
