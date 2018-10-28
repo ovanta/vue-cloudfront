@@ -80,29 +80,32 @@
 
         .node {
             @include inline-flex(row, center);
-            color: $palette-deep-blue;
-            font-size: 0.9em;
+            @include font(600, 0.8em);
+            color: rgba($palette-deep-blue, 0.8);
 
             .name {
                 position: relative;
                 cursor: pointer;
                 transition: all 0.3s;
-                padding: 0.2em 0.65em;
-                border-radius: 0.25em;
-                background: $palette-grayish-blue-transparent;
+                padding: 0.3em 0.75em 0.3em;
+                border-radius: 50em;
+                background: white;
+                box-shadow: 0 1px 5px 0 darken(white, 5);
 
                 &:hover {
-                    background: $palette-grayish-blue-transparent-dark;
+                    color: rgba($palette-deep-blue, 0.9);
+                    box-shadow: 0 1px 5px 0 darken(white, 10);
                 }
             }
 
             i {
-                color: rgba(black, 0.25);
+                color: rgba($palette-deep-blue, 0.25);
                 opacity: 0.5;
             }
 
             &:last-child .name {
                 background: $palette-cloud-blue;
+                box-shadow: 0 2px 10px 0 rgba($palette-cloud-blue, 0.5);
                 color: white;
             }
         }

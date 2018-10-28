@@ -4,7 +4,7 @@
         <!-- Search-bar with filter functions -->
         <div class="search-field">
             <i class="material-icons">search</i>
-            <input type="text" placeholder="Search all files" spellcheck="false" v-model="searchQuery" @input="updateSearch()">
+            <input type="text" placeholder="Search..." spellcheck="false" v-model="searchQuery" @input="updateSearch()">
             <i :class="{delete: 1,'material-icons': 1, visible: searchQuery.length}" @click="clear">clear</i>
             <div class="line"></div>
         </div>
@@ -126,20 +126,23 @@
 <style lang="scss" scoped>
 
     .search-bar {
-        margin-bottom: 1em;
+        padding: 1em;
+        background: #fff;
+        box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
     }
 
     .search-field {
-        position: relative;
         @include flex(row, center);
         padding: 0.5em 0.1em;
         border-radius: 50em;
-        transition: all 0.3s;
-        background: $palette-grayish-blue-transparent-decent;
         margin-bottom: 0.5em;
 
         &:focus-within {
-            background: $palette-grayish-blue-transparent;
+
+            i {
+                color: $palette-cloud-blue;
+            }
+
         }
 
         input {
@@ -148,14 +151,15 @@
             flex-grow: 1;
 
             &::placeholder {
-                color: rgba($palette-deep-blue, 0.75);
+                color: $palette-decent-blue;
             }
         }
 
         i {
-            color: rgba($palette-deep-blue, 0.4);
+            color: $palette-decent-blue;
             padding: 0 0.6em;
             font-size: 1.3em;
+            transition: all 0.5s;
 
             &.delete {
                 cursor: pointer;

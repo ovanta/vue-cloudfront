@@ -2,7 +2,7 @@
     <section class="list-view">
 
         <!-- Table header -->
-        <div class="header">
+        <div class="header" v-if="nodes.folder.length || nodes.file.length">
             <i class="material-icons" style="opacity: 0">folder</i>
             <span class="name">Name</span>
             <span class="detail">Last modified</span>
@@ -243,7 +243,7 @@
 
     .header {
         font-weight: 600;
-        border-bottom: 1px solid rgba($palette-deep-blue, 0.2);
+        border-bottom: 1px solid rgba($palette-deep-blue, 0.1);
     }
 
 </style>

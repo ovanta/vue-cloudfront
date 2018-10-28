@@ -1,5 +1,5 @@
 <template>
-    <section class="node-rep" @contextmenu.prevent="openMenu($event)">
+    <section class="navigator" @contextmenu.prevent="openMenu($event)">
 
         <!-- Navigation bar with hierarchy -->
         <div class="nav">
@@ -290,15 +290,19 @@
 
 <style lang="scss" scoped>
 
-    .node-rep {
+    .navigator {
+        position: relative;
         @include flex(column);
         flex-grow: 1;
+        padding: 2em 2em 0 2em;
+        background: mix($palette-snow-white, white, 75);
+        z-index: -1;
     }
 
     .nav {
         @include flex(row);
         flex-shrink: 0;
-        border-bottom: 2px solid $palette-grayish-blue-transparent;
+        border-bottom: 2px solid rgba($palette-deep-blue, 0.03);
         padding-bottom: 1em;
 
         .controls {

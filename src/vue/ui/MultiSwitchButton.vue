@@ -70,7 +70,7 @@
         position: relative;
         @include flex(row, center);
         @include font(600, 0.7em);
-        background: $palette-grayish-blue-transparent;
+        background: $palette-snow-white;
         border-radius: 50em;
         padding-bottom: 0.1em;
         height: 21px;
@@ -81,6 +81,7 @@
         padding: 0 0.75em;
         transition: all 0.3s;
         color: rgba($palette-grayish-blue, 0.75);
+        z-index: 2;
 
         &.active {
             color: $palette-snow-white;
@@ -97,7 +98,7 @@
         border-radius: 50em;
         height: 100%;
         background: $palette-cloud-blue;
-        z-index: -1;
+        z-index: 1;
         left: 0;
         top: 0;
         margin: 0;

@@ -159,6 +159,9 @@
         @include position(0, 0, 0, 0);
         @include width(70vw, 0, 1400px);
         @include height(90vh, 0, 950px);
+        border-radius: 0.5em;
+        box-shadow: 0 0.4em 2.5em 0 rgba($palette-deep-blue, 0.13);
+        overflow: hidden;
     }
 
     .selection-area {

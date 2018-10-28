@@ -1,10 +1,9 @@
 <template>
     <section class="grid-view">
 
-        <h1 v-if="nodes.folder.length">Folders</h1>
-
-
         <div class="list">
+
+            <h1 v-if="nodes.folder.length">Folders</h1>
 
             <!-- Folders and files -->
             <div class="grid-container">
@@ -144,15 +143,16 @@
 
     .grid-view {
         @include flex(column);
-        padding-bottom: 0.2em;
     }
 
     .list {
         flex-shrink: 1;
         overflow: auto;
+        padding-bottom: 0.5em;
     }
 
     h1 {
+        position: relative;
         display: inline-block;
         font-size: 0.95em;
         color: $palette-deep-blue;
@@ -177,7 +177,7 @@
         cursor: pointer;
         font-size: 0.8em;
         box-shadow: 0 1px 3px 0 rgba(black, 0.05);
-        background: lighten($palette-snow-white, 1.5);
+        background: white;
         border: 1px solid transparent;
 
         i {
@@ -186,8 +186,8 @@
         }
 
         &.selected {
-            border-color: rgba($palette-cloud-blue, 0.4);
-            box-shadow: 0 1px 4px 0 rgba($palette-cloud-blue, 0.1);
+            border-color: rgba($palette-cloud-blue, 0.5);
+            box-shadow: 0 1px 8px 0 rgba($palette-cloud-blue, 0.15);
 
             .name,
             .detail,

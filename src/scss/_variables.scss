@@ -3,15 +3,12 @@
 $font-family-open-sans: 'Open Sans';
 
 // Color palette
-$palette-snow-white: #f4f4f4;
+$palette-snow-white: #f5f6fa;
 $palette-grayish-blue: #979899;
 $palette-deep-blue: #333333;
-$palette-cloud-blue: #4285f4;
-$palette-tomatoe-red: #f24444;
-
-$palette-grayish-blue-transparent-decent: rgba($palette-grayish-blue, 0.08);
-$palette-grayish-blue-transparent: rgba($palette-grayish-blue, 0.15);
-$palette-grayish-blue-transparent-dark: rgba($palette-grayish-blue, 0.3);
+$palette-decent-blue: #d8d6e2;
+$palette-cloud-blue: #538afc;
+$palette-tomatoe-red: #fe5260;
 
 // Transition durations
 $transition-short: 0.2s;

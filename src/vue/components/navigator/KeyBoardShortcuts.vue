@@ -42,8 +42,8 @@
                         shortcuts: [
                             {keys: ['ctrl', 'shift'], action: 'Select everything up to current element.'},
                             {keys: ['ctrl', 'a'], action: 'Select everything.'},
-                            {keys: ['s', 'd'], action: 'Select all folders.'},
-                            {keys: ['s', 'f'], action: 'Select all files.'},
+                            {keys: ['s', 'd'], action: 'Select directories.'},
+                            {keys: ['s', 'f'], action: 'Select files.'},
                             {keys: ['s', 'i'], action: 'Invert selection.'}
                         ]
                     },
@@ -89,15 +89,14 @@
 <style lang="scss" scoped>
 
     .shortcuts {
-        position: fixed;
+        position: absolute;
         @include position(0, 0, 0, 0);
         @include flex(row, center, center);
-        z-index: 10;
         transform: translateY(-10px);
         visibility: hidden;
         opacity: 0;
         transition: transform 0.3s, opacity 0.3s, visibility 0.3s 0s;
-        background: rgba(black, 0.05);
+        background: rgba($palette-deep-blue, 0.05);
 
         &.open {
             transform: none;
@@ -142,7 +141,7 @@
             h2 {
                 @include font(400, 0.9em);
                 padding: 0.75em 0 0.25em;
-                border-bottom: 1px solid $palette-grayish-blue-transparent;
+                border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
                 margin-bottom: 0.5em;
             }
 

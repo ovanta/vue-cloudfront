@@ -39,7 +39,7 @@
     .simple-button {
         @include flex(row, center);
         @include font(600, 0.7em);
-        background: $palette-grayish-blue-transparent;
+        background: $palette-snow-white;
         border-radius: 50em;
         height: 21px;
         cursor: pointer;
@@ -48,6 +48,7 @@
 
         &.active {
             background: $palette-cloud-blue;
+            box-shadow: none;
 
             span {
                 color: $palette-snow-white;
