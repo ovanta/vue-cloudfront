@@ -42,6 +42,7 @@
                         shortcuts: [
                             {keys: ['ctrl', 'shift'], action: 'Select everything up to current element.'},
                             {keys: ['ctrl', 'a'], action: 'Select everything.'},
+                            {keys: ['s', 'esc'], action: 'Clear selection.'},
                             {keys: ['s', 'd'], action: 'Select directories.'},
                             {keys: ['s', 'f'], action: 'Select files.'},
                             {keys: ['s', 'i'], action: 'Invert selection.'}

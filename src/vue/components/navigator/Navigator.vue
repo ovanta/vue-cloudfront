@@ -155,6 +155,11 @@
                     return;
                 }
 
+                // Clear selection
+                if (keys.KeyS && keys.Escape) {
+                    store.commit('selection/clear');
+                }
+
                 // Inverse selection all files
                 if (keys.KeyS && keys.KeyI) {
                     const notSelected = nodes().filter(v => !selectedNodes.includes(v));

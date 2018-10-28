@@ -11,7 +11,7 @@
             <span class="name">Download</span>
         </div>
 
-        <div class="option" @click="newFolder()">
+        <div class="option" v-if="!$store.state.search.active" @click="newFolder()">
             <i class="material-icons">create_new_folder</i>
             <span class="name">New Folder</span>
         </div>
@@ -187,6 +187,10 @@
         padding: 0.5em 1em;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
         border-radius: 0.1em;
+
+        &:empty {
+            display: none;
+        }
 
         &.open {
             opacity: 1;
