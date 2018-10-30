@@ -11,6 +11,16 @@
         <!-- KeyBoard-shortcuts info -->
         <key-board-shortcuts ref="keyboardShortcuts"></key-board-shortcuts>
 
+        <!-- Background shapes -->
+        <div class="background">
+            <svg class="left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                <path d="M0,0V500H124.914s53.473-56.5,74.963-175S124.914,0,124.914,0H0Z"></path>
+            </svg>
+
+            <svg class="right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                <path d="M325.529,500s-50.117-80.37,50.118-124.8S500,350,500,350V500H325.529Z"></path>
+            </svg>
+        </div>
     </div>
 </template>
 
@@ -162,7 +172,7 @@
 
     #app {
         font-family: $font-family-open-sans;
-        position: fixed;
+        position: absolute;
         margin: auto;
         display: flex;
         flex-direction: column;
@@ -173,6 +183,27 @@
         box-shadow: 0 0.4em 2.5em 0 rgba($palette-deep-blue, 0.13);
         border-radius: 0.5em;
         overflow: hidden;
+
+        .background {
+
+            svg {
+                position: fixed;
+                z-index: -1;
+                @include size(100vmax);
+                fill: $palette-bright-purple;
+            }
+
+            .left {
+                left: 0;
+                top: 0;
+            }
+
+            .right {
+                right: 0;
+                bottom:0;
+
+            }
+        }
     }
 
     .selection-area {
