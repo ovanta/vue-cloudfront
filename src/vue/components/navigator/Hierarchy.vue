@@ -104,8 +104,8 @@
             }
 
             &:last-child .name {
-                background: $palette-cloud-blue;
-                box-shadow: 0 2px 10px 0 rgba($palette-cloud-blue, 0.5);
+                background: $palette-deep-purple;
+                box-shadow: 0 2px 10px 0 rgba($palette-deep-purple, 0.5);
                 color: white;
             }
         }

@@ -3,12 +3,10 @@
 
         <!-- Debug info -->
         <div class="info">
-
             <div class="stat" v-for="stat of stats">
                 <span>{{ stat.name }}:</span>
                 <b>{{ stat.value }}</b>
             </div>
-
         </div>
 
     </div>
@@ -19,7 +17,6 @@
     export default {
 
         computed: {
-
             stats() {
                 const state = this.$store.state;
                 return [
@@ -31,7 +28,6 @@
                     {name: 'Parents', value: state.location.length}
                 ];
             }
-
         },
 
         data() {

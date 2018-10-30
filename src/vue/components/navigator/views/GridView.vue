@@ -214,7 +214,7 @@
             transition: all 0.3s;
 
             &[contenteditable=true] {
-                border-color: $palette-cloud-blue;
+                border-color: $palette-deep-purple;
                 cursor: text;
                 outline: none;
             }

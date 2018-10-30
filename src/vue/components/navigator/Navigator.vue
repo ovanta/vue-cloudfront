@@ -12,6 +12,9 @@
 
                 <!-- Show keyboard-shortcuts button -->
                 <i class="material-icons" @click="$store.commit('keyboardShortcuts', true)">keyboard</i>
+
+                <!-- Introduction -->
+                <intro-box text="Disable / enable grid or try out our keyboard shortcuts." header="Search Options"></intro-box>
             </div>
         </div>
 
@@ -35,6 +38,7 @@
     import ListView from './views/ListView';
     import GridView from './views/GridView';
     import ContextMenu from './ContextMenu';
+    import IntroBox from '../../ui/IntroBox';
 
     export default {
 
@@ -42,7 +46,8 @@
             Hierarchy,
             ListView,
             GridView,
-            ContextMenu
+            ContextMenu,
+            IntroBox
         },
 
         data() {
@@ -155,12 +160,10 @@
 <style lang="scss" scoped>
 
     .navigator {
-        position: relative;
         @include flex(column);
         flex-grow: 1;
         padding: 2em 2em 0 2em;
         background: mix($palette-snow-white, white, 75);
-        z-index: -1;
     }
 
     .nav {
@@ -170,6 +173,7 @@
         padding-bottom: 1em;
 
         .controls {
+            position: relative;
             margin-left: auto;
 
             i {
@@ -188,7 +192,7 @@
                 }
 
                 &:hover {
-                    color: $palette-cloud-blue;
+                    color: $palette-deep-purple;
                 }
             }
         }

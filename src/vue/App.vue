@@ -200,7 +200,7 @@
 
             .right {
                 right: 0;
-                bottom:0;
+                bottom: 0;
 
             }
         }

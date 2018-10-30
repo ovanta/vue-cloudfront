@@ -47,7 +47,7 @@
         padding-bottom: 0.1em;
 
         &.active {
-            background: $palette-cloud-blue;
+            background: $palette-deep-purple;
             box-shadow: none;
 
             span {

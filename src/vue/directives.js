@@ -1,6 +1,5 @@
 import Vue from 'vue';
 
-
 // Will focus an input element if v-focus is true.
 Vue.directive('selectAll', {
     inserted: selectAll,

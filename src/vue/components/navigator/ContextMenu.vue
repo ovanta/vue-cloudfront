@@ -218,10 +218,10 @@
             }
 
             &:hover {
-                color: $palette-cloud-blue;
+                color: $palette-deep-purple;
 
                 svg {
-                    fill: $palette-cloud-blue;
+                    fill: $palette-deep-purple;
                 }
             }
 

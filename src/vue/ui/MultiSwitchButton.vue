@@ -97,7 +97,7 @@
         transition: all 0.3s;
         border-radius: 50em;
         height: 100%;
-        background: $palette-cloud-blue;
+        background: $palette-deep-purple;
         z-index: 1;
         left: 0;
         top: 0;

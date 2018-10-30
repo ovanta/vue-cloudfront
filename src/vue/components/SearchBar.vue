@@ -24,8 +24,9 @@
                 <simple-button text="Case insensitiv" @change="setCaseInsensitivOption"></simple-button>
             </div>
 
+            <!-- Introduction -->
+            <intro-box header="Search Options" text="Filter by type, use regular expressions or ignore case."></intro-box>
         </div>
-
     </section>
 </template>
 
@@ -34,12 +35,14 @@
     // UI Components
     import MultiSwitchButton from '../ui/MultiSwitchButton';
     import SimpleButton from '../ui/SimpleButton';
+    import IntroBox from '../ui/IntroBox';
 
     export default {
 
         components: {
             SimpleButton,
-            MultiSwitchButton
+            MultiSwitchButton,
+            IntroBox
         },
 
         data() {
@@ -126,6 +129,8 @@
 <style lang="scss" scoped>
 
     .search-bar {
+        position: relative;
+        z-index: 1;
         padding: 1em;
         background: #fff;
         box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
@@ -140,7 +145,7 @@
         &:focus-within {
 
             i {
-                color: $palette-cloud-blue;
+                color: $palette-deep-purple;
             }
 
         }
@@ -182,7 +187,8 @@
     }
 
     .options {
-        @include flex(row, stretch);
+        position: relative;
+        @include inline-flex(row, stretch);
         margin: 0 0.75em 0.5em 0.75em;
 
         .option {
