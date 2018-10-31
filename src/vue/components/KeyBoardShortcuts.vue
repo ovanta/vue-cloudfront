@@ -119,13 +119,13 @@
                 }
 
                 // Change views
-                if (keys.KeyV && keys.KeyG && this.viewType !== 'grid') {
-                    this.viewType = 'grid';
+                if (keys.KeyV && keys.KeyG) {
+                    store.commit('setViewType', 'grid');
                     return;
                 }
 
-                if (keys.KeyV && keys.KeyL && this.viewType !== 'list') {
-                    this.viewType = 'list';
+                if (keys.KeyV && keys.KeyL) {
+                    store.commit('setViewType', 'list');
                     return;
                 }
 

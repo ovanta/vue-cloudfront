@@ -7,8 +7,8 @@
 
             <div class="controls">
                 <!-- Node-views, grid and list -->
-                <i class="material-icons" v-show="viewType === 'grid'" @click="viewType = 'list'">grid_on</i>
-                <i class="material-icons" v-show="viewType === 'list'" @click="viewType = 'grid'">grid_off</i>
+                <i class="material-icons" v-show="$store.state.viewType === 'grid'" @click="setViewType('list')">grid_on</i>
+                <i class="material-icons" v-show="$store.state.viewType === 'list'" @click="setViewType('grid')">grid_off</i>
 
                 <!-- Show keyboard-shortcuts button -->
                 <i class="material-icons" @click="$store.commit('keyboardShortcuts', true)">keyboard</i>
@@ -19,8 +19,8 @@
         </div>
 
         <!-- Folder / file -views -->
-        <list-view class="view" v-if="viewType === 'list'"></list-view>
-        <grid-view class="view" v-if="viewType === 'grid'"></grid-view>
+        <list-view class="view" v-if="$store.state.viewType === 'list'"></list-view>
+        <grid-view class="view" v-if="$store.state.viewType === 'grid'"></grid-view>
 
         <!-- Context menu -->
         <context-menu ref="contextMenu"></context-menu>
@@ -52,7 +52,6 @@
 
         data() {
             return {
-                viewType: 'grid',
                 selection: null,
 
                 selectionInstance: null,
@@ -66,6 +65,10 @@
 
                 // Open menu, pass mousevent and resolved nodes
                 this.$refs.contextMenu.$emit('show', evt);
+            },
+
+            setViewType(type) {
+                this.$store.commit('setViewType', type);
             }
 
         },

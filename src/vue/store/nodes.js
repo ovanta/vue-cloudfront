@@ -45,6 +45,7 @@ export const nodes = {
                     for (let i = 0, n; n = state[i], i < state.length; i++) {
                         if (n.parent === node.hash) {
                             rm(n);
+                            i = 0;
                         }
                     }
                 }

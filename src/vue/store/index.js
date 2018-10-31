@@ -17,6 +17,7 @@ export default new Vuex.Store({
 
     state: {
         debugScreen: false,
+        viewType: 'grid',
         keyboardShortcuts: false
     },
 
@@ -28,6 +29,16 @@ export default new Vuex.Store({
 
         keyboardShortcuts(state, type) {
             state.keyboardShortcuts = resolve(type, state.keyboardShortcuts);
+        },
+
+        setViewType(state, type) {
+
+            // Validate
+            if (type !== 'list' && type !== 'grid') {
+                throw `Cannot perform setViewType in index. Type is "${type}"`;
+            }
+
+            state.viewType = type;
         }
 
     }
