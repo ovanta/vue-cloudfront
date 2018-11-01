@@ -3,11 +3,20 @@ export const search = {
     namespaced: true,
 
     state: {
+
+        // If the user is currently searching for somenthing
         active: false,
+
+        /**
+         * Search options, mutations are coming from
+         * the buttons below the serach bar.
+         */
         options: {
             type: 'all',
             regex: false
         },
+
+        // Search result
         nodes: []
     },
 
@@ -31,16 +40,26 @@ export const search = {
          * Updates the current search
          * @param state
          * @param rootState
-         * @param query
+         * @param rawQuery
          */
-        update({state, rootState}, query) {
+        update({state, rootState}, rawQuery) {
 
             // If the query is empty, search should be disabled
-            state.active = !!query;
+            state.active = !!rawQuery;
 
             if (state.active) {
 
-                // Extract options properties for further usage
+                /**
+                 * Parse query. Filters contains a associative array where
+                 * the key is the filter prop and the value is an array.
+                 * Supported filters are:
+                 *     is: <FileExtension>
+                 *
+                 * Query is the search value without filter strings.
+                 */
+                const {filters, query} = parseQuery(rawQuery);
+
+                // Extract options
                 const {type, regex, ignoreCase} = state.options;
 
                 // Check if regexp and try to parse
@@ -53,6 +72,10 @@ export const search = {
                         return;
                     }
                 }
+
+                // Extract and prepare filters
+                // TODO: Help page with list of filters, maybe next to keyboard shortcuts icon
+                const {is} = filters;
 
                 // Convert to lowercase if ignorecase is set
                 if (ignoreCase) {
@@ -68,6 +91,11 @@ export const search = {
                         continue;
                     }
 
+                    // Check filters
+                    if (is && is.length && !is.includes(n.name.replace(/.*\./, ''))) {
+                        continue;
+                    }
+
                     // Check for regex
                     if (regex && query.test(n.name)) {
                         state.nodes.push(n);
@@ -80,5 +108,42 @@ export const search = {
             }
         }
     }
-
 };
+
+// See inline-usage documentation
+function parseQuery(query) {
+    const filterRegex = /([\w]+):([\w,]+)( |$)/g;
+    const rawFilters = matchAll(query, filterRegex);
+    const filters = {};
+
+    for (let filter of rawFilters) {
+
+        // Skip invalid matches
+        if (filter.length < 3) {
+            continue;
+        }
+
+        const type = filter[1];
+        const val = filter[2].trim().split(',');
+        filters[type] = val;
+    }
+
+    /**
+     * Executes a regular expression on a string and
+     * returns all matches as array.
+     *
+     * @param str
+     * @param regex
+     * @returns {Array}
+     */
+    function matchAll(str, regex) {
+        const matches = [];
+        for (let match; match = regex.exec(str); matches.push(match)) ;
+        return matches;
+    }
+
+    return {
+        filters,
+        query: query.replace(filterRegex, '') // Return query without filters
+    };
+}

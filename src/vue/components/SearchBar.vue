@@ -6,7 +6,6 @@
             <i class="material-icons">search</i>
             <input type="text" placeholder="Search..." spellcheck="false" v-model="searchQuery" @input="updateSearch()">
             <i :class="{delete: 1,'material-icons': 1, visible: searchQuery.length}" @click="clear">clear</i>
-            <div class="line"></div>
         </div>
 
         <!-- Options -->

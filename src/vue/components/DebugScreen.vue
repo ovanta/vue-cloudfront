@@ -74,7 +74,8 @@
 
         b {
             margin-left: auto;
-            padding-left: 0.5em;
+            min-width: 4em;
+            text-align: right;
         }
     }
 
