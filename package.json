@@ -12,9 +12,9 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.4.2",
         "@simonwep/selection-js": "git://github.com/Simonwep/selection.git",
         "axios": "^0.18.0",
-        "material-design-icons": "^3.0.1",
         "vue": "^2.5.17",
         "vuex": "^3.0.1"
     },

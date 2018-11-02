@@ -3,9 +3,9 @@
 
         <!-- Search-bar with filter functions -->
         <div class="search-field">
-            <i class="material-icons">search</i>
+            <i class="fas fa-search"></i>
             <input type="text" placeholder="Search..." spellcheck="false" v-model="searchQuery" @input="updateSearch()">
-            <i :class="{delete: 1,'material-icons': 1, visible: searchQuery.length}" @click="clear">clear</i>
+            <i :class="{delete: 1, 'fas fa-times': 1, visible: searchQuery.length}" @click="clear"></i>
         </div>
 
         <!-- Options -->
@@ -142,11 +142,9 @@
         margin-bottom: 0.5em;
 
         &:focus-within {
-
             i {
                 color: $palette-deep-purple;
             }
-
         }
 
         input {
@@ -162,7 +160,7 @@
         i {
             color: $palette-decent-blue;
             padding: 0 0.6em;
-            font-size: 1.3em;
+            font-size: 1em;
             transition: all 0.5s;
 
             &.delete {

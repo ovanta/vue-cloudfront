@@ -41,6 +41,8 @@
     import DebugScreen from './components/DebugScreen';
     import KeyBoardShortcuts from './components/KeyBoardShortcuts';
 
+    import '@fortawesome/fontawesome-free/css/all.css';
+
     export default {
 
         components: {MainContent, SearchBar, DebugScreen, KeyBoardShortcuts},
@@ -233,5 +235,12 @@
     .selection-area {
         background: rgba($palette-cloud-blue, 0.02);
         border: 1px solid rgba($palette-cloud-blue, 0.6);
+    }
+
+    // Font awesome default size
+    [class^='fa'] {
+        font-size: 18px;
+        line-height: 1;
+        flex-shrink: 0;
     }
 </style>

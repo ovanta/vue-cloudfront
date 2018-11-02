@@ -180,7 +180,7 @@ export const nodes = {
                 throw 'Cannot perform NEWFOLDER in nodes. Parent invalid or not present in set.';
             }
 
-            // TODO: Do centralized generating / createing of folders
+            // TODO: Do centralized generating / creating of folders
             // Create folder
             const newFolder = {
 

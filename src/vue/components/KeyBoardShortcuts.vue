@@ -5,7 +5,7 @@
 
             <div class="header">
                 <span class="title">Keyboard Shortcuts</span>
-                <i class="material-icons close-btn" @click="$store.commit('keyboardShortcuts', false)">close</i>
+                <i class="fas fa-fw fa-times" @click="$store.commit('keyboardShortcuts', false)"></i>
             </div>
 
             <div class="shortcut-sections">
@@ -284,7 +284,7 @@
                 font-weight: 600;
             }
 
-            .close-btn {
+            i {
                 margin-left: auto;
                 padding-bottom: 0.5em;
                 color: $palette-grayish-blue;
@@ -301,7 +301,6 @@
     .shortcut-sections {
         @include flex(row, center, space-between);
         flex-wrap: wrap;
-
     }
 
     .shortcut-section {

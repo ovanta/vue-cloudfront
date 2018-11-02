@@ -3,7 +3,7 @@
 
         <!-- Table header -->
         <div class="header" v-if="nodes.folder.length || nodes.file.length">
-            <i class="material-icons" style="opacity: 0">folder</i>
+            <i class="fas fa-fw" style="opacity: 0">folder</i>
             <span class="name">Name</span>
             <span class="detail">Last modified</span>
             <span class="detail">Size</span>
@@ -19,7 +19,7 @@
                  @click.right="select($event, node)"
                  @click.left="select($event, node)">
 
-                <i class="material-icons" :style="{color: node.color}">{{ node.starred ? 'folder_special' : 'folder' }}</i>
+                <i class="fas fa-fw fa-folder" :style="{color: node.color}"></i>
                 <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
                       v-select-all="node.editable">{{ node.name }}</span>
                 <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
@@ -33,7 +33,7 @@
                  @click.right="select($event, node)"
                  @click.left="select($event, node)">
 
-                <i class="material-icons">insert_drive_file</i>
+                <i class="fas fa-fw fa-file"></i>
                 <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
                       v-select-all="node.editable">{{ node.name }}</span>
                 <span class="detail">{{ node.lastModified | readableTimestamp }}</span>

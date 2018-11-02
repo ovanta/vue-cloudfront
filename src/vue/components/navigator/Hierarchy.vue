@@ -3,7 +3,7 @@
 
         <div class="node" v-for="(node, index) of nodes" v-if="!searchResult">
             <span class="name" @click="updateLocation(node.hash)">{{ node.name }}</span>
-            <i class="material-icons" v-if="index < nodes.length - 1">arrow_right</i>
+            <i class="fas fa-fw fa-angle-right" v-if="index < nodes.length - 1"></i>
         </div>
 
         <div class="search-info" v-if="searchResult">
@@ -101,6 +101,7 @@
             i {
                 color: rgba($palette-deep-blue, 0.25);
                 opacity: 0.5;
+                margin: 0 0.5em;
             }
 
             &:last-child .name {

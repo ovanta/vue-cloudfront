@@ -7,11 +7,13 @@
 
             <div class="controls">
                 <!-- Node-views, grid and list -->
-                <i class="material-icons" v-show="$store.state.viewType === 'grid'" @click="setViewType('list')">grid_on</i>
-                <i class="material-icons" v-show="$store.state.viewType === 'list'" @click="setViewType('grid')">grid_off</i>
+                <i class="fas fa-fw fa-th" v-show="$store.state.viewType === 'grid'" @click="setViewType('list')"></i>
+                <i class="fas fa-fw fa-th-list" v-show="$store.state.viewType === 'list'" @click="setViewType('grid')"></i>
 
                 <!-- Show keyboard-shortcuts button -->
-                <i class="material-icons" @click="$store.commit('keyboardShortcuts', true)">keyboard</i>
+                <i class="fas fa-fw fa-keyboard" @click="$store.commit('keyboardShortcuts', true)"></i>
+
+                <!-- TODO: Starred nodes view -->
 
                 <!-- Introduction -->
                 <intro-box text="Disable / enable grid or try out our keyboard shortcuts." header="Search Options"></intro-box>

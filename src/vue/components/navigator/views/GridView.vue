@@ -13,7 +13,7 @@
                      @click.right="select($event, node)"
                      @click.left="select($event, node)">
 
-                    <i class="material-icons" :style="{color: node.color}">{{ node.starred ? 'folder_special' : 'folder' }}</i>
+                    <i class="fas fa-fw fa-folder" :style="{color: node.color}"></i>
                     <span class="name"
                           :contenteditable="node.editable"
                           spellcheck="false"
@@ -31,7 +31,7 @@
                      @click.right="select($event, node)"
                      @click.left="select($event, node)">
 
-                    <i class="material-icons">insert_drive_file</i>
+                    <i class="fas fa-fw fa-file"></i>
                     <span class="name"
                           :contenteditable="node.editable"
                           spellcheck="false"
