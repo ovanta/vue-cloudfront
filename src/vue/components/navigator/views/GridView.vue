@@ -13,6 +13,7 @@
                      @click.right="select($event, node)"
                      @click.left="select($event, node)">
 
+                    <i :class="{'fas fa-fw fa-thumbtack': 1, visible: node.starred}" :style="{color: node.color}"></i>
                     <i class="fas fa-fw fa-folder" :style="{color: node.color}"></i>
                     <span class="name"
                           :contenteditable="node.editable"
@@ -31,6 +32,7 @@
                      @click.right="select($event, node)"
                      @click.left="select($event, node)">
 
+                    <i :class="{'fas fa-fw fa-thumbtack': 1, visible: node.starred}" :style="{color: node.color}"></i>
                     <i class="fas fa-fw fa-file"></i>
                     <span class="name"
                           :contenteditable="node.editable"
@@ -182,6 +184,20 @@
         i {
             color: $palette-deep-blue;
             transition: all 0.3s;
+        }
+
+        .fa-thumbtack {
+            position: absolute;
+            @include position(0.35em, 0.1em, auto, auto);
+            font-size: 0.75em;
+            opacity: 0;
+            transform: translateY(-0.15em) rotate(10deg);
+            transition: all 0.3s;
+
+            &.visible {
+                opacity: 1;
+                transform: none;
+            }
         }
 
         &.selected {

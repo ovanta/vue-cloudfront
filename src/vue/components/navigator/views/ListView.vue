@@ -20,8 +20,14 @@
                  @click.left="select($event, node)">
 
                 <i class="fas fa-fw fa-folder" :style="{color: node.color}"></i>
-                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
-                      v-select-all="node.editable">{{ node.name }}</span>
+
+                <div class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
+                     v-select-all="node.editable">
+                    <span>{{ node.name }}</span>
+                    <i :class="{'fas fa-fw fa-thumbtack': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                </div>
+
+
                 <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
                 <span class="detail">{{ node.size | readableByteCount }}</span>
             </div>
@@ -34,8 +40,12 @@
                  @click.left="select($event, node)">
 
                 <i class="fas fa-fw fa-file"></i>
-                <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
-                      v-select-all="node.editable">{{ node.name }}</span>
+                <div class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
+                     v-select-all="node.editable">
+                    <span>{{ node.name }}</span>
+                    <i :class="{'fas fa-fw fa-thumbtack': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                </div>
+
                 <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
                 <span class="detail">{{ node.size | readableByteCount }}</span>
             </div>
@@ -229,6 +239,20 @@
                 border-color: $palette-deep-purple;
                 cursor: text;
                 outline: none;
+            }
+
+            .fa-thumbtack {
+                font-size: 0.9em;
+                margin-left: 0.5em;
+
+                opacity: 0;
+                transform: translateY(-0.15em) rotate(10deg);
+                transition: all 0.3s;
+
+                &.visible {
+                    opacity: 1;
+                    transform: none;
+                }
             }
         }
 
