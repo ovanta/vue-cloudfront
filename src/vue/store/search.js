@@ -74,8 +74,8 @@ export const search = {
                 }
 
                 // Extract and prepare filters
-                // TODO: Help page with list of filters, maybe next to keyboard shortcuts icon
-                const {is} = filters;
+                const is = filters.is;
+                const size = filters.size && filters.size.length && intepretSizeCommand(filters.size[0]);
 
                 // Convert to lowercase if ignorecase is set
                 if (ignoreCase) {
@@ -91,9 +91,22 @@ export const search = {
                         continue;
                     }
 
-                    // Check filters
+                    // Check is filter
                     if (is && is.length && !is.includes(n.name.replace(/.*\./, ''))) {
                         continue;
+                    }
+
+                    // Check size filter
+                    if (size) {
+                        const {type, a, b} = size;
+
+                        // Folders are not included in size filter
+                        if (n.type === 'folder' ||
+                            type === 'smaller' && n.size > a ||
+                            type === 'bigger' && n.size < a ||
+                            type === 'between' && !(n.size > a && n.size < b)) {
+                            continue;
+                        }
                     }
 
                     // Check for regex
@@ -112,7 +125,7 @@ export const search = {
 
 // See inline-usage documentation
 function parseQuery(query) {
-    const filterRegex = /([\w]+):([\w,]+)( |$)/g;
+    const filterRegex = /([\w]+):([\w<\->,]+)( |$)/g;
     const rawFilters = matchAll(query, filterRegex);
     const filters = {};
 
@@ -146,4 +159,63 @@ function parseQuery(query) {
         filters,
         query: query.replace(filterRegex, '') // Return query without filters
     };
+}
+
+function intepretSizeCommand(cmd) {
+
+    /**
+     * Converts something like '25.3MB' or '12.1KiB' to bytes.
+     *
+     * @param size
+     * @returns {number}
+     */
+    function toBytes(size) {
+        const type = size.replace(/[\d.i]+/g, '').toUpperCase();
+        const amount = Number(size.replace(/\D+$/g, ''));
+        const si = size.includes('i') ? 1024 : 1000;
+
+        switch (type) {
+            case'KB':
+                return amount * si;
+            case'MB':
+                return amount * Math.pow(si, 2);
+            case'GB':
+                return amount * Math.pow(si, 3);
+            case'TB':
+                return amount * Math.pow(si, 4);
+            case'PB':
+                return amount * Math.pow(si, 5);
+            default:
+                return amount;
+        }
+    }
+
+    // Check if command contains info
+    if (typeof cmd === 'string' && cmd.length > 2) {
+
+        /**
+         * Parse lower as, bigger as and
+         * between commands
+         */
+        if (cmd[0] === '<') {
+            return {
+                type: 'smaller',
+                a: toBytes(cmd.substr(1, cmd.length))
+            };
+        } else if (cmd[0] === '>') {
+            return {
+                type: 'bigger',
+                a: toBytes(cmd.substr(1, cmd.length))
+            };
+        } else if (cmd.includes('-')) {
+            const sep = cmd.indexOf('-');
+            return {
+                type: 'between',
+                a: toBytes(cmd.substr(0, sep)),
+                b: toBytes(cmd.substr(sep + 1, cmd.length))
+            };
+        }
+    }
+
+    return null;
 }
