@@ -1,5 +1,5 @@
 <template>
-    <div class="intro-box" @click="openIntroducion()" v-if="open" ref="introBox">
+    <div class="intro-box" @click="openIntroducion()" v-if="open && $store.state.introBoxes" ref="introBox">
 
         <!-- Bouncing question mark -->
         <svg class="question-mark" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31">
@@ -24,7 +24,16 @@
 
             <div class="content">
                 <p>{{ text }}</p>
-                <button @click="open = false">GOT IT!</button>
+
+                <div class="actions">
+                    <span class="skip" @click="$store.commit('introBoxes', false)">Skip all</span>
+
+                    <button @click="open = false">
+                        <span>Okay</span>
+                        <i class="fas fa-fw fa-thumbs-up"></i>
+                    </button>
+                </div>
+
             </div>
         </div>
 
@@ -149,7 +158,7 @@
         position: fixed;
         background: white;
         border-radius: 0.2em;
-        width: 10em;
+        width: 15em;
         z-index: 10;
         opacity: 0;
         visibility: hidden;
@@ -197,27 +206,50 @@
 
         .content {
             @include flex(column);
-            padding: 0.5em;
+            padding: 0.75em;
             border-radius: 0 0 0.2em 0.2em;
 
             p {
-                @include font(600, 0.8em);
+                @include font(400, 0.8em);
                 color: rgba($palette-deep-blue, 0.75);
             }
 
-            button {
-                background: rgba(black, 0.1);
-                padding: 0.5em 0.85em;
-                margin-top: 1em;
-                margin-left: auto;
-                color: rgba(black, 0.5);
-                border-radius: 0.15em;
-                transition: all 0.3s;
-                @include font(600, 0.725em);
+            .actions {
+                @include flex(row, flex-end, flex-end);
 
-                &:hover {
-                    background: $palette-deep-purple;
-                    color: white;
+                button {
+                    @include flex(row, center);
+                    background: rgba(black, 0.1);
+                    padding: 0.5em 0.85em;
+                    margin-top: 1em;
+                    margin-left: 1em;
+                    color: rgba(black, 0.5);
+                    border-radius: 0.15em;
+                    transition: all 0.3s;
+                    @include font(600, 0.725em);
+
+                    &:hover {
+                        background: $palette-deep-purple;
+                        color: white;
+                    }
+
+                    i {
+                        font-size: 1em;
+                        margin-left: 0.5em;
+                        margin-top: 0.15em;
+                    }
+                }
+
+                .skip {
+                    font-size: 0.8em;
+                    text-decoration: underline;
+                    color: rgba($palette-grayish-blue, 0.75);
+                    cursor: pointer;
+                    transition: all 0.3s;
+
+                    &:hover {
+                        color: $palette-deep-purple;
+                    }
                 }
             }
         }

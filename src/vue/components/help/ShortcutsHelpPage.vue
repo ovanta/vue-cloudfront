@@ -61,7 +61,7 @@
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'},
-                            {keys: ['d', 'g'], action: 'Show debug screen.'}
+                            {keys: ['d', 'b'], action: 'Show debug screen.'}
                         ]
                     },
 

@@ -17,6 +17,7 @@ export default new Vuex.Store({
 
     state: {
         debugScreen: false,
+        introBoxes: true,
         viewType: 'grid',
         searchFilter: false,
         keyboardShortcuts: false
@@ -34,6 +35,10 @@ export default new Vuex.Store({
 
         searchFilter(state, type) {
             state.searchFilter = resolve(type, state.searchFilter);
+        },
+
+        introBoxes(state, type) {
+            state.introBoxes = resolve(type, state.introBoxes);
         },
 
         setViewType(state, type) {
