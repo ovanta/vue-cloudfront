@@ -60,6 +60,30 @@ export const nodes = {
             }
         },
 
+        addStar(state, nodes) {
+
+            // Validate
+            if (!Array.isArray(nodes)) {
+                throw 'Cannot perform ADDSTAR in nodes. Nodes is not a Array.';
+            }
+
+            for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
+                n.starred = true;
+            }
+        },
+
+        removeStar(state, nodes){
+
+            // Validate
+            if (!Array.isArray(nodes)) {
+                throw 'Cannot perform REMOVESTAR in nodes. Nodes is not a Array.';
+            }
+
+            for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
+                n.starred = false;
+            }
+        },
+
         /**
          * Renames one node
          * @param state

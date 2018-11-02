@@ -1,6 +1,11 @@
 <template>
     <div :class="{menu: 1, open}" :style="style" ref="menuRoot">
 
+        <div class="option star" v-if="starred || type === 'files' || type === 'folder' || type === 'mixed'" @click="star()">
+            <i class="material-icons">{{ starred ? 'star_border' : 'star' }}</i>
+            <span class="name">{{ starred ? 'Remove star' : 'Add star' }}</span>
+        </div>
+
         <div class="option delete" v-if="type === 'files' || type === 'folder' || type === 'mixed'" @click="del()">
             <i class="material-icons">delete</i>
             <span class="name">Delete</span>
@@ -54,6 +59,30 @@
 
     export default {
 
+        computed: {
+
+            /**
+             * Returns a state.
+             * 0: None or some are starred
+             * 1: All nodes are starred
+             */
+            starred() {
+
+                if (!this.nodes.length) {
+                    return;
+                }
+
+                for (let i = 0, a = this.nodes.length, n; n = this.nodes[i], i < a; i++) {
+                    if (!n.starred) {
+                        return 0;
+                    }
+                }
+
+                return 1;
+            }
+
+        },
+
         data() {
             return {
                 open: false,
@@ -67,6 +96,11 @@
 
             del() {
                 this.$store.commit('nodes/delete', this.nodes);
+                this.open = false;
+            },
+
+            star() {
+                this.$store.commit(`nodes/${ this.starred ? 'remove' : 'add' }Star`, this.nodes);
                 this.open = false;
             },
 

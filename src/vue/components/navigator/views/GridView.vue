@@ -3,9 +3,8 @@
 
         <div class="list">
 
+            <!-- Folders -->
             <h1 v-if="nodes.folder.length">Folders</h1>
-
-            <!-- Folders and files -->
             <div class="grid-container">
                 <div v-for="node of nodes.folder"
                      :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
@@ -14,7 +13,7 @@
                      @click.right="select($event, node)"
                      @click.left="select($event, node)">
 
-                    <i class="material-icons" :style="{color: node.color}">folder</i>
+                    <i class="material-icons" :style="{color: node.color}">{{ node.starred ? 'folder_special' : 'folder' }}</i>
                     <span class="name"
                           :contenteditable="node.editable"
                           spellcheck="false"
@@ -23,8 +22,8 @@
                 </div>
             </div>
 
+            <!-- Files -->
             <h1 v-if="nodes.file.length">Files</h1>
-
             <div class="grid-container">
                 <div v-for="node of nodes.file"
                      :class="{selected: node.selected, file: 1, cutted: node.cutted}"

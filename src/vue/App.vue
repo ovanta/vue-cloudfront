@@ -93,7 +93,8 @@
              *     hash: <String> // Unique id of node
              *     parent: <String> // Parent id
              *     type: 'folder' | 'file' // Node type
-             *     name: <String> // Folder / filename
+             *     name: <String> // Folder / filename,
+             *     starred: <Boolean> // If marked
              * }
              *
              * // File specific
@@ -122,7 +123,8 @@
                             hash: genHash(),
                             parent: parent,
                             type: Math.random() < 0.75 ? 'file' : 'folder',
-                            lastModified: Math.floor(Math.random() * Date.now())
+                            lastModified: Math.floor(Math.random() * Date.now()),
+                            starred: false
                         };
 
                         // File / folder specific attributes

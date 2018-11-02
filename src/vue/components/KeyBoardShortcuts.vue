@@ -8,19 +8,20 @@
                 <i class="material-icons close-btn" @click="$store.commit('keyboardShortcuts', false)">close</i>
             </div>
 
+            <div class="shortcut-sections">
+                <section class="shortcut-section" v-for="sec of sections">
 
-            <section class="shortcut-section" v-for="sec of sections">
+                    <h2>{{ sec.name }}</h2>
 
-                <h2>{{ sec.name }}</h2>
+                    <div class="shortcut" v-for="shortcut of sec.shortcuts">
+                        <div class="keys">
+                            <span class="key" v-for="key of shortcut.keys">{{ key }}</span>
+                        </div>
 
-                <div class="shortcut" v-for="shortcut of sec.shortcuts">
-                    <div class="keys">
-                        <span class="key" v-for="key of shortcut.keys">{{ key }}</span>
+                        <p>{{ shortcut.action }}</p>
                     </div>
-
-                    <p>{{ shortcut.action }}</p>
-                </div>
-            </section>
+                </section>
+            </div>
 
         </div>
 
@@ -53,7 +54,10 @@
                         shortcuts: [
                             {keys: ['ctrl', 'x'], action: 'Cut folder / files.'},
                             {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
-                            {keys: ['n', 'f'], action: 'Create new folder.'}
+                            {keys: ['n', 'f'], action: 'Create new folder.'},
+                            {keys: ['m', 'a'], action: 'Add star to selected files / folders.'},
+                            {keys: ['m', 'r'], action: 'Remove star from selected files / folders.'},
+                            {keys: ['delete'], action: 'Deletes currently selected files / folders.'}
                         ]
                     },
 
@@ -65,7 +69,6 @@
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
                             {keys: ['h', 'k'], action: 'Show keyboard shortcuts.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'},
-                            {keys: ['delete'], action: 'Deletes currently selected files / folders.'},
                             {keys: ['d', 'g'], action: 'Show debug screen.'}
                         ]
                     }
@@ -181,6 +184,16 @@
                     return;
                 }
 
+                // Add star
+                if (keys.KeyM && keys.KeyA) {
+                    this.$store.commit('nodes/addStar', selectedNodes);
+                }
+
+                // Remove star
+                if (keys.KeyM && keys.KeyR) {
+                    this.$store.commit('nodes/removeStar', selectedNodes);
+                }
+
                 // Delete nodes
                 if (keys.Delete && selectedNodes.length) {
                     store.commit('nodes/delete', selectedNodes);
@@ -255,74 +268,78 @@
         }
     }
 
-    .shortcuts {
+    .container {
+        background: white;
+        box-shadow: 0 8px 25px 0 rgba(black, 0.08), 0 0 5px 0 rgba(black, 0.02);
+        padding: 1.25em 2em 2em;
+        border-radius: 0.15em;
+        max-height: 100%;
+        width: 52em;
 
-        .container {
-            background: white;
-            box-shadow: 0 8px 25px 0 rgba(black, 0.08), 0 0 5px 0 rgba(black, 0.02);
-            padding: 1.25em 2em 2em;
-            border-radius: 0.15em;
+        .header {
+            @include flex(row);
 
-            .header {
-                @include flex(row);
-
-                .title {
-                    color: $palette-deep-blue;
-                    font-weight: 600;
-                }
-
-                .close-btn {
-                    margin-left: auto;
-                    padding-bottom: 0.5em;
-                    color: $palette-grayish-blue;
-                    transition: all 0.3s;
-                    cursor: pointer;
-
-                    &:hover {
-                        color: $palette-tomatoe-red;
-                    }
-                }
-            }
-        }
-
-        .shortcut-section {
-            @include flex(column);
-
-            h2 {
-                @include font(400, 0.9em);
-                padding: 0.75em 0 0.25em;
-                border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
-                margin-bottom: 0.5em;
+            .title {
+                color: $palette-deep-blue;
+                font-weight: 600;
             }
 
-            .shortcut {
-                @include flex(row, center);
+            .close-btn {
+                margin-left: auto;
                 padding-bottom: 0.5em;
+                color: $palette-grayish-blue;
+                transition: all 0.3s;
+                cursor: pointer;
 
-                .keys {
-                    flex-grow: 1;
-                    font-family: monospace;
-                    font-weight: 600;
-                    margin-right: 2em;
-
-                    .key {
-                        margin-right: 0.5em;
-                        color: $palette-deep-purple;
-                        border: 1px solid rgba($palette-deep-purple, 0.75);
-                        border-bottom: 2px solid rgba($palette-deep-purple, 0.9);
-                        border-radius: 2px;
-                        padding: 0.1em 0.45em 0.15em 0.45em;
-                    }
-                }
-
-                p {
-                    font-size: 0.8em;
-                    font-weight: 600;
-                    color: darken($palette-grayish-blue, 15);
+                &:hover {
+                    color: $palette-tomatoe-red;
                 }
             }
         }
+    }
 
+    .shortcut-sections {
+        @include flex(row, center, space-between);
+        flex-wrap: wrap;
+
+    }
+
+    .shortcut-section {
+        @include flex(column);
+
+        h2 {
+            @include font(400, 0.9em);
+            padding: 0.75em 0 0.25em;
+            border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
+            margin-bottom: 0.5em;
+        }
+
+        .shortcut {
+            @include flex(row, center);
+            padding-bottom: 0.5em;
+
+            .keys {
+                flex-grow: 1;
+                font-family: monospace;
+                font-weight: 600;
+                margin-right: 2em;
+
+                .key {
+                    margin-right: 0.5em;
+                    color: $palette-deep-purple;
+                    border: 1px solid rgba($palette-deep-purple, 0.75);
+                    border-bottom: 2px solid rgba($palette-deep-purple, 0.9);
+                    border-radius: 2px;
+                    padding: 0.1em 0.45em 0.15em 0.45em;
+                }
+            }
+
+            p {
+                font-size: 0.8em;
+                font-weight: 600;
+                color: darken($palette-grayish-blue, 15);
+            }
+        }
     }
 
 </style>

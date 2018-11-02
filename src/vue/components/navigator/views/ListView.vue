@@ -11,7 +11,7 @@
 
         <div class="list">
 
-            <!-- Folders and files -->
+            <!-- Folders -->
             <div v-for="node of nodes.folder"
                  :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
                  :data-hash="node.hash"
@@ -19,13 +19,14 @@
                  @click.right="select($event, node)"
                  @click.left="select($event, node)">
 
-                <i class="material-icons" :style="{color: node.color}">folder</i>
+                <i class="material-icons" :style="{color: node.color}">{{ node.starred ? 'folder_special' : 'folder' }}</i>
                 <span class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
                       v-select-all="node.editable">{{ node.name }}</span>
                 <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
                 <span class="detail">{{ node.size | readableByteCount }}</span>
             </div>
 
+            <!-- Files -->
             <div v-for="node of nodes.file"
                  :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                  :data-hash="node.hash"
