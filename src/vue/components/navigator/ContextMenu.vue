@@ -3,7 +3,7 @@
 
         <div class="option star" v-if="starred || type === 'files' || type === 'folder' || type === 'mixed'" @click="star()">
             <i class="fas fa-fw fa-thumbtack"></i>
-            <span class="name">{{ starred ? 'Add mark' : 'Remove mark' }}</span>
+            <span class="name">{{ starred ? 'Remove mark' : 'Add mark'}}</span>
         </div>
 
         <div class="option delete" v-if="type === 'files' || type === 'folder' || type === 'mixed'" @click="del()">

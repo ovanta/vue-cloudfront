@@ -57,10 +57,10 @@ export const search = {
                  *
                  * Query is the search value without filter strings.
                  */
-                const {filters, query} = parseQuery(rawQuery);
+                let {filters, query} = parseQuery(rawQuery);
 
                 // Extract options
-                let {type, regex, ignoreCase} = state.options;
+                const {type, regex, ignoreCase} = state.options;
 
                 // Check if regexp and try to parse
                 if (regex) {
@@ -110,8 +110,12 @@ export const search = {
                     }
 
                     // Check for regex
-                    if (regex && query.test(n.name)) {
-                        state.nodes.push(n);
+                    if (regex) {
+
+                        if (query.test(n.name)) {
+                            state.nodes.push(n);
+                        }
+
                     } else if (ignoreCase && n.name.toLowerCase().includes(query)) {
                         state.nodes.push(n);
                     } else if (n.name.includes(query)) {

@@ -51,38 +51,9 @@
     export default {
 
         computed: {
-
             nodes() {
-                const state = this.$store.state;
-                const selectionNodes = state.selection;
-                const clipboardNodes = state.clipboard.nodes;
-                const editableNode = state.editable.node;
-                const search = state.search;
-
-                const stateNodes = search.active ? search.nodes : state.nodes;
-                const stateNodesAmount = stateNodes.length;
-
-                const locHash = this.$store.getters['location/currentLocation'];
-                const nodes = {file: [], folder: []}; // Seperate files and folders
-
-                // Find folder and files which has the current locations as parent
-                for (let i = 0, n; n = stateNodes[i], i < stateNodesAmount; i++) {
-
-                    // Check if parent is the current location
-                    if (search.active || n.parent === locHash) {
-                        const {type} = n;
-
-                        // Pre-checks
-                        n.cutted = clipboardNodes.includes(n);
-                        n.selected = selectionNodes.includes(n);
-                        n.editable = n === editableNode;
-                        nodes[type].push(n);
-                    }
-                }
-
-                return nodes;
+                return this.$store.getters['nodes/currentLocationNodes'](false);
             }
-
         },
 
         data() {

@@ -7,6 +7,73 @@ export const nodes = {
      */
     state: [],
 
+    getters: {
+
+        currentLocationNodes(state, getters, rootState, otherGetters) {
+
+            /**
+             * Return a function which expects as argument if the size
+             * of each folder should be calculated.
+             */
+            return includeFolderSize => {
+                const selectionNodes = rootState.selection;
+                const clipboardNodes = rootState.clipboard.nodes;
+                const editableNode = rootState.editable.node;
+                const search = rootState.search;
+
+                const stateNodes = search.active ? search.nodes : state;
+                const stateNodesAmount = stateNodes.length;
+
+                const locHash = otherGetters['location/currentLocation'];
+                const nodes = {file: [], folder: []}; // Seperate files and folders
+
+                function calcFolderSize(hash) {
+                    let size = 0;
+
+                    // Find childrens of current location
+                    for (let i = 0, n; n = stateNodes[i], i < stateNodesAmount; i++) {
+                        if (n.parent === hash) {
+                            const {type} = n;
+
+                            // If folder, recursivly calculate it otherwise just append size
+                            if (type === 'folder') {
+                                size += calcFolderSize(n.hash);
+                            } else if (type === 'file') {
+                                size += n.size;
+                            }
+                        }
+                    }
+
+                    return size;
+                }
+
+                // Find folder and files which has the current locations as parent
+                // and calculate size
+                for (let i = 0, n; n = stateNodes[i], i < stateNodesAmount; i++) {
+
+                    // Check if parent is the current location
+                    if (search.active || n.parent === locHash) {
+                        const {type} = n;
+
+                        // Pre-checks
+                        n.cutted = clipboardNodes.includes(n);
+                        n.selected = selectionNodes.includes(n);
+                        n.editable = n === editableNode;
+                        nodes[type].push(n);
+
+                        // Calculate recursivly the size of each folder
+                        if (includeFolderSize && type === 'folder') {
+                            n.size = calcFolderSize(n.hash);
+                        }
+                    }
+                }
+
+                return nodes;
+            };
+        }
+
+    },
+
     mutations: {
 
         /**
@@ -72,7 +139,7 @@ export const nodes = {
             }
         },
 
-        removeStar(state, nodes){
+        removeStar(state, nodes) {
 
             // Validate
             if (!Array.isArray(nodes)) {
