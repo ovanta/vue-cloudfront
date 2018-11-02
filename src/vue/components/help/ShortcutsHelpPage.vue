@@ -1,37 +1,30 @@
 <template>
-    <section :class="{shortcuts: 1, open: $store.state.keyboardShortcuts}">
+    <help storekey="keyboardShortcuts" title="Keyboard Shortcuts">
+        <div class="shortcut-sections">
+            <section class="shortcut-section" v-for="sec of sections">
 
-        <div class="container">
+                <h2>{{ sec.name }}</h2>
 
-            <div class="header">
-                <span class="title">Keyboard Shortcuts</span>
-                <i class="fas fa-fw fa-times" @click="$store.commit('keyboardShortcuts', false)"></i>
-            </div>
-
-            <div class="shortcut-sections">
-                <section class="shortcut-section" v-for="sec of sections">
-
-                    <h2>{{ sec.name }}</h2>
-
-                    <div class="shortcut" v-for="shortcut of sec.shortcuts">
-                        <div class="keys">
-                            <span class="key" v-for="key of shortcut.keys">{{ key }}</span>
-                        </div>
-
-                        <p>{{ shortcut.action }}</p>
+                <div class="shortcut" v-for="shortcut of sec.shortcuts">
+                    <div class="keys">
+                        <span class="key" v-for="key of shortcut.keys">{{ key }}</span>
                     </div>
-                </section>
-            </div>
 
+                    <p>{{ shortcut.action }}</p>
+                </div>
+            </section>
         </div>
-
-    </section>
+    </help>
 </template>
-
 
 <script>
 
+    // Import component
+    import Help from './Help';
+
     export default {
+
+        components: {Help},
 
         data() {
             return {
@@ -67,9 +60,16 @@
                             {keys: ['v', 'l'], action: 'Change view to list.'},
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
-                            {keys: ['h', 'k'], action: 'Show keyboard shortcuts.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'},
                             {keys: ['d', 'g'], action: 'Show debug screen.'}
+                        ]
+                    },
+
+                    {
+                        name: 'Help',
+                        shortcuts: [
+                            {keys: ['h', 'k'], action: 'Show keyboard shortcuts.'},
+                            {keys: ['h', 'f'], action: 'Show search filters.'}
                         ]
                     }
                 ],
@@ -206,6 +206,12 @@
                     return;
                 }
 
+                // Show search filters
+                if (keys.KeyH && keys.KeyF) {
+                    this.$store.commit('searchFilter', true);
+                    return;
+                }
+
                 // Create new folder
                 if (keys.KeyN && keys.KeyF) {
 
@@ -227,12 +233,6 @@
         },
 
         mounted() {
-
-            // Close via escape key
-            window.addEventListener('keyup', e =>
-                e.key === 'Escape' && this.$store.commit('keyboardShortcuts', false)
-            );
-
             this.detectKeyCombinationsUnsubscription = this.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body);
         },
 
@@ -247,64 +247,16 @@
 
 </script>
 
-
 <style lang="scss" scoped>
 
-    .shortcuts {
-        position: absolute;
-        @include position(0, 0, 0, 0);
-        @include flex(row, center, center);
-        transform: translateY(-10px);
-        visibility: hidden;
-        opacity: 0;
-        transition: transform 0.3s, opacity 0.3s, visibility 0.3s 0s;
-        background: rgba($palette-deep-blue, 0.05);
-        z-index: 15;
-
-        &.open {
-            transform: none;
-            visibility: visible;
-            opacity: 1;
-        }
-    }
-
-    .container {
-        background: white;
-        box-shadow: 0 8px 25px 0 rgba(black, 0.08), 0 0 5px 0 rgba(black, 0.02);
-        padding: 1.25em 2em 2em;
-        border-radius: 0.15em;
-        max-height: 100%;
-        width: 52em;
-
-        .header {
-            @include flex(row);
-
-            .title {
-                color: $palette-deep-blue;
-                font-weight: 600;
-            }
-
-            i {
-                margin-left: auto;
-                padding-bottom: 0.5em;
-                color: $palette-grayish-blue;
-                transition: all 0.3s;
-                cursor: pointer;
-
-                &:hover {
-                    color: $palette-tomatoe-red;
-                }
-            }
-        }
-    }
-
     .shortcut-sections {
-        @include flex(row, center, space-between);
+        @include flex(row, flex-start, space-between);
         flex-wrap: wrap;
     }
 
     .shortcut-section {
         @include flex(column);
+        width: 48%;
 
         h2 {
             @include font(400, 0.9em);
@@ -334,9 +286,9 @@
             }
 
             p {
-                font-size: 0.8em;
-                font-weight: 600;
+                @include font(600, 0.8em);
                 color: darken($palette-grayish-blue, 15);
+                text-align: right;
             }
         }
     }

@@ -2,8 +2,8 @@
     <div :class="{menu: 1, open}" :style="style" ref="menuRoot">
 
         <div class="option star" v-if="starred || type === 'files' || type === 'folder' || type === 'mixed'" @click="star()">
-            <i :class="`fa${starred ? 'r' : 's' } fa-star`"></i>
-            <span class="name">{{ starred ? 'Remove star' : 'Add star' }}</span>
+            <i class="fas fa-fw fa-thumbtack"></i>
+            <span class="name">{{ starred ? 'Add mark' : 'Remove mark' }}</span>
         </div>
 
         <div class="option delete" v-if="type === 'files' || type === 'folder' || type === 'mixed'" @click="del()">

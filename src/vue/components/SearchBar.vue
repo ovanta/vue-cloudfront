@@ -3,9 +3,13 @@
 
         <!-- Search-bar with filter functions -->
         <div class="search-field">
+
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search..." spellcheck="false" v-model="searchQuery" @input="updateSearch()">
             <i :class="{delete: 1, 'fas fa-times': 1, visible: searchQuery.length}" @click="clear"></i>
+
+            <!-- Show available filters -->
+            <i class="fas fa-fw fa-filter" @click="$store.commit('searchFilter', true)"></i>
         </div>
 
         <!-- Options -->
@@ -179,6 +183,16 @@
                 &:hover {
                     color: $palette-tomatoe-red;
                 }
+            }
+        }
+
+        .fa-filter {
+            cursor: pointer;
+            margin-right: 0.5em;
+            transition: all 0.5s;
+
+            &:hover {
+                color: $palette-deep-purple;
             }
         }
     }

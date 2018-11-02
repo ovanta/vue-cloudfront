@@ -60,14 +60,14 @@ export const search = {
                 const {filters, query} = parseQuery(rawQuery);
 
                 // Extract options
-                const {type, regex, ignoreCase} = state.options;
+                let {type, regex, ignoreCase} = state.options;
 
                 // Check if regexp and try to parse
                 if (regex) {
                     try {
                         query = new RegExp(query, ignoreCase ? 'i' : '');
                     } catch (e) {
-                        console.log(`[SRH] Invalid regexp skipped: '${query}'`);
+                        console.log(`[SRH] Invalid RegExp skipped: '${query}'`);
                         state.active = false;
                         return;
                     }

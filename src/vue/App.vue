@@ -8,8 +8,9 @@
         <!-- Debug screen -->
         <debug-screen></debug-screen>
 
-        <!-- KeyBoard-shortcuts info -->
-        <key-board-shortcuts ref="keyboardShortcuts"></key-board-shortcuts>
+        <!-- Helping pages -->
+        <shortcuts-help-page></shortcuts-help-page>
+        <filter-help-page></filter-help-page>
 
         <!-- Background shapes -->
         <div class="background">
@@ -39,13 +40,16 @@
     import MainContent from './components/navigator/Navigator';
     import SearchBar from './components/SearchBar';
     import DebugScreen from './components/DebugScreen';
-    import KeyBoardShortcuts from './components/KeyBoardShortcuts';
+
+    // Helping screens
+    import ShortcutsHelpPage from './components/help/ShortcutsHelpPage';
+    import FilterHelpPage from './components/help/FilterHelpPage';
 
     import '@fortawesome/fontawesome-free/css/all.css';
 
     export default {
 
-        components: {MainContent, SearchBar, DebugScreen, KeyBoardShortcuts},
+        components: {MainContent, SearchBar, DebugScreen, ShortcutsHelpPage, FilterHelpPage},
 
         data() {
             return {};

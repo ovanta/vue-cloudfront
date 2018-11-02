@@ -18,6 +18,7 @@ export default new Vuex.Store({
     state: {
         debugScreen: false,
         viewType: 'grid',
+        searchFilter: false,
         keyboardShortcuts: false
     },
 
@@ -29,6 +30,10 @@ export default new Vuex.Store({
 
         keyboardShortcuts(state, type) {
             state.keyboardShortcuts = resolve(type, state.keyboardShortcuts);
+        },
+
+        searchFilter(state, type) {
+            state.searchFilter = resolve(type, state.searchFilter);
         },
 
         setViewType(state, type) {
