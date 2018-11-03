@@ -20,6 +20,7 @@ export default new Vuex.Store({
         introBoxes: true,
         viewType: 'grid',
         searchFilter: false,
+        pinnedNodes: false,
         keyboardShortcuts: false
     },
 
@@ -39,6 +40,10 @@ export default new Vuex.Store({
 
         introBoxes(state, type) {
             state.introBoxes = resolve(type, state.introBoxes);
+        },
+
+        pinnedNodes(state, type) {
+            state.pinnedNodes = resolve(type, state.pinnedNodes);
         },
 
         setViewType(state, type) {

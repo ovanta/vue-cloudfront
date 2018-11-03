@@ -38,14 +38,12 @@
     // UI Components
     import MultiSwitchButton from '../ui/MultiSwitchButton';
     import SimpleButton from '../ui/SimpleButton';
-    import IntroBox from '../ui/IntroBox';
 
     export default {
 
         components: {
             SimpleButton,
-            MultiSwitchButton,
-            IntroBox
+            MultiSwitchButton
         },
 
         data() {

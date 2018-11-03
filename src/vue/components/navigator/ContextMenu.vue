@@ -233,10 +233,11 @@
             cursor: pointer;
             transition: all 0.3s;
             color: $palette-deep-blue;
+            margin: 0.25em 0;
 
             .name {
+                @include font(600, 0.9em);
                 margin-left: 0.75em;
-                font-weight: 600;
             }
 
             &:hover {

@@ -6,9 +6,10 @@
             <hierarchy></hierarchy>
 
             <div class="controls">
+
                 <!-- Node-views, grid and list -->
-                <i class="fas fa-fw fa-th" v-show="$store.state.viewType === 'grid'" @click="setViewType('list')"></i>
-                <i class="fas fa-fw fa-th-list" v-show="$store.state.viewType === 'list'" @click="setViewType('grid')"></i>
+                <i class="fas fa-fw fa-th-list" v-show="$store.state.viewType === 'grid'" @click="setViewType('list')"></i>
+                <i class="fas fa-fw fa-th" v-show="$store.state.viewType === 'list'" @click="setViewType('grid')"></i>
 
                 <!-- Show keyboard-shortcuts button -->
                 <i class="fas fa-fw fa-keyboard" @click="$store.commit('keyboardShortcuts', true)"></i>
@@ -21,6 +22,7 @@
         </div>
 
         <!-- Folder / file -views -->
+        <!-- TODO: Draggable nodes? -->
         <list-view class="view" v-if="$store.state.viewType === 'list'"></list-view>
         <grid-view class="view" v-if="$store.state.viewType === 'grid'"></grid-view>
 
@@ -40,7 +42,6 @@
     import ListView from './views/ListView';
     import GridView from './views/GridView';
     import ContextMenu from './ContextMenu';
-    import IntroBox from '../../ui/IntroBox';
 
     export default {
 
@@ -48,8 +49,7 @@
             Hierarchy,
             ListView,
             GridView,
-            ContextMenu,
-            IntroBox
+            ContextMenu
         },
 
         data() {
