@@ -11,7 +11,7 @@
             <span class="name">Delete</span>
         </div>
 
-        <div class="option" v-if="type === 'files'">
+        <div class="option" v-if="type === 'files' || type === 'folder' || type === 'mixed'">
             <i class="fas fa-fw fa-download"></i>
             <span class="name">Download</span>
         </div>
@@ -26,12 +26,17 @@
             <span class="name">Rename</span>
         </div>
 
-        <div class="option" v-if="$store.state.nodes.find(v => $store.state.selection.includes(v))" @click="cut()">
+        <div class="option" v-if="$store.state.selection.length" @click="moveToClipboard('copy')">
+            <i class="fas fa-fw fa-copy"></i>
+            <span class="name">Copy</span>
+        </div>
+
+        <div class="option" v-if="$store.state.selection.length" @click="moveToClipboard('move')">
             <i class="fas fa-fw fa-cut"></i>
             <span class="name">Cut</span>
         </div>
 
-        <div class="option" v-if="$store.state.clipboard.nodes.length" @click="paste()">
+        <div class="option" v-if="$store.state.clipboard.nodes.length" @click="execClipboardAction()">
             <i class="fas fa-fw fa-paste"></i>
             <span class="name">Paste</span>
         </div>
@@ -115,25 +120,26 @@
                 this.open = false;
             },
 
-            cut() {
+            moveToClipboard(type) {
                 if (this.nodes.length) {
 
                     // Save to clipboard
                     this.$store.commit('clipboard/insert', {
                         nodes: this.nodes,
-                        type: 'cut'
+                        type
                     });
                 }
                 this.open = false;
             },
 
-            paste() {
-                const clipboardNodes = this.$store.state.clipboard.nodes;
+            execClipboardAction() {
+                const {clipboard} = this.$store.state;
+                const clipboardNodes = clipboard.nodes;
                 const locHash = this.$store.getters['location/currentLocation'];
                 if (clipboardNodes.length) {
 
                     // Move elements
-                    this.$store.commit('nodes/move', {nodes: clipboardNodes, destination: locHash});
+                    this.$store.commit(`nodes/${clipboard.type}`, {nodes: clipboardNodes, destination: locHash});
 
                     // Clear clipboard
                     this.$store.commit('clipboard/clear');
@@ -241,7 +247,7 @@
             }
 
             &:hover {
-                color: $palette-deep-purple;
+                color: $palette-cloud-blue;
             }
 
             &.delete:hover {
@@ -287,12 +293,12 @@
                     .color {
                         @include size(20px);
                         border: 1px solid rgba(black, 0.1);
-                        border-radius: 2px;
+                        border-radius: 100%;
                         cursor: pointer;
-                        transition: all 0.3s;
+                        transition: all 1s;
 
                         &:hover {
-                            filter: brightness(0.95);
+                            filter: brightness(1.2);
                         }
                     }
                 }

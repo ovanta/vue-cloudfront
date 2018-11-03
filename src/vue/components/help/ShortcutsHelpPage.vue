@@ -46,6 +46,7 @@
                         name: 'Actions',
                         shortcuts: [
                             {keys: ['ctrl', 'x'], action: 'Cut folder / files.'},
+                            {keys: ['ctrl', 'c'], action: 'Copy folder / files.'},
                             {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
                             {keys: ['n', 'f'], action: 'Create new folder.'},
                             {keys: ['m', 'a'], action: 'Add star to selected files / folders.'},
@@ -89,23 +90,35 @@
                 const clipboardNodes = state.clipboard.nodes;
                 const locHash = store.getters['location/currentLocation'];
 
-                // Check for cut event
+                // Cut nodes
                 if (selectedNodes.length && keys.KeyX && keys.ctrlKey) {
 
                     // Save to clipboard
                     store.commit('clipboard/insert', {
                         nodes: selectedNodes,
-                        type: 'cut'
+                        type: 'move'
                     });
 
                     return;
                 }
 
-                // Check for paste event
+                // Copy nodes
+                if (selectedNodes.length && keys.KeyC && keys.ctrlKey) {
+
+                    // Save to clipboard
+                    store.commit('clipboard/insert', {
+                        nodes: selectedNodes,
+                        type: 'copy'
+                    });
+
+                    return;
+                }
+
+                // Paste nodes
                 if (clipboardNodes.length && keys.KeyV && keys.ctrlKey) {
 
                     // Move elements
-                    store.commit('nodes/move', {
+                    store.commit(`nodes/${state.clipboard.type}`, {
                         nodes: clipboardNodes,
                         destination: locHash
                     });
@@ -187,11 +200,13 @@
                 // Add star
                 if (keys.KeyM && keys.KeyA) {
                     this.$store.commit('nodes/addStar', selectedNodes);
+                    return;
                 }
 
                 // Remove star
                 if (keys.KeyM && keys.KeyR) {
                     this.$store.commit('nodes/removeStar', selectedNodes);
+                    return;
                 }
 
                 // Delete nodes
@@ -273,7 +288,6 @@
                 flex-grow: 1;
                 font-family: monospace;
                 font-weight: 600;
-                margin-right: 2em;
 
                 .key {
                     margin-right: 0.5em;

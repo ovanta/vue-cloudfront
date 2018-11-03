@@ -128,7 +128,7 @@
                         const node = {
                             hash: genHash(),
                             parent: parent,
-                            type: Math.random() < 0.9 ? 'file' : 'folder',
+                            type: Math.random() < 0.6 ? 'file' : 'folder',
                             lastModified: Math.floor(Math.random() * Date.now()),
                             starred: false
                         };
@@ -147,7 +147,7 @@
                         nodes.push(node);
                     }
                 }
-            })(50, root.hash, 4); // Trigger recursive generating
+            })(20, root.hash, 4); // Trigger recursive generating
 
             console.log(`[INI] ${nodes.length} Nodes generated.`);
             this.$store.commit('nodes/update', nodes);
@@ -243,7 +243,7 @@
 
     // Font awesome default size
     [class^='fa'] {
-        font-size: 18px;
+        font-size: 20px;
         line-height: 1;
         flex-shrink: 0;
     }

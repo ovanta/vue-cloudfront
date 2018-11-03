@@ -16,10 +16,10 @@ export const nodes = {
              * of each folder should be calculated.
              */
             return includeFolderSize => {
-                const selectionNodes = rootState.selection;
-                const clipboardNodes = rootState.clipboard.nodes;
-                const editableNode = rootState.editable.node;
-                const search = rootState.search;
+                const {selection, clipboard, editable, search} = rootState;
+                const selectionNodes = selection;
+                const clipboardNodes = clipboard.nodes;
+                const editableNode = editable.node;
 
                 const stateNodes = search.active ? search.nodes : state;
                 const stateNodesAmount = stateNodes.length;
@@ -56,7 +56,7 @@ export const nodes = {
                         const {type} = n;
 
                         // Pre-checks
-                        n.cutted = clipboardNodes.includes(n);
+                        n.cutted = clipboard.type === 'cut' && clipboardNodes.includes(n);
                         n.selected = selectionNodes.includes(n);
                         n.editable = n === editableNode;
                         nodes[type].push(n);
@@ -214,6 +214,59 @@ export const nodes = {
 
             // Move nodes
             nodes.forEach(n => n.parent = destination);
+        },
+
+        copy(state, {nodes, destination}) {
+
+            // Validate nodes
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform MOVE in nodes. nodes isn't an Array.`;
+            }
+
+            // Validate destination
+            if (typeof destination !== 'string') {
+                throw `Cannot perform MOVE in nodes. destination isn't a String.`;
+            }
+
+            const genHash = () => Math.round(Math.random() * 1e13).toString(16);
+            function getSiblings(node) {
+                const siblings = [];
+
+                /**
+                 * Every node needs a new hash (and so the childs a new parent), otherwise
+                 * each element would be copied in place.
+                 */
+                const newHash = genHash();
+
+                for (let i = 0, n; n = state[i], i < state.length; i++) {
+                    if (n.parent === node.hash) {
+
+                        // Copy sibling via spread syntax
+                        siblings.push({...n});
+
+                        if (n.type === 'folder') {
+                            siblings.push(...getSiblings(n));
+                        }
+
+                        // Apply new hash from parent element
+                        n.parent = newHash;
+                    }
+                }
+
+                node.hash = newHash;
+                return siblings;
+            }
+
+            // Clone nodes
+            const cloned = nodes.map(v => ({...v}));
+
+            // Set new parent and clone siblings and push to nodes
+            for (let i = 0, n, l = cloned.length; n = cloned[i], i < l; i++) {
+                n.parent = destination;
+                cloned.push(...getSiblings(n));
+            }
+
+            state.push(...cloned);
         },
 
         changeColor(state, {nodes, color}) {

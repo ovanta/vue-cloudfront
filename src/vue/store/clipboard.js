@@ -4,7 +4,7 @@ export const clipboard = {
 
     state: {
         nodes: [],
-        type: null //
+        type: null
     },
 
     mutations: {
