@@ -39,7 +39,6 @@ export const nodes = {
                     }
                 })();
 
-
                 const stateNodesAmount = stateNodes.length;
                 const locHash = otherGetters['location/currentLocation'];
                 const nodes = {file: [], folder: []}; // Seperate files and folders
@@ -73,7 +72,7 @@ export const nodes = {
                         const {type} = n;
 
                         // Pre-checks
-                        n.cutted = clipboard.type === 'cut' && clipboardNodes.includes(n);
+                        n.cutted = clipboard.type === 'move' && clipboardNodes.includes(n);
                         n.selected = selectionNodes.includes(n);
                         n.editable = n === editableNode;
                         nodes[type].push(n);
