@@ -53,7 +53,7 @@ export const location = {
          * one element under the root itself and all elements after it gets removed whereby
          * the last element is the node above the hash. Otherwiese it will be put on the top of the current location.
          * @param state
-         * @param hash
+         * @param node
          */
         update(state, node) {
 
@@ -71,14 +71,14 @@ export const location = {
 
         /**
          * Goes one up in the hierarchy
-         * @param state
          */
-        goUp(state, rootState) {
+        goUp({state, rootState}) {
 
             // Find parent
-            const parent = rootState.nodes.find(v => v.hash === state.hash);
+            const curParentHash = state.node.parent;
+            const parent = rootState.nodes.find(v => v.hash === curParentHash);
             if (parent) {
-                state.hash = parent;
+                state.node = parent;
             }
         }
     }

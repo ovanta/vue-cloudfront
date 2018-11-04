@@ -129,7 +129,7 @@
                 }
 
                 // Hierarchy up event
-                if (keys.KeyG && keys.KeyU && state.location.length > 1) {
+                if (keys.KeyG && keys.KeyU) {
                     store.dispatch('location/goUp');
                     return;
                 }
@@ -154,7 +154,8 @@
                 if (keys.ctrlKey && keys.KeyA) {
 
                     // Select all nodes which are currently under the current location
-                    store.commit('selection/append', nodes());
+                    const nodesMap = nodes();
+                    store.commit('selection/append', nodesMap.file.concat(nodesMap.folder));
                     return;
                 }
 
@@ -183,11 +184,13 @@
                 // Clear selection
                 if (keys.KeyS && keys.Escape) {
                     store.commit('selection/clear');
+                    return;
                 }
 
                 // Inverse selection all files
                 if (keys.KeyS && keys.KeyI) {
-                    const notSelected = nodes().filter(v => !selectedNodes.includes(v));
+                    const nodesMap = nodes();
+                    const notSelected = nodesMap.file.concat(nodesMap.folder).filter(v => !selectedNodes.includes(v));
 
                     // Clear selection
                     store.commit('selection/clear');
@@ -238,6 +241,7 @@
                     // Prevent setting the letter 'f' as folder name because the freshly created
                     // folder is editable.
                     event.preventDefault();
+                    return;
                 }
 
                 // Debug screen

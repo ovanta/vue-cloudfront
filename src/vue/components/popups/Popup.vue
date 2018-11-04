@@ -43,7 +43,7 @@
 
             // Close via escape key
             window.addEventListener('keyup', e =>
-                e.key === 'Escape' && this.$store.commit(this.storekey, false)
+                e.key === 'Escape' && this.$store.commit('setActivePopup', null)
             );
         }
 
