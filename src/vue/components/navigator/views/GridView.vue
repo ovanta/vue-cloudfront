@@ -9,11 +9,11 @@
                 <div v-for="node of nodes.folder"
                      :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
                      :data-hash="node.hash"
-                     @dblclick="updateLocation(node.hash)"
+                     @dblclick="updateLocation(node)"
                      @click.right="select($event, node)"
                      @click.left="select($event, node)">
 
-                    <i :class="{'fas fa-fw fa-thumbtack': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-thumbtack bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
                     <i class="fas fa-fw fa-folder" :style="{color: node.color}"></i>
                     <span class="name"
                           :contenteditable="node.editable"
@@ -32,7 +32,7 @@
                      @click.right="select($event, node)"
                      @click.left="select($event, node)">
 
-                    <i :class="{'fas fa-fw fa-thumbtack': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-thumbtack bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
                     <i class="fas fa-fw fa-file"></i>
                     <span class="name"
                           :contenteditable="node.editable"
@@ -43,6 +43,8 @@
             </div>
         </div>
 
+        <!-- TODO: Placeholder if folder is empty -->
+
     </section>
 </template>
 
@@ -52,7 +54,7 @@
 
         computed: {
             nodes() {
-                return this.$store.getters['nodes/currentLocationNodes'](false);
+                return this.$store.getters['nodes/currentDisplayedNodes'](false);
             }
         },
 
@@ -62,8 +64,9 @@
 
         methods: {
 
-            updateLocation(hash) {
-                this.$store.commit('location/update', hash);
+            updateLocation(node) {
+                this.$store.commit('showStarredNodes', false);
+                this.$store.commit('location/update', node);
             },
 
             renameNode(evt, node) {
@@ -155,9 +158,10 @@
         i {
             color: $palette-deep-blue;
             transition: all 0.3s;
+            font-size: 1.3em;
         }
 
-        .fa-thumbtack {
+        .bookmark {
             position: absolute;
             @include position(0.35em, 0.1em, auto, auto);
             font-size: 0.75em;

@@ -15,7 +15,7 @@ export const selection = {
 
             // Validate
             if (!Array.isArray(nodes)) {
-                throw `Cannot perform APPEND in selection. nodes isn't an Array.`;
+                throw `Cannot perform 'append' in selection. nodes isn't an Array.`;
             }
 
             nodes.forEach(v => !state.includes(v) && state.push(v));
@@ -25,7 +25,7 @@ export const selection = {
 
             // Validate
             if (!Array.isArray(nodes)) {
-                throw `Cannot perform REMOVE in selection. nodes isn't an Array`;
+                throw `Cannot perform 'remove' in selection. nodes isn't an Array.`;
             }
 
             for (let i = 0; i < nodes.length; i++) {

@@ -9,7 +9,7 @@
             <i :class="{delete: 1, 'fas fa-times': 1, visible: searchQuery.length}" @click="clear"></i>
 
             <!-- Show available filters -->
-            <i class="fas fa-fw fa-filter" @click="$store.commit('searchFilter', true)"></i>
+            <i class="fas fa-fw fa-filter" @click="$store.commit('setActivePopup', 'SearchFilters')"></i>
         </div>
 
         <!-- Options -->

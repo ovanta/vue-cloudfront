@@ -17,7 +17,7 @@ export const editable = {
 
             // Validate
             if (typeof node !== 'object') {
-                throw 'Cannot perform SET in editable. node is not a object';
+                throw `Cannot perform 'set' in editable. 'node' isn't a Object.`;
             }
 
             state.node = node;

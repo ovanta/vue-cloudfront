@@ -16,50 +16,39 @@ export default new Vuex.Store({
     modules: {nodes, location, clipboard, selection, editable, colors, search},
 
     state: {
-        debugScreen: false,
-        introBoxes: true,
         viewType: 'grid',
-        searchFilter: false,
-        pinnedNodes: false,
-        keyboardShortcuts: false
+        skipIntroBoxes: false,
+        showStarredNodes: false,
+        showDebugScreen: false,
+        activePopup: null,
     },
 
     mutations: {
 
-        debugScreen(state, type) {
-            state.debugScreen = resolve(type, state.debugScreen);
+        setActivePopup(state, popup) {
+            state.activePopup = popup;
         },
 
-        keyboardShortcuts(state, type) {
-            state.keyboardShortcuts = resolve(type, state.keyboardShortcuts);
+        skipIntroBoxes(state, v) {
+            state.skipIntroBoxes = !!v;
         },
 
-        searchFilter(state, type) {
-            state.searchFilter = resolve(type, state.searchFilter);
+        showStarredNodes(state, v) {
+            state.showStarredNodes = v === 'toggle' ? !state : !!v;
         },
 
-        introBoxes(state, type) {
-            state.introBoxes = resolve(type, state.introBoxes);
-        },
-
-        pinnedNodes(state, type) {
-            state.pinnedNodes = resolve(type, state.pinnedNodes);
+        showDebugScreen(state, v) {
+            state.showDebugScreen = v === 'toggle' ? !state : !!v;
         },
 
         setViewType(state, type) {
 
             // Validate
             if (type !== 'list' && type !== 'grid') {
-                throw `Cannot perform setViewType in index. Type is "${type}"`;
+                throw `Cannot perform 'setViewType' in index. 'type' is '${type}' but only 'grid' and 'list' are possible`;
             }
 
             state.viewType = type;
         }
-
     }
 });
-
-
-function resolve(t, val) {
-    return t === 'toggle' ? !val : !!t;
-}

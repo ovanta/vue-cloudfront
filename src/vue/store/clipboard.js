@@ -27,8 +27,12 @@ export const clipboard = {
         insert(state, {nodes, type}) {
 
             // Validate
-            if (!Array.isArray(nodes) || !(type === 'copy' || type === 'cut')) {
-                throw `Cannot perform INSERT in clipboard. nodes isn't an Array or type is invalid. Got type ${type}`;
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform 'insert' in clipboard. 'nodes' isn't an Array.`;
+            }
+
+            if (!(type === 'move' || type === 'cut')) {
+                throw `Cannot perform 'insert' in index. 'type' is '${type}' but only 'move' and 'cut' are possible`;
             }
 
             state.type = type;

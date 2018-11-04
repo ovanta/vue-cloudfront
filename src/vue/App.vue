@@ -1,16 +1,21 @@
 <template>
     <div id="app" @contextmenu="preventDefault">
 
-        <!-- Main app components -->
-        <search-bar></search-bar>
-        <main-content></main-content>
+        <menu-bar></menu-bar>
 
-        <!-- Debug screen -->
-        <debug-screen></debug-screen>
+        <div class="left-content">
 
-        <!-- Helping pages -->
-        <shortcuts-help-page></shortcuts-help-page>
-        <filter-help-page></filter-help-page>
+            <!-- Main app components -->
+            <search-bar></search-bar>
+            <main-content></main-content>
+
+            <!-- Debug screen -->
+            <debug-screen></debug-screen>
+
+            <!-- Helping pages -->
+            <shortcuts-help-page></shortcuts-help-page>
+            <filter-help-page></filter-help-page>
+        </div>
 
         <!-- Background shapes -->
         <div class="background">
@@ -40,16 +45,17 @@
     import MainContent from './components/navigator/Navigator';
     import SearchBar from './components/SearchBar';
     import DebugScreen from './components/DebugScreen';
+    import MenuBar from './components/MenuBar';
 
     // Helping screens
-    import ShortcutsHelpPage from './components/help/ShortcutsHelpPage';
-    import FilterHelpPage from './components/help/FilterHelpPage';
+    import ShortcutsHelpPage from './components/popups/KeyboardShortcuts';
+    import FilterHelpPage from './components/popups/FilterInfo';
 
     import '@fortawesome/fontawesome-free/css/all.css';
 
     export default {
 
-        components: {MainContent, SearchBar, DebugScreen, ShortcutsHelpPage, FilterHelpPage},
+        components: {MainContent, SearchBar, DebugScreen, ShortcutsHelpPage, FilterHelpPage, MenuBar},
 
         data() {
             return {};
@@ -151,7 +157,7 @@
 
             console.log(`[INI] ${nodes.length} Nodes generated.`);
             this.$store.commit('nodes/update', nodes);
-            this.$store.commit('location/update', root.hash);
+            this.$store.commit('location/update', root);
         }
     };
 </script>
@@ -204,15 +210,19 @@
         font-family: $font-family-open-sans;
         position: absolute;
         margin: auto;
-        display: flex;
-        flex-direction: column;
         user-select: none;
+        @include flex(row);
         @include position(0, 0, 0, 0);
         @include width(70vw, 0, 1400px);
         @include height(90vh, 0, 950px);
         box-shadow: 0 0.4em 2.5em 0 rgba($palette-deep-blue, 0.13);
         border-radius: 0.5em;
         overflow: hidden;
+
+        .left-content {
+            @include flex(column);
+            width: 100%;
+        }
 
         .background {
 

@@ -59,7 +59,7 @@
         font-family: monospace;
         font-size: 0.9em;
         border-top-right-radius: 0.5em;
-        transform: translateY(100%);
+        transform: translateY(110%);
         transform-origin: bottom left;
         transition: all 0.3s;
 

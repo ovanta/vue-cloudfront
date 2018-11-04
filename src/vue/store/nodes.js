@@ -9,7 +9,11 @@ export const nodes = {
 
     getters: {
 
-        currentLocationNodes(state, getters, rootState, otherGetters) {
+        /**
+         * Returns a object with file and folder props which are each
+         * an array of nodes which are currently visible to the user.
+         */
+        currentDisplayedNodes(state, getters, rootState, otherGetters) {
 
             /**
              * Return a function which expects as argument if the size
@@ -21,9 +25,22 @@ export const nodes = {
                 const clipboardNodes = clipboard.nodes;
                 const editableNode = editable.node;
 
-                const stateNodes = search.active ? search.nodes : state;
-                const stateNodesAmount = stateNodes.length;
+                /**
+                 * The nodes which should be shown changed if
+                 * the user performs a search of want to see all currently starred nodes.
+                 */
+                const stateNodes = (() => {
+                    if (search.active) {
+                        return search.nodes;
+                    } else if (rootState.showStarredNodes) {
+                        return state.filter(v => v.starred);
+                    } else {
+                        return state;
+                    }
+                })();
 
+
+                const stateNodesAmount = stateNodes.length;
                 const locHash = otherGetters['location/currentLocation'];
                 const nodes = {file: [], folder: []}; // Seperate files and folders
 
@@ -52,7 +69,7 @@ export const nodes = {
                 for (let i = 0, n; n = stateNodes[i], i < stateNodesAmount; i++) {
 
                     // Check if parent is the current location
-                    if (search.active || n.parent === locHash) {
+                    if (rootState.showStarredNodes || search.active || n.parent === locHash) {
                         const {type} = n;
 
                         // Pre-checks
@@ -71,7 +88,6 @@ export const nodes = {
                 return nodes;
             };
         }
-
     },
 
     mutations: {
@@ -85,7 +101,7 @@ export const nodes = {
 
             // Validate
             if (!Array.isArray(newNodes)) {
-                throw 'Cannot perform UPDATE in nodes. newNodes is not a Array.';
+                throw `Cannot perform 'update' in nodes. 'newNodes' isn't a Array.`;
             }
 
             if (newNodes && newNodes.length) {
@@ -102,7 +118,7 @@ export const nodes = {
 
             // Validate
             if (!Array.isArray(nodes)) {
-                throw 'Cannot perform DELETE in nodes. Nodes is not a Array.';
+                throw `Cannot perform 'delete' in nodes. 'nodes' isn't a Array.`;
             }
 
             function rm(node) {
@@ -131,7 +147,7 @@ export const nodes = {
 
             // Validate
             if (!Array.isArray(nodes)) {
-                throw 'Cannot perform ADDSTAR in nodes. Nodes is not a Array.';
+                throw `Cannot perform 'addStar' in nodes. 'nodes' isn't a Array.`;
             }
 
             for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
@@ -143,7 +159,7 @@ export const nodes = {
 
             // Validate
             if (!Array.isArray(nodes)) {
-                throw 'Cannot perform REMOVESTAR in nodes. Nodes is not a Array.';
+                throw `Cannot perform 'removeStar' in nodes. 'nodes' isn't a Array.`;
             }
 
             for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
@@ -159,14 +175,13 @@ export const nodes = {
          */
         rename(state, {node, newName}) {
 
-            // Validate node
+            // Validate
             if (!node || !~state.indexOf(node)) {
-                throw 'Cannot perform RENAME in nodes. Node invalid or not present in set.';
+                throw `Cannot perform 'rename' in nodes. 'node' is invalid or not present in current state.`;
             }
 
-            // Validate new name
-            if (!newName || newName.length === 0) {
-                throw 'Cannot perform RENAME in nodes. Node name cannot be empty, null or undefined.';
+            if (!(typeof newName === 'string') || newName.length === 0) {
+                throw `Cannot perform 'rename' in nodes. 'newName' should be a String and not empty.`;
             }
 
             // Update last-modified
@@ -184,14 +199,13 @@ export const nodes = {
          */
         move(state, {nodes, destination}) {
 
-            // Validate nodes
+            // Validate
             if (!Array.isArray(nodes)) {
-                throw `Cannot perform MOVE in nodes. nodes isn't an Array.`;
+                throw `Cannot perform 'move' in nodes. 'nodes' isn't a Array.`;
             }
 
-            // Validate destination
             if (typeof destination !== 'string') {
-                throw `Cannot perform MOVE in nodes. destination isn't a String.`;
+                throw `Cannot perform 'move' in nodes. 'destination' isn't a String.`;
             }
 
             // Check if user paste folder into itself or one of its siblings
@@ -209,7 +223,7 @@ export const nodes = {
 
             const subfolder = getSubFolders(nodes[0].hash);
             if (subfolder.includes(destination)) {
-                throw 'Cannot perform MOVE in nodes. Tried to put a folder into itself or similar.';
+                throw `Cannot perform 'move' in nodes. Cannot put a folder into itself`;
             }
 
             // Move nodes
@@ -218,17 +232,17 @@ export const nodes = {
 
         copy(state, {nodes, destination}) {
 
-            // Validate nodes
+            // Validate
             if (!Array.isArray(nodes)) {
-                throw `Cannot perform MOVE in nodes. nodes isn't an Array.`;
+                throw `Cannot perform 'copy' in nodes. nodes isn't an Array.`;
             }
 
-            // Validate destination
             if (typeof destination !== 'string') {
-                throw `Cannot perform MOVE in nodes. destination isn't a String.`;
+                throw `Cannot perform 'copy' in nodes. destination isn't a String.`;
             }
 
             const genHash = () => Math.round(Math.random() * 1e13).toString(16);
+
             function getSiblings(node) {
                 const siblings = [];
 
@@ -271,13 +285,13 @@ export const nodes = {
 
         changeColor(state, {nodes, color}) {
 
-            // Validate nodes
+            // Validate
             if (!Array.isArray(nodes)) {
-                throw `Cannot perform CHANGECOLOR in nodes. nodes isn't an Array.`;
+                throw `Cannot perform 'changeColor' in nodes. nodes isn't an Array.`;
             }
 
             if (typeof color !== 'string') {
-                throw `Cannot perform CHANGECOLOR in nodes. color isn't an String.`;
+                throw `Cannot perform 'changeColor' in nodes. color isn't a String.`;
             }
 
             // Override color
@@ -295,9 +309,9 @@ export const nodes = {
          */
         createFolder({commit, state}, parentHash) {
 
-            // Validate destination
+            // Validate
             if (typeof parentHash !== 'string' || !~state.find(v => v.hash === parentHash)) {
-                throw 'Cannot perform NEWFOLDER in nodes. Parent invalid or not present in set.';
+                throw `Cannot perform 'createFolder' in nodes. parent invalid or not present in state.`;
             }
 
             // TODO: Do centralized generating / creating of folders
@@ -311,6 +325,7 @@ export const nodes = {
                 name: 'New Folder',
                 lastModified: Date.now(),
                 color: '#7E58C2',
+                starred: false,
                 editable: true
             };
 

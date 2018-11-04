@@ -6,12 +6,44 @@ export const location = {
      * Example location matching the current nodes list,
      * will be replaced with random generated data.
      */
-    state: [],
+    state: {
+        node: null
+    },
 
     getters: {
+
+        getHierarchy(state, getters, rootState, otherGetters) {
+
+            if (!state.node) {
+                return [];
+            }
+
+            const hierarchy = [state.node];
+
+            while (true) {
+                const currentHash = hierarchy[0].parent;
+                const parent = rootState.nodes.find(v => v.hash === currentHash);
+
+                if (parent) {
+                    hierarchy.splice(0, 0, parent);
+                } else {
+                    break;
+                }
+            }
+
+            return hierarchy;
+        },
+
         currentLocation(state) {
-            return state[state.length - 1];
+
+            if (!state.node) {
+                return '';
+            } else {
+                return state.node.hash;
+            }
+
         }
+
     },
 
     mutations: {
@@ -23,34 +55,31 @@ export const location = {
          * @param state
          * @param hash
          */
-        update(state, hash) {
+        update(state, node) {
 
             // Validate
-            if (typeof hash !== 'string') {
-                throw 'Cannot perform UPDATE in location. hash is not a string';
+            if (typeof node !== 'object') {
+                throw `Cannot perform 'update' in location. 'node' isn't a Object.`;
             }
 
-            const idx = state.indexOf(hash);
-            if (~idx) {
-                state.splice(state.indexOf(hash) + 1, state.length);
-            } else {
-                state.push(hash);
-            }
+            state.node = node;
+        }
+    },
 
-        },
+
+    actions: {
 
         /**
          * Goes one up in the hierarchy
          * @param state
          */
-        goUp(state) {
+        goUp(state, rootState) {
 
-            if (state.length < 2) {
-                throw 'Cannot perform GOUP in location. There is no level upwards';
+            // Find parent
+            const parent = rootState.nodes.find(v => v.hash === state.hash);
+            if (parent) {
+                state.hash = parent;
             }
-
-            state.splice(state.length - 1, 1);
         }
-
     }
 };

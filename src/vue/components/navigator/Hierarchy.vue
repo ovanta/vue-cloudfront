@@ -1,17 +1,30 @@
 <template>
     <section class="hierarchy">
 
-        <div class="node" v-for="(node, index) of nodes" v-if="!searchResult">
-            <span class="name" @click="updateLocation(node.hash)">{{ node.name }}</span>
+        <!-- Default display of the current folder hierarchy -->
+        <div class="node" v-for="(node, index) of nodes" v-if="!searchResult && !starredNodes">
+            <span class="name" @click="updateLocation(node)">{{ node.name }}</span>
             <i class="fas fa-fw fa-angle-right" v-if="index < nodes.length - 1"></i>
         </div>
 
-        <div class="search-info" v-if="searchResult">
+
+        <!-- Human readable representation of the search result (if a search is currently performed) -->
+        <div class="amount-info" v-if="searchResult">
             <b v-if="searchResult.file">{{ searchResult.file }} files</b>
             <span v-if="searchResult.file && searchResult.folder"> and </span>
             <b v-if="searchResult.folder">{{ searchResult.folder }} folders</b>
             <span v-if="searchResult.file || searchResult.folder"> found</span>
             <span v-if="!searchResult.file && !searchResult.folder">Nothing here</span>
+        </div>
+
+
+        <!-- Same as search info, but for starred nodes -->
+        <div class="amount-info" v-if="starredNodes && !searchResult">
+            <b v-if="starredNodes.file">{{ starredNodes.file }} files</b>
+            <span v-if="starredNodes.file && starredNodes.folder"> and </span>
+            <b v-if="starredNodes.folder">{{ starredNodes.folder }} folders</b>
+            <span v-if="starredNodes.file || starredNodes.folder"> starred</span>
+            <span v-if="!starredNodes.file && !starredNodes.folder">Nothing starred</span>
         </div>
 
     </section>
@@ -24,19 +37,7 @@
         computed: {
 
             nodes() {
-                const nodes = this.$store.state.nodes;
-                const loc = this.$store.state.location;
-                const res = new Array(loc.length);
-
-                // Resolve nodes in current hierarchy
-                let index;
-                for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
-                    if (n.type === 'folder' && ~(index = loc.indexOf(n.hash))) {
-                        res[index] = n;
-                    }
-                }
-
-                return res;
+                return this.$store.getters['location/getHierarchy'];
             },
 
             searchResult() {
@@ -55,6 +56,19 @@
                 }
 
                 return res;
+            },
+
+            starredNodes() {
+
+                if (!this.$store.state.showStarredNodes) {
+                    return null;
+                }
+
+                const nodes = this.$store.getters['nodes/currentDisplayedNodes']();
+                return {
+                    file: nodes.file.length,
+                    folder: nodes.folder.length
+                };
             }
 
         },
@@ -64,8 +78,8 @@
         },
 
         methods: {
-            updateLocation(hash) {
-                this.$store.commit('location/update', hash);
+            updateLocation(node) {
+                this.$store.commit('location/update', node);
             }
         }
 
@@ -112,7 +126,7 @@
         }
     }
 
-    .search-info {
+    .amount-info {
         color: $palette-deep-blue;
         font-size: 0.9em;
     }

@@ -1,15 +1,15 @@
 <template>
-    <section :class="{help: 1, open: $store.state[storekey]}">
+    <section :class="{help: 1, open: $store.state.activePopup === storeProp}">
 
         <div class="container">
 
             <!-- Header with title and close button -->
             <div class="header">
                 <span class="title">{{ title }}</span>
-                <i class="fas fa-fw fa-times" @click="$store.commit(storekey, false)"></i>
+                <i class="fas fa-fw fa-times" @click="$store.commit('setActivePopup', null)"></i>
             </div>
 
-            <!-- Contains content of help page -->
+            <!-- Contains content of popups page -->
             <slot></slot>
         </div>
 
@@ -26,7 +26,7 @@
              * Contains a key, referencing to a boolsche value
              * if this page is currently open.
              */
-            storekey: {
+            storeProp: {
                 type: String,
                 required: true
             },

@@ -15,7 +15,7 @@
             <div v-for="node of nodes.folder"
                  :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
                  :data-hash="node.hash"
-                 @dblclick="updateLocation(node.hash)"
+                 @dblclick="updateLocation(node)"
                  @click.right="select($event, node)"
                  @click.left="select($event, node)">
 
@@ -24,7 +24,7 @@
                 <div class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
                      v-select-all="node.editable">
                     <span>{{ node.name }}</span>
-                    <i :class="{'fas fa-fw fa-thumbtack': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-thumbtack bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
                 </div>
 
 
@@ -43,7 +43,7 @@
                 <div class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
                      v-select-all="node.editable">
                     <span>{{ node.name }}</span>
-                    <i :class="{'fas fa-fw fa-thumbtack': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-thumbtack bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
                 </div>
 
                 <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
@@ -62,7 +62,7 @@
 
         computed: {
             nodes() {
-                return this.$store.getters['nodes/currentLocationNodes'](true);
+                return this.$store.getters['nodes/currentDisplayedNodes'](true);
             }
         },
 
@@ -72,8 +72,9 @@
 
         methods: {
 
-            updateLocation(hash) {
-                this.$store.commit('location/update', hash);
+            updateLocation(node) {
+                this.$store.commit('showStarredNodes', false);
+                this.$store.commit('location/update', node);
             },
 
             renameNode(evt, node) {
@@ -151,6 +152,7 @@
         i {
             color: $palette-deep-blue;
             transition: all 0.3s;
+            font-size: 1.3em;
         }
 
         &.selected {
@@ -186,7 +188,7 @@
                 outline: none;
             }
 
-            .fa-thumbtack {
+            .bookmark {
                 font-size: 0.9em;
                 margin-left: 0.5em;
 

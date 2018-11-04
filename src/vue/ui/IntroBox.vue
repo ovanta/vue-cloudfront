@@ -1,5 +1,5 @@
 <template>
-    <div class="intro-box" @click="openIntroducion()" v-if="open && $store.state.introBoxes" ref="introBox">
+    <div class="intro-box" @click="openIntroducion()" v-if="open && !$store.state.skipIntroBoxes" ref="introBox">
 
         <!-- Bouncing question mark -->
         <svg class="question-mark" xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31">
@@ -26,7 +26,7 @@
                 <p>{{ text }}</p>
 
                 <div class="actions">
-                    <span class="skip" @click="$store.commit('introBoxes', false)">Skip all</span>
+                    <span class="skip" @click="$store.commit('skipIntroBoxes', true)">Skip all</span>
 
                     <button @click="open = false">
                         <span>Okay</span>

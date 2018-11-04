@@ -1,5 +1,5 @@
 <template>
-    <help storekey="keyboardShortcuts" title="Keyboard Shortcuts">
+    <help store-prop="KeyboardShortcuts" title="Keyboard Shortcuts">
         <div class="shortcut-sections">
             <section class="shortcut-section" v-for="sec of sections">
 
@@ -130,7 +130,7 @@
 
                 // Hierarchy up event
                 if (keys.KeyG && keys.KeyU && state.location.length > 1) {
-                    store.commit('location/goUp');
+                    store.dispatch('location/goUp');
                     return;
                 }
 
@@ -148,7 +148,7 @@
                 // Define nodes as function to prevent
                 // useless calculations. Returns, if there is, the search result
                 // or all nodes which are currently into view.
-                const nodes = () => state.search.active ? state.search.nodes : state.nodes.filter(n => n.parent === locHash);
+                const nodes = () => state.search.active ? state.search.nodes : store.getters['nodes/currentDisplayedNodes']();
 
                 // Select everything
                 if (keys.ctrlKey && keys.KeyA) {
@@ -165,7 +165,7 @@
                     store.commit('selection/clear');
 
                     // Select all folders which are currently under the current location
-                    store.commit('selection/append', nodes().filter(n => n.type === 'folder'));
+                    store.commit('selection/append', nodes().folder);
                     return;
                 }
 
@@ -176,7 +176,7 @@
                     store.commit('selection/clear');
 
                     // Select all files which are currently under the current location
-                    store.commit('selection/append', nodes().filter(n => n.type === 'file'));
+                    store.commit('selection/append', nodes().file);
                     return;
                 }
 
@@ -217,13 +217,13 @@
 
                 // Show keyboard shortcuts
                 if (keys.KeyH && keys.KeyK) {
-                    this.$store.commit('keyboardShortcuts', true);
+                    this.$store.commit('setActivePopup', 'KeyboardShortcuts');
                     return;
                 }
 
                 // Show search filters
                 if (keys.KeyH && keys.KeyF) {
-                    this.$store.commit('searchFilter', true);
+                    this.$store.commit('setActivePopup', 'SearchFilters');
                     return;
                 }
 
@@ -242,7 +242,7 @@
 
                 // Debug screen
                 if (keys.KeyD && keys.KeyB) {
-                    this.$store.commit('debugScreen', 'toggle');
+                    this.$store.commit('showDebugScreen', 'toggle');
                 }
             }
         },

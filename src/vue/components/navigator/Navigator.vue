@@ -12,7 +12,7 @@
                 <i class="fas fa-fw fa-th" v-show="$store.state.viewType === 'list'" @click="setViewType('grid')"></i>
 
                 <!-- Show keyboard-shortcuts button -->
-                <i class="fas fa-fw fa-keyboard" @click="$store.commit('keyboardShortcuts', true)"></i>
+                <i class="fas fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
 
                 <!-- TODO: Starred nodes view -->
 
@@ -64,8 +64,6 @@
         methods: {
 
             openMenu(evt) {
-
-                // Open menu, pass mousevent and resolved nodes
                 this.$refs.contextMenu.$emit('show', evt);
             },
 

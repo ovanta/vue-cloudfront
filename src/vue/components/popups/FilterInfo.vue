@@ -1,5 +1,5 @@
 <template>
-    <help title="Search Filters" storekey="searchFilter">
+    <help title="SearchFilters" store-prop="SearchFilters">
 
         <div class="filter" v-for="filter of filters">
 
