@@ -16,7 +16,7 @@
 <script>
 
     // Import component
-    import Help from './Help';
+    import Help from './Popup';
 
     export default {
 

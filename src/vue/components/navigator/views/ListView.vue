@@ -24,7 +24,7 @@
                 <div class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
                      v-select-all="node.editable">
                     <span>{{ node.name }}</span>
-                    <i :class="{'fas fa-fw fa-thumbtack bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
                 </div>
 
 
@@ -43,7 +43,7 @@
                 <div class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
                      v-select-all="node.editable">
                     <span>{{ node.name }}</span>
-                    <i :class="{'fas fa-fw fa-thumbtack bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
                 </div>
 
                 <span class="detail">{{ node.lastModified | readableTimestamp }}</span>

@@ -8,7 +8,8 @@
             </div>
 
             <div :class="{'item': 1, active: $store.state.showStarredNodes}">
-                <i class="fas fa-fw fa-star" @click="$store.commit('showStarredNodes', true)"></i>
+                <i class="fas fa-fw fa-bookmark" @click="$store.commit('showStarredNodes', true)"></i>
+                <intro-box header="Marked Folders and files" text="Mark your important files, folder or just use it as a quick way to access them."></intro-box>
             </div>
 
         </div>
@@ -35,7 +36,6 @@
         background: white;
         box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
         border-right: 1px solid rgba($palette-deep-blue, 0.05);
-        z-index: 10;
         padding: 1em 0.75em;
     }
 
@@ -44,6 +44,7 @@
         color: $palette-decent-blue;
 
         .item {
+            position: relative;
             margin-bottom: 1.5em;
             border-radius: 100%;
             padding: 0.5em;

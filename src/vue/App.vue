@@ -1,6 +1,19 @@
 <template>
     <div id="app" @contextmenu="preventDefault">
 
+
+        <!-- Background shapes -->
+        <div class="background">
+            <svg class="left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                <path d="M0,0V500H124.914s53.473-56.5,74.963-175S124.914,0,124.914,0H0Z"></path>
+            </svg>
+
+            <svg class="right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                <path d="M325.529,500s-50.117-80.37,50.118-124.8S500,350,500,350V500H325.529Z"></path>
+            </svg>
+        </div>
+
+
         <menu-bar></menu-bar>
 
         <div class="left-content">
@@ -17,16 +30,6 @@
             <filter-help-page></filter-help-page>
         </div>
 
-        <!-- Background shapes -->
-        <div class="background">
-            <svg class="left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
-                <path d="M0,0V500H124.914s53.473-56.5,74.963-175S124.914,0,124.914,0H0Z"></path>
-            </svg>
-
-            <svg class="right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
-                <path d="M325.529,500s-50.117-80.37,50.118-124.8S500,350,500,350V500H325.529Z"></path>
-            </svg>
-        </div>
     </div>
 </template>
 
@@ -225,10 +228,12 @@
         }
 
         .background {
+            position: fixed;
+            @include position(0, 0, 0, 0);
+            z-index: -1;
 
             svg {
                 position: fixed;
-                z-index: -1;
                 @include size(100vmax);
                 fill: $palette-bright-purple;
             }
@@ -241,7 +246,6 @@
             .right {
                 right: 0;
                 bottom: 0;
-
             }
         }
     }

@@ -1,5 +1,5 @@
 <template>
-    <help store-prop="KeyboardShortcuts" title="Keyboard Shortcuts">
+    <popup store-prop="KeyboardShortcuts" title="Keyboard Shortcuts">
         <div class="shortcut-sections">
             <section class="shortcut-section" v-for="sec of sections">
 
@@ -14,17 +14,17 @@
                 </div>
             </section>
         </div>
-    </help>
+    </popup>
 </template>
 
 <script>
 
     // Import component
-    import Help from './Help';
+    import Popup from './Popup';
 
     export default {
 
-        components: {Help},
+        components: {Popup},
 
         data() {
             return {

@@ -1,5 +1,5 @@
 <template>
-    <section :class="{help: 1, open: $store.state.activePopup === storeProp}">
+    <section :class="{popup: 1, open: $store.state.activePopup === storeProp}">
 
         <div class="container">
 
@@ -53,16 +53,15 @@
 
 <style lang="scss" scoped>
 
-    .help {
+    .popup {
         position: absolute;
         @include position(0, 0, 0, 0);
         @include flex(row, center, center);
-        transform: translateY(-10px);
         visibility: hidden;
         opacity: 0;
         transition: transform 0.3s, opacity 0.3s, visibility 0.3s 0s;
         background: rgba($palette-deep-blue, 0.05);
-        z-index: 15;
+        z-index: 20;
 
         &.open {
             transform: none;

@@ -180,7 +180,7 @@
             margin-left: auto;
 
             i {
-                color: rgba($palette-grayish-blue, 0.75);
+                color: $palette-decent-blue;
                 cursor: pointer;
                 margin-left: 0.5em;
                 transition: all 0.3s;

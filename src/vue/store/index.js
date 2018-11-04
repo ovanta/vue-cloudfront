@@ -9,7 +9,7 @@ import {location} from './location';
 import {clipboard} from './clipboard';
 import {selection} from './selection';
 import {editable} from './editable';
-import {colors} from './colors';
+import {colors} from './statics/colors';
 import {search} from './search';
 
 export default new Vuex.Store({

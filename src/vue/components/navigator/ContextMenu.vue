@@ -2,7 +2,7 @@
     <div :class="{menu: 1, open}" :style="style" ref="menuRoot">
 
         <div class="option star" v-if="starred || type === 'files' || type === 'folder' || type === 'mixed'" @click="star()">
-            <i class="fas fa-fw fa-thumbtack"></i>
+            <i :class="`fa${starred ? 'r' : 's'} fa-fw fa-bookmark`"></i>
             <span class="name">{{ starred ? 'Remove mark' : 'Add mark'}}</span>
         </div>
 

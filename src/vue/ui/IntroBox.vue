@@ -15,7 +15,7 @@
         <!-- Text display -->
         <div :class="{introduction: true, visible: intro}" ref="introContent">
             <div class="header">
-                <h1>{{ header }}</h1>
+                <h1><i class="fa fa-fw fa-question-circle"></i>{{ header }}</h1>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
                     <path
                         d="M26.178,311.221C30.934,213.593,48.052,81.843,252.526,55.3S491.238,400.319,467.462,438.232s-84.643-59.714-207.327-53.079S21.423,408.849,26.178,311.221Z"></path>
@@ -30,7 +30,7 @@
 
                     <button @click="open = false">
                         <span>Okay</span>
-                        <i class="fas fa-fw fa-thumbs-up"></i>
+                        <i class="fas fa-fw fa-check"></i>
                     </button>
                 </div>
 
@@ -89,6 +89,7 @@
         position: absolute;
         @include size(35px);
         @include position(-15px, -20px, auto, auto);
+        z-index: 20;
     }
 
     .question-mark {
@@ -96,7 +97,6 @@
         @include position(-150%, 0, 0, 0);
         @include size(20px);
         margin: auto;
-        z-index: 10;
         overflow: visible;
         opacity: 0.9;
         fill: $palette-deep-purple;
@@ -124,7 +124,6 @@
         margin: auto;
         display: inline-block;
         border-radius: 100%;
-        z-index: 3;
         cursor: pointer;
 
         @include animate('1.5s ease-in-out infinite') {
@@ -159,7 +158,7 @@
         background: white;
         border-radius: 0.2em;
         width: 15em;
-        z-index: 10;
+        z-index: 20;
         opacity: 0;
         visibility: hidden;
         transform: translateY(2em);
@@ -192,6 +191,11 @@
 
             h1 {
                 @include font(400, 0.9em);
+
+                i {
+                    font-size: 1em;
+                    margin-right: 0.5em;
+                }
             }
 
             svg {
@@ -220,7 +224,7 @@
                 button {
                     @include flex(row, center);
                     background: rgba(black, 0.1);
-                    padding: 0.5em 0.85em;
+                    padding: 0.5em 0.85em 0.55em;
                     margin-top: 1em;
                     margin-left: 1em;
                     color: rgba(black, 0.5);
@@ -236,7 +240,7 @@
                     i {
                         font-size: 1em;
                         margin-left: 0.5em;
-                        margin-top: 0.15em;
+                        margin-top: 0.2em;
                     }
                 }
 
