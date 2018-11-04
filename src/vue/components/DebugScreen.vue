@@ -1,5 +1,11 @@
 <template>
-    <div :class="{'debug-screen': 1, open: $store.state.debugScreen}">
+    <div :class="{'debug-screen': 1, open: $store.state.showDebugScreen}">
+
+        <div class="header">
+            <h1>Debug</h1>
+            <i class="fas fa-times-circle" @click="$store.commit('showDebugScreen', false)"></i>
+        </div>
+
 
         <!-- Debug info -->
         <div class="info">
@@ -24,8 +30,7 @@
                     {name: 'Clipboard', value: state.clipboard.nodes.length},
                     {name: 'Selection', value: state.selection.length},
                     {name: 'Editable', value: !!state.editable.node},
-                    {name: 'Search', value: state.search.nodes.length},
-                    {name: 'Parents', value: state.location.length}
+                    {name: 'Search', value: state.search.nodes.length}
                 ];
             }
         },
@@ -51,7 +56,7 @@
     .debug-screen {
         position: absolute;
         @include position(auto, auto, 0, 0);
-        z-index: 10;
+        z-index: 15;
         background: #000;
         padding: 0.75em 1em;
         border: 2px solid rgba($palette-deep-blue, 0.1);
@@ -62,15 +67,31 @@
         transform: translateY(110%);
         transform-origin: bottom left;
         transition: all 0.3s;
+        color: white;
 
         &.open {
             transform: none;
         }
     }
 
+    .header {
+        @include flex(center);
+        padding-bottom: 0.25em;
+
+        i {
+            margin-left: auto;
+            font-size: 0.95em;
+            margin-top: 0.2em;
+            cursor: pointer;
+        }
+
+        h1 {
+            font-size: 1.35em;
+        }
+    }
+
     .stat {
         @include flex(row);
-        color: white;
 
         b {
             margin-left: auto;

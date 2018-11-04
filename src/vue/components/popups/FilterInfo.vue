@@ -1,32 +1,42 @@
 <template>
-    <help title="SearchFilters" store-prop="SearchFilters">
+    <popup title="SearchFilters" store-prop="SearchFilters">
 
-        <div class="filter" v-for="filter of filters">
-
-            <span class="example">
-                {{ filter.name }}:{{filter.examples.join('|') }}
-            </span>
-
-            <span class="description">{{ filter.description }}</span>
+        <div class="header">
+            <p>Description</p>
+            <p>Examples</p>
         </div>
 
-    </help>
+        <div class="filter" v-for="filter of filters">
+            <span class="description">{{ filter.description }}</span>
+
+            <div class="examples">
+                <p v-for="example of filter.examples">{{example }}</p>
+            </div>
+        </div>
+
+    </popup>
 </template>
 
 <script>
 
     // Import component
-    import Help from './Popup';
+    import Popup from './Popup';
 
     export default {
 
-        components: {Help},
+        components: {Popup},
 
         data() {
             return {
                 filters: [
-                    {name: 'is', examples: ['mp4', 'rb', 'jsp,xls'], description: 'Filter result by type.'},
-                    {name: 'size', examples: ['>10MB', '<6GiB', '7.5KB-10MB'], description: 'Set size range, limit or minimum.'}
+                    {
+                        examples: ['is:mp4', 'is:rb', 'is:jsp,xls'],
+                        description: 'Filter result by file-type and use commas to select multiple types'
+                    },
+                    {
+                        examples: ['size:>10MB', 'size:<6GiB', 'size:7.5KB-10MB'],
+                        description: 'Set size range, limit or minimum.'
+                    }
                 ]
             };
         }
@@ -36,25 +46,33 @@
 
 <style lang="scss" scoped>
 
+    .header {
+        @include flex(row, space-between);
+
+        p {
+            @include font(600, 0.85em);
+            color: $palette-deep-blue;
+            width: 50%;
+        }
+    }
+
     .filter {
-        @include flex(row, center);
+        @include flex(row);
         margin-bottom: 0.5em;
 
-        .example {
-            @include flex(row);
-            color: white;
+        .examples {
+            @include flex(column);
+            background: $palette-snow-white;
+            color: rgba($palette-deep-blue, 0.85);
             font-family: monospace;
+            padding: 0.5em 0.75em;
             border-radius: 0.15em;
-            margin-right: 2em;
-            overflow: hidden;
-            background: $palette-bright-purple;
-            padding: 0.3em 0.5em 0.4em;
+            width: 50%;
         }
 
         .description {
-            @include font(600, 0.8em);
-            flex-grow: 1;
-            text-align: right;
+            @include font(400, 0.8em);
+            width: 50%;
             color: darken($palette-grayish-blue, 15);
         }
     }

@@ -31,7 +31,7 @@ export const clipboard = {
                 throw `Cannot perform 'insert' in clipboard. 'nodes' isn't an Array.`;
             }
 
-            if (!(type === 'move' || type === 'cut')) {
+            if (!(type === 'copy' || type === 'cut')) {
                 throw `Cannot perform 'insert' in index. 'type' is '${type}' but only 'move' and 'cut' are possible`;
             }
 

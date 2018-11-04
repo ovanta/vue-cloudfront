@@ -24,7 +24,7 @@
             <span v-if="starredNodes.file && starredNodes.folder"> and </span>
             <b v-if="starredNodes.folder">{{ starredNodes.folder }} folders</b>
             <span v-if="starredNodes.file || starredNodes.folder"> starred</span>
-            <span v-if="!starredNodes.file && !starredNodes.folder">Nothing starred</span>
+            <span v-if="!starredNodes.file && !starredNodes.folder">Nothing marked</span>
         </div>
 
     </section>

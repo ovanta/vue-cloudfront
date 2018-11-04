@@ -20,7 +20,7 @@ export default new Vuex.Store({
         skipIntroBoxes: false,
         showStarredNodes: false,
         showDebugScreen: false,
-        activePopup: null,
+        activePopup: null
     },
 
     mutations: {
@@ -34,11 +34,11 @@ export default new Vuex.Store({
         },
 
         showStarredNodes(state, v) {
-            state.showStarredNodes = v === 'toggle' ? !state : !!v;
+            state.showStarredNodes = v === 'toggle' ? !state.showStarredNodes : !!v;
         },
 
         showDebugScreen(state, v) {
-            state.showDebugScreen = v === 'toggle' ? !state : !!v;
+            state.showDebugScreen = v === 'toggle' ? !state.showDebugScreen : !!v;
         },
 
         setViewType(state, type) {
