@@ -2,7 +2,7 @@
     <section class="hierarchy">
 
         <!-- Default display of the current folder hierarchy -->
-        <div class="node" v-for="(node, index) of nodes" v-if="!searchResult && !starredNodes">
+        <div class="node" v-for="(node, index) of nodes" v-if="!searchResult && !markedNodes">
             <span class="name" @click="updateLocation(node)">{{ node.name }}</span>
             <i class="fas fa-fw fa-angle-right" v-if="index < nodes.length - 1"></i>
         </div>
@@ -19,12 +19,12 @@
 
 
         <!-- Same as search info, but for starred nodes -->
-        <div class="amount-info" v-if="starredNodes && !searchResult">
-            <b v-if="starredNodes.file">{{ starredNodes.file }} files</b>
-            <span v-if="starredNodes.file && starredNodes.folder"> and </span>
-            <b v-if="starredNodes.folder">{{ starredNodes.folder }} folders</b>
-            <span v-if="starredNodes.file || starredNodes.folder"> marked</span>
-            <span v-if="!starredNodes.file && !starredNodes.folder">Nothing marked</span>
+        <div class="amount-info" v-if="markedNodes && !searchResult">
+            <b v-if="markedNodes.file">{{ markedNodes.file }} files</b>
+            <span v-if="markedNodes.file && markedNodes.folder"> and </span>
+            <b v-if="markedNodes.folder">{{ markedNodes.folder }} folders</b>
+            <span v-if="markedNodes.file || markedNodes.folder"> marked</span>
+            <span v-if="!markedNodes.file && !markedNodes.folder">Nothing marked</span>
         </div>
 
     </section>
@@ -58,9 +58,9 @@
                 return res;
             },
 
-            starredNodes() {
+            markedNodes() {
 
-                if (!this.$store.state.showStarredNodes) {
+                if (!this.$store.state.activeTab === 'markedNodes') {
                     return null;
                 }
 

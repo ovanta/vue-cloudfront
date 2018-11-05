@@ -65,7 +65,7 @@
         methods: {
 
             updateLocation(node) {
-                this.$store.commit('showStarredNodes', false);
+                this.$store.commit('setActiveTab', 'home');
                 this.$store.commit('location/update', node);
             },
 

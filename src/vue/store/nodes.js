@@ -32,7 +32,7 @@ export const nodes = {
                 const stateNodes = (() => {
                     if (search.active) {
                         return search.nodes;
-                    } else if (rootState.showStarredNodes) {
+                    } else if (rootState.activeTab ==='markedNodes') {
                         return state.filter(v => v.starred);
                     } else {
                         return state;
@@ -68,7 +68,7 @@ export const nodes = {
                 for (let i = 0, n; n = stateNodes[i], i < stateNodesAmount; i++) {
 
                     // Check if parent is the current location
-                    if (rootState.showStarredNodes || search.active || n.parent === locHash) {
+                    if (rootState.activeTab === 'markedNodes' || search.active || n.parent === locHash) {
                         const {type} = n;
 
                         // Pre-checks

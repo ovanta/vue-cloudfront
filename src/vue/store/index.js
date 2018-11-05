@@ -18,8 +18,8 @@ export default new Vuex.Store({
     state: {
         viewType: 'grid',
         skipIntroBoxes: false,
-        showStarredNodes: false,
         showDebugScreen: false,
+        activeTab: 'home',
         activePopup: null
     },
 
@@ -33,12 +33,12 @@ export default new Vuex.Store({
             state.skipIntroBoxes = !!v;
         },
 
-        showStarredNodes(state, v) {
-            state.showStarredNodes = v === 'toggle' ? !state.showStarredNodes : !!v;
-        },
-
         showDebugScreen(state, v) {
             state.showDebugScreen = v === 'toggle' ? !state.showDebugScreen : !!v;
+        },
+
+        setActiveTab(state, tab) {
+            state.activeTab =tab;
         },
 
         setViewType(state, type) {
