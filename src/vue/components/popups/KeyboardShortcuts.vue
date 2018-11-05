@@ -205,13 +205,13 @@
 
                 // Add star
                 if (keys.KeyM && keys.KeyA) {
-                    this.$store.commit('nodes/addStar', selectedNodes);
+                    this.$store.commit('nodes/addMark', selectedNodes);
                     return;
                 }
 
                 // Remove star
                 if (keys.KeyM && keys.KeyR) {
-                    this.$store.commit('nodes/removeStar', selectedNodes);
+                    this.$store.commit('nodes/removeMark', selectedNodes);
                     return;
                 }
 

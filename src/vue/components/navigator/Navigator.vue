@@ -14,8 +14,6 @@
                 <!-- Show keyboard-shortcuts button -->
                 <i class="fas fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
 
-                <!-- TODO: Starred nodes view -->
-
                 <!-- Introduction -->
                 <intro-box text="Disable / enable grid or try out our keyboard shortcuts." header="Search Options"></intro-box>
             </div>

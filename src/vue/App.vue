@@ -139,7 +139,7 @@
                             parent: parent,
                             type: Math.random() < 0.6 ? 'file' : 'folder',
                             lastModified: Math.floor(Math.random() * Date.now()),
-                            starred: false
+                            marked: false
                         };
 
                         // File / folder specific attributes

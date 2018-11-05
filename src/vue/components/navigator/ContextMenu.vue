@@ -1,9 +1,9 @@
 <template>
     <div :class="{menu: 1, open}" :style="style" ref="menuRoot">
 
-        <div class="option star" v-if="starred || type === 'files' || type === 'folder' || type === 'mixed'" @click="star()">
-            <i :class="`fa${starred ? 'r' : 's'} fa-fw fa-bookmark`"></i>
-            <span class="name">{{ starred ? 'Remove mark' : 'Add mark'}}</span>
+        <div class="option star" v-if="marked || type === 'files' || type === 'folder' || type === 'mixed'" @click="star()">
+            <i :class="`fa${marked ? 'r' : 's'} fa-fw fa-bookmark`"></i>
+            <span class="name">{{ marked ? 'Remove mark' : 'Add mark'}}</span>
         </div>
 
         <div class="option delete" v-if="type === 'files' || type === 'folder' || type === 'mixed'" @click="del()">
@@ -11,7 +11,7 @@
             <span class="name">Delete</span>
         </div>
 
-        <div class="option" v-if="type === 'files' || type === 'folder' || type === 'mixed'">
+        <div class="option" v-if="type === 'files' || type === 'folder' || type === 'mixed'" @click="download()">
             <i class="fas fa-fw fa-download"></i>
             <span class="name">Download</span>
         </div>
@@ -62,17 +62,17 @@
 
             /**
              * Returns a state.
-             * 0: None or some are starred
-             * 1: All nodes are starred
+             * 0: None or some are marked
+             * 1: All nodes are marked
              */
-            starred() {
+            marked() {
 
                 if (!this.nodes.length) {
                     return;
                 }
 
                 for (let i = 0, a = this.nodes.length, n; n = this.nodes[i], i < a; i++) {
-                    if (!n.starred) {
+                    if (!n.marked) {
                         return 0;
                     }
                 }
@@ -99,7 +99,12 @@
             },
 
             star() {
-                this.$store.commit(`nodes/${ this.starred ? 'remove' : 'add' }Star`, this.nodes);
+                if(this.marked){
+
+                } else {
+
+                }
+                this.$store.commit(`nodes/${ this.marked ? 'remove' : 'add' }Mark`, this.nodes);
                 this.open = false;
             },
 
@@ -108,6 +113,10 @@
                     this.$store.commit('editable/set', this.nodes[0]);
                     this.open = false;
                 }
+            },
+
+            download() {
+                // TODO: Add download functionality
             },
 
             newFolder() {

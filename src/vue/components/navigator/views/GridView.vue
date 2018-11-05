@@ -13,7 +13,7 @@
                      @click.right="select($event, node)"
                      @click.left="select($event, node)">
 
-                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i class="fas fa-fw fa-folder" :style="{color: node.color}"></i>
                     <span class="name"
                           :contenteditable="node.editable"
@@ -32,7 +32,7 @@
                      @click.right="select($event, node)"
                      @click.left="select($event, node)">
 
-                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i class="fas fa-fw fa-file"></i>
                     <span class="name"
                           :contenteditable="node.editable"

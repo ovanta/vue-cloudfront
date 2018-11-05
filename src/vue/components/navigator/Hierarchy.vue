@@ -18,7 +18,7 @@
         </div>
 
 
-        <!-- Same as search info, but for starred nodes -->
+        <!-- Same as search info, but for marked nodes -->
         <div class="amount-info" v-if="markedNodes && !searchResult">
             <b v-if="markedNodes.file">{{ markedNodes.file }} files</b>
             <span v-if="markedNodes.file && markedNodes.folder"> and </span>
@@ -60,7 +60,7 @@
 
             markedNodes() {
 
-                if (!this.$store.state.activeTab === 'markedNodes') {
+                if (this.$store.state.activeTab !== 'markedNodes') {
                     return null;
                 }
 

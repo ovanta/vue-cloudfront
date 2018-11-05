@@ -3,7 +3,7 @@
 
         <div class="items">
 
-            <div :class="{'item': 1, active: $store.state.activeTab !== 'markedNodes'}" @click="$store.commit('setActiveTab', 'home')">
+            <div :class="{'item': 1, active: $store.state.activeTab === 'home'}" @click="$store.commit('setActiveTab', 'home')">
                 <i class="fas fa-fw fa-home"></i>
             </div>
 

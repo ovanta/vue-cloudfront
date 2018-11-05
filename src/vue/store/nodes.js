@@ -29,25 +29,25 @@ export const nodes = {
                  * The nodes which should be shown changed if
                  * the user performs a search of want to see all currently starred nodes.
                  */
-                const stateNodes = (() => {
+                const nodes = (() => {
                     if (search.active) {
                         return search.nodes;
-                    } else if (rootState.activeTab ==='markedNodes') {
-                        return state.filter(v => v.starred);
+                    } else if (rootState.activeTab === 'markedNodes') {
+                        return state.filter(v => v.marked);
                     } else {
                         return state;
                     }
                 })();
 
-                const stateNodesAmount = stateNodes.length;
+                const stateNodesAmount = nodes.length;
                 const locHash = otherGetters['location/currentLocation'];
-                const nodes = {file: [], folder: []}; // Seperate files and folders
+                const ret = {file: [], folder: []}; // Seperate files and folders
 
                 function calcFolderSize(hash) {
                     let size = 0;
 
                     // Find childrens of current location
-                    for (let i = 0, n; n = stateNodes[i], i < stateNodesAmount; i++) {
+                    for (let i = 0, n; n = nodes[i], i < stateNodesAmount; i++) {
                         if (n.parent === hash) {
                             const {type} = n;
 
@@ -65,17 +65,18 @@ export const nodes = {
 
                 // Find folder and files which has the current locations as parent
                 // and calculate size
-                for (let i = 0, n; n = stateNodes[i], i < stateNodesAmount; i++) {
+                const autoAdd = rootState.activeTab === 'markedNodes' || search.active;
+                for (let i = 0, n; n = nodes[i], i < stateNodesAmount; i++) {
 
                     // Check if parent is the current location
-                    if (rootState.activeTab === 'markedNodes' || search.active || n.parent === locHash) {
+                    if (autoAdd || n.parent === locHash) {
                         const {type} = n;
 
                         // Pre-checks
                         n.cutted = clipboard.type === 'move' && clipboardNodes.includes(n);
                         n.selected = selectionNodes.includes(n);
                         n.editable = n === editableNode;
-                        nodes[type].push(n);
+                        ret[type].push(n);
 
                         // Calculate recursivly the size of each folder
                         if (includeFolderSize && type === 'folder') {
@@ -84,7 +85,7 @@ export const nodes = {
                     }
                 }
 
-                return nodes;
+                return ret;
             };
         }
     },
@@ -142,27 +143,27 @@ export const nodes = {
             }
         },
 
-        addStar(state, nodes) {
+        addMark(state, nodes) {
 
             // Validate
             if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'addStar' in nodes. 'nodes' isn't a Array.`;
+                throw `Cannot perform 'mark' in nodes. 'nodes' isn't a Array.`;
             }
 
             for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
-                n.starred = true;
+                n.marked = true;
             }
         },
 
-        removeStar(state, nodes) {
+        removeMark(state, nodes) {
 
             // Validate
             if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'removeStar' in nodes. 'nodes' isn't a Array.`;
+                throw `Cannot perform 'removeMark' in nodes. 'nodes' isn't a Array.`;
             }
 
             for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
-                n.starred = false;
+                n.marked = false;
             }
         },
 
@@ -324,7 +325,7 @@ export const nodes = {
                 name: 'New Folder',
                 lastModified: Date.now(),
                 color: '#7E58C2',
-                starred: false,
+                marked: false,
                 editable: true
             };
 
