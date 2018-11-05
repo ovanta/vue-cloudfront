@@ -4,9 +4,21 @@
         <!-- Table header -->
         <div class="header" v-if="nodes.folder.length || nodes.file.length">
             <i class="fas fa-fw" style="opacity: 0">folder</i>
-            <span class="name">Name</span>
-            <span class="detail">Last modified</span>
-            <span class="detail">Size</span>
+
+            <div class="name" @click="sort('name')">
+                <span>Name</span>
+                <i :class="`sort fas fa-fw fa-caret-${sortDirs.name ? 'down' : 'up'}`"></i>
+            </div>
+
+            <div class="detail" @click="sort('lastModified')">
+                <span>Last modified</span>
+                <i :class="`sort fas fa-fw fa-caret-${sortDirs.lastModified ? 'down' : 'up'}`"></i>
+            </div>
+
+            <div class="detail" @click="sort('size')">
+                <span>Size</span>
+                <i :class="`sort fas fa-fw fa-caret-${sortDirs.size ? 'down' : 'up'}`"></i>
+            </div>
         </div>
 
         <div class="list">
@@ -21,9 +33,8 @@
 
                 <i class="fas fa-fw fa-folder" :style="{color: node.color}"></i>
 
-                <div class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
-                     v-select-all="node.editable">
-                    <span>{{ node.name }}</span>
+                <div class="name" spellcheck="false">
+                    <span :contenteditable="node.editable" @keydown.enter.prevent="renameNode($event, node)" v-select-all="node.editable">{{ node.name }}</span>
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
                 </div>
 
@@ -40,9 +51,8 @@
                  @click.left="select($event, node)">
 
                 <i class="fas fa-fw fa-file"></i>
-                <div class="name" :contenteditable="node.editable" spellcheck="false" @keydown.enter.prevent="renameNode($event, node)"
-                     v-select-all="node.editable">
-                    <span>{{ node.name }}</span>
+                <div class="name" spellcheck="false">
+                    <span :contenteditable="node.editable" @keydown.enter.prevent="renameNode($event, node)" v-select-all="node.editable">{{ node.name }}</span>
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.starred}" :style="{color: node.color}"></i>
                 </div>
 
@@ -51,7 +61,6 @@
             </div>
 
         </div>
-
 
     </section>
 </template>
@@ -67,7 +76,13 @@
         },
 
         data() {
-            return {};
+            return {
+                sortDirs: {
+                    name: false,
+                    lastModified: false,
+                    size: false
+                }
+            };
         },
 
         methods: {
@@ -116,6 +131,39 @@
                 // Toggle
                 const action = evt.button !== 2 && state.selection.includes(node) ? 'remove' : 'append';
                 this.$store.commit(`selection/${action}`, [node]);
+            },
+
+            sort(type) {
+
+                /**
+                 * Values which are used to toggle
+                 * each sorting type individually.
+                 */
+                const ra = this.sortDirs[type] ? -1 : 1;
+                const rb = this.sortDirs[type] ? 1 : -1;
+
+                // Find correct sorting function
+                const sortFn = (() => {
+                    switch (type) {
+                        case 'name': {
+                            return (a, b) => a.name > b.name ? ra : rb;
+                        }
+                        case 'lastModified': {
+                            return (a, b) => a.lastModified > b.lastModified ? ra : rb;
+                        }
+                        case 'size': {
+                            return (a, b) => a.size > b.size ? ra : rb;
+                        }
+                    }
+                })();
+
+                // Sort pre-calulated nodes and re-render everything
+                this.nodes.file.sort(sortFn);
+                this.nodes.folder.sort(sortFn);
+                this.$forceUpdate();
+
+                // Toggle sort-direction to descending / ascending
+                this.sortDirs[type] = !this.sortDirs[type];
             }
         }
     };
@@ -131,11 +179,6 @@
     .list {
         flex-shrink: 1;
         overflow: auto;
-    }
-
-    .header {
-        flex-shrink: 0;
-        margin-top: 1.5em;
     }
 
     .folder,
@@ -182,7 +225,7 @@
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
 
-            &[contenteditable=true] {
+            span[contenteditable=true] {
                 border-color: $palette-deep-purple;
                 cursor: text;
                 outline: none;
@@ -214,8 +257,27 @@
     }
 
     .header {
-        font-weight: 600;
-        border-bottom: 1px solid rgba($palette-deep-blue, 0.1);
+        margin-top: 1.5em;
+        padding-bottom: 1em;
+
+        .name,
+        .detail {
+            @include flex(row, center);
+            font-weight: 600;
+
+            &:hover {
+                color: $palette-deep-purple;
+
+                .sort {
+                    color: $palette-deep-purple;
+                }
+            }
+
+            .sort {
+                font-size: 1em;
+                margin-left: 0.25em;
+            }
+        }
     }
 
 </style>

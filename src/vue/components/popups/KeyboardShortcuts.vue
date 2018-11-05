@@ -60,9 +60,10 @@
                         shortcuts: [
                             {keys: ['v', 'l'], action: 'Change view to list.'},
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
+                            {keys: ['j', 'm'], action: 'Show / hide marked folders / files.'},
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
-                            {keys: ['esc'], action: 'Close any popup like menu or this page.'},
-                            {keys: ['d', 'b'], action: 'Show debug screen.'}
+                            {keys: ['d', 'b'], action: 'Show debug screen.'},
+                            {keys: ['esc'], action: 'Close any popup like menu or this page.'}
                         ]
                     },
 
@@ -94,6 +95,7 @@
                 if (selectedNodes.length && keys.KeyX && keys.ctrlKey) {
 
                     // Save to clipboard
+                    store.commit('clipboard/clear');
                     store.commit('clipboard/insert', {
                         nodes: selectedNodes,
                         type: 'move'
@@ -106,6 +108,7 @@
                 if (selectedNodes.length && keys.KeyC && keys.ctrlKey) {
 
                     // Save to clipboard
+                    store.commit('clipboard/clear');
                     store.commit('clipboard/insert', {
                         nodes: selectedNodes,
                         type: 'copy'
@@ -247,6 +250,12 @@
                 // Debug screen
                 if (keys.KeyD && keys.KeyB) {
                     this.$store.commit('showDebugScreen', 'toggle');
+                    return;
+                }
+
+                // Show starred files / folders
+                if (keys.KeyJ && keys.KeyM) {
+                    this.$store.commit('showStarredNodes', 'toggle');
                 }
             }
         },
