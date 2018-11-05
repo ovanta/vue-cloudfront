@@ -71,16 +71,15 @@ export const search = {
                         state.active = false;
                         return;
                     }
+                } else if (ignoreCase) {
+
+                    // Convert to lowercase if ignorecase is set
+                    query = query.toLowerCase();
                 }
 
                 // Extract and prepare filters
                 const is = filters.is;
                 const size = filters.size && filters.size.length && intepretSizeCommand(filters.size[0]);
-
-                // Convert to lowercase if ignorecase is set
-                if (ignoreCase) {
-                    query = query.toLowerCase();
-                }
 
                 state.nodes = [];
                 const nodes = rootState.nodes;

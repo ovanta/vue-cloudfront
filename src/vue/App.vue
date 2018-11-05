@@ -109,7 +109,7 @@
              *     parent: <String> // Parent id
              *     type: 'folder' | 'file' // Node type
              *     name: <String> // Folder / filename,
-             *     starred: <Boolean> // If marked
+             *     marked: <Boolean> // If marked
              * }
              *
              * // File specific
@@ -136,6 +136,7 @@
                         // Generate node
                         const node = {
                             hash: genHash(),
+                            name: genFolderName(),
                             parent: parent,
                             type: Math.random() < 0.6 ? 'file' : 'folder',
                             lastModified: Math.floor(Math.random() * Date.now()),
@@ -144,11 +145,9 @@
 
                         // File / folder specific attributes
                         if (node.type === 'folder') {
-                            node.name = genFolderName();
                             node.color = genFolderColor();
                             generateNodes(maxDirectChilds, node.hash, depth - 1);
                         } else {
-                            node.name = genFileName();
                             node.size = Math.floor(Math.random() * 1000000000); // Maximal 5GB
                         }
 

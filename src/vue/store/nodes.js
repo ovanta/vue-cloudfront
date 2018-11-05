@@ -104,9 +104,7 @@ export const nodes = {
                 throw `Cannot perform 'update' in nodes. 'newNodes' isn't a Array.`;
             }
 
-            if (newNodes && newNodes.length) {
-                state.splice(0, state.length, ...newNodes);
-            }
+            state.splice(0, state.length, ...newNodes);
         },
 
         /**
@@ -240,6 +238,8 @@ export const nodes = {
             if (typeof destination !== 'string') {
                 throw `Cannot perform 'copy' in nodes. destination isn't a String.`;
             }
+
+            // TODO: Ask or add 'copy (?layer)' to name?!
 
             const genHash = () => Math.round(Math.random() * 1e13).toString(16);
 
