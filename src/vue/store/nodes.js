@@ -308,7 +308,6 @@ export const nodes = {
 
             // Set new parent and clone siblings and push to nodes
             for (let i = 0, n, l = cloned.length; n = cloned[i], i < l; i++) {
-                n.parent = destination;
                 cloned.push(...getSiblings(n));
             }
 

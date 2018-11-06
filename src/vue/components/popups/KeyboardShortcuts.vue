@@ -195,6 +195,16 @@
                     return;
                 }
 
+                // General canceling
+                if (keys.Escape) {
+
+                    // Close open popup
+                    this.$store.commit('setActivePopup', null);
+
+                    // Close editable node
+                    this.$store.commit('editable/reset');
+                }
+
                 // Inverse selection all files
                 if (keys.KeyS && keys.KeyI) {
                     const nodesMap = nodes();
