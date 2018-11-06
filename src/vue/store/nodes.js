@@ -239,8 +239,7 @@ export const nodes = {
                 throw `Cannot perform 'copy' in nodes. destination isn't a String.`;
             }
 
-            // TODO: Ask or add 'copy (?layer)' to name?!
-
+            // TODO: Centralized hash-gen?!
             const genHash = () => Math.round(Math.random() * 1e13).toString(16);
 
             function getSiblings(node) {
@@ -271,8 +270,41 @@ export const nodes = {
                 return siblings;
             }
 
-            // Clone nodes
-            const cloned = nodes.map(v => ({...v}));
+            // Clone nodes and add copy prefix
+            const cloned = nodes.map(v => {
+
+                // Find previous copied versions
+                let version = 1, match;
+                for (let i = 0, n, l = state.length; n = state[i], i < l; i++) {
+
+                    /**
+                     * First, check if node is child of the current location, if yes
+                     * and it starts with the current to-copy nodes name and
+                     * has already a copy flag increase it.
+                     */
+                    if (n.parent === v.parent &&
+                        n.name.startsWith(v.name) &&
+                        (match = n.name.match(/\((([\d]+)th |)Copy\)$/))) {
+
+                        // Check if node has been already multiple times copied
+                        if (match[2]) {
+                            const val = Number(match[2]);
+
+                            // Check if version is above current
+                            if (val && val >= version) {
+                                version = val + 1;
+                            }
+                        }
+                    }
+                }
+
+                return {
+                    ...v,
+
+                    // First copy gets only a '(Copy)' hint
+                    name: `${v.name} ${version ? ` (${version}th ` : '('}Copy)`
+                };
+            });
 
             // Set new parent and clone siblings and push to nodes
             for (let i = 0, n, l = cloned.length; n = cloned[i], i < l; i++) {
