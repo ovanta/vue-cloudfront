@@ -56,7 +56,6 @@
     .debug-screen {
         position: absolute;
         @include position(auto, auto, 0, 0);
-        z-index: 15;
         background: #000;
         padding: 0.75em 1em;
         border: 2px solid rgba($palette-deep-blue, 0.1);

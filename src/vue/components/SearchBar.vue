@@ -131,7 +131,6 @@
 
     .search-bar {
         position: relative;
-        z-index: 1;
         padding: 1em;
         background: #fff;
         box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);

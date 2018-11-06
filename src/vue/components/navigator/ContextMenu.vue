@@ -276,7 +276,6 @@
 
                 .sub-menu {
                     position: absolute;
-                    z-index: 10;
                     transform: translateX(-10px);
                     left: 120%;
                     box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);

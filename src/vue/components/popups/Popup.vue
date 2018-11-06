@@ -61,7 +61,7 @@
         opacity: 0;
         transition: transform 0.3s, opacity 0.3s, visibility 0.3s 0s;
         background: rgba($palette-deep-blue, 0.05);
-        z-index: 20;
+
 
         &.open {
             transform: none;

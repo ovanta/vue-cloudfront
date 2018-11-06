@@ -81,7 +81,7 @@
         padding: 0 0.75em;
         transition: all 0.3s;
         color: rgba($palette-grayish-blue, 0.75);
-        z-index: 2;
+        z-index: 1;
 
         &.active {
             color: $palette-snow-white;
@@ -98,7 +98,7 @@
         border-radius: 50em;
         height: 100%;
         background: $palette-deep-purple;
-        z-index: 1;
+
         left: 0;
         top: 0;
         margin: 0;

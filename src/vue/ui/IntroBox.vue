@@ -89,7 +89,6 @@
         position: absolute;
         @include size(35px);
         @include position(-15px, -20px, auto, auto);
-        z-index: 20;
     }
 
     .question-mark {
@@ -125,6 +124,7 @@
         display: inline-block;
         border-radius: 100%;
         cursor: pointer;
+        z-index: 1;
 
         @include animate('1.5s ease-in-out infinite') {
             0% {
@@ -158,7 +158,7 @@
         background: white;
         border-radius: 0.2em;
         width: 15em;
-        z-index: 20;
+        z-index: 1;
         opacity: 0;
         visibility: hidden;
         transform: translateY(2em);
@@ -187,7 +187,7 @@
             color: #fff;
             border-radius: 0.2em 0.2em 0 0;
             overflow: hidden;
-            z-index: -1;
+
 
             h1 {
                 @include font(400, 0.9em);

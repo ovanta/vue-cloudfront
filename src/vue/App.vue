@@ -228,8 +228,8 @@
 
         .background {
             position: fixed;
-            @include position(0, 0, 0, 0);
             z-index: -1;
+            @include position(0, 0, 0, 0);
 
             svg {
                 position: fixed;
