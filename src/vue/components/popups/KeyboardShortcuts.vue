@@ -87,17 +87,17 @@
                 const store = this.$store;
                 const state = store.state;
 
-                const selectedNodes = state.selection;
-                const clipboardNodes = state.clipboard.nodes;
+                const {selection, clipboard} = state;
+                const clipboardNodes = clipboard.nodes;
                 const locHash = store.getters['location/currentLocation'];
 
                 // Cut nodes
-                if (selectedNodes.length && keys.KeyX && keys.ctrlKey) {
+                if (selection.length && keys.KeyX && keys.ctrlKey) {
 
                     // Save to clipboard
                     store.commit('clipboard/clear');
                     store.commit('clipboard/insert', {
-                        nodes: selectedNodes,
+                        nodes: selection,
                         type: 'move'
                     });
 
@@ -105,12 +105,12 @@
                 }
 
                 // Copy nodes
-                if (selectedNodes.length && keys.KeyC && keys.ctrlKey) {
+                if (selection.length && keys.KeyC && keys.ctrlKey) {
 
                     // Save to clipboard
                     store.commit('clipboard/clear');
                     store.commit('clipboard/insert', {
-                        nodes: selectedNodes,
+                        nodes: selection,
                         type: 'copy'
                     });
 
@@ -126,8 +126,13 @@
                         destination: locHash
                     });
 
-                    // Clear clipboard
-                    store.commit('clipboard/clear');
+                    // Keep initially copied nodes in clipboard
+                    if (clipboard.type !== 'copy') {
+
+                        // Clear clipboard
+                        store.commit('clipboard/clear');
+                    }
+
                     return;
                 }
 
@@ -193,7 +198,7 @@
                 // Inverse selection all files
                 if (keys.KeyS && keys.KeyI) {
                     const nodesMap = nodes();
-                    const notSelected = nodesMap.file.concat(nodesMap.folder).filter(v => !selectedNodes.includes(v));
+                    const notSelected = nodesMap.file.concat(nodesMap.folder).filter(v => !selection.includes(v));
 
                     // Clear selection
                     store.commit('selection/clear');
@@ -205,19 +210,19 @@
 
                 // Add star
                 if (keys.KeyM && keys.KeyA) {
-                    this.$store.commit('nodes/addMark', selectedNodes);
+                    this.$store.commit('nodes/addMark', selection);
                     return;
                 }
 
                 // Remove star
                 if (keys.KeyM && keys.KeyR) {
-                    this.$store.commit('nodes/removeMark', selectedNodes);
+                    this.$store.commit('nodes/removeMark', selection);
                     return;
                 }
 
                 // Delete nodes
-                if (keys.Delete && selectedNodes.length) {
-                    store.commit('nodes/delete', selectedNodes);
+                if (keys.Delete && selection.length) {
+                    store.commit('nodes/delete', selection);
                     return;
                 }
 

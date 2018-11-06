@@ -99,11 +99,6 @@
             },
 
             star() {
-                if(this.marked){
-
-                } else {
-
-                }
                 this.$store.commit(`nodes/${ this.marked ? 'remove' : 'add' }Mark`, this.nodes);
                 this.open = false;
             },
@@ -150,8 +145,13 @@
                     // Move elements
                     this.$store.commit(`nodes/${clipboard.type}`, {nodes: clipboardNodes, destination: locHash});
 
-                    // Clear clipboard
-                    this.$store.commit('clipboard/clear');
+
+                    // Keep initially copied nodes in clipboard
+                    if (clipboard.type !== 'copy') {
+
+                        // Clear clipboard
+                        this.$store.commit('clipboard/clear');
+                    }
                 }
                 this.open = false;
             },
