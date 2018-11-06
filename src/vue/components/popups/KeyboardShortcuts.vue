@@ -49,6 +49,7 @@
                             {keys: ['ctrl', 'c'], action: 'Copy folder / files.'},
                             {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
                             {keys: ['n', 'f'], action: 'Create new folder.'},
+                            {keys: ['e', 'n'], action: 'Edit name.'},
                             {keys: ['m', 'a'], action: 'Add star to selected files / folders.'},
                             {keys: ['m', 'r'], action: 'Remove star from selected files / folders.'},
                             {keys: ['delete'], action: 'Deletes currently selected files / folders.'}
@@ -133,6 +134,13 @@
                         store.commit('clipboard/clear');
                     }
 
+                    return;
+                }
+
+                // Edit name
+                if (selection.length && keys.KeyE && keys.KeyN) {
+                    this.$store.commit('editable/set', selection[0]);
+                    event.preventDefault();
                     return;
                 }
 
