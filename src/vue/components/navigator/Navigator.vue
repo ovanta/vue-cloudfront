@@ -1,6 +1,8 @@
 <template>
     <section class="navigator" @contextmenu.prevent="openMenu($event)">
 
+        <search-bar></search-bar>
+
         <!-- Navigation bar with hierarchy -->
         <div class="nav">
             <hierarchy></hierarchy>
@@ -40,6 +42,7 @@
     import ListView from './views/ListView';
     import GridView from './views/GridView';
     import ContextMenu from './ContextMenu';
+    import SearchBar from './SearchBar';
 
     export default {
 
@@ -47,7 +50,8 @@
             Hierarchy,
             ListView,
             GridView,
-            ContextMenu
+            ContextMenu,
+            SearchBar
         },
 
         data() {
@@ -163,8 +167,6 @@
     .navigator {
         @include flex(column);
         flex-grow: 1;
-        padding: 2em 2em 0 2em;
-        background: mix($palette-snow-white, white, 75);
     }
 
     .nav {
@@ -172,6 +174,7 @@
         flex-shrink: 0;
         border-bottom: 2px solid rgba($palette-deep-blue, 0.03);
         padding-bottom: 1em;
+        margin: 2em 1.5em 0 1.5em;
 
         .controls {
             position: relative;
@@ -200,6 +203,7 @@
     }
 
     .view {
+        margin: 0 2em 0 2em;
         @include animate('1s ease forwards') {
             from {
                 opacity: 0;

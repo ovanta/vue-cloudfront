@@ -32,7 +32,7 @@ export const nodes = {
                 const nodes = (() => {
                     if (search.active) {
                         return search.nodes;
-                    } else if (rootState.activeTab === 'markedNodes') {
+                    } else if (rootState.activeTab === 'marked') {
                         return state.filter(v => v.marked);
                     } else {
                         return state;
@@ -65,7 +65,7 @@ export const nodes = {
 
                 // Find folder and files which has the current locations as parent
                 // and calculate size
-                const autoAdd = rootState.activeTab === 'markedNodes' || search.active;
+                const autoAdd = rootState.activeTab === 'marked' || search.active;
                 for (let i = 0, n; n = nodes[i], i < stateNodesAmount; i++) {
 
                     // Check if parent is the current location

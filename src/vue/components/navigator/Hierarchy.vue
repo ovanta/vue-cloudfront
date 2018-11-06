@@ -60,7 +60,7 @@
 
             markedNodes() {
 
-                if (this.$store.state.activeTab !== 'markedNodes') {
+                if (this.$store.state.activeTab !== 'marked') {
                     return null;
                 }
 

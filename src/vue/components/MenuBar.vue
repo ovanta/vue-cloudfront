@@ -7,8 +7,8 @@
                 <i class="fas fa-fw fa-home"></i>
             </div>
 
-            <div :class="{'item': 1, active: $store.state.activeTab === 'markedNodes'}">
-                <i class="fas fa-fw fa-bookmark" @click="$store.commit('setActiveTab', 'markedNodes')"></i>
+            <div :class="{'item': 1, active: $store.state.activeTab === 'marked'}">
+                <i class="fas fa-fw fa-bookmark" @click="$store.commit('setActiveTab', 'marked')"></i>
                 <intro-box header="Marked Folders and files" text="Mark your important files, folder or just use it as a quick way to access them."></intro-box>
             </div>
 
@@ -21,7 +21,7 @@
 
     export default {
         data() {
-            return { };
+            return {};
         }
     };
 

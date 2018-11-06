@@ -13,19 +13,17 @@
             </svg>
         </div>
 
-
         <menu-bar></menu-bar>
 
-        <div class="left-content">
+        <div class="right-side">
 
-            <!-- Main app components -->
-            <search-bar></search-bar>
-            <main-content></main-content>
+            <!-- Tabs, dynamic, getting changed via menu tabs -->
+            <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
 
-            <!-- Debug screen -->
+            <!-- Debug screen (fixed) -->
             <debug-screen></debug-screen>
 
-            <!-- Helping pages -->
+            <!-- Helping pages (fixed) -->
             <shortcuts-help-page></shortcuts-help-page>
             <filter-help-page></filter-help-page>
         </div>
@@ -45,8 +43,7 @@
     import './mixins';
 
     // Components
-    import MainContent from './components/navigator/Navigator';
-    import SearchBar from './components/SearchBar';
+    import Navigator from './components/navigator/Navigator';
     import DebugScreen from './components/DebugScreen';
     import MenuBar from './components/MenuBar';
 
@@ -58,7 +55,17 @@
 
     export default {
 
-        components: {MainContent, SearchBar, DebugScreen, ShortcutsHelpPage, FilterHelpPage, MenuBar},
+        components: {
+
+            // Tabs
+            Navigator,
+
+            // Static items
+            DebugScreen,
+            ShortcutsHelpPage,
+            FilterHelpPage,
+            MenuBar
+        },
 
         data() {
             return {};
@@ -221,7 +228,8 @@
         border-radius: 0.5em;
         overflow: hidden;
 
-        .left-content {
+        .right-side {
+            background: mix($palette-snow-white, white, 75);
             @include flex(column);
             width: 100%;
         }

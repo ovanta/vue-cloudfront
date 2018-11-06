@@ -278,7 +278,7 @@
 
                 // Show starred files / folders
                 if (keys.KeyJ && keys.KeyM) {
-                    this.$store.commit('setActiveTab', 'markedNodes');
+                    this.$store.commit('setActiveTab', 'marked');
                 }
             }
         },

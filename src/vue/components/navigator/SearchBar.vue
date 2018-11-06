@@ -36,8 +36,8 @@
 <script>
 
     // UI Components
-    import MultiSwitchButton from '../ui/MultiSwitchButton';
-    import SimpleButton from '../ui/SimpleButton';
+    import MultiSwitchButton from '../../ui/MultiSwitchButton';
+    import SimpleButton from '../../ui/SimpleButton';
 
     export default {
 
