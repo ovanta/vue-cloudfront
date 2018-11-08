@@ -90,7 +90,6 @@
 
         mounted() {
             this.$callOnDestroy(
-
                 // If nodes getting deleted / added update search.
                 this.$store.watch(state => state.nodes, () => this.updateSearch()),
 

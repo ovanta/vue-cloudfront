@@ -94,12 +94,12 @@
         methods: {
 
             del() {
-                this.$store.commit('nodes/delete', this.nodes);
+                this.$store.dispatch('nodes/delete', this.nodes);
                 this.open = false;
             },
 
             star() {
-                this.$store.commit(`nodes/${ this.marked ? 'remove' : 'add' }Mark`, this.nodes);
+                this.$store.dispatch(`nodes/${ this.marked ? 'remove' : 'add' }Mark`, this.nodes);
                 this.open = false;
             },
 
@@ -156,7 +156,7 @@
             },
 
             setColor(color) {
-                this.$store.commit('nodes/changeColor', {nodes: this.nodes, color});
+                this.$store.dispatch('nodes/changeColor', {nodes: this.nodes, color});
             }
 
         },

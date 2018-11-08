@@ -226,19 +226,19 @@
 
                 // Add star
                 if (keys.KeyM && keys.KeyA) {
-                    this.$store.commit('nodes/addMark', selection);
+                    this.$store.dispatch('nodes/addMark', selection);
                     return;
                 }
 
                 // Remove star
                 if (keys.KeyM && keys.KeyR) {
-                    this.$store.commit('nodes/removeMark', selection);
+                    this.$store.dispatch('nodes/removeMark', selection);
                     return;
                 }
 
                 // Delete nodes
                 if (keys.Delete && selection.length) {
-                    store.commit('nodes/delete', selection);
+                    store.dispatch('nodes/delete', selection);
                     return;
                 }
 

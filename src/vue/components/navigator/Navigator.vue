@@ -36,7 +36,6 @@
 
     // Modules
     import Selection from '@simonwep/selection-js';
-
     // Components
     import Hierarchy from './Hierarchy';
     import ListView from './views/ListView';
@@ -76,7 +75,6 @@
         mounted() {
 
             this.$callOnDestroy(
-
                 // Clear selection if nodes change
                 this.$store.watch(store => store.nodes, () => this.$store.commit('selection/clear')),
 

@@ -188,7 +188,6 @@
             border-radius: 0.2em 0.2em 0 0;
             overflow: hidden;
 
-
             h1 {
                 @include font(400, 0.9em);
 

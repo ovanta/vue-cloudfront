@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-Vue.use(Vuex);
-
 // Modules
 import {nodes} from './nodes';
 import {location} from './location';
@@ -11,6 +9,8 @@ import {selection} from './selection';
 import {editable} from './editable';
 import {colors} from './statics/colors';
 import {search} from './search';
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {nodes, location, clipboard, selection, editable, colors, search},
@@ -38,7 +38,7 @@ export default new Vuex.Store({
         },
 
         setActiveTab(state, tab) {
-            state.activeTab =tab;
+            state.activeTab = tab;
         },
 
         setViewType(state, type) {

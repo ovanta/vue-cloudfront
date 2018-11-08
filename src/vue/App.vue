@@ -165,7 +165,7 @@
             })(20, root.hash, 4); // Trigger recursive generating
 
             console.log(`[INI] ${nodes.length} Nodes generated.`);
-            this.$store.commit('nodes/update', nodes);
+            this.$store.dispatch('nodes/update', nodes);
             this.$store.commit('location/update', root);
         }
     };

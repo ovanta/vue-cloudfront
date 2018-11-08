@@ -90,122 +90,6 @@ export const nodes = {
         }
     },
 
-    // TODO: Move everything to actions to allow promises
-    mutations: {
-
-        /**
-         * Replaces the current node-list
-         * @param state
-         * @param newNodes
-         */
-        update(state, newNodes) {
-
-            // Validate
-            if (!Array.isArray(newNodes)) {
-                throw `Cannot perform 'update' in nodes. 'newNodes' isn't a Array.`;
-            }
-
-            state.splice(0, state.length, ...newNodes);
-        },
-
-        /**
-         * Deletes nodes recursivly
-         * @param state
-         * @param nodes
-         */
-        delete(state, nodes) {
-
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'delete' in nodes. 'nodes' isn't a Array.`;
-            }
-
-            function rm(node) {
-
-                // If folder, delete all siblings first
-                if (node.type === 'folder') {
-                    for (let i = 0, n; n = state[i], i < state.length; i++) {
-                        if (n.parent === node.hash) {
-                            rm(n);
-                            i = 0;
-                        }
-                    }
-                }
-
-                // Remove node
-                state.splice(state.indexOf(node), 1);
-            }
-
-            // Delete folder / files recursivly
-            for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
-                rm(n);
-            }
-        },
-
-        addMark(state, nodes) {
-
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'mark' in nodes. 'nodes' isn't a Array.`;
-            }
-
-            for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
-                n.marked = true;
-            }
-        },
-
-        removeMark(state, nodes) {
-
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'removeMark' in nodes. 'nodes' isn't a Array.`;
-            }
-
-            for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
-                n.marked = false;
-            }
-        },
-
-        /**
-         * Renames one node
-         * @param state
-         * @param node
-         * @param newName
-         */
-        rename(state, {node, newName}) {
-
-            // Validate
-            if (!node || !~state.indexOf(node)) {
-                throw `Cannot perform 'rename' in nodes. 'node' is invalid or not present in current state.`;
-            }
-
-            if (!(typeof newName === 'string') || newName.length === 0) {
-                throw `Cannot perform 'rename' in nodes. 'newName' should be a String and not empty.`;
-            }
-
-            // Update last-modified
-            node.lastModified = Date.now();
-
-            // Perform rename
-            node.name = newName;
-        },
-
-        changeColor(state, {nodes, color}) {
-
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'changeColor' in nodes. nodes isn't an Array.`;
-            }
-
-            if (typeof color !== 'string') {
-                throw `Cannot perform 'changeColor' in nodes. color isn't a String.`;
-            }
-
-            // Override color
-            nodes.forEach(n => n.color = color);
-        }
-    },
-
     actions: {
 
         /**
@@ -381,7 +265,119 @@ export const nodes = {
             }
 
             state.push(...cloned);
-        }
+        },
 
+
+        /**
+         * Replaces the current node-list
+         * @param state
+         * @param newNodes
+         */
+        update({state}, newNodes) {
+
+            // Validate
+            if (!Array.isArray(newNodes)) {
+                throw `Cannot perform 'update' in nodes. 'newNodes' isn't a Array.`;
+            }
+
+            state.splice(0, state.length, ...newNodes);
+        },
+
+        /**
+         * Deletes nodes recursivly
+         * @param state
+         * @param nodes
+         */
+        delete({state}, nodes) {
+
+            // Validate
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform 'delete' in nodes. 'nodes' isn't a Array.`;
+            }
+
+            function rm(node) {
+
+                // If folder, delete all siblings first
+                if (node.type === 'folder') {
+                    for (let i = 0, n; n = state[i], i < state.length; i++) {
+                        if (n.parent === node.hash) {
+                            rm(n);
+                            i = 0;
+                        }
+                    }
+                }
+
+                // Remove node
+                state.splice(state.indexOf(node), 1);
+            }
+
+            // Delete folder / files recursivly
+            for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
+                rm(n);
+            }
+        },
+
+        addMark({state}, nodes) {
+
+            // Validate
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform 'mark' in nodes. 'nodes' isn't a Array.`;
+            }
+
+            for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
+                n.marked = true;
+            }
+        },
+
+        removeMark({state}, nodes) {
+
+            // Validate
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform 'removeMark' in nodes. 'nodes' isn't a Array.`;
+            }
+
+            for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
+                n.marked = false;
+            }
+        },
+
+        /**
+         * Renames one node
+         * @param state
+         * @param node
+         * @param newName
+         */
+        rename({state}, {node, newName}) {
+
+            // Validate
+            if (!node || !~state.indexOf(node)) {
+                throw `Cannot perform 'rename' in nodes. 'node' is invalid or not present in current state.`;
+            }
+
+            if (!(typeof newName === 'string') || newName.length === 0) {
+                throw `Cannot perform 'rename' in nodes. 'newName' should be a String and not empty.`;
+            }
+
+            // Update last-modified
+            node.lastModified = Date.now();
+
+            // Perform rename
+            node.name = newName;
+        },
+
+        changeColor({state}, {nodes, color}) {
+
+            // Validate
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform 'changeColor' in nodes. nodes isn't an Array.`;
+            }
+
+            if (typeof color !== 'string') {
+                throw `Cannot perform 'changeColor' in nodes. color isn't a String.`;
+            }
+
+            // Override color
+            nodes.forEach(n => n.color = color);
+        }
     }
 };
