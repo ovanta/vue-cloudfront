@@ -48,8 +48,7 @@
 
         data() {
             return {
-                searchQuery: '',
-                storeUnsubscription: null
+                searchQuery: ''
             };
         },
 
@@ -65,62 +64,49 @@
             },
 
             setRegexOption(state) {
-
                 this.$store.commit('search/setOption', {
                     key: 'regex',
                     value: state
                 });
-
                 this.updateSearch();
             },
 
             setCaseInsensitivOption(state) {
-
                 this.$store.commit('search/setOption', {
                     key: 'ignoreCase',
                     value: state
                 });
-
                 this.updateSearch();
             },
 
             setTypeOption(state) {
-
                 this.$store.commit('search/setOption', {
                     key: 'type',
                     value: state.toLowerCase()
                 });
-
                 this.updateSearch();
             }
         },
 
         mounted() {
+            this.$callOnDestroy(
 
-            // Listen for node-changes
-            this.storeUnsubscription = this.$store.subscribe(mutation => {
+                // If nodes getting deleted / added update search.
+                this.$store.watch(state => state.nodes, () => this.updateSearch()),
 
-                // No need to do something if no search is performed
-                if (!this.searchQuery) {
-                    return;
-                }
+                this.$store.subscribe(mutation => {
 
-                // Update search on changes
-                if (mutation.type.startsWith('nodes')) {
-                    this.updateSearch();
-                }
+                    // No need to do something if no search is performed
+                    if (!this.searchQuery) {
+                        return;
+                    }
 
-                // Clear search on location change
-                if (mutation.type.startsWith('location')) {
-                    this.clear();
-                }
-            });
-        },
-
-        destroyed() {
-            if (this.storeUnsubscription) {
-                this.storeUnsubscription();
-            }
+                    // Clear search if location changes
+                    if (mutation.type.startsWith('location')) {
+                        this.clear();
+                    }
+                })
+            );
         }
 
     };

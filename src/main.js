@@ -6,6 +6,9 @@ import store from './vue/store/index';
 import IntroBox from './vue/ui/IntroBox';
 Vue.component('intro-box', IntroBox);
 
+import CallOnDestroy from './vue/plugins/CallOnDestroy';
+Vue.use(CallOnDestroy);
+
 new Vue({
     render: h => h(App),
     store

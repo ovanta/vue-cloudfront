@@ -57,9 +57,7 @@
         data() {
             return {
                 selection: null,
-
-                selectionInstance: null,
-                storeUnsubscription: null
+                selectionInstance: null
             };
         },
 
@@ -77,23 +75,24 @@
 
         mounted() {
 
-            this.storeUnsubscription = this.$store.subscribe(mutation => {
+            this.$callOnDestroy(
 
-                // Cancel selection / close menu on new location
-                if (mutation.type === 'location/update') {
+                // Clear selection if nodes change
+                this.$store.watch(store => store.nodes, () => this.$store.commit('selection/clear')),
 
-                    // Hide menu
-                    this.$refs.contextMenu.$emit('hide');
+                this.$store.subscribe(mutation => {
 
-                    // Clear selection
-                    this.$store.commit('selection/clear');
-                }
+                    // Cancel selection / close menu on new location
+                    if (mutation.type === 'location/update') {
 
-                // Clear selection if delete action was performed
-                if (mutation.type === 'nodes/delete') {
-                    this.$store.commit('selection/clear');
-                }
-            });
+                        // Hide menu
+                        this.$refs.contextMenu.$emit('hide');
+
+                        // Clear selection
+                        this.$store.commit('selection/clear');
+                    }
+                })
+            );
 
             // Create selection instance
             const vueInst = this;
@@ -146,11 +145,6 @@
         },
 
         destroyed() {
-
-            // Unsubscribe from store if existing
-            if (this.storeUnsubscription) {
-                this.storeUnsubscription();
-            }
 
             // Destory selection instance
             if (this.selection) {

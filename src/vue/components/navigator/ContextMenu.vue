@@ -143,8 +143,7 @@
                 if (clipboardNodes.length) {
 
                     // Move elements
-                    this.$store.commit(`nodes/${clipboard.type}`, {nodes: clipboardNodes, destination: locHash});
-
+                    this.$store.dispatch(`nodes/${clipboard.type}`, {nodes: clipboardNodes, destination: locHash});
 
                     // Keep initially copied nodes in clipboard
                     if (clipboard.type !== 'copy') {

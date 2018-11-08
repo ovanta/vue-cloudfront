@@ -75,9 +75,7 @@
                             {keys: ['h', 'f'], action: 'Show search filters.'}
                         ]
                     }
-                ],
-
-                detectKeyCombinationsUnsubscription: null
+                ]
             };
         },
 
@@ -122,7 +120,7 @@
                 if (clipboardNodes.length && keys.KeyV && keys.ctrlKey) {
 
                     // Move elements
-                    store.commit(`nodes/${state.clipboard.type}`, {
+                    store.dispatch(`nodes/${state.clipboard.type}`, {
                         nodes: clipboardNodes,
                         destination: locHash
                     });
@@ -164,7 +162,7 @@
                 // Define nodes as function to prevent
                 // useless calculations. Returns, if there is, the search result
                 // or all nodes which are currently into view.
-                const nodes = () => state.search.active ? state.search.nodes : store.getters['nodes/currentDisplayedNodes']();
+                const nodes = () => store.getters['nodes/currentDisplayedNodes']();
 
                 // Select everything
                 if (keys.ctrlKey && keys.KeyA) {
@@ -284,15 +282,9 @@
         },
 
         mounted() {
-            this.detectKeyCombinationsUnsubscription = this.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body);
-        },
-
-        destroyed() {
-
-            // Unbind detectKeyCombinationsListener
-            if (this.detectKeyCombinationsUnsubscription) {
-                this.detectKeyCombinationsUnsubscription();
-            }
+            this.$callOnDestroy(
+                this.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body)
+            );
         }
     };
 

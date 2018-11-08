@@ -90,6 +90,7 @@ export const nodes = {
         }
     },
 
+    // TODO: Move everything to actions to allow promises
     mutations: {
 
         /**
@@ -189,13 +190,68 @@ export const nodes = {
             node.name = newName;
         },
 
+        changeColor(state, {nodes, color}) {
+
+            // Validate
+            if (!Array.isArray(nodes)) {
+                throw `Cannot perform 'changeColor' in nodes. nodes isn't an Array.`;
+            }
+
+            if (typeof color !== 'string') {
+                throw `Cannot perform 'changeColor' in nodes. color isn't a String.`;
+            }
+
+            // Override color
+            nodes.forEach(n => n.color = color);
+        }
+    },
+
+    actions: {
+
+        /**
+         * Creates a new folder within the parent.
+         * @param commit
+         * @param state
+         * @param parentHash
+         */
+        createFolder({commit, state}, parentHash) {
+
+            // Validate
+            if (typeof parentHash !== 'string' || !~state.find(v => v.hash === parentHash)) {
+                throw `Cannot perform 'createFolder' in nodes. parent invalid or not present in state.`;
+            }
+
+            // TODO: Do centralized generating / creating of folders
+            // Create folder
+            const newFolder = {
+
+                // TODO: create colission resistend function / backend to generate the hash
+                hash: Math.round(Math.random() * 1e13).toString(16),
+                parent: parentHash,
+                type: 'folder',
+                name: 'New Folder',
+                lastModified: Date.now(),
+                color: '#7E58C2',
+                marked: false,
+                editable: true
+            };
+
+            state.push(newFolder);
+            return newFolder;
+        },
+
         /**
          * Move nodes to another folder
          * @param state
          * @param nodes
          * @param destination
          */
-        move(state, {nodes, destination}) {
+        move({state, rootState}, {nodes, destination}) {
+
+            // Prevent copy / move actions if search is active or user isn't at home
+            if (rootState.search.active || rootState.activeTab !== 'home') {
+                return;
+            }
 
             // Validate
             if (!Array.isArray(nodes)) {
@@ -228,7 +284,12 @@ export const nodes = {
             nodes.forEach(n => n.parent = destination);
         },
 
-        copy(state, {nodes, destination}) {
+        copy({state, rootState}, {nodes, destination}) {
+
+            // If user is currently not at home, ignore action
+            if (rootState.activeTab !== 'home') {
+                return;
+            }
 
             // Validate
             if (!Array.isArray(nodes)) {
@@ -241,6 +302,7 @@ export const nodes = {
 
             // TODO: Centralized hash-gen?!
             const genHash = () => Math.round(Math.random() * 1e13).toString(16);
+
 
             function getSiblings(node) {
                 const siblings = [];
@@ -307,61 +369,18 @@ export const nodes = {
             });
 
             // Set new parent and clone siblings and push to nodes
+            const searchActive = rootState.search.active;
             for (let i = 0, n, l = cloned.length; n = cloned[i], i < l; i++) {
+
+                // Don't re-define parents if search is performed
+                if (!searchActive) {
+                    n.parent = destination;
+                }
+
                 cloned.push(...getSiblings(n));
             }
 
             state.push(...cloned);
-        },
-
-        changeColor(state, {nodes, color}) {
-
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'changeColor' in nodes. nodes isn't an Array.`;
-            }
-
-            if (typeof color !== 'string') {
-                throw `Cannot perform 'changeColor' in nodes. color isn't a String.`;
-            }
-
-            // Override color
-            nodes.forEach(n => n.color = color);
-        }
-    },
-
-    actions: {
-
-        /**
-         * Creates a new folder within the parent.
-         * @param commit
-         * @param state
-         * @param parentHash
-         */
-        createFolder({commit, state}, parentHash) {
-
-            // Validate
-            if (typeof parentHash !== 'string' || !~state.find(v => v.hash === parentHash)) {
-                throw `Cannot perform 'createFolder' in nodes. parent invalid or not present in state.`;
-            }
-
-            // TODO: Do centralized generating / creating of folders
-            // Create folder
-            const newFolder = {
-
-                // TODO: create colission resistend function / backend to generate the hash
-                hash: Math.round(Math.random() * 1e13).toString(16),
-                parent: parentHash,
-                type: 'folder',
-                name: 'New Folder',
-                lastModified: Date.now(),
-                color: '#7E58C2',
-                marked: false,
-                editable: true
-            };
-
-            state.push(newFolder);
-            return newFolder;
         }
 
     }
