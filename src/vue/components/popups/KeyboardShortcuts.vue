@@ -88,7 +88,7 @@
 
                 const {selection, clipboard} = state;
                 const clipboardNodes = clipboard.nodes;
-                const locHash = store.getters['location/currentLocation'];
+                const currentLocation = state.location.node;
 
                 // Cut nodes
                 if (selection.length && keys.KeyX && keys.ctrlKey) {
@@ -122,7 +122,7 @@
                     // Move elements
                     store.dispatch(`nodes/${state.clipboard.type}`, {
                         nodes: clipboardNodes,
-                        destination: locHash
+                        destination: currentLocation
                     });
 
                     // Keep initially copied nodes in clipboard
@@ -258,7 +258,7 @@
                 if (keys.KeyN && keys.KeyF) {
 
                     // Create a folder and immediatly make it editable
-                    store.dispatch('nodes/createFolder', store.getters['location/currentLocation']).then(folderNode => {
+                    store.dispatch('nodes/createFolder', currentLocation).then(folderNode => {
                         store.commit('editable/set', folderNode);
                     });
 

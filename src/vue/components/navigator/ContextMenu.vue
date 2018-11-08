@@ -117,7 +117,7 @@
             newFolder() {
 
                 // Create a folder and immediatly make it editable
-                this.$store.dispatch('nodes/createFolder', this.$store.getters['location/currentLocation']).then(folderNode => {
+                this.$store.dispatch('nodes/createFolder', this.$store.state.location.node).then(folderNode => {
                     this.$store.commit('editable/set', folderNode);
                 });
 
@@ -137,13 +137,15 @@
             },
 
             execClipboardAction() {
-                const {clipboard} = this.$store.state;
+                const {clipboard, location} = this.$store.state;
                 const clipboardNodes = clipboard.nodes;
-                const locHash = this.$store.getters['location/currentLocation'];
                 if (clipboardNodes.length) {
 
                     // Move elements
-                    this.$store.dispatch(`nodes/${clipboard.type}`, {nodes: clipboardNodes, destination: locHash});
+                    this.$store.dispatch(`nodes/${clipboard.type}`, {
+                        nodes: clipboardNodes,
+                        destination: location.node
+                    });
 
                     // Keep initially copied nodes in clipboard
                     if (clipboard.type !== 'copy') {

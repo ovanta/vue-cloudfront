@@ -20,7 +20,7 @@ export const nodes = {
              * of each folder should be calculated.
              */
             return includeFolderSize => {
-                const {selection, clipboard, editable, search} = rootState;
+                const {selection, clipboard, editable, search, location} = rootState;
                 const selectionNodes = selection;
                 const clipboardNodes = clipboard.nodes;
                 const editableNode = editable.node;
@@ -40,7 +40,7 @@ export const nodes = {
                 })();
 
                 const stateNodesAmount = nodes.length;
-                const locHash = otherGetters['location/currentLocation'];
+                const locHash = location.node && location.node.hash;
                 const ret = {file: [], folder: []}; // Seperate files and folders
 
                 function calcFolderSize(hash) {
@@ -96,12 +96,12 @@ export const nodes = {
          * Creates a new folder within the parent.
          * @param commit
          * @param state
-         * @param parentHash
+         * @param destination
          */
-        createFolder({commit, state}, parentHash) {
+        createFolder({commit, state}, destination) {
 
             // Validate
-            if (typeof parentHash !== 'string' || !~state.find(v => v.hash === parentHash)) {
+            if (typeof destination !== 'object' || !~state.find(v => v === destination)) {
                 throw `Cannot perform 'createFolder' in nodes. parent invalid or not present in state.`;
             }
 
@@ -111,7 +111,7 @@ export const nodes = {
 
                 // TODO: create colission resistend function / backend to generate the hash
                 hash: Math.round(Math.random() * 1e13).toString(16),
-                parent: parentHash,
+                parent: destination.hash,
                 type: 'folder',
                 name: 'New Folder',
                 lastModified: Date.now(),
@@ -127,6 +127,7 @@ export const nodes = {
         /**
          * Move nodes to another folder
          * @param state
+         * @param rootState
          * @param nodes
          * @param destination
          */
@@ -142,30 +143,31 @@ export const nodes = {
                 throw `Cannot perform 'move' in nodes. 'nodes' isn't a Array.`;
             }
 
-            if (typeof destination !== 'string') {
-                throw `Cannot perform 'move' in nodes. 'destination' isn't a String.`;
+            if (typeof destination !== 'object') {
+                throw `Cannot perform 'move' in nodes. 'destination' isn't a Object.`;
             }
 
             // Check if user paste folder into itself or one of its siblings
-            function getSubFolders(hash) {
-                const subfolder = [hash];
+            function getSubFolders(node) {
+                const hash = node.hash;
+                const subfolder = [node];
 
                 for (let i = 0, n; n = state[i], i < state.length; i++) {
                     if (n.parent === hash && n.type === 'folder') {
-                        subfolder.push(...getSubFolders(n.hash));
+                        subfolder.push(...getSubFolders(n));
                     }
                 }
 
                 return subfolder;
             }
 
-            const subfolder = getSubFolders(nodes[0].hash);
+            const subfolder = getSubFolders(nodes[0]);
             if (subfolder.includes(destination)) {
                 throw `Cannot perform 'move' in nodes. Cannot put a folder into itself`;
             }
 
             // Move nodes
-            nodes.forEach(n => n.parent = destination);
+            nodes.forEach(n => n.parent = destination.hash);
         },
 
         copy({state, rootState}, {nodes, destination}) {
@@ -180,8 +182,8 @@ export const nodes = {
                 throw `Cannot perform 'copy' in nodes. nodes isn't an Array.`;
             }
 
-            if (typeof destination !== 'string') {
-                throw `Cannot perform 'copy' in nodes. destination isn't a String.`;
+            if (typeof destination !== 'object') {
+                throw `Cannot perform 'copy' in nodes. destination isn't a Object.`;
             }
 
             // TODO: Centralized hash-gen?!
@@ -258,7 +260,7 @@ export const nodes = {
 
                 // Don't re-define parents if search is performed
                 if (!searchActive) {
-                    n.parent = destination;
+                    n.parent = destination.hash;
                 }
 
                 cloned.push(...getSiblings(n));
