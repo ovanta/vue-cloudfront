@@ -1,14 +1,18 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-// Modules
+// Server-related nodes
 import {nodes} from './nodes';
-import {location} from './location';
-import {clipboard} from './clipboard';
-import {selection} from './selection';
-import {editable} from './editable';
+
+// Static props
 import {colors} from './statics/colors';
-import {search} from './search';
+
+// Virtual modules act only as visual helpers / representation
+import {location} from './virtual/location';
+import {clipboard} from './virtual/clipboard';
+import {selection} from './virtual/selection';
+import {editable} from './virtual/editable';
+import {search} from './virtual/search';
 
 Vue.use(Vuex);
 
