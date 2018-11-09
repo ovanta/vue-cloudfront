@@ -61,7 +61,9 @@
                         shortcuts: [
                             {keys: ['v', 'l'], action: 'Change view to list.'},
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
-                            {keys: ['j', 'm'], action: 'Show / hide marked folders / files.'},
+                            {keys: ['j', 'h'], action: 'Switch to home tab.'},
+                            {keys: ['j', 'm'], action: 'Switch to marked tab.'},
+                            {keys: ['j', 'a'], action: 'Switch to history tab.'},
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
                             {keys: ['d', 'b'], action: 'Show debug screen.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'}
@@ -282,9 +284,21 @@
                     return;
                 }
 
-                // Show starred files / folders
+                // Switch to home screen
+                if (keys.KeyJ && keys.KeyH) {
+                    this.$store.commit('setActiveTab', 'home');
+                    return;
+                }
+
+                // Swtich to marked screen
                 if (keys.KeyJ && keys.KeyM) {
                     this.$store.commit('setActiveTab', 'marked');
+                    return;
+                }
+
+                // Swtich to history screen
+                if (keys.KeyJ && keys.KeyA) {
+                    this.$store.commit('setActiveTab', 'history');
                 }
             }
         },
