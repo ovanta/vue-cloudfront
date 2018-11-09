@@ -189,8 +189,12 @@ export const nodes = {
             // TODO: Centralized hash-gen?!
             const genHash = () => Math.round(Math.random() * 1e13).toString(16);
 
-
-            function getSiblings(node) {
+            /**
+             * Clones a node-tree
+             * @param node Entry node
+             * @returns {Array} Cloned nodes
+             */
+            function cloneSiblings(node) {
                 const siblings = [];
 
                 /**
@@ -206,7 +210,7 @@ export const nodes = {
                         siblings.push({...n});
 
                         if (n.type === 'folder') {
-                            siblings.push(...getSiblings(n));
+                            siblings.push(...cloneSiblings(n));
                         }
 
                         // Apply new hash from parent element
@@ -230,7 +234,7 @@ export const nodes = {
                      * and it starts with the current to-copy nodes name and
                      * has already a copy flag increase it.
                      */
-                    if (n.parent === v.parent &&
+                    if (n.parent === destination.hash &&
                         n.name.startsWith(v.name) &&
                         (match = n.name.match(/\((([\d]+)th |)Copy\)$/))) {
 
@@ -263,9 +267,10 @@ export const nodes = {
                     n.parent = destination.hash;
                 }
 
-                cloned.push(...getSiblings(n));
+                cloned.push(...cloneSiblings(n));
             }
 
+            // Append cloned nodes
             state.push(...cloned);
         },
 
