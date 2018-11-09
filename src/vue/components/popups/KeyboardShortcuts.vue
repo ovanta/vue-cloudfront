@@ -86,9 +86,66 @@
                 const store = this.$store;
                 const state = store.state;
 
-                const {selection, clipboard} = state;
+                const {selection, clipboard, activeTab} = state;
                 const clipboardNodes = clipboard.nodes;
                 const currentLocation = state.location.node;
+
+                // Shortcuts which are only available at the home screen
+                if (activeTab === 'home') {
+
+                    // Copy nodes
+                    if (selection.length && keys.KeyC && keys.ctrlKey) {
+
+                        // Save to clipboard
+                        store.commit('clipboard/clear');
+                        store.commit('clipboard/insert', {
+                            nodes: selection,
+                            type: 'copy'
+                        });
+
+                        return;
+                    }
+
+                    // Paste nodes
+                    if (clipboardNodes.length && keys.KeyV && keys.ctrlKey) {
+
+                        // Move elements
+                        store.dispatch(`nodes/${state.clipboard.type}`, {
+                            nodes: clipboardNodes,
+                            destination: currentLocation
+                        });
+
+                        // Keep initially copied nodes in clipboard
+                        if (clipboard.type !== 'copy') {
+
+                            // Clear clipboard
+                            store.commit('clipboard/clear');
+                        }
+
+                        return;
+                    }
+
+
+                    // Hierarchy up event
+                    if (keys.KeyG && keys.KeyU) {
+                        store.dispatch('location/goUp');
+                        return;
+                    }
+
+                    // Create new folder
+                    if (keys.KeyN && keys.KeyF) {
+
+                        // Create a folder and immediatly make it editable
+                        store.dispatch('nodes/createFolder', currentLocation).then(folderNode => {
+                            store.commit('editable/set', folderNode);
+                        });
+
+                        // Prevent setting the letter 'f' as folder name because the freshly created
+                        // folder is editable.
+                        event.preventDefault();
+                        return;
+                    }
+                }
 
                 // Cut nodes
                 if (selection.length && keys.KeyX && keys.ctrlKey) {
@@ -103,37 +160,6 @@
                     return;
                 }
 
-                // Copy nodes
-                if (selection.length && keys.KeyC && keys.ctrlKey) {
-
-                    // Save to clipboard
-                    store.commit('clipboard/clear');
-                    store.commit('clipboard/insert', {
-                        nodes: selection,
-                        type: 'copy'
-                    });
-
-                    return;
-                }
-
-                // Paste nodes
-                if (clipboardNodes.length && keys.KeyV && keys.ctrlKey) {
-
-                    // Move elements
-                    store.dispatch(`nodes/${state.clipboard.type}`, {
-                        nodes: clipboardNodes,
-                        destination: currentLocation
-                    });
-
-                    // Keep initially copied nodes in clipboard
-                    if (clipboard.type !== 'copy') {
-
-                        // Clear clipboard
-                        store.commit('clipboard/clear');
-                    }
-
-                    return;
-                }
 
                 // Edit name
                 if (selection.length && keys.KeyE && keys.KeyN) {
@@ -142,18 +168,13 @@
                     return;
                 }
 
-                // Hierarchy up event
-                if (keys.KeyG && keys.KeyU) {
-                    store.dispatch('location/goUp');
-                    return;
-                }
-
-                // Change views
+                // Change to grid-view
                 if (keys.KeyV && keys.KeyG) {
                     store.commit('setViewType', 'grid');
                     return;
                 }
 
+                // Chantge to list-view
                 if (keys.KeyV && keys.KeyL) {
                     store.commit('setViewType', 'list');
                     return;
@@ -209,6 +230,7 @@
 
                     // Close editable node
                     this.$store.commit('editable/reset');
+                    return;
                 }
 
                 // Inverse selection all files
@@ -224,13 +246,13 @@
                     return;
                 }
 
-                // Add star
+                // Add mark
                 if (keys.KeyM && keys.KeyA) {
                     this.$store.dispatch('nodes/addMark', selection);
                     return;
                 }
 
-                // Remove star
+                // Remove mark
                 if (keys.KeyM && keys.KeyR) {
                     this.$store.dispatch('nodes/removeMark', selection);
                     return;
@@ -251,20 +273,6 @@
                 // Show search filters
                 if (keys.KeyH && keys.KeyF) {
                     this.$store.commit('setActivePopup', 'SearchFilters');
-                    return;
-                }
-
-                // Create new folder
-                if (keys.KeyN && keys.KeyF) {
-
-                    // Create a folder and immediatly make it editable
-                    store.dispatch('nodes/createFolder', currentLocation).then(folderNode => {
-                        store.commit('editable/set', folderNode);
-                    });
-
-                    // Prevent setting the letter 'f' as folder name because the freshly created
-                    // folder is editable.
-                    event.preventDefault();
                     return;
                 }
 

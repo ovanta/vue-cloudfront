@@ -16,7 +16,7 @@
             <span class="name">Download</span>
         </div>
 
-        <div class="option" v-if="!$store.state.search.active" @click="newFolder()">
+        <div class="option" v-if="!$store.state.search.active && activeTab === 'home'" @click="newFolder()">
             <i class="fas fa-fw fa-folder-plus"></i>
             <span class="name">New Folder</span>
         </div>
@@ -26,7 +26,7 @@
             <span class="name">Rename</span>
         </div>
 
-        <div class="option" v-if="$store.state.selection.length" @click="moveToClipboard('copy')">
+        <div class="option" v-if="$store.state.selection.length && activeTab === 'home'" @click="moveToClipboard('copy')">
             <i class="fas fa-fw fa-copy"></i>
             <span class="name">Copy</span>
         </div>
@@ -36,7 +36,7 @@
             <span class="name">Cut</span>
         </div>
 
-        <div class="option" v-if="$store.state.clipboard.nodes.length" @click="execClipboardAction()">
+        <div class="option" v-if="$store.state.clipboard.nodes.length && activeTab === 'home'" @click="execClipboardAction()">
             <i class="fas fa-fw fa-paste"></i>
             <span class="name">Paste</span>
         </div>
@@ -78,6 +78,10 @@
                 }
 
                 return 1;
+            },
+
+            activeTab(){
+                return this.$store.state.activeTab;
             }
 
         },
