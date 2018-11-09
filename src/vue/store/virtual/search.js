@@ -79,7 +79,8 @@ export const search = {
 
                 // Extract and prepare filters
                 const is = filters.is;
-                const size = filters.size && filters.size.length && intepretSizeCommand(filters.size[0]);
+                const size = filters.size && filters.size.length && parseLogicalInstruction(filters.size[0], toBytes);
+                const date = filters.date && filters.date.length && parseLogicalInstruction(filters.date[0], toTimestamp);
 
                 state.nodes = [];
                 const nodes = rootState.nodes;
@@ -98,12 +99,26 @@ export const search = {
                     // Check size filter
                     if (size) {
                         const {type, a, b} = size;
+                        const nSize = n.size;
 
                         // Folders are not included in size filter
                         if (n.type === 'folder' ||
-                            type === 'smaller' && n.size > a ||
-                            type === 'bigger' && n.size < a ||
-                            type === 'between' && !(n.size > a && n.size < b)) {
+                            type === 'smaller' && nSize > a ||
+                            type === 'bigger' && nSize < a ||
+                            type === 'between' && !(nSize > a && nSize < b)) {
+                            continue;
+                        }
+                    }
+
+                    // Check date filter
+                    if (date) {
+                        const {type, a, b} = date;
+                        const nLastModified = n.lastModified;
+
+                        // Folders are not included in size filter
+                        if (type === 'smaller' && nLastModified > a ||
+                            type === 'bigger' && nLastModified < a ||
+                            type === 'between' && !(nLastModified > a && nLastModified < b)) {
                             continue;
                         }
                     }
@@ -128,7 +143,7 @@ export const search = {
 
 // See inline-usage documentation
 function parseQuery(query) {
-    const filterRegex = /([\w]+):([\w<\->,]+)( |$)/g;
+    const filterRegex = /([\w]+):(.*?)( |$)/g;
     const rawFilters = matchAll(query, filterRegex);
     const filters = {};
 
@@ -164,36 +179,57 @@ function parseQuery(query) {
     };
 }
 
-function intepretSizeCommand(cmd) {
+/**
+ * Converts something like '25.3MB' or '12.1KiB' to bytes.
+ *
+ * @param size
+ * @returns {number}
+ */
+function toBytes(size) {
+    const type = size.replace(/[\d.i]+/g, '').toUpperCase();
+    const amount = Number(size.replace(/\D+$/g, ''));
+    const si = size.includes('i') ? 1024 : 1000;
 
-    /**
-     * Converts something like '25.3MB' or '12.1KiB' to bytes.
-     *
-     * @param size
-     * @returns {number}
-     */
-    function toBytes(size) {
-        const type = size.replace(/[\d.i]+/g, '').toUpperCase();
-        const amount = Number(size.replace(/\D+$/g, ''));
-        const si = size.includes('i') ? 1024 : 1000;
-
-        switch (type) {
-            case'KB':
-                return amount * si;
-            case'MB':
-                return amount * Math.pow(si, 2);
-            case'GB':
-                return amount * Math.pow(si, 3);
-            case'TB':
-                return amount * Math.pow(si, 4);
-            case'PB':
-                return amount * Math.pow(si, 5);
-            default:
-                return amount;
-        }
+    switch (type) {
+        case'KB':
+            return amount * si;
+        case'MB':
+            return amount * Math.pow(si, 2);
+        case'GB':
+            return amount * Math.pow(si, 3);
+        case'TB':
+            return amount * Math.pow(si, 4);
+        case'PB':
+            return amount * Math.pow(si, 5);
+        default:
+            return amount;
     }
+}
 
-    // Check if command contains info
+/**
+ * Simply convert a date-string to a timestamp (if possible)
+ *
+ * @param date
+ * @returns {number}
+ */
+function toTimestamp(date) {
+    return new Date(date).getTime();
+}
+
+
+/**
+ * Parses commands like '<1000', '>343.6' '232-4534' into
+ * a Object with type 'smaller', 'bigger', 'between' and
+ * correspondending value'a' or 'a' and 'b'.
+ *
+ * @param cmd String command
+ * @param wrap Optional function which receives as parameter the parsed value, return
+ *        value is used as prop value.
+ * @returns {*}
+ */
+function parseLogicalInstruction(cmd, wrap = v => v) {
+
+    // Validate
     if (typeof cmd === 'string' && cmd.length > 2) {
 
         /**
@@ -203,19 +239,19 @@ function intepretSizeCommand(cmd) {
         if (cmd[0] === '<') {
             return {
                 type: 'smaller',
-                a: toBytes(cmd.substr(1, cmd.length))
+                a: wrap(cmd.substr(1, cmd.length))
             };
         } else if (cmd[0] === '>') {
             return {
                 type: 'bigger',
-                a: toBytes(cmd.substr(1, cmd.length))
+                a: wrap(cmd.substr(1, cmd.length))
             };
         } else if (cmd.includes('-')) {
             const sep = cmd.indexOf('-');
             return {
                 type: 'between',
-                a: toBytes(cmd.substr(0, sep)),
-                b: toBytes(cmd.substr(sep + 1, cmd.length))
+                a: wrap(cmd.substr(0, sep)),
+                b: wrap(cmd.substr(sep + 1, cmd.length))
             };
         }
     }

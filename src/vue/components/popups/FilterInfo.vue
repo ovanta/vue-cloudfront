@@ -36,6 +36,10 @@
                     {
                         examples: ['size:>10MB', 'size:<6GiB', 'size:7.5KB-10MB'],
                         description: 'Set size range, limit or minimum.'
+                    },
+                    {
+                        examples: ['date:>05.25.2015', 'date:<01.01.2018', 'date:05.01.2015-12.01.2016'],
+                        description: 'Filter by last-modified date. Format is "Month.Day.Year"'
                     }
                 ]
             };
