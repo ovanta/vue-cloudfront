@@ -80,7 +80,7 @@
                 return 1;
             },
 
-            activeTab(){
+            activeTab() {
                 return this.$store.state.activeTab;
             }
 
@@ -254,6 +254,10 @@
             transition: all 0.3s;
             color: $palette-deep-blue;
             margin: 0.25em 0;
+
+            i {
+                font-size: 1.3em;
+            }
 
             .name {
                 @include font(600, 0.9em);

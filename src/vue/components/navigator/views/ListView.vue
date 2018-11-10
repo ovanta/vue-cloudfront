@@ -38,7 +38,6 @@
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-
                 <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
                 <span class="detail">{{ node.size | readableByteCount }}</span>
             </div>
@@ -59,7 +58,6 @@
                 <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
                 <span class="detail">{{ node.size | readableByteCount }}</span>
             </div>
-
         </div>
 
     </section>
