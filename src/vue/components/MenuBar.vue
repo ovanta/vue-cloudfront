@@ -12,6 +12,10 @@
                 <intro-box header="Marked Folders and files" text="Mark your important files, folder or just use it as a quick way to access them."></intro-box>
             </div>
 
+            <div :class="{'item': 1, active: $store.state.activeTab === 'history'}">
+                <i class="fas fa-fw fa-history" @click="$store.commit('setActiveTab', 'history')"></i>
+            </div>
+
         </div>
 
     </section>

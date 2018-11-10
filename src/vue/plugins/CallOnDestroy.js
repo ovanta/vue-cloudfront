@@ -33,6 +33,5 @@ export default {
             // Append functions
             instances[this].push(...subs);
         };
-
     }
 };
