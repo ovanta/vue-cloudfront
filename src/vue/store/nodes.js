@@ -161,9 +161,12 @@ export const nodes = {
                 return subfolder;
             }
 
-            const subfolder = getSubFolders(nodes[0]);
-            if (subfolder.includes(destination)) {
-                throw `Cannot perform 'move' in nodes. Cannot put a folder into itself`;
+            // Check if user tries to put something into itself
+            for (let i = 0; i < nodes.length; i++) {
+                const subfolder = getSubFolders(nodes[i]);
+                if (subfolder.includes(destination)) {
+                    throw `Cannot perform 'move' in nodes. Cannot put a folder into itself`;
+                }
             }
 
             // Move nodes

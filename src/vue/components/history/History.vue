@@ -57,6 +57,11 @@
             const pluralify = nds => {
                 const maxCount = 3;
 
+                // Strange case, return nothing
+                if (!nds.length) {
+                    return 'nothing';
+                }
+
                 // If theres only one node, return type and the name of it
                 if (nds.length === 1) {
                     return `${nds[0].type} ${nds[0].name}`;
@@ -221,7 +226,7 @@
             border-radius: 0.15em;
             color: white;
             margin-right: auto;
-            text-shadow: 1px 1px 0 rgba(black, 0.15);
+            text-shadow: 1px 1px 0 rgba(black, 0.05);
 
             i {
                 font-size: 0.85em;
