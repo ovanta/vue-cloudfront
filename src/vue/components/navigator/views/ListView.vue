@@ -172,10 +172,11 @@
 
     .list-view {
         @include flex(column);
+        flex-grow: 1;
     }
 
     .list {
-        flex-shrink: 1;
+        flex-grow: 1;
         overflow: auto;
     }
 

@@ -119,10 +119,11 @@
 
     .grid-view {
         @include flex(column);
+        flex-grow: 1;
     }
 
     .list {
-        flex-shrink: 1;
+        flex-grow: 1;
         overflow: auto;
         padding-bottom: 0.5em;
     }
