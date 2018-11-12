@@ -34,8 +34,10 @@
 
 <script>
 
-    // Modules
-    import Selection from '@simonwep/selection-js';
+    // Plugins
+    import SelectionPlugin from './plugins/selectable';
+    import DraggablePlugin from './plugins/draggables';
+
     // Components
     import Hierarchy from './Hierarchy';
     import ListView from './views/ListView';
@@ -56,7 +58,8 @@
         data() {
             return {
                 selection: null,
-                selectionInstance: null
+                draggablePlugin: null,
+                selectionPlugin: null
             };
         },
 
@@ -92,61 +95,21 @@
                 })
             );
 
-            // Create selection instance
-            const vueInst = this;
-            this.selection = new Selection({
-
-                class: 'selection-area',
-
-                singleClick: false, // Single click is handled by GridView and ListView
-
-                startThreshold: 2,
-
-                selectables: ['.file', '.folder'],
-                startareas: ['.list'],
-                boundaries: ['.list'],
-
-                onStart(evt) {
-
-                    // Every non-ctrlKey causes a selection reset
-                    if (!evt.originalEvent.ctrlKey) {
-                        vueInst.$store.commit('selection/clear');
-                    }
-                },
-
-                onMove(evt) {
-                    const {changedElements} = evt;
-
-                    /**
-                     * Only add / remove selected class to increase selection performance.
-                     */
-                    changedElements.added.forEach(v => v.classList.add('selected'));
-                    changedElements.removed.forEach(v => v.classList.remove('selected'));
-                },
-
-                onStop(evt) {
-                    const {selectedElements} = evt;
-
-                    // Remove selected class, this is getting handled by vue
-                    selectedElements.forEach(v => v.classList.remove('selected'));
-
-                    /**
-                     * Every element has a data-hash property wich is used
-                     * to find the selected nodes. Find these and append they
-                     * to the current selection.
-                     */
-                    const selectedHashes = selectedElements.map(v => v.getAttribute('data-hash'));
-                    const selectedNodes = vueInst.$store.state.nodes.filter(v => selectedHashes.includes(v.hash));
-                    vueInst.$store.commit('selection/append', selectedNodes);
-                }
-            });
+            // Draggable and selection plugin
+            this.selectionPlugin = SelectionPlugin(this);
+            this.draggablePlugin = DraggablePlugin(this, this.selectionPlugin);
         },
 
         destroyed() {
 
             // Destory selection instance
-            if (this.selection) {
-                this.selection.destroy();
+            if (this.selectionPlugin) {
+                this.selectionPlugin.destroy();
+            }
+
+            // Destory draggable instance
+            if (this.draggablePlugin) {
+                this.draggablePlugin.destroy();
             }
         }
     };

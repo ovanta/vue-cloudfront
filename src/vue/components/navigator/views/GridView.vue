@@ -44,6 +44,7 @@
         </div>
 
         <!-- TODO: Placeholder if folder is empty -->
+        <!-- TODO: Expand area where a selection can be made -->
 
     </section>
 </template>
@@ -184,6 +185,12 @@
             i {
                 color: $palette-cloud-blue;
             }
+        }
+
+        &.droppable {
+            border-color: rgba($palette-cloud-blue, 0.75);
+            box-shadow: 0 1px 8px 0 rgba($palette-cloud-blue, 0.5);
+            transform: translateY(-2px);
         }
 
         &.cutted {

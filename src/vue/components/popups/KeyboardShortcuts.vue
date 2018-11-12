@@ -83,7 +83,6 @@
 
         methods: {
 
-
             keyboardEvent(keys, event) {
                 const store = this.$store;
                 const state = store.state;
