@@ -3,7 +3,7 @@ export const nodes = {
     namespaced: true,
 
     /**
-     * Node-list (tree)
+     * Node-list (tree structure)
      */
     state: [],
 
@@ -12,6 +12,8 @@ export const nodes = {
         /**
          * Returns a object with file and folder props which are each
          * an array of nodes which are currently visible to the user.
+         * This varies if the user is currently performing a search or is currently
+         * viewing the marked nodes.
          */
         currentDisplayedNodes(state, getters, rootState, otherGetters) {
 
@@ -94,11 +96,10 @@ export const nodes = {
 
         /**
          * Creates a new folder within the parent.
-         * @param commit
          * @param state
-         * @param destination
+         * @param destination Parent node
          */
-        createFolder({commit, state}, destination) {
+        createFolder({state}, destination) {
 
             // Validate
             if (typeof destination !== 'object' || !~state.find(v => v === destination)) {
@@ -125,11 +126,11 @@ export const nodes = {
         },
 
         /**
-         * Move nodes to another folder
+         * Move nodes to another folder.
          * @param state
          * @param rootState
-         * @param nodes
-         * @param destination
+         * @param nodes Nodes which should be moved
+         * @param destination Destination node
          */
         move({state, rootState}, {nodes, destination}) {
 
@@ -173,6 +174,13 @@ export const nodes = {
             nodes.forEach(n => n.parent = destination.hash);
         },
 
+        /**
+         * Copy a node tree into another folder
+         * @param state
+         * @param rootState
+         * @param nodes Nodes which should be copied
+         * @param destination Destination node
+         */
         copy({state, rootState}, {nodes, destination}) {
 
             // If user is currently not at home, ignore action
@@ -277,9 +285,8 @@ export const nodes = {
             state.push(...cloned);
         },
 
-
         /**
-         * Updates / fetches nodes
+         * Updates / fetches nodes.
          * TODO: Replace with actual fetching / use local file for demo?
          * @param state
          */
@@ -378,7 +385,7 @@ export const nodes = {
         /**
          * Deletes nodes recursivly
          * @param state
-         * @param nodes
+         * @param nodes Nodes which should be deleted
          */
         delete({state}, nodes) {
 
@@ -409,6 +416,11 @@ export const nodes = {
             }
         },
 
+        /**
+         * Marks nodes. Can be viewed in the marked menu-section.
+         * @param state
+         * @param nodes Nodes which get a mark.
+         */
         addMark({state}, nodes) {
 
             // Validate
@@ -421,6 +433,11 @@ export const nodes = {
             }
         },
 
+        /**
+         * Removes a mark from nodes.
+         * @param state
+         * @param nodes Nodes from which the mark gets removed.
+         */
         removeMark({state}, nodes) {
 
             // Validate
@@ -434,10 +451,10 @@ export const nodes = {
         },
 
         /**
-         * Renames one node
+         * Renames a node.
          * @param state
-         * @param node
-         * @param newName
+         * @param node The node which should be renamed
+         * @param newName A new name.
          */
         rename({state}, {node, newName}) {
 
@@ -457,6 +474,12 @@ export const nodes = {
             node.name = newName;
         },
 
+        /**
+         * Changes the color of folders.
+         * @param state
+         * @param nodes Nodes from which the color should be changed.
+         * @param color A (basically) hex value like #fff (for white).
+         */
         changeColor({state}, {nodes, color}) {
 
             // Validate
