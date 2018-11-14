@@ -1,9 +1,12 @@
 <template>
     <div class="history">
 
-        <h1>History</h1>
+        <div class="header">
+            <h1>History</h1>
+            <i class="fas fa-fw fa-trash" @click="clearActions()"></i>
+        </div>
 
-        <div class="action header">
+        <div class="action actions-header">
             <span class="name">Action</span>
             <span class="description"></span>
             <span class="performed">Performed</span>
@@ -43,6 +46,14 @@
                 now: Date.now(),
                 interval: null
             };
+        },
+
+        methods: {
+
+            clearActions() {
+                this.actions.splice(0, this.actions.length);
+            }
+
         },
 
         mounted() {
@@ -199,11 +210,27 @@
         @include flex(column);
         margin: 2em 1.5em 0 1.5em;
 
-        h1 {
-            @include font(400, 1.25em);
-            color: $palette-deep-blue;
+        .header {
+            @include flex(row, center);
             border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
             padding-bottom: 0.25em;
+
+            h1 {
+                @include font(400, 1.25em);
+                color: $palette-deep-blue;
+                margin-right: auto;
+            }
+
+            i {
+                font-size: 1.1em;
+                color: $palette-decent-blue;
+                transition: all 0.3s;
+                cursor: pointer;
+
+                &:hover {
+                    color: $palette-tomatoe-red;
+                }
+            }
         }
     }
 
@@ -265,7 +292,7 @@
             border: none;
         }
 
-        &.header {
+        &.actions-header {
             position: relative;
             font-size: 0.85em;
             margin: 1.5em 0.5em 0 0.5em;
