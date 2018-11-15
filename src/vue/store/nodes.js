@@ -99,7 +99,7 @@ export const nodes = {
          * @param state
          * @param destination Parent node
          */
-        createFolder({state}, destination) {
+        async createFolder({state}, destination) {
 
             // Validate
             if (typeof destination !== 'object' || !~state.find(v => v === destination)) {
@@ -132,7 +132,7 @@ export const nodes = {
          * @param nodes Nodes which should be moved
          * @param destination Destination node
          */
-        move({state, rootState}, {nodes, destination}) {
+        async move({state, rootState}, {nodes, destination}) {
 
             // Prevent copy / move actions if search is active or user isn't at home
             if (rootState.search.active || rootState.activeTab !== 'home') {
@@ -181,7 +181,7 @@ export const nodes = {
          * @param nodes Nodes which should be copied
          * @param destination Destination node
          */
-        copy({state, rootState}, {nodes, destination}) {
+        async copy({state, rootState}, {nodes, destination}) {
 
             // If user is currently not at home, ignore action
             if (rootState.activeTab !== 'home') {
@@ -290,7 +290,7 @@ export const nodes = {
          * TODO: Replace with actual fetching / use local file for demo?
          * @param state
          */
-        update({state}) {
+        async update({state}) {
 
             // Generate random data
             const genHash = () => Math.round(Math.random() * 1e13).toString(16);
@@ -387,7 +387,7 @@ export const nodes = {
          * @param state
          * @param nodes Nodes which should be deleted
          */
-        delete({state}, nodes) {
+        async delete({state}, nodes) {
 
             // Validate
             if (!Array.isArray(nodes)) {
@@ -421,7 +421,7 @@ export const nodes = {
          * @param state
          * @param nodes Nodes which get a mark.
          */
-        addMark({state}, nodes) {
+        async addMark({state}, nodes) {
 
             // Validate
             if (!Array.isArray(nodes)) {
@@ -438,7 +438,7 @@ export const nodes = {
          * @param state
          * @param nodes Nodes from which the mark gets removed.
          */
-        removeMark({state}, nodes) {
+        async removeMark({state}, nodes) {
 
             // Validate
             if (!Array.isArray(nodes)) {
@@ -456,7 +456,7 @@ export const nodes = {
          * @param node The node which should be renamed
          * @param newName A new name.
          */
-        rename({state}, {node, newName}) {
+        async rename({state}, {node, newName}) {
 
             // Validate
             if (!node || !~state.indexOf(node)) {
@@ -480,7 +480,7 @@ export const nodes = {
          * @param nodes Nodes from which the color should be changed.
          * @param color A (basically) hex value like #fff (for white).
          */
-        changeColor({state}, {nodes, color}) {
+        async changeColor({state}, {nodes, color}) {
 
             // Validate
             if (!Array.isArray(nodes)) {
