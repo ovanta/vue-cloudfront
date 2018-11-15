@@ -122,6 +122,7 @@
     .navigator {
         @include flex(column);
         flex-grow: 1;
+        max-height: 100%;
     }
 
     .nav {
@@ -159,6 +160,8 @@
 
     .view {
         margin: 0 2em 0 2em;
+        overflow: hidden;
+
         @include animate('1s ease forwards') {
             from {
                 opacity: 0;

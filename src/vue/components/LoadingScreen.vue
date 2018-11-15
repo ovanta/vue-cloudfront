@@ -115,18 +115,22 @@
         background: $palette-deep-purple;
         animation-play-state: paused;
 
+        $perspective: 5em;
         @include animate('3s ease-in-out infinite') {
+            0% {
+                transform: perspective($perspective);
+            }
             25% {
-                transform: perspective(100px) rotateX(180deg) rotateY(0);
+                transform: perspective($perspective) rotateX(180deg) rotateY(0);
             }
             50% {
-                transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+                transform: perspective($perspective) rotateX(180deg) rotateY(180deg);
             }
             75% {
-                transform: perspective(100px) rotateX(0) rotateY(180deg);
+                transform: perspective($perspective) rotateX(0) rotateY(180deg);
             }
             100% {
-                transform: perspective(100px) rotateX(0) rotateY(0);
+                transform: perspective($perspective) rotateX(0) rotateY(0);
             }
         }
     }

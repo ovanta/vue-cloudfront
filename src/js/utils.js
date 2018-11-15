@@ -109,8 +109,11 @@ export function detectKeyCombinations(element, cb, val = () => true) {
     // Keys hold the currently pressed key
     const keys = {};
 
+    // Map any key e.g. 'e', 'c' etc. to KeyE, KeyC
+    const toKeyCode = e => `Key${e.key.toUpperCase()}`;
+
     // Listener to detect key-combinations
-    const onKeyUp = e => delete keys[e.code];
+    const onKeyUp = e => delete keys[toKeyCode(e)];
     const onKeyDown = e => {
 
         // Check validator
@@ -123,7 +126,7 @@ export function detectKeyCombinations(element, cb, val = () => true) {
         keys['altKey'] = e.altKey;
         keys['metaKey'] = e.metaKey;
 
-        keys[e.code] = true;
+        keys[toKeyCode(e)] = true;
         cb(keys, e);
     };
 
