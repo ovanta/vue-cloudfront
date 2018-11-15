@@ -29,6 +29,9 @@
             <filter-help-page></filter-help-page>
         </div>
 
+        <!-- Loading screen -->
+        <loading-screen></loading-screen>
+
     </div>
 </template>
 
@@ -53,6 +56,10 @@
     import ShortcutsHelpPage from './components/popups/KeyboardShortcuts';
     import FilterHelpPage from './components/popups/FilterInfo';
 
+    // Loading screen
+    import LoadingScreen from './components/LoadingScreen';
+
+    // Font-awesome styles
     import '@fortawesome/fontawesome-free/css/all.css';
 
     export default {
@@ -67,7 +74,10 @@
             DebugScreen,
             ShortcutsHelpPage,
             FilterHelpPage,
-            MenuBar
+            MenuBar,
+
+            // Loading screen
+            LoadingScreen
         },
 
         data() {

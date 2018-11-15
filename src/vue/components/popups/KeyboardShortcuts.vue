@@ -126,7 +126,6 @@
                         return;
                     }
 
-
                     // Hierarchy up event
                     if (keys.KeyG && keys.KeyU) {
                         store.dispatch('location/goUp');
@@ -160,7 +159,6 @@
 
                     return;
                 }
-
 
                 // Edit name
                 if (selection.length && keys.KeyE && keys.KeyN) {

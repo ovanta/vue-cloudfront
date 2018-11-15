@@ -44,7 +44,6 @@
         </div>
 
         <!-- TODO: Placeholder if folder is empty -->
-        <!-- TODO: Expand area where a selection can be made -->
 
     </section>
 </template>
