@@ -74,60 +74,6 @@ export function css(el, attr, val) {
     }
 }
 
-/**
- * Check if two DOM-Elements intersects each other.
- * @param a BoundingClientRect of the first element.
- * @param b BoundingClientRect of the second element.
- * @param mode Options are center, cover or touch.
- * @returns {boolean} If both elements intersects each other.
- */
-export function intersects(a, b, mode = 'touch') {
-
-    if (mode === 'center') {
-        const bxc = b.left + b.width / 2;
-        const byc = b.top + b.height / 2;
-
-        return bxc >= a.left
-            && bxc <= a.right
-            && byc >= a.top
-            && byc <= a.bottom;
-    } else if (mode === 'cover') {
-        return b.left >= a.left
-            && b.top >= a.top
-            && b.right <= a.right
-            && b.bottom <= a.bottom;
-    } else if (mode === 'touch') {
-        return a.right >= b.left
-            && a.left <= b.right
-            && a.bottom >= b.top
-            && a.top <= b.bottom;
-    }
-}
-
-/**
- * Takes a selector (or array of selectors) and returns the matched nodes.
- * @param selector The selector or an Array of selectors.
- * @returns {Array} Array of DOM-Nodes.
- */
-export function selectAll(selector) {
-    if (!Array.isArray(selector)) selector = [selector];
-
-    const nodes = [];
-    for (const sel of selector) {
-        nodes.push(...document.querySelectorAll(sel));
-    }
-
-    return nodes;
-}
-
-/**
- * Removes an element from an Array.
- */
-export function removeElement(arr, el) {
-    const index = arr.indexOf(el);
-    if (~index) arr.splice(index, 1);
-}
-
 export function simplifyEvent(evt) {
     const tap = (evt.touches && evt.touches[0] || evt);
     return {
@@ -137,7 +83,6 @@ export function simplifyEvent(evt) {
         target: tap.target
     };
 }
-
 
 /**
  * Detects keyboard-combinations
