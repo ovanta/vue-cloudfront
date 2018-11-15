@@ -109,8 +109,13 @@ export function detectKeyCombinations(element, cb, val = () => true) {
     // Keys hold the currently pressed key
     const keys = {};
 
-    // Map any key e.g. 'e', 'c' etc. to KeyE, KeyC
-    const toKeyCode = e => `Key${e.key.toUpperCase()}`;
+    /**
+     * Converts a string representation of a pressed character to a
+     * prefix attached key.
+     * 'e' => 'KeyE'
+     * 'delete' => 'KeyDelete'
+     */
+    const toKeyCode = e => `Key${e.key[0].toUpperCase() + e.key.substr(1).toLowerCase()}`;
 
     // Listener to detect key-combinations
     const onKeyUp = e => delete keys[toKeyCode(e)];

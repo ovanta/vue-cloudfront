@@ -35,7 +35,6 @@
                         shortcuts: [
                             {keys: ['ctrl', 'shift'], action: 'Select everything up to current element.'},
                             {keys: ['ctrl', 'a'], action: 'Select everything.'},
-                            {keys: ['s', 'esc'], action: 'Clear selection.'},
                             {keys: ['s', 'd'], action: 'Select directories.'},
                             {keys: ['s', 'f'], action: 'Select files.'},
                             {keys: ['s', 'i'], action: 'Invert selection.'}
@@ -215,14 +214,11 @@
                     return;
                 }
 
-                // Clear selection
-                if (keys.KeyS && keys.Escape) {
-                    store.commit('selection/clear');
-                    return;
-                }
-
                 // General canceling
-                if (keys.Escape) {
+                if (keys.KeyEscape) {
+
+                    // Clear selection
+                    store.commit('selection/clear');
 
                     // Close open popup
                     this.$store.commit('setActivePopup', null);
@@ -258,7 +254,7 @@
                 }
 
                 // Delete nodes
-                if (keys.Delete && selection.length) {
+                if (keys.KeyDelete && selection.length) {
                     store.dispatch('nodes/delete', selection);
                     return;
                 }
