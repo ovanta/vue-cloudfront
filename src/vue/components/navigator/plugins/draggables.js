@@ -29,7 +29,8 @@ export default (vue, selectionjs) => new Draggable({
         /**
          * If user starts dragging, disable and
          * cancel current selection processes.
-         */6;
+         */
+        ;
         selectionjs.disable();
         selectionjs.cancel();
     },
@@ -63,6 +64,10 @@ export default (vue, selectionjs) => new Draggable({
                 vue.$store.dispatch('nodes/move', {
                     nodes: selection,
                     destination: targetNode
+                }).then(() => {
+
+                    // Clear selection
+                    vue.$store.commit('selection/clear');
                 });
             }
 

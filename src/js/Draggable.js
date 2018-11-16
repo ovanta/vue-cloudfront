@@ -174,6 +174,7 @@ export default function (opt) {
             // Remove event listener
             _.off(document, 'mousemove', that._onTapMove);
             _.off(document, 'mousemove', that._delayedTapMove);
+            _.off(document, 'mouseup', that._onTapStop);
 
             // Remove elements from body
             that._inDrag.forEach(e => e.remove());
