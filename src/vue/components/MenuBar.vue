@@ -3,17 +3,17 @@
 
         <div class="items">
 
-            <div :class="{'item': 1, active: $store.state.activeTab === 'home'}" @click="$store.commit('setActiveTab', 'home')">
+            <div :class="{'item': 1, active: $store.state.activeTab === 'home'}" @click="changeTab('home')">
                 <i class="fas fa-fw fa-home"></i>
             </div>
 
             <div :class="{'item': 1, active: $store.state.activeTab === 'marked'}">
-                <i class="fas fa-fw fa-bookmark" @click="$store.commit('setActiveTab', 'marked')"></i>
+                <i class="fas fa-fw fa-bookmark" @click="changeTab('marked')"></i>
                 <intro-box header="Marked Folders and files" text="Mark your important files, folder or just use it as a quick way to access them."></intro-box>
             </div>
 
             <div :class="{'item': 1, active: $store.state.activeTab === 'history'}">
-                <i class="fas fa-fw fa-history" @click="$store.commit('setActiveTab', 'history')"></i>
+                <i class="fas fa-fw fa-history" @click="changeTab('history')"></i>
             </div>
 
         </div>
@@ -24,9 +24,24 @@
 <script>
 
     export default {
+
         data() {
             return {};
+        },
+
+        methods: {
+
+            changeTab(newTab) {
+
+                // Clear selection
+                this.$store.commit('selection/clear');
+
+                // Show new tab
+                this.$store.commit('setActiveTab', newTab);
+            }
+
         }
+
     };
 
 </script>

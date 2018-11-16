@@ -2,13 +2,13 @@
     <section class="hierarchy">
 
         <!-- Default display of the current folder hierarchy -->
-        <div v-for="(node, index) of nodes" 
-             v-if="!searchResult && !markedNodes" 
-             class="node">
-            <span class="name" @click="updateLocation(node)">{{ node.name }}</span>
-            <i v-if="index < nodes.length - 1" class="fas fa-fw fa-angle-right"></i>
+        <div v-if="!searchResult && !markedNodes" class="nodes">
+            <div v-for="(node, index) of nodes"
+                 class="node">
+                <span class="name" @click="updateLocation(node)">{{ node.name }}</span>
+                <i v-if="index < nodes.length - 1" class="fas fa-fw fa-angle-right"></i>
+            </div>
         </div>
-
 
         <!-- Human readable representation of the search result (if a search is currently performed) -->
         <div v-if="searchResult" class="amount-info">
