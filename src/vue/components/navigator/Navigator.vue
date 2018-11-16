@@ -135,6 +135,7 @@
         .controls {
             position: relative;
             margin-left: auto;
+            flex-shrink: 0;
 
             i {
                 color: $palette-decent-blue;

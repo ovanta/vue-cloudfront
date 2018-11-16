@@ -91,11 +91,13 @@
 
     .hierarchy {
         @include flex(row, center);
+        flex-wrap: wrap;
 
         .node {
             @include inline-flex(row, center);
             @include font(600, 0.8em);
             color: rgba($palette-deep-blue, 0.8);
+            margin-bottom: 0.5em;
 
             .name {
                 position: relative;
@@ -105,6 +107,10 @@
                 border-radius: 50em;
                 background: white;
                 box-shadow: 0 1px 5px 0 darken(white, 5);
+                max-width: 7em;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
 
                 &:hover {
                     color: rgba($palette-deep-blue, 0.9);

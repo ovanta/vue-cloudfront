@@ -209,6 +209,10 @@
             font-weight: 600;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
+            max-width: 7em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             &[contenteditable=true] {
                 border-color: $palette-deep-purple;
