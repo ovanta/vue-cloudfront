@@ -222,7 +222,7 @@
             }
 
             i {
-                font-size: 1.1em;
+                font-size: 1em;
                 color: $palette-decent-blue;
                 transition: all 0.3s;
                 cursor: pointer;

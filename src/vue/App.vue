@@ -3,7 +3,7 @@
 
 
         <!-- Background shapes -->
-        <div class="background">
+        <div class="app-background">
             <svg class="left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
                 <path d="M0,0V500H124.914s53.473-56.5,74.963-175S124.914,0,124.914,0H0Z"></path>
             </svg>
@@ -13,24 +13,28 @@
             </svg>
         </div>
 
-        <menu-bar></menu-bar>
+        <!-- Actual application -->
+        <div class="app-content">
 
-        <div class="right-side">
+            <menu-bar></menu-bar>
 
-            <!-- Tabs, dynamic, getting changed via menu tabs -->
-            <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
-            <history v-show="$store.state.activeTab === 'history'"></history>
+            <div class="right-side">
 
-            <!-- Debug screen (fixed) -->
-            <debug-screen></debug-screen>
+                <!-- Tabs, dynamic, getting changed via menu tabs -->
+                <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
+                <history v-show="$store.state.activeTab === 'history'"></history>
 
-            <!-- Helping pages (fixed) -->
-            <shortcuts-help-page></shortcuts-help-page>
-            <filter-help-page></filter-help-page>
+                <!-- Debug screen (fixed) -->
+                <debug-screen></debug-screen>
+
+                <!-- Helping pages (fixed) -->
+                <shortcuts-help-page></shortcuts-help-page>
+                <filter-help-page></filter-help-page>
+            </div>
+
+            <!-- Loading screen -->
+            <loading-screen></loading-screen>
         </div>
-
-        <!-- Loading screen -->
-        <loading-screen></loading-screen>
 
     </div>
 </template>
@@ -142,7 +146,7 @@
         background: $palette-snow-white;
     }
 
-    #app {
+    .app-content {
         font-family: $font-family-open-sans;
         position: absolute;
         margin: auto;
@@ -161,26 +165,45 @@
             width: 100%;
         }
 
-        .background {
+        @include animate('0.75s ease-in-out') {
+            from {
+                transform: translateY(-1em);
+            }
+            to {
+                filter: none;
+                transform: none;
+            }
+        }
+    }
+
+    .app-background {
+        position: fixed;
+        z-index: -1;
+        @include position(0, 0, 0, 0);
+
+        svg {
             position: fixed;
-            z-index: -1;
-            @include position(0, 0, 0, 0);
+            fill: $palette-bright-purple;
+            @include size(100vmax);
 
-            svg {
-                position: fixed;
-                @include size(100vmax);
-                fill: $palette-bright-purple;
+            @include animate('1s ease') {
+                from {
+                    transform: scaleX(1.5);
+                }
+                to {
+                    transform: none;
+                }
             }
+        }
 
-            .left {
-                left: 0;
-                top: 0;
-            }
+        .left {
+            left: 0;
+            top: 0;
+        }
 
-            .right {
-                right: 0;
-                bottom: 0;
-            }
+        .right {
+            right: 0;
+            bottom: 0;
         }
     }
 
