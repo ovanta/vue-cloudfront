@@ -18,6 +18,9 @@
                     'Dropping shadows',
                     'Eliminate errors',
                     'Wipe UI clean',
+                    'Reading discette',
+                    'Baking cookies',
+                    'Serving cookies',
                     'Polish input fields'
                 ]
             };
@@ -111,7 +114,7 @@
 
     .box {
         position: relative;
-        @include size(3em);
+        @include size(2.5em);
         background: $palette-deep-purple;
         animation-play-state: paused;
 
@@ -136,8 +139,8 @@
     }
 
     .message {
-        @include font(600, 0.9em);
-        margin-top: 1.5em;
+        @include font(600, 0.85em);
+        margin-top: 1.75em;
         font-style: italic;
         color: $palette-deep-purple;
         transform: translateY(-0.5em);
