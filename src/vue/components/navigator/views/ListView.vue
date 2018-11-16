@@ -2,7 +2,7 @@
     <section class="list-view">
 
         <!-- Table header -->
-        <div class="header" v-if="nodes.folder.length || nodes.file.length">
+        <div v-if="nodes.folder.length || nodes.file.length" class="header">
             <i class="fas fa-fw" style="opacity: 0">folder</i>
 
             <div class="name" @click="sort('name')">
@@ -31,10 +31,12 @@
                  @click.right="select($event, node)"
                  @click.left="select($event, node)">
 
-                <i class="fas fa-fw fa-folder" :style="{color: node.color}"></i>
+                <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
 
                 <div class="name" spellcheck="false">
-                    <span :contenteditable="node.editable" @keydown.enter.prevent="renameNode($event, node)" v-select-all="node.editable">{{ node.name }}</span>
+                    <span v-select-all="node.editable" 
+                          :contenteditable="node.editable" 
+                          @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
@@ -51,7 +53,9 @@
 
                 <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">
-                    <span :contenteditable="node.editable" @keydown.enter.prevent="renameNode($event, node)" v-select-all="node.editable">{{ node.name }}</span>
+                    <span v-select-all="node.editable" 
+                          :contenteditable="node.editable" 
+                          @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
@@ -67,12 +71,6 @@
 
     export default {
 
-        computed: {
-            nodes() {
-                return this.$store.getters['nodes/currentDisplayedNodes'](true);
-            }
-        },
-
         data() {
             return {
                 sortDirs: {
@@ -81,6 +79,12 @@
                     size: false
                 }
             };
+        },
+
+        computed: {
+            nodes() {
+                return this.$store.getters['nodes/currentDisplayedNodes'](true);
+            }
         },
 
         methods: {

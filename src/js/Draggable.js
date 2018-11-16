@@ -57,13 +57,13 @@ export default function (opt) {
         },
 
         _onTapStart(evt) {
-            let {target, x, y} = _.simplifyEvent(evt);
+            let {x, y} = _.simplifyEvent(evt);
 
             // Resolve query selectors
             const draggable = selectAll(that.options.draggable);
 
             // Validate
-            if (!(target = _.eventPath(evt).find(e => draggable.includes(e)))) {
+            if (!(_.eventPath(evt).find(e => draggable.includes(e)))) {
                 return;
             }
 

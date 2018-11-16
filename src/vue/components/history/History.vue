@@ -14,9 +14,9 @@
         </div>
 
         <div class="actions">
-            <div class="action" v-for="action of actions">
+            <div v-for="action of actions" class="action">
 
-                <span class="name" :style="{background: action.color}">
+                <span :style="{background: action.color}" class="name">
                     <i :class="action.iconClass"></i>
                     <span>{{ action.name }}</span>
                 </span>
@@ -25,7 +25,9 @@
                     <span class="text">{{ action.description }}</span>
 
                     <!-- Additional payload info -->
-                    <span class="change-color" v-if="action.payload.newColor" :style="{background: action.payload.newColor}"></span>
+                    <span v-if="action.payload.newColor" 
+                          :style="{background: action.payload.newColor}" 
+                          class="change-color"></span>
                 </span>
 
                 <span class="performed">{{ (now - action.timestamp) | readableTimeStampDiff }}</span>
@@ -46,14 +48,6 @@
                 now: Date.now(),
                 interval: null
             };
-        },
-
-        methods: {
-
-            clearActions() {
-                this.actions.splice(0, this.actions.length);
-            }
-
         },
 
         mounted() {
@@ -200,7 +194,15 @@
 
             // Use interval to update current time every 30 seconds
             this.interval = setInterval(() => this.now = Date.now(), 30000);
-        }
+        },
+
+        methods: {
+
+            clearActions() {
+                this.actions.splice(0, this.actions.length);
+            }
+
+        },
     };
 </script>
 

@@ -10,8 +10,12 @@
             <div class="controls">
 
                 <!-- Node-views, grid and list -->
-                <i class="fas fa-fw fa-th-list" v-show="$store.state.viewType === 'grid'" @click="setViewType('list')"></i>
-                <i class="fas fa-fw fa-th" v-show="$store.state.viewType === 'list'" @click="setViewType('grid')"></i>
+                <i v-show="$store.state.viewType === 'grid'" 
+                   class="fas fa-fw fa-th-list" 
+                   @click="setViewType('list')"></i>
+                <i v-show="$store.state.viewType === 'list'" 
+                   class="fas fa-fw fa-th" 
+                   @click="setViewType('grid')"></i>
 
                 <!-- Show keyboard-shortcuts button -->
                 <i class="fas fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
@@ -23,8 +27,8 @@
 
         <!-- Folder / file -views -->
         <!-- TODO: Draggable nodes? -->
-        <list-view class="view" v-if="$store.state.viewType === 'list'"></list-view>
-        <grid-view class="view" v-if="$store.state.viewType === 'grid'"></grid-view>
+        <list-view v-if="$store.state.viewType === 'list'" class="view"></list-view>
+        <grid-view v-if="$store.state.viewType === 'grid'" class="view"></grid-view>
 
         <!-- Context menu -->
         <context-menu ref="contextMenu"></context-menu>
@@ -63,18 +67,6 @@
             };
         },
 
-        methods: {
-
-            openMenu(evt) {
-                this.$refs.contextMenu.$emit('show', evt);
-            },
-
-            setViewType(type) {
-                this.$store.commit('setViewType', type);
-            }
-
-        },
-
         mounted() {
 
             this.$callOnDestroy(
@@ -111,7 +103,19 @@
             if (this.draggablePlugin) {
                 this.draggablePlugin.destroy();
             }
-        }
+        },
+
+        methods: {
+
+            openMenu(evt) {
+                this.$refs.contextMenu.$emit('show', evt);
+            },
+
+            setViewType(type) {
+                this.$store.commit('setViewType', type);
+            }
+
+        },
     };
 
 </script>

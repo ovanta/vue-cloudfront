@@ -6,11 +6,11 @@
             <p>Examples</p>
         </div>
 
-        <div class="filter" v-for="filter of filters">
+        <div v-for="filter of filters" class="filter">
             <span class="description">{{ filter.description }}</span>
 
             <div class="examples">
-                <p v-for="example of filter.examples">{{example }}</p>
+                <p v-for="example of filter.examples">{{ example }}</p>
             </div>
         </div>
 

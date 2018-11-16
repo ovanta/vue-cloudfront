@@ -26,12 +26,6 @@
             };
         },
 
-        methods: {
-            randomMessage() {
-                return this.messages[Math.floor(Math.random() * this.messages.length)];
-            }
-        },
-
         mounted() {
 
             /**
@@ -79,7 +73,13 @@
                     dispatch(type, payload);
                 }
             });
-        }
+        },
+
+        methods: {
+            randomMessage() {
+                return this.messages[Math.floor(Math.random() * this.messages.length)];
+            }
+        },
 
     };
 

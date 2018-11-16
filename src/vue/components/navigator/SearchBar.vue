@@ -5,7 +5,11 @@
         <div class="search-field">
 
             <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search..." spellcheck="false" v-model="searchQuery" @input="updateSearch()">
+            <input v-model="searchQuery" 
+                   type="text" 
+                   placeholder="Search..." 
+                   spellcheck="false" 
+                   @input="updateSearch()">
             <i :class="{delete: 1, 'fas fa-times': 1, visible: searchQuery.length}" @click="clear"></i>
 
             <!-- Show available filters -->
@@ -16,7 +20,9 @@
         <div class="options">
 
             <div class="option">
-                <multi-switch-button :active="0" :options="['All', 'File', 'Folder']" @change="setTypeOption"></multi-switch-button>
+                <multi-switch-button :active="0" 
+                                     :options="['All', 'File', 'Folder']" 
+                                     @change="setTypeOption"></multi-switch-button>
             </div>
 
             <div class="option">
@@ -50,6 +56,26 @@
             return {
                 searchQuery: ''
             };
+        },
+
+        mounted() {
+            this.$callOnDestroy(
+                // If nodes getting deleted / added update search.
+                this.$store.watch(state => state.nodes, () => this.updateSearch()),
+
+                this.$store.subscribe(mutation => {
+
+                    // No need to do something if no search is performed
+                    if (!this.searchQuery) {
+                        return;
+                    }
+
+                    // Clear search if location changes
+                    if (mutation.type.startsWith('location')) {
+                        this.clear();
+                    }
+                })
+            );
         },
 
         methods: {
@@ -87,26 +113,6 @@
                 this.updateSearch();
             }
         },
-
-        mounted() {
-            this.$callOnDestroy(
-                // If nodes getting deleted / added update search.
-                this.$store.watch(state => state.nodes, () => this.updateSearch()),
-
-                this.$store.subscribe(mutation => {
-
-                    // No need to do something if no search is performed
-                    if (!this.searchQuery) {
-                        return;
-                    }
-
-                    // Clear search if location changes
-                    if (mutation.type.startsWith('location')) {
-                        this.clear();
-                    }
-                })
-            );
-        }
 
     };
 </script>

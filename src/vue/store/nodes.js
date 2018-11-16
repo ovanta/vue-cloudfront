@@ -15,7 +15,7 @@ export const nodes = {
          * This varies if the user is currently performing a search or is currently
          * viewing the marked nodes.
          */
-        currentDisplayedNodes(state, getters, rootState, otherGetters) {
+        currentDisplayedNodes(state, getters, rootState) {
 
             /**
              * Return a function which expects as argument if the size
@@ -376,7 +376,7 @@ export const nodes = {
                         newNodes.push(node);
                     }
                 }
-            })(20, root.hash, 4); // Trigger recursive generating
+            })(30, root.hash, 3); // Trigger recursive generating
 
             this.commit('location/update', root);
             state.splice(0, state.length, ...newNodes);
@@ -418,10 +418,9 @@ export const nodes = {
 
         /**
          * Marks nodes. Can be viewed in the marked menu-section.
-         * @param state
          * @param nodes Nodes which get a mark.
          */
-        async addMark({state}, nodes) {
+        async addMark(_, nodes) {
 
             // Validate
             if (!Array.isArray(nodes)) {
@@ -438,7 +437,7 @@ export const nodes = {
          * @param state
          * @param nodes Nodes from which the mark gets removed.
          */
-        async removeMark({state}, nodes) {
+        async removeMark(_, nodes) {
 
             // Validate
             if (!Array.isArray(nodes)) {
@@ -480,7 +479,7 @@ export const nodes = {
          * @param nodes Nodes from which the color should be changed.
          * @param color A (basically) hex value like #fff (for white).
          */
-        async changeColor({state}, {nodes, color}) {
+        async changeColor(_, {nodes, color}) {
 
             // Validate
             if (!Array.isArray(nodes)) {

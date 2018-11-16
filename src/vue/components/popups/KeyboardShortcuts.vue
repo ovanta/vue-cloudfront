@@ -1,13 +1,13 @@
 <template>
     <popup store-prop="KeyboardShortcuts" title="Keyboard Shortcuts">
         <div class="shortcut-sections">
-            <section class="shortcut-section" v-for="sec of sections">
+            <section v-for="sec of sections" class="shortcut-section">
 
                 <h2>{{ sec.name }}</h2>
 
-                <div class="shortcut" v-for="shortcut of sec.shortcuts">
+                <div v-for="shortcut of sec.shortcuts" class="shortcut">
                     <div class="keys">
-                        <span class="key" v-for="key of shortcut.keys">{{ key }}</span>
+                        <span v-for="key of shortcut.keys" class="key">{{ key }}</span>
                     </div>
 
                     <p>{{ shortcut.action }}</p>
@@ -78,6 +78,12 @@
                     }
                 ]
             };
+        },
+
+        mounted() {
+            this.$callOnDestroy(
+                this.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body)
+            );
         },
 
         methods: {
@@ -295,12 +301,6 @@
                 }
             }
         },
-
-        mounted() {
-            this.$callOnDestroy(
-                this.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body)
-            );
-        }
     };
 
 </script>

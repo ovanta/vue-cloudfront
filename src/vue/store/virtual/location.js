@@ -12,23 +12,17 @@ export const location = {
 
     getters: {
 
-        getHierarchy(state, getters, rootState, otherGetters) {
+        getHierarchy(state, getters, rootState) {
 
             if (!state.node) {
                 return [];
             }
 
+            // Resolve hierarchy
             const hierarchy = [state.node];
-
-            while (true) {
-                const currentHash = hierarchy[0].parent;
-                const parent = rootState.nodes.find(v => v.hash === currentHash);
-
-                if (parent) {
-                    hierarchy.splice(0, 0, parent);
-                } else {
-                    break;
-                }
+            const {nodes} = rootState;
+            for (let hash, parent; hash = hierarchy[0].parent, parent = nodes.find(v => v.hash === hash);){
+                hierarchy.splice(0, 0, parent);
             }
 
             return hierarchy;
@@ -65,7 +59,6 @@ export const location = {
             state.node = node;
         }
     },
-
 
     actions: {
 

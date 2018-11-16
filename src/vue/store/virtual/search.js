@@ -67,7 +67,6 @@ export const search = {
                     try {
                         query = new RegExp(query, ignoreCase ? 'i' : '');
                     } catch (e) {
-                        console.log(`[SRH] Invalid RegExp skipped: '${query}'`);
                         state.active = false;
                         return;
                     }

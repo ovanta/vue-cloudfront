@@ -1,14 +1,14 @@
 <template>
     <div class="multi-switch">
 
-        <span ref="options"
-              v-for="(opt, index) of options"
-              @click="select(index)"
-              :class="{option: 1, active: idx === index}">
-              {{ opt }}
+        <span v-for="(opt, index) of options"
+              ref="options"
+              :class="{option: 1, active: idx === index}"
+              @click="select(index)">
+            {{ opt }}
         </span>
 
-        <span class="button" ref="button"></span>
+        <span ref="button" class="button"></span>
 
     </div>
 </template>
@@ -35,6 +35,10 @@
             };
         },
 
+        mounted() {
+            this.select(this.active);
+        },
+
         methods: {
 
             select(index) {
@@ -56,10 +60,6 @@
                 this.idx = index;
             }
         },
-
-        mounted() {
-            this.select(this.active);
-        }
     };
 
 </script>

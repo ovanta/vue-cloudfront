@@ -2,14 +2,16 @@
     <section class="hierarchy">
 
         <!-- Default display of the current folder hierarchy -->
-        <div class="node" v-for="(node, index) of nodes" v-if="!searchResult && !markedNodes">
+        <div v-for="(node, index) of nodes" 
+             v-if="!searchResult && !markedNodes" 
+             class="node">
             <span class="name" @click="updateLocation(node)">{{ node.name }}</span>
-            <i class="fas fa-fw fa-angle-right" v-if="index < nodes.length - 1"></i>
+            <i v-if="index < nodes.length - 1" class="fas fa-fw fa-angle-right"></i>
         </div>
 
 
         <!-- Human readable representation of the search result (if a search is currently performed) -->
-        <div class="amount-info" v-if="searchResult">
+        <div v-if="searchResult" class="amount-info">
             <b v-if="searchResult.file">{{ searchResult.file }} files</b>
             <span v-if="searchResult.file && searchResult.folder"> and </span>
             <b v-if="searchResult.folder">{{ searchResult.folder }} folders</b>
@@ -19,7 +21,7 @@
 
 
         <!-- Same as search info, but for marked nodes -->
-        <div class="amount-info" v-if="markedNodes && !searchResult">
+        <div v-if="markedNodes && !searchResult" class="amount-info">
             <b v-if="markedNodes.file">{{ markedNodes.file }} files</b>
             <span v-if="markedNodes.file && markedNodes.folder"> and </span>
             <b v-if="markedNodes.folder">{{ markedNodes.folder }} folders</b>
@@ -33,6 +35,10 @@
 <script>
 
     export default {
+
+        data() {
+            return {};
+        },
 
         computed: {
 
@@ -71,10 +77,6 @@
                 };
             }
 
-        },
-
-        data() {
-            return {};
         },
 
         methods: {

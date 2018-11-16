@@ -30,7 +30,7 @@ export default (vue, selectionjs) => new Draggable({
          * If user starts dragging, disable and
          * cancel current selection processes.
          */
-        ;
+        
         selectionjs.disable();
         selectionjs.cancel();
     },

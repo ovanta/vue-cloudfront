@@ -1,52 +1,73 @@
 <template>
-    <div :class="{menu: 1, open}" :style="style" ref="menuRoot">
+    <div ref="menuRoot" 
+         :class="{menu: 1, open}" 
+         :style="style">
 
-        <div class="option star" v-if="marked || type === 'files' || type === 'folder' || type === 'mixed'" @click="star()">
+        <div v-if="marked || type === 'files' || type === 'folder' || type === 'mixed'" 
+             class="option star" 
+             @click="star()">
             <i :class="`fa${marked ? 'r' : 's'} fa-fw fa-bookmark`"></i>
-            <span class="name">{{ marked ? 'Remove mark' : 'Add mark'}}</span>
+            <span class="name">{{ marked ? 'Remove mark' : 'Add mark' }}</span>
         </div>
 
-        <div class="option delete" v-if="type === 'files' || type === 'folder' || type === 'mixed'" @click="del()">
+        <div v-if="type === 'files' || type === 'folder' || type === 'mixed'" 
+             class="option delete" 
+             @click="del()">
             <i class="fas fa-fw fa-trash-alt"></i>
             <span class="name">Delete</span>
         </div>
 
-        <div class="option" v-if="type === 'files' || type === 'folder' || type === 'mixed'" @click="download()">
+        <div v-if="type === 'files' || type === 'folder' || type === 'mixed'" 
+             class="option" 
+             @click="download()">
             <i class="fas fa-fw fa-download"></i>
             <span class="name">Download</span>
         </div>
 
-        <div class="option" v-if="!$store.state.search.active && activeTab === 'home'" @click="newFolder()">
+        <div v-if="!$store.state.search.active && activeTab === 'home'" 
+             class="option" 
+             @click="newFolder()">
             <i class="fas fa-fw fa-folder-plus"></i>
             <span class="name">New Folder</span>
         </div>
 
-        <div class="option" v-if="nodes.length === 1" @click="edit()">
+        <div v-if="nodes.length === 1" 
+             class="option" 
+             @click="edit()">
             <i class="fas fa-fw fa-pen"></i>
             <span class="name">Rename</span>
         </div>
 
-        <div class="option" v-if="$store.state.selection.length && activeTab === 'home'" @click="moveToClipboard('copy')">
+        <div v-if="$store.state.selection.length && activeTab === 'home'" 
+             class="option" 
+             @click="moveToClipboard('copy')">
             <i class="fas fa-fw fa-copy"></i>
             <span class="name">Copy</span>
         </div>
 
-        <div class="option" v-if="$store.state.selection.length" @click="moveToClipboard('move')">
+        <div v-if="$store.state.selection.length" 
+             class="option" 
+             @click="moveToClipboard('move')">
             <i class="fas fa-fw fa-cut"></i>
             <span class="name">Cut</span>
         </div>
 
-        <div class="option" v-if="$store.state.clipboard.nodes.length && activeTab === 'home'" @click="execClipboardAction()">
+        <div v-if="$store.state.clipboard.nodes.length && activeTab === 'home'" 
+             class="option" 
+             @click="execClipboardAction()">
             <i class="fas fa-fw fa-paste"></i>
             <span class="name">Paste</span>
         </div>
 
-        <div class="option sub" v-if="type === 'folder'">
+        <div v-if="type === 'folder'" class="option sub">
             <i class="fas fa-fw fa-palette"></i>
             <span class="name">Change color <i class="fas fa-fw fa-angle-right"></i></span>
 
             <div class="sub-menu colors">
-                <div class="color" v-for="color of $store.state.colors" :style="{background: color}" @click="setColor(color)"></div>
+                <div v-for="color of $store.state.colors" 
+                     :style="{background: color}" 
+                     class="color" 
+                     @click="setColor(color)"></div>
             </div>
         </div>
 
@@ -57,6 +78,15 @@
 <script>
 
     export default {
+
+        data() {
+            return {
+                open: false,
+                type: '',
+                nodes: [],
+                style: {}
+            };
+        },
 
         computed: {
 
@@ -86,13 +116,54 @@
 
         },
 
-        data() {
-            return {
-                open: false,
-                type: '',
-                nodes: [],
-                style: {}
+        mounted() {
+
+            // Close via escape key
+            window.addEventListener('keyup', e => e.key === 'Escape' && (this.open = false));
+
+            // Function to check, if menu is open, if the user has clicked
+            // outside of the menu. Only active is menu is visible.
+            const detectOutsideClick = evt => {
+                if (!this.eventPath(evt).includes(this.$refs.menuRoot)) {
+                    this.open = false;
+                }
             };
+
+            /**
+             *  Event to show the menu.
+             *  Nodes is an array of currently selected nodes and
+             *  evt the mouseevent (contextmenu)
+             */
+            this.$on('show', evt => {
+                this.nodes = this.$store.state.selection;
+                const hasFiles = this.nodes.find(n => n.type === 'file');
+                const hasFolder = this.nodes.find(n => n.type === 'folder');
+
+                // Check which nodes are present / currently selected
+                if (hasFiles && hasFolder) {
+                    this.type = 'mixed';
+                } else if (hasFiles) {
+                    this.type = 'files';
+                } else if (hasFolder) {
+                    this.type = 'folder';
+                } else {
+                    this.type = 'none';
+                }
+
+                // Set listener for out-of-bounds clicks
+                window.addEventListener('mousedown', detectOutsideClick);
+
+                // Set postion
+                this.style.left = `${evt.clientX + 5}px`;
+                this.style.top = `${evt.clientY + 5}px`;
+                this.open = true;
+            });
+
+            // Event to hide the menu
+            this.$on('hide', () => {
+                window.removeEventListener('mousedown', detectOutsideClick);
+                this.open = false;
+            });
         },
 
         methods: {
@@ -166,56 +237,6 @@
             }
 
         },
-
-        mounted() {
-
-            // Close via escape key
-            window.addEventListener('keyup', e => e.key === 'Escape' && (this.open = false));
-
-            // Function to check, if menu is open, if the user has clicked
-            // outside of the menu. Only active is menu is visible.
-            const detectOutsideClick = evt => {
-                if (!this.eventPath(evt).includes(this.$refs.menuRoot)) {
-                    this.open = false;
-                }
-            };
-
-            /**
-             *  Event to show the menu.
-             *  Nodes is an array of currently selected nodes and
-             *  evt the mouseevent (contextmenu)
-             */
-            this.$on('show', evt => {
-                this.nodes = this.$store.state.selection;
-                const hasFiles = this.nodes.find(n => n.type === 'file');
-                const hasFolder = this.nodes.find(n => n.type === 'folder');
-
-                // Check which nodes are present / currently selected
-                if (hasFiles && hasFolder) {
-                    this.type = 'mixed';
-                } else if (hasFiles) {
-                    this.type = 'files';
-                } else if (hasFolder) {
-                    this.type = 'folder';
-                } else {
-                    this.type = 'none';
-                }
-
-                // Set listener for out-of-bounds clicks
-                window.addEventListener('mousedown', detectOutsideClick);
-
-                // Set postion
-                this.style.left = `${evt.clientX + 5}px`;
-                this.style.top = `${evt.clientY + 5}px`;
-                this.open = true;
-            });
-
-            // Event to hide the menu
-            this.$on('hide', () => {
-                window.removeEventListener('mousedown', detectOutsideClick);
-                this.open = false;
-            });
-        }
 
     };
 

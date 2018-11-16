@@ -9,7 +9,7 @@
 
         <!-- Debug info -->
         <div class="info">
-            <div class="stat" v-for="stat of stats">
+            <div v-for="stat of stats" class="stat">
                 <span>{{ stat.name }}:</span>
                 <b>{{ stat.value }}</b>
             </div>
@@ -22,6 +22,12 @@
 
     export default {
 
+        data() {
+            return {
+                visible: false
+            };
+        },
+
         computed: {
             stats() {
                 const state = this.$store.state;
@@ -33,12 +39,6 @@
                     {name: 'Search', value: state.search.nodes.length}
                 ];
             }
-        },
-
-        data() {
-            return {
-                visible: false
-            };
         },
 
         mounted() {
