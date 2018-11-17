@@ -1,59 +1,59 @@
 <template>
-    <div ref="menuRoot" 
-         :class="{menu: 1, open}" 
+    <div ref="menuRoot"
+         :class="{menu: 1, open}"
          :style="style">
 
-        <div v-if="marked || type === 'files' || type === 'folder' || type === 'mixed'" 
-             class="option star" 
+        <div v-if="marked || type === 'files' || type === 'folder' || type === 'mixed'"
+             class="option star"
              @click="star()">
             <i :class="`fa${marked ? 'r' : 's'} fa-fw fa-bookmark`"></i>
             <span class="name">{{ marked ? 'Remove mark' : 'Add mark' }}</span>
         </div>
 
-        <div v-if="type === 'files' || type === 'folder' || type === 'mixed'" 
-             class="option delete" 
+        <div v-if="type === 'files' || type === 'folder' || type === 'mixed'"
+             class="option delete"
              @click="del()">
             <i class="fas fa-fw fa-trash-alt"></i>
             <span class="name">Delete</span>
         </div>
 
-        <div v-if="type === 'files' || type === 'folder' || type === 'mixed'" 
-             class="option" 
+        <div v-if="type === 'files' || type === 'folder' || type === 'mixed'"
+             class="option"
              @click="download()">
             <i class="fas fa-fw fa-download"></i>
             <span class="name">Download</span>
         </div>
 
-        <div v-if="!$store.state.search.active && activeTab === 'home'" 
-             class="option" 
+        <div v-if="!$store.state.search.active && activeTab === 'home'"
+             class="option"
              @click="newFolder()">
             <i class="fas fa-fw fa-folder-plus"></i>
             <span class="name">New Folder</span>
         </div>
 
-        <div v-if="nodes.length === 1" 
-             class="option" 
+        <div v-if="nodes.length === 1"
+             class="option"
              @click="edit()">
             <i class="fas fa-fw fa-pen"></i>
             <span class="name">Rename</span>
         </div>
 
-        <div v-if="$store.state.selection.length && activeTab === 'home'" 
-             class="option" 
+        <div v-if="$store.state.selection.length && activeTab === 'home'"
+             class="option"
              @click="moveToClipboard('copy')">
             <i class="fas fa-fw fa-copy"></i>
             <span class="name">Copy</span>
         </div>
 
-        <div v-if="$store.state.selection.length" 
-             class="option" 
+        <div v-if="$store.state.selection.length"
+             class="option"
              @click="moveToClipboard('move')">
             <i class="fas fa-fw fa-cut"></i>
             <span class="name">Cut</span>
         </div>
 
-        <div v-if="$store.state.clipboard.nodes.length && activeTab === 'home'" 
-             class="option" 
+        <div v-if="$store.state.clipboard.nodes.length && activeTab === 'home'"
+             class="option"
              @click="execClipboardAction()">
             <i class="fas fa-fw fa-paste"></i>
             <span class="name">Paste</span>
@@ -64,9 +64,9 @@
             <span class="name">Change color <i class="fas fa-fw fa-angle-right"></i></span>
 
             <div class="sub-menu colors">
-                <div v-for="color of $store.state.colors" 
-                     :style="{background: color}" 
-                     class="color" 
+                <div v-for="color of sub.colors"
+                     :style="{background: color}"
+                     class="color"
                      @click="setColor(color)"></div>
             </div>
         </div>
@@ -84,7 +84,33 @@
                 open: false,
                 type: '',
                 nodes: [],
-                style: {}
+                style: {},
+
+                // Sub-menu stuff
+                sub: {
+                    colors: [
+                        '#EF5350',
+                        '#EC407A',
+                        '#AB47BC',
+                        '#7E57C2',
+                        '#5C6BC0',
+                        '#42A5F5',
+                        '#29B6F6',
+                        '#26C6DA',
+                        '#26A69A',
+                        '#66BB6A',
+                        '#9CCC65',
+                        '#D4E157',
+                        '#FFEE58',
+                        '#FFCA28',
+                        '#FFA726',
+                        '#FF7043',
+                        '#8D6E63',
+                        '#BDBDBD',
+                        '#78909C',
+                        '#454d50'
+                    ]
+                }
             };
         },
 
@@ -236,7 +262,7 @@
                 this.$store.dispatch('nodes/changeColor', {nodes: this.nodes, color});
             }
 
-        },
+        }
 
     };
 

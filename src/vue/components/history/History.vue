@@ -265,7 +265,7 @@
 
         .description {
             @include flex(row, center);
-            width: 50%;
+            width: 45%;
             margin-right: 2em;
 
             .text {

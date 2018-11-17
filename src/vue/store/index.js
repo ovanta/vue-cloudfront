@@ -4,9 +4,6 @@ import Vuex from 'vuex';
 // Server-related nodes
 import {nodes} from './nodes';
 
-// Static props
-import {colors} from './statics/colors';
-
 // Virtual modules act only as visual helpers / representation
 import {location} from './virtual/location';
 import {clipboard} from './virtual/clipboard';
@@ -17,7 +14,7 @@ import {search} from './virtual/search';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    modules: {nodes, location, clipboard, selection, editable, colors, search},
+    modules: {nodes, location, clipboard, selection, editable, search},
 
     state: {
         viewType: 'grid',
