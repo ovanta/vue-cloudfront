@@ -43,23 +43,21 @@
             </div>
         </div>
 
-        <!-- TODO: Placeholder if folder is empty -->
-
     </section>
 </template>
 
 <script>
 
     export default {
+        props: {
+            nodes: {
+                type: Object,
+                default: () => ({file: [], folder: []})
+            }
+        },
 
         data() {
             return {};
-        },
-
-        computed: {
-            nodes() {
-                return this.$store.getters['nodes/currentDisplayedNodes'](false);
-            }
         },
 
         methods: {
@@ -118,7 +116,6 @@
 
     .grid-view {
         @include flex(column);
-        flex-grow: 1;
     }
 
     .list {

@@ -25,8 +25,8 @@
                     <span class="text">{{ action.description }}</span>
 
                     <!-- Additional payload info -->
-                    <span v-if="action.payload.newColor" 
-                          :style="{background: action.payload.newColor}" 
+                    <span v-if="action.payload.newColor"
+                          :style="{background: action.payload.newColor}"
                           class="change-color"></span>
                 </span>
 
@@ -202,7 +202,7 @@
                 this.actions.splice(0, this.actions.length);
             }
 
-        },
+        }
     };
 </script>
 
@@ -287,7 +287,7 @@
         .timestamp,
         .performed {
             opacity: 0.75;
-            width: 15%;
+            width: 18%;
         }
 
         &:last-child {

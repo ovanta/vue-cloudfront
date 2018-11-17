@@ -10,11 +10,11 @@
             <div class="controls">
 
                 <!-- Node-views, grid and list -->
-                <i v-show="$store.state.viewType === 'grid'" 
-                   class="fas fa-fw fa-th-list" 
+                <i v-show="$store.state.viewType === 'grid'"
+                   class="fas fa-fw fa-th-list"
                    @click="setViewType('list')"></i>
-                <i v-show="$store.state.viewType === 'list'" 
-                   class="fas fa-fw fa-th" 
+                <i v-show="$store.state.viewType === 'list'"
+                   class="fas fa-fw fa-th"
                    @click="setViewType('grid')"></i>
 
                 <!-- Show keyboard-shortcuts button -->
@@ -25,10 +25,23 @@
             </div>
         </div>
 
-        <!-- Folder / file -views -->
-        <!-- TODO: Draggable nodes? -->
-        <list-view v-if="$store.state.viewType === 'list'" class="view"></list-view>
-        <grid-view v-if="$store.state.viewType === 'grid'" class="view"></grid-view>
+        <div class="views">
+
+            <!-- Folder / file -views -->
+            <!-- TODO: Sticky header in both? -->
+            <list-view v-if="$store.state.viewType === 'list'"
+                       :nodes="nodes"
+                       class="view"></list-view>
+            <grid-view v-if="$store.state.viewType === 'grid'"
+                       :nodes="nodes"
+                       class="view"></grid-view>
+
+            <!-- Placeholder if folder is empty -->
+            <div v-if="!nodes.file.length && !nodes.folder.length" class="placeholder">
+                <i class="fas fa-cloud"></i>
+                <span><b>Create a folder</b> or <b>drag and drop</b> to upload</span>
+            </div>
+        </div>
 
         <!-- Context menu -->
         <context-menu ref="contextMenu"></context-menu>
@@ -65,6 +78,12 @@
                 draggablePlugin: null,
                 selectionPlugin: null
             };
+        },
+
+        computed: {
+            nodes() {
+                return this.$store.getters['nodes/currentDisplayedNodes'](false);
+            }
         },
 
         mounted() {
@@ -115,7 +134,7 @@
                 this.$store.commit('setViewType', type);
             }
 
-        },
+        }
     };
 
 </script>
@@ -163,16 +182,37 @@
         }
     }
 
-    .view {
-        margin: 0 2em 0 2em;
-        overflow: hidden;
+    .views {
+        @include flex(column);
+        flex-grow: 1;
 
-        @include animate('1s ease forwards') {
-            from {
-                opacity: 0;
+        .view {
+            margin: 0 2em 0 2em;
+            overflow: hidden;
+
+            @include animate('1s ease forwards') {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
             }
-            to {
-                opacity: 1;
+        }
+
+        .placeholder {
+            flex-grow: 1;
+            color: $palette-decent-blue;
+            @include position(0, 0, 0, 0);
+            @include flex(column, center, center);
+
+            i {
+                font-size: 2em;
+            }
+
+            span {
+                @include font(400, 0.85em);
+                margin-top: 0.2em;
             }
         }
     }

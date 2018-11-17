@@ -34,8 +34,8 @@
                 <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
 
                 <div class="name" spellcheck="false">
-                    <span v-select-all="node.editable" 
-                          :contenteditable="node.editable" 
+                    <span v-select-all="node.editable"
+                          :contenteditable="node.editable"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
@@ -53,8 +53,8 @@
 
                 <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">
-                    <span v-select-all="node.editable" 
-                          :contenteditable="node.editable" 
+                    <span v-select-all="node.editable"
+                          :contenteditable="node.editable"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
@@ -70,6 +70,12 @@
 <script>
 
     export default {
+        props: {
+            nodes: {
+                type: Object,
+                default: () => ({file: [], folder: []})
+            }
+        },
 
         data() {
             return {
@@ -79,12 +85,6 @@
                     size: false
                 }
             };
-        },
-
-        computed: {
-            nodes() {
-                return this.$store.getters['nodes/currentDisplayedNodes'](true);
-            }
         },
 
         methods: {
@@ -176,7 +176,6 @@
 
     .list-view {
         @include flex(column);
-        flex-grow: 1;
     }
 
     .list {

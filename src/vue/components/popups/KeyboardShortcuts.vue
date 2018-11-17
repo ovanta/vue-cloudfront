@@ -48,9 +48,9 @@
                             {keys: ['ctrl', 'c'], action: 'Copy folder / files.'},
                             {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
                             {keys: ['n', 'f'], action: 'Create new folder.'},
-                            {keys: ['e', 'n'], action: 'Edit name.'},
-                            {keys: ['m', 'a'], action: 'Add star to selected files / folders.'},
-                            {keys: ['m', 'r'], action: 'Remove star from selected files / folders.'},
+                            {keys: ['e', 'n'], action: 'Edit the name.'},
+                            {keys: ['m', 'a'], action: 'Marks selected files / folders.'},
+                            {keys: ['m', 'r'], action: 'Removes the mark from selected files / folders.'},
                             {keys: ['delete'], action: 'Deletes currently selected files / folders.'}
                         ]
                     },

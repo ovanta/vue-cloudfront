@@ -16,9 +16,8 @@
             <span v-if="searchResult.file && searchResult.folder"> and </span>
             <b v-if="searchResult.folder">{{ searchResult.folder }} folders</b>
             <span v-if="searchResult.file || searchResult.folder"> found</span>
-            <span v-if="!searchResult.file && !searchResult.folder">Nothing here</span>
+            <span v-if="!searchResult.file && !searchResult.folder">Nothing found</span>
         </div>
-
 
         <!-- Same as search info, but for marked nodes -->
         <div v-if="markedNodes && !searchResult" class="amount-info">
