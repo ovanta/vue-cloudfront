@@ -59,7 +59,7 @@
     import Hierarchy from './Hierarchy';
     import ListView from './views/ListView';
     import GridView from './views/GridView';
-    import ContextMenu from './ContextMenu';
+    import ContextMenu from './contextmenu/ContextMenu';
     import SearchBar from './SearchBar';
 
     export default {

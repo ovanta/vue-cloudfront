@@ -62,13 +62,7 @@
         <div v-if="type === 'folder'" class="option sub">
             <i class="fas fa-fw fa-palette"></i>
             <span class="name">Change color <i class="fas fa-fw fa-angle-right"></i></span>
-
-            <div class="sub-menu colors">
-                <div v-for="color of sub.colors"
-                     :style="{background: color}"
-                     class="color"
-                     @click="setColor(color)"></div>
-            </div>
+            <color-chooser class="sub-menu" @change="setColor"></color-chooser>
         </div>
 
     </div>
@@ -77,40 +71,19 @@
 
 <script>
 
+    // Components
+    import ColorChooser from './ColorChooser';
+
     export default {
+
+        components: {ColorChooser},
 
         data() {
             return {
                 open: false,
                 type: '',
                 nodes: [],
-                style: {},
-
-                // Sub-menu stuff
-                sub: {
-                    colors: [
-                        '#EF5350',
-                        '#EC407A',
-                        '#AB47BC',
-                        '#7E57C2',
-                        '#5C6BC0',
-                        '#42A5F5',
-                        '#29B6F6',
-                        '#26C6DA',
-                        '#26A69A',
-                        '#66BB6A',
-                        '#9CCC65',
-                        '#D4E157',
-                        '#FFEE58',
-                        '#FFCA28',
-                        '#FFA726',
-                        '#FF7043',
-                        '#8D6E63',
-                        '#BDBDBD',
-                        '#78909C',
-                        '#454d50'
-                    ]
-                }
+                style: {}
             };
         },
 
@@ -333,7 +306,7 @@
                 .sub-menu {
                     position: absolute;
                     transform: translateX(-10px);
-                    left: 120%;
+                    left: 115%;
                     box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
                     background: white;
                     padding: 1em;
@@ -347,24 +320,6 @@
                     opacity: 1;
                     transform: none;
                     visibility: visible;
-                }
-
-                .sub-menu.colors {
-                    display: grid;
-                    grid-template-columns: repeat(5, 1fr);
-                    grid-gap: 5px;
-
-                    .color {
-                        @include size(20px);
-                        border: 1px solid rgba(black, 0.1);
-                        border-radius: 100%;
-                        cursor: pointer;
-                        transition: all 1s;
-
-                        &:hover {
-                            filter: brightness(1.2);
-                        }
-                    }
                 }
             }
         }
