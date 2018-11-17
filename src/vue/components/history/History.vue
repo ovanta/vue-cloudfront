@@ -6,13 +6,25 @@
             <i class="fas fa-fw fa-trash" @click="clearActions()"></i>
         </div>
 
+        <!-- Column header with sorting buttons -->
         <div class="action actions-header">
-            <span class="name">Action</span>
+
+            <div class="sort-container name" @click="sort('name')">
+                <span>Action</span>
+                <i :class="`fas fa-fw fa-caret-${sortDirs.name ? 'down' : 'up'}`"></i>
+            </div>
+
             <span class="description"></span>
-            <span class="performed">Performed</span>
+
+            <div class="sort-container performed" @click="sort('timestamp')">
+                <span>Performed</span>
+                <i :class="`fas fa-fw fa-caret-${sortDirs.timestamp ? 'down' : 'up'}`"></i>
+            </div>
+
             <span class="timestamp">Timestamp</span>
         </div>
 
+        <!-- Actual list of actions -->
         <div class="actions">
             <div v-for="action of actions" class="action">
 
@@ -44,6 +56,10 @@
         data() {
             return {
                 actions: [],
+                sortDirs: {
+                    name: false,
+                    timestamp: false
+                },
 
                 now: Date.now(),
                 interval: null
@@ -160,7 +176,7 @@
                     .join(' ');
 
                 // Push action
-                this.actions.push({
+                this.actions.splice(0, 0, {
                     name,
 
                     /**
@@ -200,6 +216,33 @@
 
             clearActions() {
                 this.actions.splice(0, this.actions.length);
+            },
+
+            sort(type) {
+
+                /**
+                 * Values which are used to toggle
+                 * each sorting type individually.
+                 */
+                const ra = this.sortDirs[type] ? -1 : 1;
+                const rb = this.sortDirs[type] ? 1 : -1;
+
+                // Find correct sorting function
+                const sortFn = (() => {
+                    switch (type) {
+                        case 'name':
+                            return (a, b) => a.name > b.name ? ra : rb;
+                        case 'timestamp':
+                            return (a, b) => a.timestamp > b.timestamp ? ra : rb;
+                    }
+                })();
+
+                // Sort pre-calulated nodes and re-render everything
+                this.actions.sort(sortFn);
+                this.$forceUpdate();
+
+                // Toggle sort-direction to descending / ascending
+                this.sortDirs[type] = !this.sortDirs[type];
             }
 
         }
@@ -305,8 +348,25 @@
                 padding-left: 0;
                 text-shadow: none;
             }
+
+            .sort-container {
+                @include flex(row, center);
+                cursor: pointer;
+
+                i {
+                    font-size: inherit;
+                    margin-left: 0.25em;
+                }
+
+                &:hover {
+                    color: $palette-deep-purple;
+
+                    .sort {
+                        color: $palette-deep-purple;
+                    }
+                }
+            }
         }
     }
-
 
 </style>

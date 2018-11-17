@@ -147,15 +147,12 @@
                 // Find correct sorting function
                 const sortFn = (() => {
                     switch (type) {
-                        case 'name': {
+                        case 'name':
                             return (a, b) => a.name > b.name ? ra : rb;
-                        }
-                        case 'lastModified': {
+                        case 'lastModified':
                             return (a, b) => a.lastModified > b.lastModified ? ra : rb;
-                        }
-                        case 'size': {
+                        case 'size':
                             return (a, b) => a.size > b.size ? ra : rb;
-                        }
                     }
                 })();
 
@@ -188,11 +185,11 @@
     .header {
         @include flex(row, center);
         user-select: none;
-        padding: 0.4em 0;
+        padding: 0.3em 0;
         border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
         transition: all 0.3s;
         cursor: pointer;
-        font-size: 0.8em;
+        font-size: 0.78em;
 
         i {
             color: $palette-deep-blue;
