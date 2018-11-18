@@ -74,7 +74,7 @@ export const nodes = {
                     if (autoAdd || n.parent === locHash) {
                         const {type} = n;
 
-                        // Pre-checks
+                        // Pre calculations
                         n.cutted = clipboard.type === 'move' && clipboardNodes.includes(n);
                         n.selected = selectionNodes.includes(n);
                         n.editable = n === editableNode;
@@ -83,6 +83,12 @@ export const nodes = {
                         // Calculate recursivly the size of each folder
                         if (includeFolderSize && type === 'folder') {
                             n.size = calcFolderSize(n.hash);
+                        }
+
+                        // Extract extension and raw name
+                        if (type === 'file') {
+                            const extensionCut = n.name.lastIndexOf('.');
+                            n.extension = ~extensionCut ? n.name.substring(extensionCut + 1) : '?';
                         }
                     }
                 }

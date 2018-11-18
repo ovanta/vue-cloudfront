@@ -33,7 +33,7 @@
                      @click.left="select($event, node)">
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
-                    <i class="fas fa-fw fa-file"></i>
+                    <span class="extension">{{ node.extension }}</span>
                     <span v-select-all="node.editable"
                           :contenteditable="node.editable"
                           class="name"
@@ -153,12 +153,6 @@
         background: white;
         border: 1px solid transparent;
 
-        i {
-            color: $palette-deep-blue;
-            transition: all 0.3s;
-            font-size: 1.3em;
-        }
-
         .bookmark {
             position: absolute;
             @include position(0.35em, 0.1em, auto, auto);
@@ -171,6 +165,15 @@
                 opacity: 1;
                 transform: none;
             }
+        }
+
+        .extension {
+            @include font(600, 0.85em);
+            background: $palette-deep-purple;
+            padding: 0.15em 0.35em;
+            text-transform: uppercase;
+            border-radius: 0.15em;
+            color: white;
         }
 
         &.selected {
