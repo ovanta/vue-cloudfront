@@ -42,7 +42,7 @@
                           class="change-color"></span>
                 </span>
 
-                <span class="performed">{{ (now - action.timestamp) | readableTimeStampDiff }}</span>
+                <span class="performed">{{ ($store.state.now - action.timestamp) | readableTimeStampDiff }}</span>
                 <span class="timestamp">{{ action.timestamp | readableTimestamp }}</span>
             </div>
         </div>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+
     export default {
 
         data() {
@@ -61,7 +62,6 @@
                     timestamp: false
                 },
 
-                now: Date.now(),
                 interval: null
             };
         },
@@ -207,9 +207,6 @@
                 this.$store.subscribe(handle),
                 this.$store.subscribeAction(handle)
             );
-
-            // Use interval to update current time every 30 seconds
-            this.interval = setInterval(() => this.now = Date.now(), 30000);
         },
 
         methods: {

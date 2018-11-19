@@ -12,16 +12,33 @@
         data() {
             return {
                 open: false,
+
+                /**
+                 * Thanks to github.com/NateSeymour for these
+                 * delightful messages.
+                 */
                 messages: [
-                    'Smooth buttons',
+                    'Smoothing buttons',
                     'Procentually generating icons',
                     'Dropping shadows',
-                    'Eliminate errors',
-                    'Wipe UI clean',
+                    'Eliminating errors',
+                    'Wiping UI clean',
                     'Reading discette',
                     'Baking cookies',
                     'Serving cookies',
-                    'Polish input fields'
+                    'Polishing input fields',
+                    'Organizing folders',
+                    'Writing expense reports',
+                    'Hiding errors under the rug',
+                    'Designing icons',
+                    'The cake is a lie!',
+                    'Calculating the meaning of life, the universe and everything',
+                    'Polarizing matrices',
+                    'Good Morning, Mr. Freeman.',
+                    'Todo: remove arrow from knee',
+                    'Baaaaaa!',
+                    'Remembering to bring a towel',
+                    'Excuse me, it\'s called a "feature'
                 ]
             };
         },
@@ -79,7 +96,7 @@
             randomMessage() {
                 return this.messages[Math.floor(Math.random() * this.messages.length)];
             }
-        },
+        }
 
     };
 

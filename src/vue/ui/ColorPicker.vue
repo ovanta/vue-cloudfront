@@ -24,7 +24,7 @@
                    @blur="inputActive = false">
 
             <!-- Used to accept a color -->
-            <i class="fas fa-check" @click="$emit('change', hexColor)"></i>
+            <i class="fas fa-save" @click="$emit('change', hexColor)"></i>
         </div>
 
     </div>
@@ -284,8 +284,8 @@
         }
 
         i {
-            margin-left: 1em;
-            font-size: 0.95em;
+            margin-left: 0.75em;
+            font-size: 1.15em;
             color: $palette-deep-blue;
             transition: all 0.3s;
             cursor: pointer;
@@ -294,7 +294,6 @@
                 color: $palette-cloud-blue;
             }
         }
-
     }
 
 </style>

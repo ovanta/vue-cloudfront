@@ -17,6 +17,11 @@ export default new Vuex.Store({
     modules: {nodes, location, clipboard, selection, editable, search},
 
     state: {
+
+        // Gets updated every second
+        now: Date.now(),
+
+        // UI Props
         viewType: 'grid',
         skipIntroBoxes: false,
         showDebugScreen: false,
@@ -50,6 +55,10 @@ export default new Vuex.Store({
             }
 
             state.viewType = type;
+        },
+
+        updateTimer(state) {
+            state.now = Date.now();
         }
     }
 });

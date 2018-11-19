@@ -160,6 +160,7 @@
             opacity: 0;
             transform: translateY(-0.15em) rotate(10deg);
             transition: all 0.3s;
+            color: $palette-deep-purple;
 
             &.visible {
                 opacity: 1;
@@ -181,8 +182,7 @@
             box-shadow: 0 1px 8px 0 rgba($palette-cloud-blue, 0.15);
 
             .name,
-            .detail,
-            i {
+            .detail {
                 color: $palette-cloud-blue;
             }
         }
