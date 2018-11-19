@@ -63,6 +63,7 @@
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
                             {keys: ['j', 'm'], action: 'Switch to marked tab.'},
                             {keys: ['j', 'a'], action: 'Switch to history tab.'},
+                            {keys: ['tab'], action: 'Switch tabs.'},
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
                             {keys: ['d', 'b'], action: 'Show debug screen.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'}
@@ -299,8 +300,21 @@
                 if (keys.KeyJ && keys.KeyA) {
                     this.$store.commit('setActiveTab', 'history');
                 }
+
+                // Switch tabs
+                if (keys.KeyTab && !keys.ctrlKey) {
+                    const tabs = ['home', 'marked', 'history'];
+                    let index = tabs.indexOf(this.$store.state.activeTab) + 1;
+
+                    // Rotate if end is reached
+                    index === tabs.length && (index = 0);
+
+                    // Switch tab
+                    this.$store.commit('setActiveTab', tabs[index]);
+                    event.preventDefault();
+                }
             }
-        },
+        }
     };
 
 </script>
