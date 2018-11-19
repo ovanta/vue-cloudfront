@@ -29,7 +29,6 @@ Vue.filter('readableByteCount', bytes => {
     return `${bytes} B`;
 });
 
-
 /**
  * Convert a timestamp to a fancy date string.
  */

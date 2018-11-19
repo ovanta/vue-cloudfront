@@ -32,8 +32,8 @@
                 <debug-screen></debug-screen>
 
                 <!-- Helping pages (fixed) -->
-                <shortcuts-help-page></shortcuts-help-page>
-                <filter-help-page></filter-help-page>
+                <popover-filter-info></popover-filter-info>
+                <popover-keyboard-shortcuts></popover-keyboard-shortcuts>
             </div>
 
             <!-- Loading screen -->
@@ -46,26 +46,26 @@
 <script>
 
     // Global filters
-    import './filters';
+    import '../vue-extensions/filters';
 
     // Global directives
-    import './directives';
+    import '../vue-extensions/directives';
 
     // Global mixins
-    import './mixins';
+    import '../vue-extensions/mixins';
 
     // Components
-    import Navigator from './components/navigator/Navigator';
-    import History from './components/history/History';
-    import DebugScreen from './components/DebugScreen';
-    import MenuBar from './components/MenuBar';
+    import Navigator from './components/application/navigator/Navigator';
+    import History from './components/application/history/History';
+    import MenuBar from './components/application/MenuBar';
 
-    // Helping screens
-    import ShortcutsHelpPage from './components/popups/KeyboardShortcuts';
-    import FilterHelpPage from './components/popups/FilterInfo';
+    // Popovers
+    import PopoverKeyboardShortcuts from './components/application/popovers/PopoverKeyboardShortcuts';
+    import PopoverFilterInfo from './components/application/popovers/PopoverFilterInfo';
 
-    // Loading screen
-    import LoadingScreen from './components/LoadingScreen';
+    // Loading screen and debug
+    import LoadingScreen from './components/application/screens/LoadingScreen';
+    import DebugScreen from './components/application/screens/DebugScreen';
 
     // Font-awesome styles
     import '@fortawesome/fontawesome-free/css/all.css';
@@ -75,17 +75,15 @@
         components: {
 
             // Tabs
+            MenuBar,
             Navigator,
             History,
 
-            // Static items
-            DebugScreen,
-            ShortcutsHelpPage,
-            FilterHelpPage,
-            MenuBar,
-
-            // Loading screen
-            LoadingScreen
+            // Popovers and static components
+            PopoverKeyboardShortcuts,
+            PopoverFilterInfo,
+            LoadingScreen,
+            DebugScreen
         },
 
         data() {

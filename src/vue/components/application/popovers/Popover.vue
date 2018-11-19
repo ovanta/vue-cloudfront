@@ -9,7 +9,7 @@
                 <i class="fas fa-fw fa-times" @click="$store.commit('setActivePopup', null)"></i>
             </div>
 
-            <!-- Contains content of popups page -->
+            <!-- Contains content of popovers page -->
             <slot></slot>
         </div>
 

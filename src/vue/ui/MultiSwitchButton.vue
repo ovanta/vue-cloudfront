@@ -59,7 +59,7 @@
 
                 this.idx = index;
             }
-        },
+        }
     };
 
 </script>

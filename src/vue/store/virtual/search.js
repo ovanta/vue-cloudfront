@@ -215,7 +215,6 @@ function toTimestamp(date) {
     return new Date(date).getTime();
 }
 
-
 /**
  * Parses commands like '<1000', '>343.6' '232-4534' into
  * a Object with type 'smaller', 'bigger', 'between' and

@@ -21,7 +21,7 @@ export const location = {
             // Resolve hierarchy
             const hierarchy = [state.node];
             const {nodes} = rootState;
-            for (let hash, parent; hash = hierarchy[0].parent, parent = nodes.find(v => v.hash === hash);){
+            for (let hash, parent; hash = hierarchy[0].parent, parent = nodes.find(v => v.hash === hash);) {
                 hierarchy.splice(0, 0, parent);
             }
 

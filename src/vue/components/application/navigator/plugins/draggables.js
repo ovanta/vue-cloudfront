@@ -1,4 +1,4 @@
-import Draggable from '../../../../js/Draggable';
+import Draggable from '../../../../../js/Draggable';
 
 /**
  * Is responsible for everything around dragging
