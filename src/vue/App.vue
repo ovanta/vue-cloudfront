@@ -221,4 +221,13 @@
         line-height: 1;
         flex-shrink: 0;
     }
+
+    // Switch to fullscreen mode if window is too small
+    @media all and (max-width: 1000px), all and (max-height: 650px) {
+        .app-content {
+            min-width: 100vw;
+            min-height: 100vh;
+            border-radius: 0;
+        }
+    }
 </style>
