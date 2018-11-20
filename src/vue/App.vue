@@ -166,6 +166,7 @@
             background: mix($palette-snow-white, white, 75);
             @include flex(column);
             width: 100%;
+            overflow: hidden;
         }
 
         @include animate('0.75s ease-in-out') {

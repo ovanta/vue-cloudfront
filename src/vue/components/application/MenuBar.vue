@@ -23,7 +23,12 @@
 
 <script>
 
+    // Components
+    import IntroBox from '../../ui/IntroBox';
+
     export default {
+
+        components: {IntroBox},
 
         data() {
             return {};

@@ -61,6 +61,7 @@
     import GridView from './views/GridView';
     import ContextMenu from './contextmenu/ContextMenu';
     import SearchBar from './SearchBar';
+    import IntroBox from '../../../ui/IntroBox';
 
     export default {
 
@@ -69,7 +70,8 @@
             ListView,
             GridView,
             ContextMenu,
-            SearchBar
+            SearchBar,
+            IntroBox
         },
 
         data() {
@@ -82,7 +84,7 @@
 
         computed: {
             nodes() {
-                return this.$store.getters['nodes/currentDisplayedNodes'](false);
+                return this.$store.getters['nodes/currentDisplayedNodes'](this.$store.state.viewType === 'list');
             }
         },
 

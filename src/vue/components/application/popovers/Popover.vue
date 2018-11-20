@@ -50,6 +50,7 @@
         @include flex(row, center, center);
         visibility: hidden;
         opacity: 0;
+        transform: translateY(-1em);
         transition: transform 0.3s, opacity 0.3s, visibility 0.3s 0s;
         background: rgba($palette-deep-blue, 0.05);
         z-index: 10;

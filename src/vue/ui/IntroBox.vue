@@ -238,13 +238,13 @@
                 button {
                     @include flex(row, center);
                     background: rgba(black, 0.1);
-                    padding: 0.5em 0.85em 0.55em;
+                    padding: 0.4em 0.85em 0.55em;
                     margin-top: 1em;
                     margin-left: 1em;
                     color: rgba(black, 0.5);
                     border-radius: 0.15em;
                     transition: all 0.3s;
-                    @include font(600, 0.725em);
+                    @include font(600, 0.7em);
 
                     &:hover {
                         background: $palette-deep-purple;
@@ -252,7 +252,7 @@
                     }
 
                     i {
-                        font-size: 1em;
+                        font-size: 0.9em;
                         margin-left: 0.5em;
                         margin-top: 0.2em;
                     }
