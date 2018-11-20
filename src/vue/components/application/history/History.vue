@@ -296,21 +296,29 @@
             color: white;
             margin-right: auto;
             text-shadow: 1px 1px 0 rgba(black, 0.05);
+            font-size: 0.95em;
 
             i {
-                font-size: 0.85em;
+                font-size: 0.8em;
                 margin-right: 0.5em;
+            }
+
+            span {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
         }
 
         .description {
             @include flex(row, center);
-            width: 45%;
-            margin-right: 2em;
+            width: 40%;
+            margin: 0 1em;
+            overflow: hidden;
 
             .text {
-                white-space: nowrap;
                 overflow: hidden;
+                white-space: nowrap;
                 text-overflow: ellipsis;
             }
 
@@ -327,7 +335,11 @@
         .timestamp,
         .performed {
             opacity: 0.75;
-            width: 18%;
+            width: 20%;
+            flex-shrink: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         &:last-child {
