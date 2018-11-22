@@ -7,6 +7,8 @@
                    :class="{empty: !value}"
                    v-model="value"
                    spellcheck="false"
+                   @focus="focused = true"
+                   @blur="focused = false"
                    @input="updateValue">
 
             <!-- Clear input -->
@@ -19,7 +21,7 @@
         <span :class="{placeholder: 1, error, moved: value}">{{ placeholder }}</span>
 
         <!-- Colored border to show focus -->
-        <span :class="{border: 1, error}"></span>
+        <span :class="{border: 1, error, active: focused}"></span>
 
     </div>
 </template>
@@ -38,6 +40,7 @@
         data() {
             return {
                 value: '',
+                focused: false,
                 error: false
             };
         },
@@ -95,6 +98,11 @@
         &.error::after {
             background: $palette-tomatoe-red;
         }
+
+        &.active::after {
+            width: 100%;
+            background: $palette-deep-purple;
+        }
     }
 
     .placeholder {
@@ -126,11 +134,6 @@
         input {
             padding: 0.75em 0;
             width: 100%;
-
-            &:focus ~ .border::after {
-                width: 100%;
-                background: $palette-deep-purple;
-            }
         }
 
         i {
