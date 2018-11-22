@@ -1,17 +1,15 @@
 <template>
-    <div
-        v-if="open && !$store.state.skipIntroBoxes"
-        ref="introBox"
-        class="intro-box"
-        @click="openIntroducion()">
+    <div v-if="open && !$store.state.skipIntroBoxes"
+         ref="introBox"
+         class="intro-box"
+         @click="openIntroducion()">
 
         <!-- Bouncing question mark -->
-        <svg
-            class="question-mark"
-            xmlns="http://www.w3.org/2000/svg"
-            width="31"
-            height="31"
-            viewBox="0 0 31 31">
+        <svg class="question-mark"
+             xmlns="http://www.w3.org/2000/svg"
+             width="31"
+             height="31"
+             viewBox="0 0 31 31">
             <path
                 d="M15.068-.013C20.569-.013,25,2.089,25,8c0,5.451-5.42,7.917-6.794,9.887-1.032,1.466-.687,3.523-3.524,3.523a2.7,2.7,0,0,1-2.75-2.808c0-4.991,7.518-6.122,7.518-10.232,0-2.263-1.544-3.6-4.124-3.6-5.5,0-4.3,5.124-7.326,5.233C6.5,10,5.043,9,5.012,7.743,5.012,3.631,9.825-.013,15.068-0.013ZM14.854,24.132a3.439,3.439,0,1,1-3.525,3.438A3.5,3.5,0,0,1,14.854,24.132Z"></path>
         </svg>
@@ -22,14 +20,14 @@
 
 
         <!-- Text display -->
-        <div
-            ref="introContent"
-            :class="{introduction: true, visible: intro}">
+        <div ref="introContent"
+             :class="{introduction: true, visible: intro}">
+
             <div class="header">
                 <h1><i class="fa fa-fw fa-question-circle"></i>{{ header }}</h1>
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 500 500">
+
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 500 500">
                     <path
                         d="M26.178,311.221C30.934,213.593,48.052,81.843,252.526,55.3S491.238,400.319,467.462,438.232s-84.643-59.714-207.327-53.079S21.423,408.849,26.178,311.221Z"></path>
                 </svg>
@@ -39,9 +37,8 @@
                 <p>{{ text }}</p>
 
                 <div class="actions">
-                    <span
-                        class="skip"
-                        @click="$store.commit('skipIntroBoxes', true)">Skip all</span>
+                    <span class="skip"
+                          @click="$store.commit('skipIntroBoxes', true)">Skip all</span>
 
                     <button @click="open = false">
                         <span>Okay</span>

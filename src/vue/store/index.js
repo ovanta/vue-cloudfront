@@ -25,6 +25,7 @@ export default new Vuex.Store({
         viewType: 'grid',
         skipIntroBoxes: false,
         showDebugScreen: false,
+        showLoginScreen: false,
         activeTab: 'home',
         activePopup: null
     },
@@ -41,6 +42,10 @@ export default new Vuex.Store({
 
         showDebugScreen(state, v) {
             state.showDebugScreen = v === 'toggle' ? !state.showDebugScreen : !!v;
+        },
+
+        showLoginScreen(state, v) {
+            state.showLoginScreen = v === 'toggle' ? !state.showLoginScreen : !!v;
         },
 
         setActiveTab(state, tab) {

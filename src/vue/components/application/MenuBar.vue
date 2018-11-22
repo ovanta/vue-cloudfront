@@ -16,6 +16,12 @@
                 <i class="fas fa-fw fa-history" @click="changeTab('history')"></i>
             </div>
 
+            <div class="eat-space"></div>
+
+            <div :class="{'item bottom': 1}">
+                <i class="fas fa-fw fa-sign-out-alt" @click="$store.commit('showLoginScreen', 1)"></i>
+            </div>
+
         </div>
 
     </section>
@@ -64,6 +70,7 @@
     .items {
         @include flex(column, center);
         color: $palette-decent-blue;
+        height: 100%;
 
         .item {
             position: relative;
@@ -85,6 +92,14 @@
                 transition: all 0.3s;
                 font-size: 1em;
             }
+
+            &.bottom {
+                margin: 1.5em 0 0;
+            }
+        }
+
+        .eat-space {
+            flex-grow: 1;
         }
     }
 

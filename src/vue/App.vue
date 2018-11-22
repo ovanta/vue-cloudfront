@@ -20,8 +20,8 @@
         <!-- Actual application -->
         <div class="app-content">
 
+            <!-- Menu bar and the stuff right of it -->
             <menu-bar></menu-bar>
-
             <div class="right-side">
 
                 <!-- Tabs, dynamic, getting changed via menu tabs -->
@@ -36,8 +36,13 @@
                 <popover-keyboard-shortcuts></popover-keyboard-shortcuts>
             </div>
 
+
             <!-- Loading screen -->
             <loading-screen></loading-screen>
+
+            <!-- Login Screen -->
+            <authentication></authentication>
+
         </div>
 
     </div>
@@ -67,6 +72,9 @@
     import LoadingScreen from './components/application/screens/LoadingScreen';
     import DebugScreen from './components/application/screens/DebugScreen';
 
+    // Authentication screens
+    import Authentication from './components/authentication/Authentication';
+
     // Font-awesome styles
     import '@fortawesome/fontawesome-free/css/all.css';
 
@@ -83,7 +91,10 @@
             PopoverKeyboardShortcuts,
             PopoverFilterInfo,
             LoadingScreen,
-            DebugScreen
+            DebugScreen,
+
+            // Authentication
+            Authentication
         },
 
         data() {

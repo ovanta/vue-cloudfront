@@ -173,7 +173,7 @@
             },
 
             star() {
-                this.$store.dispatch(`nodes/${ this.marked ? 'remove' : 'add' }Mark`, this.nodes);
+                this.$store.dispatch(`nodes/${this.marked ? 'remove' : 'add'}Mark`, this.nodes);
                 this.open = false;
             },
 
