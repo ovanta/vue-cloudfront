@@ -22,6 +22,7 @@
 
             <div class="accept">
                 <span @click="(fadeAnimationActive = true) && (register = !register)">{{ register ? 'Login' : 'Register' }}</span>
+                <button class="demo" @click="startDemo">Show Demo</button>
                 <button class="apply" @click="submit">{{ register ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>
@@ -56,6 +57,13 @@
                 this.$store.dispatch('nodes/auth', {type, credentials}).catch(() => {
                     this.shakeAnimationActive = true;
                 });
+            },
+
+            startDemo() {
+
+                // Login as demo user
+                this.$store.commit('auth/setSessionKey', -1);
+                this.$store.commit('auth/setUserMode', 'demo');
             }
         }
     };
@@ -119,10 +127,12 @@
             margin-bottom: 1em;
             color: $palette-deep-blue;
             opacity: 0.9;
+            text-align: center;
         }
 
         .accept {
-            @include flex(row, flex-end, space-between);
+            @include flex(row, flex-end);
+            margin-top: 2em;
 
             span {
                 font-size: 0.85em;
@@ -136,19 +146,26 @@
                 }
             }
 
+            .demo,
             .apply {
                 padding: 0.5em 0.8em 0.55em 0.8em;
-                @include font(600, 0.8em);
-                background: $palette-deep-purple;
-                color: $palette-snow-white;
-                margin-top: 2em;
+                @include font(600, 0.75em);
                 border-radius: 0.15em;
                 transition: all 0.3s;
-                float: right;
+                color: $palette-snow-white;
 
                 &:hover {
                     filter: brightness(1.1);
                 }
+            }
+
+            .demo {
+                background: $palette-happy-pink;
+                margin: 0 0.5em 0 auto;
+            }
+
+            .apply {
+                background: $palette-deep-purple;
             }
         }
     }

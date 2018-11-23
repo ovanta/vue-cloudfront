@@ -532,19 +532,6 @@ export const nodes = {
             if (typeof credentials !== 'object' || typeof credentials.username !== 'string' || typeof credentials.password !== 'string') {
                 throw `Cannot perform 'auth' in nodes. credentials needs a 'username' and 'password' prop.`;
             }
-
-            // Check if user has entered demo credentials
-            const {username, password} = credentials;
-            if (type === 'login' && username === 'demo' && password === 'demo') {
-
-                // Login as demo user
-                this.commit('auth/setSessionKey', -1);
-                this.commit('auth/setUserMode', 'demo');
-            } else {
-
-                // TODO: Make ajax request and get a session key
-                return Promise.reject();
-            }
         }
     }
 };
