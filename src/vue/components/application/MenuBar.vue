@@ -19,7 +19,7 @@
             <div class="eat-space"></div>
 
             <div :class="{'item bottom': 1}">
-                <i class="fas fa-fw fa-sign-out-alt" @click="$store.commit('showLoginScreen', 1)"></i>
+                <i class="fas fa-fw fa-sign-out-alt" @click="$store.commit('auth/setSessionKey', null)"></i>
             </div>
 
         </div>

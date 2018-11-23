@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 // Server-related nodes
 import {nodes} from './nodes';
+import {auth} from './auth';
 
 // Virtual modules act only as visual helpers / representation
 import {location} from './virtual/location';
@@ -14,7 +15,32 @@ import {search} from './virtual/search';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    modules: {nodes, location, clipboard, selection, editable, search},
+    modules: {
+
+        // Holds an array of nodes
+        nodes,
+
+        // Holds a session key
+        auth,
+
+        // Holds a single node where you are currently
+        location,
+
+        /**
+         * Holds an array of nodes which are currently in the clipbord, including a type
+         * string which defines whenever it's a copy or move action
+         */
+        clipboard,
+
+        // Holds an array of nodes which are currently selected
+        selection,
+
+        // Holds a single node which is currently editable
+        editable,
+
+        // Holds a serch result and is also responsible for performing a search
+        search
+    },
 
     state: {
 
@@ -25,7 +51,6 @@ export default new Vuex.Store({
         viewType: 'grid',
         skipIntroBoxes: false,
         showDebugScreen: false,
-        showLoginScreen: false,
         activeTab: 'home',
         activePopup: null
     },
@@ -42,10 +67,6 @@ export default new Vuex.Store({
 
         showDebugScreen(state, v) {
             state.showDebugScreen = v === 'toggle' ? !state.showDebugScreen : !!v;
-        },
-
-        showLoginScreen(state, v) {
-            state.showLoginScreen = v === 'toggle' ? !state.showLoginScreen : !!v;
         },
 
         setActiveTab(state, tab) {

@@ -1,5 +1,5 @@
 <template>
-    <div v-show="$store.state.showLoginScreen"
+    <div v-show="!$store.state.auth.sessionKey"
          :class="{auth: 1, fadein: fadeInActive}"
          @animationend="fadeInActive = false">
 
