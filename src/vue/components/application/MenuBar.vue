@@ -7,19 +7,19 @@
                 <i class="fas fa-fw fa-home"></i>
             </div>
 
-            <div :class="{'item': 1, active: $store.state.activeTab === 'marked'}">
-                <i class="fas fa-fw fa-bookmark" @click="changeTab('marked')"></i>
+            <div :class="{'item': 1, active: $store.state.activeTab === 'marked'}" @click="changeTab('marked')">
+                <i class="fas fa-fw fa-bookmark"></i>
                 <intro-box header="Marked Folders and files" text="Mark your important files, folder or just use it as a quick way to access them."></intro-box>
             </div>
 
-            <div :class="{'item': 1, active: $store.state.activeTab === 'history'}">
-                <i class="fas fa-fw fa-history" @click="changeTab('history')"></i>
+            <div :class="{'item': 1, active: $store.state.activeTab === 'history'}" @click="changeTab('history')">
+                <i class="fas fa-fw fa-history"></i>
             </div>
 
             <div class="eat-space"></div>
 
-            <div :class="{'item bottom': 1}">
-                <i class="fas fa-fw fa-sign-out-alt" @click="$store.commit('auth/setSessionKey', null)"></i>
+            <div :class="{'item bottom': 1}" @click="$store.commit('auth/setSessionKey', null)">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
             </div>
 
         </div>
@@ -60,7 +60,6 @@
 <style lang="scss" scoped>
 
     .menu {
-        position: relative;
         background: white;
         box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
         border-right: 1px solid rgba($palette-deep-blue, 0.05);
@@ -95,10 +94,6 @@
 
             &.bottom {
                 margin: 1.5em 0 0;
-            }
-
-            &:hover {
-                filter: brightness(0.9);
             }
         }
 

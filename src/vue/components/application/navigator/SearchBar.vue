@@ -31,7 +31,7 @@
             </div>
 
             <div class="option">
-                <simple-button text="Case insensitiv" @change="setCaseInsensitivOption"></simple-button>
+                <simple-button text="Case insensitive" @change="setCaseInsensitivOption"></simple-button>
             </div>
 
             <!-- Introduction -->
