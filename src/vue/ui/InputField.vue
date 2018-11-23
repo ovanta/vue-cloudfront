@@ -6,10 +6,12 @@
                    :type="password ? 'password' : 'text'"
                    :class="{empty: !value}"
                    v-model="value"
+                   :autofocus="autofocus"
                    spellcheck="false"
                    @focus="focused = true"
                    @blur="focused = false"
-                   @input="updateValue">
+                   @input="updateValue"
+                   @keyup.enter="$emit('submit')">
 
             <!-- Clear input -->
             <i v-if="value"
@@ -32,6 +34,7 @@
         props: {
             placeholder: {type: String, required: true},
             password: {type: Boolean, default: false},
+            autofocus: {type: Boolean, default: false},
             validate: {
                 type: [RegExp, Function], default: () => /.*/
             }

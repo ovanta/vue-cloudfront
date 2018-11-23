@@ -1,26 +1,29 @@
 <template>
-    <div v-show="!$store.state.auth.sessionKey"
-         :class="{auth: 1, fadein: fadeInActive}"
-         @animationend="fadeInActive = false">
+    <div :class="{auth: 1, visible: !$store.state.auth.sessionKey}">
 
-        <div class="centered">
+        <div :class="{centered: 1, fadein: fadeAnimationActive, shake: shakeAnimationActive}"
+             @animationend="fadeAnimationActive = shakeAnimationActive = false">
+
             <h1>{{ register ? 'Create an account!' : 'Welcome back!' }}</h1>
 
             <!-- Username and password input-fields -->
             <div class="input">
+
                 <login v-if="!register"
                        ref="loginBox"
-                       class="field"></login>
+                       class="field"
+                       @submit="submit"></login>
+
                 <register v-if="register"
                           ref="registerBox"
                           class="field"></register>
+
             </div>
 
             <div class="accept">
-                <span @click="(fadeInActive = true) && (register = !register)">{{ register ? 'Login' : 'Register' }}</span>
+                <span @click="(fadeAnimationActive = true) && (register = !register)">{{ register ? 'Login' : 'Register' }}</span>
                 <button class="apply" @click="submit">{{ register ? 'Create Account' : 'Login' }}</button>
             </div>
-
         </div>
 
     </div>
@@ -39,25 +42,20 @@
             return {
                 register: false,
                 error: false,
-                fadeInActive: true
+
+                fadeAnimationActive: false,
+                shakeAnimationActive: false
             };
         },
 
         methods: {
             submit() {
-                // const type = this.register ? 'register' : 'login';
-                // const formData = this.$refs[type + 'Box'].getFormData();
-                //
-                // switch (type) {
-                //     case 'login': {
-                //         // TODO: Perform login
-                //         break;
-                //     }
-                //     case 'register': {
-                //         // TODO: Perform register
-                //         break;
-                //     }
-                // }
+                const type = this.register ? 'register' : 'login';
+                const credentials = this.$refs[type + 'Box'].getFormData();
+
+                this.$store.dispatch('nodes/auth', {type, credentials}).catch(() => {
+                    this.shakeAnimationActive = true;
+                });
             }
         }
     };
@@ -72,8 +70,20 @@
         @include position(0, 0, 0, 0);
         z-index: 100;
         background: white;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s;
 
-        &.fadein .centered {
+        &.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+    }
+
+    .centered {
+
+        &.fadein {
             @include animate('0.5s ease-in-out') {
                 from {
                     opacity: 0;
@@ -86,21 +96,27 @@
             }
         }
 
-        @include animate('0.5s ease-in-out') {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
+        &.shake {
+            @include animate('1s linear') {
+                10%, 90% {
+                    transform: translate3d(-1px, 0, 0);
+                }
+                20%, 80% {
+                    transform: translate3d(2px, 0, 0);
+                }
+                30%, 50%, 70% {
+                    filter: grayscale(1);
+                    transform: translate3d(-4px, 0, 0);
+                }
+                40%, 60% {
+                    transform: translate3d(4px, 0, 0);
+                }
             }
         }
-    }
-
-    .centered {
 
         h1 {
             @include font(200, 2em);
-            margin-bottom: 1.5em;
+            margin-bottom: 1em;
             color: $palette-deep-blue;
             opacity: 0.9;
         }

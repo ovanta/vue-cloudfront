@@ -2,18 +2,22 @@ export const auth = {
 
     namespaced: true,
 
-    /**
-     * Session-key which can an and should be used to fetch data or perform actions.
-     * Is used in the nodes store module.
-     */
     state: {
-        sessionKey: null
+
+        /**
+         * Session-key which can an and should be used to fetch data or perform actions.<
+         * Is used in the nodes store module.
+         */
+        sessionKey: null,
+
+        // Defines mode, currently there are only 'normal' and 'demo'
+        userMode: 'normal'
     },
 
     mutations: {
 
         // Sets a new session key
-        setSessionKey(store, newKey) {
+        setSessionKey(state, newKey) {
 
             // Validate
             if (!(typeof newKey !== 'string')) {
@@ -21,7 +25,18 @@ export const auth = {
             }
 
             // Set key
-            store.sessionKey = newKey;
+            state.sessionKey = newKey;
+        },
+
+        setUserMode(state, newMode) {
+
+            // Validate
+            if (!['normal', 'demo'].includes(newMode)) {
+                throw `Cannot perform 'setSessionKey' in mutations. newMode can only be 'normal' or 'demo'`;
+            }
+
+            // Set mode
+            state.userMode = newMode;
         }
 
     }

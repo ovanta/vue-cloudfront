@@ -1,14 +1,18 @@
 <template>
     <div class="login">
 
-        <input-field class="in"
+        <input-field :autofocus="true"
+                     class="in"
                      placeholder="Username"
-                     @update="setUsername"></input-field>
+                     @update="setUsername"
+                     @submit="$emit('submit')"></input-field>
 
         <input-field :password="true"
                      class="in"
                      placeholder="Password"
-                     @update="setPassword"></input-field>
+                     @update="setPassword"
+                     @submit="$emit('submit')"></input-field>
+
     </div>
 </template>
 

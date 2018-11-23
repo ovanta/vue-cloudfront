@@ -4,6 +4,7 @@ import store from './vue/store/index';
 
 // Custom plugins
 import CallOnDestroy from './vue-extensions/plugins/CallOnDestroy';
+
 Vue.use(CallOnDestroy);
 
 // Entry point
