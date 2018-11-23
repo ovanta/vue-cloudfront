@@ -1,7 +1,6 @@
 <template>
     <div id="app" @contextmenu="preventDefault">
 
-
         <!-- Background shapes -->
         <div class="app-background">
             <svg class="left"
@@ -24,25 +23,29 @@
             <menu-bar></menu-bar>
             <div class="right-side">
 
+                <!-- Info if user is currently in demo mode TODO: Remove -->
+                <p v-if="$store.state.auth.userMode === 'demo'" class="demo-info">
+                    Currently in demo mode, <a href="https://github.com/Simonwep/nettic/fork">fork it</a> or
+                    check it out on <a href="https://github.com/Simonwep/nettic/">github</a>!
+                </p>
+
                 <!-- Tabs, dynamic, getting changed via menu tabs -->
                 <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
                 <history v-show="$store.state.activeTab === 'history'"></history>
-
-                <!-- Debug screen (fixed) -->
-                <debug-screen></debug-screen>
-
-                <!-- Helping pages (fixed) -->
-                <popover-filter-info></popover-filter-info>
-                <popover-keyboard-shortcuts></popover-keyboard-shortcuts>
             </div>
 
-
-            <!-- Loading screen -->
+            <!-- Loading screen (fixed) -->
             <loading-screen></loading-screen>
 
-            <!-- Login Screen -->
+            <!-- Login Screen (fixed) -->
             <authentication></authentication>
 
+            <!-- Debug screen (fixed) -->
+            <debug-screen></debug-screen>
+
+            <!-- Helping pages (fixed) -->
+            <popover-filter-info></popover-filter-info>
+            <popover-keyboard-shortcuts></popover-keyboard-shortcuts>
         </div>
 
     </div>
@@ -129,6 +132,10 @@
         background: transparent;
     }
 
+    a {
+        color: inherit;
+    }
+
     button {
         cursor: pointer;
     }
@@ -178,6 +185,14 @@
             @include flex(column);
             width: 100%;
             overflow: hidden;
+
+            .demo-info {
+                background: $palette-deep-blue;
+                text-align: center;
+                @include font(600, 0.75em);
+                padding: 0.2em 0;
+                color: white;
+            }
         }
 
         @include animate('0.75s ease-in-out') {

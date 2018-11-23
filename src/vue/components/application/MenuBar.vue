@@ -96,6 +96,10 @@
             &.bottom {
                 margin: 1.5em 0 0;
             }
+
+            &:hover {
+                filter: brightness(0.9);
+            }
         }
 
         .eat-space {

@@ -14,8 +14,7 @@
                    @keyup.enter="$emit('submit')">
 
             <!-- Clear input -->
-            <i v-if="value"
-               class="fas fa-fw fa-times"
+            <i :class="{'fas fa-fw fa-times': 1, visible: value}"
                @click="value = ''"></i>
         </div>
 
@@ -142,22 +141,20 @@
         i {
             font-size: 0.8em;
             color: $palette-decent-blue;
-            transition: all 0.3s;
             cursor: pointer;
+            pointer-events: none;
+            opacity: 0;
+            transform: rotate(180deg);
+            transition: all 0.3s;
 
             &:hover {
                 color: $palette-tomatoe-red;
             }
 
-            @include animate('0.5s ease-in-out') {
-                from {
-                    opacity: 0;
-                    transform: rotate(180deg);
-                }
-                to {
-                    opacity: 1;
-                    transform: none;
-                }
+            &.visible {
+                opacity: 1;
+                transform: none;
+                pointer-events: all;
             }
         }
     }
