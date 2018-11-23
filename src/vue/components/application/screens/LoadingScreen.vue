@@ -115,12 +115,12 @@
         background: $palette-snow-white;
         z-index: 100;
         opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s, visibility 0s 0s;
+        pointer-events: none;
+        transition: all 0.3s;
 
         &.open {
             opacity: 1;
-            visibility: visible;
+            pointer-events: all;
 
             // Play animation only if visible
             .box {

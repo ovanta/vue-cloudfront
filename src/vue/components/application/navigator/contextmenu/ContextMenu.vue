@@ -249,8 +249,8 @@
         position: fixed;
         transform: translateY(-0.1em);
         opacity: 0;
-        visibility: hidden;
-        transition: transform 0.3s, opacity 0.3s, visibility 0s 0s;
+        pointer-events: none;
+        transition: all 0.3s;
         background: white;
         padding: 0.5em 1em;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
@@ -263,7 +263,7 @@
         &.open {
             opacity: 1;
             transform: none;
-            visibility: visible;
+            pointer-events: all;
         }
 
         .option {
@@ -310,16 +310,16 @@
                     box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
                     background: white;
                     padding: 1em;
-                    visibility: hidden;
+                    pointer-events: none;
                     opacity: 0;
-                    transition: transform 0.3s, opacity 0.3s, visibility 0.3s 0s;
+                    transition: all 0.3s;
                     cursor: default;
                 }
 
                 &:hover .sub-menu {
                     opacity: 1;
                     transform: none;
-                    visibility: visible;
+                    pointer-events: all;
                 }
             }
         }

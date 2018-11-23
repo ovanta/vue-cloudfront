@@ -161,12 +161,12 @@
             &.delete {
                 cursor: pointer;
                 opacity: 0;
-                visibility: hidden;
+                pointer-events: none;
                 transform: rotate(90deg);
                 transition: all 0.3s;
 
                 &.visible {
-                    visibility: visible;
+                    pointer-events: all;
                     transform: none;
                     opacity: 1;
                 }

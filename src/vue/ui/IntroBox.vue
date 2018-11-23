@@ -18,7 +18,6 @@
         <span class="inner-circle"></span>
         <span class="outer-circle"></span>
 
-
         <!-- Text display -->
         <div ref="introContent"
              :class="{introduction: true, visible: intro}">
@@ -172,15 +171,15 @@
         width: 15em;
         z-index: 1;
         opacity: 0;
-        visibility: hidden;
+        pointer-events: none;
         transform: translateY(2em);
-        transition: opacity 0.3s, transform 0.3s, visibility 0s 0s;
+        transition: opacity 0.3s, transform 0.3s;
         filter: drop-shadow(0 3px 8px rgba($palette-deep-blue, 0.2));
 
         &.visible {
             opacity: 1;
             transform: translateY(3em);
-            visibility: visible;
+            pointer-events: all;
         }
 
         &::before {

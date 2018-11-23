@@ -48,16 +48,16 @@
         position: absolute;
         @include position(0, 0, 0, 0);
         @include flex(row, center, center);
-        visibility: hidden;
+        pointer-events: none;
         opacity: 0;
         transform: translateY(-1em);
-        transition: transform 0.3s, opacity 0.3s, visibility 0.3s 0s;
+        transition: all 0.3s;
         background: rgba($palette-deep-blue, 0.05);
         z-index: 10;
 
         &.open {
+            pointer-events: all;
             transform: none;
-            visibility: visible;
             opacity: 1;
         }
     }
