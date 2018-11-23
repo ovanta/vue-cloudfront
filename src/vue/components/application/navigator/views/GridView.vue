@@ -69,9 +69,13 @@
 
             renameNode(evt, node) {
                 this.$store.commit('editable/reset');
+
+                // Try to rename, restore previous value if failed
                 this.$store.dispatch('nodes/rename', {
                     node,
                     newName: evt.target.innerHTML
+                }).catch(() => {
+                    evt.target.innerHTML = node.name;
                 });
             },
 

@@ -72,6 +72,7 @@
             padding: 0.5em 0.75em;
             border-radius: 0.15em;
             width: 50%;
+            user-select: text;
         }
 
         .description {
