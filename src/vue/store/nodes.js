@@ -239,12 +239,28 @@ export const nodes = {
                 return siblings;
             }
 
+            // Function to extract a name and extension from a filename
+            const parseName = name => {
+                const rdi = name.indexOf('.');
+                const di = ~rdi ? rdi : name.length;
+                return {name: name.substring(0, di), extension: name.substring(di, name.length)};
+            };
+
             // Clone nodes and add copy prefix
             const cloned = nodes.map(v => {
+
+                // Extract name and extenstion
+                const vParsed = parseName(v.name);
+                const vName = vParsed.name;
+                const vExtension = vParsed.extension;
 
                 // Find previous copied versions
                 let version = 1, match;
                 for (let i = 0, n, l = state.length; n = state[i], i < l; i++) {
+
+                    // Extract raw name without any extensions
+                    const nParsed = parseName(n.name);
+                    const nName = nParsed.name;
 
                     /**
                      * First, check if node is child of the current location, if yes
@@ -252,8 +268,8 @@ export const nodes = {
                      * has already a copy flag increase it.
                      */
                     if (n.parent === destination.hash &&
-                        n.name.startsWith(v.name) &&
-                        (match = n.name.match(/\((([\d]+)th |)Copy\)$/))) {
+                        n.name.startsWith(vName) &&
+                        (match = nName.match(/\((([\d]+)th |)Copy\)$/))) {
 
                         // Check if node has been already multiple times copied
                         if (match[2]) {
@@ -271,7 +287,7 @@ export const nodes = {
                     ...v,
 
                     // First copy gets only a '(Copy)' hint
-                    name: `${v.name} ${version ? ` (${version}th ` : '('}Copy)`
+                    name: `${vName} ${version ? ` (${version}th ` : '('}Copy)${vExtension}`
                 };
             });
 
