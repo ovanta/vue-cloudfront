@@ -246,6 +246,19 @@ export const nodes = {
                 return {name: name.substring(0, di), extension: name.substring(di, name.length)};
             };
 
+            const spelledNumber = num => {
+                switch (num) {
+                    case 1:
+                        return `${num}st`;
+                    case 2:
+                        return `${num}nd`;
+                    case 3:
+                        return `${num}rd`;
+                    default:
+                        return `${num}th`;
+                }
+            };
+
             // Clone nodes and add copy prefix
             const cloned = nodes.map(v => {
 
@@ -269,7 +282,7 @@ export const nodes = {
                      */
                     if (n.parent === destination.hash &&
                         n.name.startsWith(vName) &&
-                        (match = nName.match(/\((([\d]+)th |)Copy\)$/))) {
+                        (match = nName.match(/\((([\d]+)(st|nd|rd|th) |)Copy\)$/))) {
 
                         // Check if node has been already multiple times copied
                         if (match[2]) {
@@ -287,7 +300,7 @@ export const nodes = {
                     ...v,
 
                     // First copy gets only a '(Copy)' hint
-                    name: `${vName} ${version ? ` (${version}th ` : '('}Copy)${vExtension}`
+                    name: `${vName} ${version ? ` (${spelledNumber(version)} ` : '('}Copy)${vExtension}`
                 };
             });
 

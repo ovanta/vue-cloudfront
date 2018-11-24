@@ -27,8 +27,8 @@
                 <p v-if="$store.state.auth.userMode === 'demo'" class="info demo">
                     <i class="fas fa-fw fa-vial"></i>
                     <span>
-                    Currently in demo mode, <a href="https://github.com/Simonwep/nettic/fork">fork it</a> or
-                    check it out on <a href="https://github.com/Simonwep/nettic/">github</a>!
+                        Currently in demo mode, <a href="https://github.com/Simonwep/nettic/fork">fork it</a> or
+                        check it out on <a href="https://github.com/Simonwep/nettic/">github</a>!
                     </span>
                 </p>
 
