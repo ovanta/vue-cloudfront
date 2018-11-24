@@ -250,7 +250,7 @@
         transform: translateY(-0.1em);
         opacity: 0;
         pointer-events: none;
-        transition: all 0.3s;
+        transition: opacity 0.3s;
         background: white;
         padding: 0.5em 1em;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
