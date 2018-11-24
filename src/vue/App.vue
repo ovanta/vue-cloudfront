@@ -16,27 +16,15 @@
             </svg>
         </div>
 
-        <!-- Actual application TODO: Move to component -->
+        <!-- Actual application -->
         <div class="app-content">
 
             <!-- Menu bar and the stuff right of it -->
             <menu-bar></menu-bar>
             <div class="right-side">
 
-                <!-- Info if user is currently in demo mode TODO: Remove -->
-                <p v-if="$store.state.auth.userMode === 'demo'" class="info demo">
-                    <i class="fas fa-fw fa-vial"></i>
-                    <span>
-                        Currently in demo mode, <a href="https://github.com/Simonwep/nettic/fork">fork it</a> or
-                        check it out on <a href="https://github.com/Simonwep/nettic/">github</a>!
-                    </span>
-                </p>
-
-                <!-- Show if the user is currently offline -->
-                <p v-if="offline" class="info offline">
-                    <i class="fas fa-fw fa-unlink"></i>
-                    <span>No ethernet connection available. Readonly mode active.</span>
-                </p>
+                <!-- Info-bar, shows important messages -->
+                <info-bar></info-bar>
 
                 <!-- Tabs, dynamic, getting changed via menu tabs -->
                 <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
@@ -79,6 +67,7 @@
     import History from './components/application/history/History';
     import MenuBar from './components/application/MenuBar';
     import ToolTip from './components/application/ToolTip';
+    import InfoBar from './components/application/InfoBar';
 
     // Popovers
     import PopoverKeyboardShortcuts from './components/application/popovers/PopoverKeyboardShortcuts';
@@ -109,15 +98,14 @@
             LoadingScreen,
             DebugScreen,
             ToolTip,
+            InfoBar,
 
             // Authentication
             Authentication
         },
 
         data() {
-            return {
-                offline: !window.navigator.onLine
-            };
+            return {};
         },
 
         mounted() {
@@ -127,18 +115,12 @@
 
             // Update timer every x seconds
             setInterval(() => this.$store.commit('updateTimer'), 1000);
-
-            // Detect if the user goes online / offline
-            window.addEventListener('online', () => this.offline = false);
-            window.addEventListener('offline', () => this.offline = true);
         },
 
         methods: {
-
             preventDefault(e) {
                 e.preventDefault();
             }
-
         }
     };
 </script>
@@ -209,27 +191,6 @@
             @include flex(column);
             width: 100%;
             overflow: hidden;
-
-            .info {
-                @include flex(row, center, center);
-                @include font(600, 0.75em);
-                padding: 0.2em 0;
-
-                i {
-                    font-size: 0.8em;
-                    margin-right: 0.5em;
-                }
-
-                &.demo {
-                    background: $palette-deep-blue;
-                    color: white;
-                }
-
-                &.offline {
-                    background: $palette-tomatoe-red;
-                    color: white;
-                }
-            }
         }
 
         @include animate('0.75s ease-in-out') {
