@@ -9,9 +9,9 @@
                 <div v-for="node of nodes.folder"
                      :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
                      :data-hash="node.hash"
-                     @dblclick="updateLocation(node)"
+                     @click.left="select($event, node)"
                      @click.right="select($event, node)"
-                     @click.left="select($event, node)">
+                     @dblclick="updateLocation(node)">
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
@@ -29,8 +29,8 @@
                 <div v-for="node of nodes.file"
                      :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                      :data-hash="node.hash"
-                     @click.right="select($event, node)"
-                     @click.left="select($event, node)">
+                     @click.left="select($event, node)"
+                     @click.right="select($event, node)">
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <span class="extension">{{ node.extension }}</span>

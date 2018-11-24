@@ -7,9 +7,9 @@
             <i class="fas fa-search"></i>
             <input v-strict-focus
                    v-model="searchQuery"
-                   type="text"
                    placeholder="Search..."
                    spellcheck="false"
+                   type="text"
                    @input="updateSearch()">
             <i :class="{delete: 1, 'fas fa-times': 1, visible: searchQuery.length}" @click="clear"></i>
 

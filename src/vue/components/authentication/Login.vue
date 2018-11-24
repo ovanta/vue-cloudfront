@@ -4,14 +4,14 @@
         <input-field :autofocus="true"
                      class="in"
                      placeholder="Username"
-                     @update="setUsername"
-                     @submit="$emit('submit')"></input-field>
+                     @submit="$emit('submit')"
+                     @update="setUsername"></input-field>
 
         <input-field :password="true"
                      class="in"
                      placeholder="Password"
-                     @update="setPassword"
-                     @submit="$emit('submit')"></input-field>
+                     @submit="$emit('submit')"
+                     @update="setPassword"></input-field>
 
     </div>
 </template>

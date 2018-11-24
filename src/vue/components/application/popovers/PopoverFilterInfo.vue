@@ -1,5 +1,5 @@
 <template>
-    <popup title="SearchFilters" store-prop="SearchFilters">
+    <popup store-prop="SearchFilters" title="SearchFilters">
 
         <div class="header">
             <p>Description</p>

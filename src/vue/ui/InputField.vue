@@ -3,13 +3,13 @@
 
         <div class="field">
             <input ref="input"
-                   :type="password ? 'password' : 'text'"
-                   :class="{empty: !value}"
-                   v-model="value"
                    :autofocus="autofocus"
+                   :class="{empty: !value}"
+                   :type="password ? 'password' : 'text'"
+                   v-model="value"
                    spellcheck="false"
-                   @focus="focused = true"
                    @blur="focused = false"
+                   @focus="focused = true"
                    @input="updateValue"
                    @keyup.enter="$emit('submit')">
 

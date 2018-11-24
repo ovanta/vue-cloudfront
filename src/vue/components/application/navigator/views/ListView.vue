@@ -27,9 +27,9 @@
             <div v-for="node of nodes.folder"
                  :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
                  :data-hash="node.hash"
-                 @dblclick="updateLocation(node)"
+                 @click.left="select($event, node)"
                  @click.right="select($event, node)"
-                 @click.left="select($event, node)">
+                 @dblclick="updateLocation(node)">
 
                 <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
 
@@ -48,8 +48,8 @@
             <div v-for="node of nodes.file"
                  :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                  :data-hash="node.hash"
-                 @click.right="select($event, node)"
-                 @click.left="select($event, node)">
+                 @click.left="select($event, node)"
+                 @click.right="select($event, node)">
 
                 <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">

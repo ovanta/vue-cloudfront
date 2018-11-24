@@ -6,14 +6,14 @@
                      placeholder="Username"
                      @update="setUsername"></input-field>
 
-        <input-field :validate="/^(.){6,}$/"
-                     :password="true"
+        <input-field :password="true"
+                     :validate="/^(.){6,}$/"
                      class="in"
                      placeholder="Password"
                      @update="setPassword"></input-field>
 
-        <input-field :validate="validatePassword"
-                     :password="true"
+        <input-field :password="true"
+                     :validate="validatePassword"
                      class="in"
                      placeholder="Repeat Password"
                      @update="setRepeatedPassword"></input-field>

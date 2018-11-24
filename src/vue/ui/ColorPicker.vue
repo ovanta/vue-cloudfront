@@ -17,11 +17,11 @@
             <input v-strict-focus
                    ref="resultInput"
                    :value="hexColor"
-                   type="text"
                    spellcheck="false"
-                   @keyup="updatePalette($event)"
+                   type="text"
+                   @blur="inputActive = false"
                    @focus="inputActive = true"
-                   @blur="inputActive = false">
+                   @keyup="updatePalette($event)">
 
             <!-- Used to accept a color -->
             <i class="fas fa-save" @click="$emit('change', hexColor)"></i>
