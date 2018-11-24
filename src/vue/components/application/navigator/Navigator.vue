@@ -10,10 +10,12 @@
             <div class="controls">
 
                 <!-- Node-views, grid and list -->
-                <i v-show="$store.state.viewType === 'grid'"
+                <i v-tooltip="'Switch to list view'"
+                   v-show="$store.state.viewType === 'grid'"
                    class="fas fa-fw fa-th-list"
                    @click="setViewType('list')"></i>
-                <i v-show="$store.state.viewType === 'list'"
+                <i v-tooltip="'Switch to grid view'"
+                   v-show="$store.state.viewType === 'list'"
                    class="fas fa-fw fa-th"
                    @click="setViewType('grid')"></i>
 
@@ -21,7 +23,7 @@
                 <i class="fas fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
 
                 <!-- Introduction -->
-                <intro-box text="Disable / enable grid or try out our keyboard shortcuts." header="Search Options"></intro-box>
+                <intro-box header="Search Options" text="Disable / enable grid or try out our keyboard shortcuts."></intro-box>
             </div>
         </div>
 

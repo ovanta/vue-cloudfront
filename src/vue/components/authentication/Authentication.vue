@@ -22,7 +22,10 @@
 
             <div class="accept">
                 <span @click="(fadeAnimationActive = true) && (register = !register)">{{ register ? 'Login' : 'Register' }}</span>
-                <button class="demo" @click="startDemo">Show Demo</button>
+                <button v-tooltip="'Get a impression of how it would look'"
+                        class="demo"
+                        @click="startDemo">Show Demo
+                </button>
                 <button class="apply" @click="submit">{{ register ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>

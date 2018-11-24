@@ -11,6 +11,7 @@ import {clipboard} from './virtual/clipboard';
 import {selection} from './virtual/selection';
 import {editable} from './virtual/editable';
 import {search} from './virtual/search';
+import {tooltip} from './virtual/tooltip';
 
 Vue.use(Vuex);
 
@@ -39,7 +40,10 @@ export default new Vuex.Store({
         editable,
 
         // Holds a serch result and is also responsible for performing a search
-        search
+        search,
+
+        // Holds informations about the current tooltip, is used in combination with the v-tooltip directive
+        tooltip
     },
 
     state: {

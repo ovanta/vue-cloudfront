@@ -3,22 +3,30 @@
 
         <div class="items">
 
-            <div :class="{'item': 1, active: $store.state.activeTab === 'home'}" @click="changeTab('home')">
+            <div v-tooltip="'Home'"
+                 :class="{'item': 1, active: $store.state.activeTab === 'home'}"
+                 @click="changeTab('home')">
                 <i class="fas fa-fw fa-home"></i>
             </div>
 
-            <div :class="{'item': 1, active: $store.state.activeTab === 'marked'}" @click="changeTab('marked')">
+            <div v-tooltip="'View marked folder and files'"
+                 :class="{'item': 1, active: $store.state.activeTab === 'marked'}"
+                 @click="changeTab('marked')">
                 <i class="fas fa-fw fa-bookmark"></i>
                 <intro-box header="Marked Folders and files" text="Mark your important files, folder or just use it as a quick way to access them."></intro-box>
             </div>
 
-            <div :class="{'item': 1, active: $store.state.activeTab === 'history'}" @click="changeTab('history')">
+            <div v-tooltip="'View history'"
+                 :class="{'item': 1, active: $store.state.activeTab === 'history'}"
+                 @click="changeTab('history')">
                 <i class="fas fa-fw fa-history"></i>
             </div>
 
             <div class="eat-space"></div>
 
-            <div :class="{'item bottom': 1}" @click="$store.commit('auth/setSessionKey', null)">
+            <div v-tooltip="'Logout'"
+                 :class="{'item bottom': 1}"
+                 @click="$store.commit('auth/setSessionKey', null)">
                 <i class="fas fa-fw fa-sign-out-alt"></i>
             </div>
 

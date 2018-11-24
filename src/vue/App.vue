@@ -4,14 +4,14 @@
         <!-- Background shapes -->
         <div class="app-background">
             <svg class="left"
-                 xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 500 500">
+                 viewBox="0 0 500 500"
+                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M0,0V500H124.914s53.473-56.5,74.963-175S124.914,0,124.914,0H0Z"></path>
             </svg>
 
             <svg class="right"
-                 xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 500 500">
+                 viewBox="0 0 500 500"
+                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M325.529,500s-50.117-80.37,50.118-124.8S500,350,500,350V500H325.529Z"></path>
             </svg>
         </div>
@@ -46,6 +46,9 @@
             <!-- Helping pages (fixed) -->
             <popover-filter-info></popover-filter-info>
             <popover-keyboard-shortcuts></popover-keyboard-shortcuts>
+
+            <!-- Tooltip -->
+            <tool-tip></tool-tip>
         </div>
 
     </div>
@@ -66,6 +69,7 @@
     import Navigator from './components/application/navigator/Navigator';
     import History from './components/application/history/History';
     import MenuBar from './components/application/MenuBar';
+    import ToolTip from './components/application/ToolTip';
 
     // Popovers
     import PopoverKeyboardShortcuts from './components/application/popovers/PopoverKeyboardShortcuts';
@@ -95,6 +99,7 @@
             PopoverFilterInfo,
             LoadingScreen,
             DebugScreen,
+            ToolTip,
 
             // Authentication
             Authentication

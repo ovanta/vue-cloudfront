@@ -3,7 +3,9 @@
 
         <div class="header">
             <h1>History</h1>
-            <i class="fas fa-fw fa-trash" @click="clearActions()"></i>
+            <i v-tooltip="'Clear history'"
+               class="fas fa-fw fa-trash"
+               @click="clearActions()"></i>
         </div>
 
         <!-- Column header with sorting buttons -->
