@@ -16,6 +16,13 @@ module.exports = {
         port: 3006,
         hot: true,
         disableHostCheck: true
+    },
+
+    pwa: {
+        themeColor: '#673AB7',
+        msTileColor: '#F5F6FA',
+        manifestPath: 'manifest.json',
+        workboxPluginMode: 'GenerateSW'
     }
 
 };

@@ -5,6 +5,9 @@ import store from './vue/store/index';
 // Custom plugins
 import CallOnDestroy from './vue-extensions/plugins/CallOnDestroy';
 
+// Import service worker
+import './registerServiceWorker'
+
 Vue.use(CallOnDestroy);
 
 // Entry point
