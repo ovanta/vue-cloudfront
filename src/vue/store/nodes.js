@@ -514,24 +514,6 @@ export const nodes = {
 
             // Override color
             nodes.forEach(n => n.color = color);
-        },
-
-        /**
-         * Authenticates a user
-         * @param _
-         * @param type 'register' or 'login'
-         * @param credentials username, password and so on.
-         */
-        async auth(_, {type, credentials}) {
-
-            // Validate
-            if (typeof type !== 'string' || !['login', 'register'].includes(type)) {
-                throw `Cannot perform 'auth' in nodes. type isn't a string and can only be 'login' or 'register.'`;
-            }
-
-            if (typeof credentials !== 'object' || typeof credentials.username !== 'string' || typeof credentials.password !== 'string') {
-                throw `Cannot perform 'auth' in nodes. credentials needs a 'username' and 'password' prop.`;
-            }
         }
     }
 };

@@ -17,7 +17,7 @@ export const auth = {
     mutations: {
 
         // Sets a new session key
-        setSessionKey(state, newKey) {
+        async setSessionKey(state, newKey) {
 
             // Validate
             if (!(typeof newKey !== 'string')) {
@@ -28,7 +28,7 @@ export const auth = {
             state.sessionKey = newKey;
         },
 
-        setUserMode(state, newMode) {
+        async setUserMode(state, newMode) {
 
             // Validate
             if (!['normal', 'demo'].includes(newMode)) {
@@ -38,6 +38,29 @@ export const auth = {
             // Set mode
             state.userMode = newMode;
         }
+    },
 
+    actions: {
+
+        /**
+         * Authenticates a user
+         * @param _
+         * @param type 'register' or 'login'
+         * @param credentials username, password and so on.
+         */
+        async auth(_, {type, credentials}) {
+
+            // Validate
+            if (typeof type !== 'string' || !['login', 'register'].includes(type)) {
+                throw `Cannot perform 'auth' in nodes. type isn't a string and can only be 'login' or 'register.'`;
+            }
+
+            if (typeof credentials !== 'object' || typeof credentials.username !== 'string' || typeof credentials.password !== 'string') {
+                throw `Cannot perform 'auth' in nodes. credentials needs a 'username' and 'password' prop.`;
+            }
+
+            // TODO: Make ajax request and get a session key
+            return Promise.reject();
+        }
     }
 };

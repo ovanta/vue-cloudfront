@@ -87,7 +87,7 @@
                 } else {
 
                     // Nothing interesting, call original
-                    dispatch(type, payload);
+                    dispatch(type, payload).then(resolve).catch(reject);
                 }
             });
         },
