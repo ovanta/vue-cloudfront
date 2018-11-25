@@ -29,6 +29,7 @@
                 <!-- Tabs, dynamic, getting changed via menu tabs -->
                 <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
                 <history v-show="$store.state.activeTab === 'history'"></history>
+                <terminal v-show="$store.state.activeTab === 'terminal'"></terminal>
             </div>
 
             <!-- Loading screen (fixed) -->
@@ -65,6 +66,7 @@
     // Components
     import Navigator from './components/application/navigator/Navigator';
     import History from './components/application/history/History';
+    import Terminal from './components/application/terminal/Terminal';
     import MenuBar from './components/application/MenuBar';
     import ToolTip from './components/application/ToolTip';
     import InfoBar from './components/application/InfoBar';
@@ -91,6 +93,7 @@
             MenuBar,
             Navigator,
             History,
+            Terminal,
 
             // Popovers and static components
             PopoverKeyboardShortcuts,
