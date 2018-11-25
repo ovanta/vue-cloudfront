@@ -123,7 +123,7 @@
             // Function to check, if menu is open, if the user has clicked
             // outside of the menu. Only active is menu is visible.
             const detectOutsideClick = evt => {
-                if (!this.eventPath(evt).includes(this.$refs.menuRoot)) {
+                if (!this.utils.eventPath(evt).includes(this.$refs.menuRoot)) {
                     this.open = false;
                 }
             };

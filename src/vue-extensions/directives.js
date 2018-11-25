@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue    from 'vue';
 import * as _ from '../js/utils';
 
 // Will focus an input element if v-focus is true.
@@ -63,3 +63,19 @@ Vue.directive('tooltip', (() => {
         componentUpdated: update
     };
 })());
+
+// Directive to detect if user has clicked outside of a element
+Vue.directive('clickOutsideOfElement', {
+    inserted(el, {value}) {
+
+        // Validate
+        if (!(typeof value === 'function')) {
+            return;
+        }
+
+        // Detect whenever user clicks outside of a element
+        _.on(window, 'click', e => {
+            !_.eventPath(e).includes(el) && value();
+        });
+    }
+});

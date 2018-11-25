@@ -26,16 +26,6 @@ export const location = {
             }
 
             return hierarchy;
-        },
-
-        currentLocation(state) {
-
-            if (!state.node) {
-                return '';
-            } else {
-                return state.node.hash;
-            }
-
         }
 
     },

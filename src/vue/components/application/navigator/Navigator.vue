@@ -58,12 +58,12 @@
     import DraggablePlugin from './plugins/draggables';
 
     // Components
-    import Hierarchy from './Hierarchy';
-    import ListView from './views/ListView';
-    import GridView from './views/GridView';
+    import Hierarchy   from './Hierarchy';
+    import ListView    from './views/ListView';
+    import GridView    from './views/GridView';
     import ContextMenu from './contextmenu/ContextMenu';
-    import SearchBar from './SearchBar';
-    import IntroBox from '../../../ui/IntroBox';
+    import SearchBar   from './SearchBar';
+    import IntroBox    from '../../../ui/IntroBox';
 
     export default {
 

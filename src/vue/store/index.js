@@ -1,17 +1,17 @@
-import Vue from 'vue';
+import Vue  from 'vue';
 import Vuex from 'vuex';
 
 // Server-related nodes
 import {nodes} from './nodes';
-import {auth} from './auth';
+import {auth}  from './auth';
 
 // Virtual modules act only as visual helpers / representation
-import {location} from './virtual/location';
+import {location}  from './virtual/location';
 import {clipboard} from './virtual/clipboard';
 import {selection} from './virtual/selection';
-import {editable} from './virtual/editable';
-import {search} from './virtual/search';
-import {tooltip} from './virtual/tooltip';
+import {editable}  from './virtual/editable';
+import {search}    from './virtual/search';
+import {tooltip}   from './virtual/tooltip';
 
 Vue.use(Vuex);
 

@@ -83,7 +83,7 @@
 
         mounted() {
             this.$callOnDestroy(
-                this.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body)
+                this.utils.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body)
             );
         },
 

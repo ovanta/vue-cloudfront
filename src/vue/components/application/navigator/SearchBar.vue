@@ -44,8 +44,8 @@
 
     // Components
     import MultiSwitchButton from '../../../ui/SwitchButton';
-    import SimpleButton from '../../../ui/ToggleButton';
-    import IntroBox from '../../../ui/IntroBox';
+    import SimpleButton      from '../../../ui/ToggleButton';
+    import IntroBox          from '../../../ui/IntroBox';
 
     export default {
 

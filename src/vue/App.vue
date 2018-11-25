@@ -59,23 +59,20 @@
     // Global directives
     import '../vue-extensions/directives';
 
-    // Global mixins
-    import '../vue-extensions/mixins';
-
     // Components
     import Navigator from './components/application/navigator/Navigator';
-    import History from './components/application/history/History';
-    import MenuBar from './components/application/MenuBar';
-    import ToolTip from './components/application/ToolTip';
-    import InfoBar from './components/application/InfoBar';
+    import History   from './components/application/history/History';
+    import MenuBar   from './components/application/MenuBar';
+    import ToolTip   from './components/application/ToolTip';
+    import InfoBar   from './components/application/InfoBar';
 
     // Popovers
     import PopoverKeyboardShortcuts from './components/application/popovers/PopoverKeyboardShortcuts';
-    import PopoverFilterInfo from './components/application/popovers/PopoverFilterInfo';
+    import PopoverFilterInfo        from './components/application/popovers/PopoverFilterInfo';
 
     // Loading screen and debug
     import LoadingScreen from './components/application/screens/LoadingScreen';
-    import DebugScreen from './components/application/screens/DebugScreen';
+    import DebugScreen   from './components/application/screens/DebugScreen';
 
     // Authentication screens
     import Authentication from './components/authentication/Authentication';
