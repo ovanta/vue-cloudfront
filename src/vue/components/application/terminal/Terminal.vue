@@ -5,16 +5,20 @@
              @click="focus"
              @blur="blur">
 
+        <!-- Previous commands and their result -->
         <div v-for="cmd of cmds" class="command">
             <div class="location">{{ cmd.location }}</div>
             <p>{{ cmd.content }}</p>
         </div>
 
 
+        <!-- Input field -->
         <div class="location">{{ location }}</div>
+
         <div class="input">
-            <span>$ {{ input }}</span>
-            <span v-if="focused" class="cursor"></span>
+            <span class="left-hand">$ {{ leftHand }}</span>
+            <span v-if="focused" class="cursor">{{ rightHand[0] || ' ' }}</span>
+            <span>{{ rightHand.substring(1) }}</span>
         </div>
 
     </section>
@@ -29,7 +33,8 @@
             return {
                 cmds: [],
 
-                input: '',
+                leftHand: '',
+                rightHand: '',
                 focused: false
             };
         },
@@ -40,6 +45,10 @@
                 return this.$store.getters['location/getHierarchy']
                     .map(v => v.name)
                     .join('/');
+            },
+
+            input() {
+                return this.leftHand + this.rightHand;
             }
 
         },
@@ -66,40 +75,61 @@
                 const {key} = e;
 
                 if (key.length === 1) {
-                    this.input += key;
+
+                    // Append char to left-hand container
+                    this.leftHand += key;
                 } else if (key === 'Tab') {
+
+                    // Fire auto completion
                     this.autoComplete();
                 } else if (key === 'Enter') {
+
+                    // Submit command and clear input
                     this.submit();
-                    this.input = '';
+                    this.leftHand = '';
+                    this.rightHand = '';
                 } else if (key === 'Backspace') {
-                    this.input = this.input.substring(0, this.input.length - 1);
+
+                    // Delete previous char to the left of the cursor
+                    this.leftHand = this.leftHand.substring(0, this.leftHand.length - 1);
+                } else if (key === 'ArrowLeft' && this.leftHand) {
+
+                    // Move cursor to the left
+                    this.rightHand = this.leftHand[this.leftHand.length - 1] + this.rightHand;
+                    this.leftHand = this.leftHand.substring(0, this.leftHand.length - 1);
+                } else if (key === 'ArrowRight' && this.rightHand) {
+
+                    // Move cursor to the right
+                    this.leftHand = this.leftHand + this.rightHand[0];
+                    this.rightHand = this.rightHand.substring(1);
                 }
             },
 
             autoComplete() {
-                const [, cmd] = this.input.match(/ ([^ ]+)$/);
+                const lmatch = this.leftHand.match(/ ([^ ]+)$/);
 
                 // Check if there is something to autocomplete
-                if (cmd) {
+                if (lmatch) {
+                    const [, cmd] = lmatch;
                     const locHash = this.$store.state.location.node.hash;
                     const node = this.$store.state.nodes
                         .find(v => v.parent === locHash && v.name.startsWith(cmd));
 
                     if (node) {
-                        this.input = this.input.replace(/([^ ]+)$/, node.name);
+                        this.leftHand = this.leftHand.replace(/([^ ]+)$/, node.name);
                     }
                 }
             },
 
             submit() {
                 const store = this.$store;
+                const originalInput = this.input;
                 let [, cmd, rest] = this.input.match(/^([^ ]*)(.*)/);
 
                 const append = (content = '') => {
                     return this.cmds.push({
                         location: this.location,
-                        content: `$ ${this.input}\n` + content
+                        content: `$ ${originalInput}\n` + content
                     });
                 };
 
@@ -109,12 +139,13 @@
                     // Show help
                     help() {
                         append([
-                            'ls             See files / folders of current location',
-                            'cd [NAME]      Go to directory',
-                            'cd ..          Go up',
-                            'mkdir [NAME]   Create a directory',
-                            'rm [NAME]      Delete a file or folder',
-                            'clear          Clears the terminal',
+                            'ls                       See files / folders of current location',
+                            'cd [NAME]                Go to directory',
+                            'cd ..                    Go up',
+                            'mkdir [NAME]             Create a directory',
+                            'rm [NAME]                Delete a file or folder',
+                            'rename [NAME] [NEW NAME] Renames a file or folder',
+                            'clear                    Clears the terminal',
                             '\nPress tab to use auto-completion'
                         ].join('\n'));
                     },
@@ -184,6 +215,41 @@
                         } else {
                             append(`'${rest}': No such directory`);
                         }
+                    },
+
+                    clear() {
+                        that.cmds = [];
+                    },
+
+                    rename() {
+                        const regexName = rest.match(/(.*?)[ '"].*?['"](.*?)['"]/);
+                        let name, newName;
+
+                        // Check if user has used quotes
+                        if (regexName && regexName.length > 2) {
+                            [, name, newName] = regexName;
+                        } else {
+                            [name, newName] = rest.split(/ /);
+                        }
+
+                        // Validate
+                        if (!name || !newName) {
+                            return append(`Cannot rename ${name} to ${newName}`);
+                        }
+
+                        // Find node
+                        const locHash = store.state.location.node.hash;
+                        const node = store.state.nodes.filter(n => n.parent === locHash)
+                            .find(n => n.name === name);
+
+                        // Validate node
+                        if (!node) {
+                            return append(`'${name}': No such file or directory`);
+                        }
+
+                        // Rename
+                        store.dispatch('nodes/rename', {node, newName});
+                        append();
                     }
                 };
 
@@ -192,7 +258,7 @@
                     rest = rest.trim();
                     commands[cmd]();
                 } else {
-                    append('Unknown command. Type `help` to see all commands.');
+                    append(`Unknown command '${originalInput}'. Type 'help' to see all commands.`);
                 }
             }
 
@@ -210,6 +276,7 @@
         overflow-y: auto;
         font-family: monospace;
         padding: 1em;
+        user-select: text;
     }
 
     .command {
@@ -226,20 +293,24 @@
 
     .input {
         @include flex(row, stretch);
+        min-height: 1em;
         margin-bottom: 2em;
 
+        .left-hand {
+            white-space: pre-wrap; // Without a single space won't be visible
+        }
+
         .cursor {
-            display: inline-block;
-            width: 7px;
-            background: $palette-deep-blue;
-            margin-left: 0.15em;
+            white-space: pre-wrap;
 
             @include animate('1s linear infinite') {
                 0%, 50% {
-                    visibility: hidden;
+                    background: $palette-deep-blue;
+                    color: white;
                 }
                 51%, 100% {
-                    visibility: visible;
+                    background: white;
+                    color: $palette-deep-blue;
                 }
             }
         }
