@@ -33,6 +33,10 @@
             return {
                 cmds: [],
 
+                // Commands history
+                cmdsHistory: [],
+                cmdsHistoryIndex: 1,
+
                 leftHand: '',
                 rightHand: '',
                 focused: false
@@ -102,6 +106,22 @@
                     // Move cursor to the right
                     this.leftHand = this.leftHand + this.rightHand[0];
                     this.rightHand = this.rightHand.substring(1);
+                } else if (key === 'ArrowDown' && this.cmdsHistoryIndex >= 0) {
+
+                    // Go down in history
+                    this.cmdsHistoryIndex--;
+                    this.leftHand = this.cmdsHistory[this.cmdsHistoryIndex];
+                    this.rightHand = '';
+                } else if (key === 'ArrowUp') {
+
+                    if (this.cmdsHistoryIndex < this.cmdsHistory.length) {
+
+                        // Go up in history
+                        this.cmdsHistoryIndex++;
+                        this.leftHand = this.cmdsHistory[this.cmdsHistoryIndex];
+                    } else {
+                        this.leftHand = '';
+                    }
                 }
             },
 
@@ -110,10 +130,10 @@
 
                 // Check if there is something to autocomplete
                 if (lmatch) {
-                    const [, cmd] = lmatch;
+                    const cmd = lmatch[1].toLowerCase();
                     const locHash = this.$store.state.location.node.hash;
                     const node = this.$store.state.nodes
-                        .find(v => v.parent === locHash && v.name.startsWith(cmd));
+                        .find(v => v.parent === locHash && v.name.toLowerCase().startsWith(cmd));
 
                     if (node) {
                         this.leftHand = this.leftHand.replace(/([^ ]+)$/, node.name);
@@ -125,6 +145,10 @@
                 const store = this.$store;
                 const originalInput = this.input;
                 let [, cmd, rest] = this.input.match(/^([^ ]*)(.*)/);
+
+                // Append command to history
+                this.cmdsHistory.push(originalInput);
+                this.cmdsHistoryIndex++;
 
                 const append = (content = '') => {
                     return this.cmds.push({
@@ -175,7 +199,7 @@
                         // Find node where the name matches your submitted target
                         const locHash = store.state.location.node.hash;
                         const newLoc = store.state.nodes.filter(n => n.parent === locHash)
-                            .find(n => n.name === rest);
+                            .find(n => n.type === 'folder' && n.name === rest);
 
                         // Show error if not found, change loc otherwise
                         if (newLoc) {
@@ -253,7 +277,7 @@
                     }
                 };
 
-                cmd = cmd.toLowerCase();
+                cmd = cmd.toLowerCase().trim();
                 if (cmd in commands) {
                     rest = rest.trim();
                     commands[cmd]();
