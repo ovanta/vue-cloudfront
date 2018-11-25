@@ -99,13 +99,13 @@
 
                 // Show help
                 if (cmd === 'help') {
-                    return append(`
-                            ls = See files / folders of current location
-                            cd [NAME] = Go to directory
-                            cd .. = go up
-                            mkdir [NAME] = create a directory
-                        `.trim()
-                    );
+                    return append([
+                        'ls             See files / folders of current location',
+                        'cd [NAME]      Go to directory',
+                        'cd ..          Go up',
+                        'mkdir [NAME]   Create a directory',
+                        'rm [NAME]      Delete a file or folder'
+                    ].join('\n'));
                 }
 
                 // List folders and files of current location
@@ -117,7 +117,7 @@
                         .map(v => v.name)
                         .join('\n');
 
-                    append(names);
+                    return append(names || 'Nothing here...');
                 }
 
                 // Change directory
@@ -141,7 +141,7 @@
                         append();
                         return store.commit('location/update', newLoc);
                     } else {
-                        append(`${target}: No such directory`);
+                        append(`'${target}': No such directory`);
                     }
                 }
 
@@ -158,6 +158,24 @@
                         });
                     } else {
                         return append(`'${name}' is not a valid name`);
+                    }
+                }
+
+                if (cmd.startsWith('rm')) {
+                    const [, , target] = cmd.match(/^rm( |)(.*)/);
+
+                    // Find node
+                    const locHash = store.state.location.node.hash;
+                    const node = store.state.nodes.filter(n => n.parent === locHash)
+                        .find(n => n.name === target);
+
+                    // Check if node exists
+                    if (node) {
+                        return store.dispatch('nodes/delete', [node]).then(() => {
+                            append(`'${target}' has been sucessful deleted!`);
+                        });
+                    } else {
+                        return append(`'${target}': No such directory`);
                     }
                 }
 
