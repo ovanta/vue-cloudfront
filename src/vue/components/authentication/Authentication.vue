@@ -65,8 +65,7 @@
             startDemo() {
 
                 // Login as demo user
-                this.$store.commit('auth/setSessionKey', -1);
-                this.$store.commit('auth/setUserMode', 'demo');
+                this.$store.commit('auth/update', {key: -1, mode: 'demo'});
             }
         }
     };
