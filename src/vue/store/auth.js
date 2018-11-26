@@ -19,11 +19,6 @@ export const auth = {
         // Sets a new session key
         async setSessionKey(state, newKey) {
 
-            // Validate
-            if (!(typeof newKey !== 'string')) {
-                throw `Cannot perform 'setSessionKey' in mutations. newKey isn't a String.`;
-            }
-
             // Set key
             state.sessionKey = newKey;
         },

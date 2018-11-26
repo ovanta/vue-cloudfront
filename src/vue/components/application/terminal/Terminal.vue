@@ -274,6 +274,11 @@
                         // Rename
                         store.dispatch('nodes/rename', {node, newName});
                         append();
+                    },
+
+                    logout() {
+                        that.$store.commit('auth/setSessionKey', '');
+                        this.clear();
                     }
                 };
 
