@@ -8,15 +8,14 @@
         <!-- Previous commands and their result -->
         <div v-for="cmd of cmds" class="command">
             <div class="location">{{ cmd.title }}</div>
-            <p>{{ cmd.content }}</p>
+            <p>{{ commandChar }} {{ cmd.command }} <br v-if="cmd.result">{{ cmd.result }} </p>
         </div>
-
 
         <!-- Input field -->
         <div class="location">{{ title }}</div>
 
         <div class="input">
-            <span class="left-hand">$ {{ leftHand }}</span>
+            <span class="left-hand">{{ commandChar }} {{ leftHand }}</span>
             <span v-if="focused" class="cursor">{{ rightHand[0] || ' ' }}</span>
             <span>{{ rightHand.substring(1) }}</span>
         </div>
@@ -32,6 +31,11 @@
             title: {
                 type: String,
                 required: true
+            },
+
+            commandChar: {
+                type: String,
+                default: '$'
             }
         },
 
@@ -39,9 +43,8 @@
             return {
                 cmds: [],
 
-                // Commands history
-                cmdsHistory: [],
-                cmdsHistoryIndex: 1,
+                // Used to walk through history
+                cmdsIndex: 0,
 
                 leftHand: '',
                 rightHand: '',
@@ -112,20 +115,21 @@
                     // Move cursor to the right
                     this.leftHand = this.leftHand + this.rightHand[0];
                     this.rightHand = this.rightHand.substring(1);
-                } else if (key === 'ArrowDown' && this.cmdsHistoryIndex >= 0) {
+                } else if (key === 'ArrowDown' && this.cmdsIndex > 0) {
 
                     // Go down in history
-                    this.cmdsHistoryIndex--;
-                    this.leftHand = this.cmdsHistory[this.cmdsHistoryIndex];
+                    this.cmdsIndex--;
+                    this.leftHand = this.cmds[this.cmdsIndex].command;
                     this.rightHand = '';
                 } else if (key === 'ArrowUp') {
 
-                    if (this.cmdsHistoryIndex < this.cmdsHistory.length) {
+                    if ((this.cmdsIndex + 1) < this.cmds.length) {
 
                         // Go up in history
-                        this.cmdsHistoryIndex++;
-                        this.leftHand = this.cmdsHistory[this.cmdsHistoryIndex];
+                        this.cmdsIndex++;
+                        this.leftHand = this.cmds[this.cmdsIndex].command;
                     } else {
+                        this.cmdsIndex = this.cmds.length;
                         this.leftHand = '';
                     }
                 }
@@ -137,13 +141,16 @@
                 const that = this;
                 this.$emit('tab', {
                     ...that.parsedCommand,
+                    history: that.cmds,
                     leftHand: that.leftHand,
                     rightHand: that.rightHand,
 
+                    // Can be used to set the text left from the cursor
                     setLeftHand(str) {
                         that.leftHand = str;
                     },
 
+                    // Can be used to set the text right from the cursor
                     setRightHand(str) {
                         that.rightHand = str;
                     }
@@ -156,6 +163,7 @@
                 const that = this;
                 this.$emit('enter', {
                     ...that.parsedCommand,
+                    history: that.cmds,
 
                     /**
                      * Prints something into the console
@@ -166,13 +174,13 @@
 
                         // Append command
                         that.cmds.push({
-                            title: title,
-                            content: `$ ${that.command}\n${result}`
+                            title, result,
+                            command: that.command,
+                            timestamp: Date.now()
                         });
 
-                        // Add to history
-                        that.cmdsHistory.push(that.command);
-                        that.cmdsHistoryIndex++;
+                        // Increment history index
+                        that.cmdsIndex++;
 
                         // Clear input
                         that.leftHand = that.rightHand = '';
