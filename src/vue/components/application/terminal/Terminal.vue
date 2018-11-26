@@ -1,46 +1,22 @@
 <template>
-    <section v-click-outside-of-element="blur"
-             ref="terminal"
-             class="terminal"
-             @click="focus"
-             @blur="blur">
-
-        <!-- Previous commands and their result -->
-        <div v-for="cmd of cmds" class="command">
-            <div class="location">{{ cmd.location }}</div>
-            <p>{{ cmd.content }}</p>
-        </div>
-
-
-        <!-- Input field -->
-        <div class="location">{{ location }}</div>
-
-        <div class="input">
-            <span class="left-hand">$ {{ leftHand }}</span>
-            <span v-if="focused" class="cursor">{{ rightHand[0] || ' ' }}</span>
-            <span>{{ rightHand.substring(1) }}</span>
-        </div>
-
+    <section class="terminal">
+        <terminal-engine :title="location"
+                         @tab="tabKey"
+                         @enter="enterKey"></terminal-engine>
     </section>
 </template>
 
 <script>
 
+    // Components
+    import TerminalEngine from '../../../ui/TerminalEngine';
 
     export default {
 
+        components: {TerminalEngine},
+
         data() {
-            return {
-                cmds: [],
-
-                // Commands history
-                cmdsHistory: [],
-                cmdsHistoryIndex: 1,
-
-                leftHand: '',
-                rightHand: '',
-                focused: false
-            };
+            return {};
         },
 
         computed: {
@@ -49,84 +25,14 @@
                 return this.$store.getters['location/getHierarchy']
                     .map(v => v.name)
                     .join('/');
-            },
-
-            input() {
-                return this.leftHand + this.rightHand;
             }
 
         },
 
-        updated() {
-
-            // Scroll down
-            this.$refs.terminal.scrollTop = this.$refs.terminal.scrollHeight;
-        },
-
         methods: {
 
-            focus() {
-                this.focused = true;
-                this.on(window, 'keydown', this.keydown);
-            },
-
-            blur() {
-                this.focused = false;
-                this.off(window, 'keydown', this.keydown);
-            },
-
-            keydown(e) {
-                const {key} = e;
-
-                if (key.length === 1) {
-
-                    // Append char to left-hand container
-                    this.leftHand += key;
-                } else if (key === 'Tab') {
-
-                    // Fire auto completion
-                    this.autoComplete();
-                } else if (key === 'Enter') {
-
-                    // Submit command and clear input
-                    this.submit();
-                    this.leftHand = '';
-                    this.rightHand = '';
-                } else if (key === 'Backspace') {
-
-                    // Delete previous char to the left of the cursor
-                    this.leftHand = this.leftHand.substring(0, this.leftHand.length - 1);
-                } else if (key === 'ArrowLeft' && this.leftHand) {
-
-                    // Move cursor to the left
-                    this.rightHand = this.leftHand[this.leftHand.length - 1] + this.rightHand;
-                    this.leftHand = this.leftHand.substring(0, this.leftHand.length - 1);
-                } else if (key === 'ArrowRight' && this.rightHand) {
-
-                    // Move cursor to the right
-                    this.leftHand = this.leftHand + this.rightHand[0];
-                    this.rightHand = this.rightHand.substring(1);
-                } else if (key === 'ArrowDown' && this.cmdsHistoryIndex >= 0) {
-
-                    // Go down in history
-                    this.cmdsHistoryIndex--;
-                    this.leftHand = this.cmdsHistory[this.cmdsHistoryIndex];
-                    this.rightHand = '';
-                } else if (key === 'ArrowUp') {
-
-                    if (this.cmdsHistoryIndex < this.cmdsHistory.length) {
-
-                        // Go up in history
-                        this.cmdsHistoryIndex++;
-                        this.leftHand = this.cmdsHistory[this.cmdsHistoryIndex];
-                    } else {
-                        this.leftHand = '';
-                    }
-                }
-            },
-
-            autoComplete() {
-                const lmatch = this.leftHand.match(/ ([^ ]+)$/);
+            tabKey({leftHand, setLeftHand}) {
+                const lmatch = leftHand.match(/ ([^ ]+)$/);
 
                 // Check if there is something to autocomplete
                 if (lmatch) {
@@ -136,33 +42,22 @@
                         .find(v => v.parent === locHash && v.name.toLowerCase().startsWith(cmd));
 
                     if (node) {
-                        this.leftHand = this.leftHand.replace(/([^ ]+)$/, node.name);
+                        setLeftHand(leftHand.replace(/([^ ]+)$/, node.name));
                     }
                 }
             },
 
-            submit() {
+            enterKey({cmd, params, append}) {
                 const store = this.$store;
-                const originalInput = this.input;
-                let [, cmd, rest] = this.input.match(/^([^ ]*)(.*)/);
 
-                // Append command to history
-                this.cmdsHistory.push(originalInput);
-                this.cmdsHistoryIndex++;
-
-                const append = (content = '') => {
-                    return this.cmds.push({
-                        location: this.location,
-                        content: `$ ${originalInput}\n` + content
-                    });
-                };
+                const appendTo = append.bind(null, this.location);
 
                 const that = this;
                 const commands = {
 
                     // Show help
                     help() {
-                        append([
+                        appendTo([
                             'ls                       See files / folders of current location',
                             'cd [NAME]                Go to directory',
                             'cd ..                    Go up',
@@ -183,30 +78,29 @@
                             .map(v => v.name)
                             .join('\n');
 
-                        append(names || 'Nothing here...');
+                        appendTo(names || 'Nothing here...');
                     },
 
                     // Change directory
                     cd() {
 
                         // Check if user wants to go up
-                        if (rest === '..') {
-                            append();
+                        if (params === '..') {
+                            appendTo();
                             store.dispatch('location/goUp');
                             return;
                         }
 
                         // Find node where the name matches your submitted target
                         const locHash = store.state.location.node.hash;
-                        const newLoc = store.state.nodes.filter(n => n.parent === locHash)
-                            .find(n => n.type === 'folder' && n.name === rest);
+                        const newLoc = store.state.nodes.find(n => n.parent === locHash && n.type === 'folder' && n.name === params);
 
                         // Show error if not found, change loc otherwise
                         if (newLoc) {
-                            append();
+                            appendTo();
                             store.commit('location/update', newLoc);
                         } else {
-                            append(`'${rest}': No such directory`);
+                            appendTo(`'${params}': No such directory`);
                         }
                     },
 
@@ -214,13 +108,13 @@
                     mkdir() {
 
                         // Validate name and create directory
-                        if (rest.length) {
-                            append();
+                        if (params.length) {
+                            appendTo();
                             store.dispatch('nodes/createFolder', store.state.location.node).then(node => {
-                                return store.dispatch('nodes/rename', {node, newName: rest});
+                                return store.dispatch('nodes/rename', {node, newName: params});
                             });
                         } else {
-                            append(`'${rest}' is not a valid name`);
+                            appendTo(`'${params}' is not a valid name`);
                         }
                     },
 
@@ -228,16 +122,14 @@
 
                         // Find node
                         const locHash = store.state.location.node.hash;
-                        const node = store.state.nodes.filter(n => n.parent === locHash)
-                            .find(n => n.name === rest);
+                        const node = store.state.nodes.find(n => n.parent === locHash && n.name === params);
 
                         // Check if node exists
                         if (node) {
-                            store.dispatch('nodes/delete', [node]).then(() => {
-                                append(`'${rest}' has been sucessful deleted!`);
-                            });
+                            appendTo();
+                            store.dispatch('nodes/delete', [node]);
                         } else {
-                            append(`'${rest}': No such directory`);
+                            appendTo(`'${params}': No such file or directory`);
                         }
                     },
 
@@ -246,34 +138,33 @@
                     },
 
                     rename() {
-                        const regexName = rest.match(/(.*?)[ '"].*?['"](.*?)['"]/);
+                        const regexName = params.match(/(.*?)[ '"].*?['"](.*?)['"]/);
                         let name, newName;
 
                         // Check if user has used quotes
                         if (regexName && regexName.length > 2) {
                             [, name, newName] = regexName;
                         } else {
-                            [name, newName] = rest.split(/ /);
+                            [name, newName] = params.split(/ /);
                         }
 
                         // Validate
                         if (!name || !newName) {
-                            return append(`Cannot rename ${name} to ${newName}`);
+                            return appendTo(`Cannot rename ${name} to ${newName}`);
                         }
 
                         // Find node
                         const locHash = store.state.location.node.hash;
-                        const node = store.state.nodes.filter(n => n.parent === locHash)
-                            .find(n => n.name === name);
+                        const node = store.state.nodes.find(n => n.parent === locHash && n.name === name);
 
                         // Validate node
                         if (!node) {
-                            return append(`'${name}': No such file or directory`);
+                            return appendTo(`'${name}': No such file or directory`);
                         }
 
                         // Rename
                         store.dispatch('nodes/rename', {node, newName});
-                        append();
+                        appendTo();
                     },
 
                     logout() {
@@ -282,12 +173,13 @@
                     }
                 };
 
-                cmd = cmd.toLowerCase().trim();
+                // Check if command exists
                 if (cmd in commands) {
-                    rest = rest.trim();
                     commands[cmd]();
                 } else {
-                    append(`Unknown command '${originalInput}'. Type 'help' to see all commands.`);
+
+                    // Display error message
+                    appendTo(`Unknown command '${cmd}'. Type 'help' to see all commands.`);
                 }
             }
 
@@ -300,49 +192,7 @@
 <style lang="scss" scoped>
 
     .terminal {
-        @include flex(column);
         @include size(100%);
-        overflow-y: auto;
-        font-family: monospace;
-        padding: 1em;
-        user-select: text;
-    }
-
-    .command {
-        margin-bottom: 0.5em;
-
-        p {
-            white-space: pre;
-        }
-    }
-
-    .location {
-        color: $palette-grayish-blue;
-    }
-
-    .input {
-        @include flex(row, stretch);
-        min-height: 1em;
-        margin-bottom: 2em;
-
-        .left-hand {
-            white-space: pre-wrap; // Without a single space won't be visible
-        }
-
-        .cursor {
-            white-space: pre-wrap;
-
-            @include animate('1s linear infinite') {
-                0%, 50% {
-                    background: $palette-deep-blue;
-                    color: white;
-                }
-                51%, 100% {
-                    background: white;
-                    color: $palette-deep-blue;
-                }
-            }
-        }
     }
 
 </style>
