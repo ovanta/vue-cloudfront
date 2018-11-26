@@ -58,13 +58,13 @@
                     // Show help
                     help() {
                         appendTo([
-                            'ls                       See files / folders of current location',
-                            'cd [NAME]                Go to directory',
-                            'cd ..                    Go up',
-                            'mkdir [NAME]             Create a directory',
-                            'rm [NAME]                Delete a file or folder',
-                            'rename [NAME] [NEW NAME] Renames a file or folder',
-                            'clear                    Clears the terminal',
+                            'ls                              List files / folders of current location',
+                            'cd [NAME]                       Go to directory',
+                            'cd ..                           Go up in folder hierarchy',
+                            'mkdir [NAME]                    Create a directory',
+                            'rm [NAME] or /[REGEXP]/[FLAGS]  Delete a file or folder',
+                            'rename [NAME] [NEW NAME]        Renames a file or folder',
+                            'clear                           Clears the terminal',
                             '\nPress tab to use auto-completion'
                         ].join('\n'));
                     },
@@ -122,15 +122,26 @@
 
                         // Find node
                         const locHash = store.state.location.node.hash;
-                        const node = store.state.nodes.find(n => n.parent === locHash && n.name === params);
 
-                        // Check if node exists
-                        if (node) {
-                            appendTo();
-                            store.dispatch('nodes/delete', [node]);
+                        // Check for regular expression
+                        const nodes = [];
+                        const regex = params.match(/^\/(.*)\/([\w]*)$/);
+                        if (regex && regex.length > 2) {
+                            const regexp = new RegExp(regex[1], regex[2]);
+
+                            // Add nodes which match the regular expression
+                            nodes.push(
+                                ...store.state.nodes.filter(n => n.parent === locHash && regexp.test(n.name))
+                            );
                         } else {
-                            appendTo(`'${params}': No such file or directory`);
+
+                            // Find single node where the name matches
+                            const node = store.state.nodes.find(n => n.parent === locHash && n.name === params);
+                            node && nodes.push(node);
                         }
+
+                        appendTo();
+                        store.dispatch('nodes/delete', nodes);
                     },
 
                     clear() {
