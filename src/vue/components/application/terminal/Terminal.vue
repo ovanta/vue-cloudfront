@@ -59,11 +59,13 @@
                     help() {
                         appendTo([
                             'ls                              List files / folders of current location',
-                            'cd [NAME]                       Go to directory',
+                            'cd [String]                     Go to directory',
                             'cd ..                           Go up in folder hierarchy',
-                            'mkdir [NAME]                    Create a directory',
-                            'rm [NAME] or /[REGEXP]/[FLAGS]  Delete a file or folder',
-                            'rename [NAME] to [NEW NAME]     Renames a file or folder',
+                            'mkdir [String]                  Create a directory',
+                            'rm [String] | /[RegExp]/[Flags] Delete a file or folder',
+                            'rename [String] to [String]     Renames a file or folder',
+                            'mov [String] to [String]        Move a file / folder into another directory',
+                            'clear                           Clear terminal',
                             'history                         See command history',
                             '\nPress tab to use auto-completion'
                         ].join('\n'));
@@ -169,6 +171,30 @@
 
                         // Rename
                         store.dispatch('nodes/rename', {node, newName});
+                        appendTo();
+                    },
+
+                    mov() {
+                        const [source, dest] = params.split(/ *(?<!\\)to */)
+                            .map(v => v.replace(/\\to/g, 'to'));
+
+                        // Validate
+                        if (!source || !dest) {
+                            return appendTo(`Cannot move ${source} to ${dest | 'nowhere'}`);
+                        }
+
+                        // Find source / dest
+                        const locHash = store.state.location.node.hash;
+                        const sourceNode = store.state.nodes.find(n => n.parent === locHash && n.name === source);
+                        const destNode = store.state.nodes.find(n => n.parent === locHash && n.name === dest);
+
+                        // Validate
+                        if (!sourceNode || !destNode) {
+                            return appendTo(`'${source}' or '${dest}' is not such a file or directory`);
+                        }
+
+                        // Move
+                        store.dispatch('nodes/move', {nodes: [sourceNode], destination: destNode});
                         appendTo();
                     },
 

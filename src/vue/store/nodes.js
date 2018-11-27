@@ -140,8 +140,8 @@ export const nodes = {
          */
         async move({state, rootState}, {nodes, destination}) {
 
-            // Prevent copy / move actions if search is active or user isn't at home
-            if (rootState.search.active || rootState.activeTab !== 'home') {
+            // Prevent copy / move actions if search is active or user isn't at home or terminal
+            if (rootState.search.active || (rootState.activeTab !== 'home' && rootState.activeTab !== 'terminal')) {
                 return;
             }
 
