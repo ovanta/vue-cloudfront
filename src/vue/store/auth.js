@@ -8,10 +8,10 @@ export const auth = {
          * Session-key which can an and should be used to fetch data or perform actions.<
          * Is used in the nodes store module.
          */
-        sessionKey: 1,
+        sessionKey: null,
 
         // Defines mode, currently there are only 'normal' and 'demo'
-        userMode: 'demo'
+        userMode: 'normal'
     },
 
     mutations: {

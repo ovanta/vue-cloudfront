@@ -164,6 +164,7 @@
                 this.$emit('enter', {
                     ...that.parsedCommand,
                     history: that.cmds,
+                    clearTerminal: () => that.cmds = [],
 
                     /**
                      * Prints something into the console

@@ -47,7 +47,7 @@
                 }
             },
 
-            enterKey({cmd, params, append, history}) {
+            enterKey({cmd, params, append, history, clearTerminal}) {
                 const store = this.$store;
 
                 const appendTo = append.bind(null, this.location);
@@ -63,8 +63,7 @@
                             'cd ..                           Go up in folder hierarchy',
                             'mkdir [NAME]                    Create a directory',
                             'rm [NAME] or /[REGEXP]/[FLAGS]  Delete a file or folder',
-                            'rename [NAME] [NEW NAME]        Renames a file or folder',
-                            'clear                           Clear terminal',
+                            'rename [NAME] to [NEW NAME]     Renames a file or folder',
                             'history                         See command history',
                             '\nPress tab to use auto-completion'
                         ].join('\n'));
@@ -146,23 +145,17 @@
                     },
 
                     clear() {
-                        that.cmds = [];
+                        appendTo();
+                        clearTerminal();
                     },
 
                     rename() {
-                        const regexName = params.match(/(.*?)[ '"].*?['"](.*?)['"]/);
-                        let name, newName;
-
-                        // Check if user has used quotes
-                        if (regexName && regexName.length > 2) {
-                            [, name, newName] = regexName;
-                        } else {
-                            [name, newName] = params.split(/ /);
-                        }
+                        const [name, newName] = params.split(/ *(?<!\\)to */)
+                            .map(v => v.replace(/\\to/g, 'to'));
 
                         // Validate
                         if (!name || !newName) {
-                            return appendTo(`Cannot rename ${name} to ${newName}`);
+                            return appendTo(`Cannot rename ${name} to ${newName | 'nothing'}`);
                         }
 
                         // Find node
