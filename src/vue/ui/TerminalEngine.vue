@@ -78,12 +78,12 @@
 
             focus() {
                 this.focused = true;
-                this.on(window, 'keydown', this.keydown);
+                this.utils.on(window, 'keydown', this.keydown);
             },
 
             blur() {
                 this.focused = false;
-                this.off(window, 'keydown', this.keydown);
+                this.utils.off(window, 'keydown', this.keydown);
             },
 
             keydown(e) {

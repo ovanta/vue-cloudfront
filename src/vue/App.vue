@@ -60,9 +60,6 @@
     // Global directives
     import '../vue-extensions/directives';
 
-    // Global mixins
-    import '../vue-extensions/mixins';
-
     // Components
     import Navigator from './components/application/navigator/Navigator';
     import History from './components/application/history/History';

@@ -22,10 +22,12 @@
 
             <div class="accept">
                 <span @click="(fadeAnimationActive = true) && (register = !register)">{{ register ? 'Login' : 'Register' }}</span>
+
                 <button v-tooltip="'Get a impression of how it would look'"
                         class="demo"
-                        @click="startDemo">Show Demo
+                        @click="$store.commit('auth/update', {key: -1})">Show Demo
                 </button>
+
                 <button class="apply" @click="submit">{{ register ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>
@@ -60,12 +62,6 @@
                 this.$store.dispatch('auth/auth', {type, credentials}).catch(() => {
                     this.shakeAnimationActive = true;
                 });
-            },
-
-            startDemo() {
-
-                // Login as demo user
-                this.$store.commit('auth/update', {key: -1, mode: 'demo'});
             }
         }
     };

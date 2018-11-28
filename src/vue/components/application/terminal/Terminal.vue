@@ -220,8 +220,8 @@
                     },
 
                     logout() {
-                        that.$store.commit('auth/setSessionKey', '');
-                        this.clear();
+                        that.$store.commit('auth/update', {key: null});
+                        clearTerminal();
                     },
 
                     history() {
