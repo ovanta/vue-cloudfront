@@ -1,5 +1,11 @@
 <template>
     <section class="terminal">
+
+        <div class="header">
+            <h1>Terminal</h1>
+            <small>Type `help` to see all available commands</small>
+        </div>
+
         <terminal-engine :title="location"
                          @tab="tabKey"
                          @enter="enterKey"></terminal-engine>
@@ -50,9 +56,23 @@
             enterKey({cmd, params, append, history, clearTerminal}) {
                 const store = this.$store;
 
+                // Header is always the current location so re-create the function
                 const appendTo = append.bind(null, this.location);
 
+                // Parses strings like `"vala valb" valc 'valu'` to ['vala valb', 'valc', 'valu']
+                const parseArgStrings = str => {
+                    const args = [];
+                    const regexp = /([ \t])*('(.*?)'|"(.*?)"|[^ ]+)/g;
+                    for (let match; (match = regexp.exec(str));) {
+                        args.push(match[4] || match[3] || match[2]);
+                    }
+                    return args;
+                };
+
+                // this does not point to the current vue instance in objects
                 const that = this;
+
+                // Available commands and their handler
                 const commands = {
 
                     // Show help
@@ -63,8 +83,8 @@
                             'cd ..                           Go up in folder hierarchy',
                             'mkdir [String]                  Create a directory',
                             'rm [String] | /[RegExp]/[Flags] Delete a file or folder',
-                            'rename [String] to [String]     Renames a file or folder',
-                            'mov [String] to [String]        Move a file / folder into another directory',
+                            'rename [String] [String]        Renames a file or folder',
+                            'mov [String...] [String]        Move a file / folder into another directory',
                             'clear                           Clear terminal',
                             'history                         See command history',
                             '\nPress tab to use auto-completion'
@@ -152,8 +172,7 @@
                     },
 
                     rename() {
-                        const [name, newName] = params.split(/ *(?<!\\)to */)
-                            .map(v => v.replace(/\\to/g, 'to'));
+                        const [name, newName] = parseArgStrings(params);
 
                         // Validate
                         if (!name || !newName) {
@@ -175,26 +194,28 @@
                     },
 
                     mov() {
-                        const [source, dest] = params.split(/ *(?<!\\)to */)
-                            .map(v => v.replace(/\\to/g, 'to'));
+                        const [source, dest] = parseArgStrings(params);
 
                         // Validate
                         if (!source || !dest) {
                             return appendTo(`Cannot move ${source} to ${dest | 'nowhere'}`);
                         }
 
+                        // Split into array
+                        const sources = source.split(/(?<=[^\\]),/g);
+
                         // Find source / dest
                         const locHash = store.state.location.node.hash;
-                        const sourceNode = store.state.nodes.find(n => n.parent === locHash && n.name === source);
+                        const sourceNodes = store.state.nodes.filter(n => n.parent === locHash && sources.includes(n.name));
                         const destNode = store.state.nodes.find(n => n.parent === locHash && n.name === dest);
 
                         // Validate
-                        if (!sourceNode || !destNode) {
-                            return appendTo(`'${source}' or '${dest}' is not such a file or directory`);
+                        if (!destNode) {
+                            return appendTo(`${dest}':no such directory`);
                         }
 
                         // Move
-                        store.dispatch('nodes/move', {nodes: [sourceNode], destination: destNode});
+                        store.dispatch('nodes/move', {nodes: sourceNodes, destination: destNode});
                         appendTo();
                     },
 
@@ -227,7 +248,32 @@
 <style lang="scss" scoped>
 
     .terminal {
-        @include size(100%);
+        @include flex(column);
+        height: 100%;
+        margin: 2em 1.5em 0 1.5em;
+
+        .header {
+            @include flex(row, center);
+            border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
+            padding-bottom: 0.25em;
+            flex-shrink: 0;
+
+            h1 {
+                @include font(400, 1.25em);
+                color: $palette-deep-blue;
+                margin-right: auto;
+            }
+
+            small {
+                font-size: 0.75em;
+                font-style: italic;
+            }
+        }
+
+        .terminal-engine {
+            margin-top: 0.5em;
+            flex-grow: 1;
+        }
     }
 
 </style>

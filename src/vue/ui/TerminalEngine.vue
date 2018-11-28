@@ -1,7 +1,7 @@
 <template>
     <section v-click-outside-of-element="blur"
              ref="terminal"
-             class="terminal"
+             class="terminal-engine"
              @click="focus"
              @blur="blur">
 
@@ -17,7 +17,7 @@
         <div class="input">
             <span class="left-hand">{{ commandChar }} {{ leftHand }}</span>
             <span v-if="focused" class="cursor">{{ rightHand[0] || ' ' }}</span>
-            <span>{{ rightHand.substring(1) }}</span>
+            <span class="right-hand">{{ rightHand.substring(1) }}</span>
         </div>
 
     </section>
@@ -195,12 +195,12 @@
 
 <style lang="scss" scoped>
 
-    .terminal {
+    .terminal-engine {
         @include flex(column);
         @include size(100%);
         overflow-y: auto;
+        overflow-x: hidden;
         font-family: monospace;
-        padding: 1em;
         user-select: text;
         cursor: text;
     }
@@ -224,6 +224,12 @@
 
         .left-hand {
             white-space: pre-wrap; // Without a single space won't be visible
+        }
+
+        .left-hand,
+        .right-hand {
+            line-break: loose;
+            word-break: break-all;
         }
 
         .cursor {
