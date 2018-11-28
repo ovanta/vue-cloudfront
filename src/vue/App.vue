@@ -29,6 +29,7 @@
                 <!-- Tabs, dynamic, getting changed via menu tabs -->
                 <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
                 <history v-show="$store.state.activeTab === 'history'"></history>
+                <terminal v-show="$store.state.activeTab === 'terminal'"></terminal>
             </div>
 
             <!-- Loading screen (fixed) -->
@@ -59,20 +60,24 @@
     // Global directives
     import '../vue-extensions/directives';
 
+    // Global mixins
+    import '../vue-extensions/mixins';
+
     // Components
     import Navigator from './components/application/navigator/Navigator';
-    import History   from './components/application/history/History';
-    import MenuBar   from './components/application/MenuBar';
-    import ToolTip   from './components/application/ToolTip';
-    import InfoBar   from './components/application/InfoBar';
+    import History from './components/application/history/History';
+    import Terminal from './components/application/terminal/Terminal';
+    import MenuBar from './components/application/MenuBar';
+    import ToolTip from './components/application/ToolTip';
+    import InfoBar from './components/application/InfoBar';
 
     // Popovers
     import PopoverKeyboardShortcuts from './components/application/popovers/PopoverKeyboardShortcuts';
-    import PopoverFilterInfo        from './components/application/popovers/PopoverFilterInfo';
+    import PopoverFilterInfo from './components/application/popovers/PopoverFilterInfo';
 
     // Loading screen and debug
     import LoadingScreen from './components/application/screens/LoadingScreen';
-    import DebugScreen   from './components/application/screens/DebugScreen';
+    import DebugScreen from './components/application/screens/DebugScreen';
 
     // Authentication screens
     import Authentication from './components/authentication/Authentication';
@@ -88,6 +93,7 @@
             MenuBar,
             Navigator,
             History,
+            Terminal,
 
             // Popovers and static components
             PopoverKeyboardShortcuts,

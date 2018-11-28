@@ -22,6 +22,12 @@
                 <i class="fas fa-fw fa-history"></i>
             </div>
 
+            <div v-tooltip="'Terminal'"
+                 :class="{'item': 1, active: $store.state.activeTab === 'terminal'}"
+                 @click="changeTab('terminal')">
+                <i class="fas fa-fw fa-terminal"></i>
+            </div>
+
             <div class="eat-space"></div>
 
             <div v-tooltip="'Logout'"

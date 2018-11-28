@@ -16,26 +16,23 @@ export const auth = {
 
     mutations: {
 
-        /**
-         * Updates the current authentication state
-         *
-         * @param state
-         * @param key New "SessionKey"
-         * @param mode Usermode, is used to change UI components and behaviour
-         * @returns {Promise<void>}
-         */
-        update(state, {key, mode}) {
+        // Sets a new session key
+        async setSessionKey(state, newKey) {
 
-            // Validate usermode
-            if (!['normal', 'demo'].includes(mode)) {
-                throw `Cannot perform 'update' in mutations. newMode can only be 'normal' or 'demo'`;
+            // Set key
+            state.sessionKey = newKey;
+        },
+
+        async setUserMode(state, newMode) {
+
+            // Validate
+            if (!['normal', 'demo'].includes(newMode)) {
+                throw `Cannot perform 'setSessionKey' in mutations. newMode can only be 'normal' or 'demo'`;
             }
 
-            // Set key and usermode
-            state.sessionKey = key;
-            state.userMode = mode;
+            // Set mode
+            state.userMode = newMode;
         }
-
     },
 
     actions: {

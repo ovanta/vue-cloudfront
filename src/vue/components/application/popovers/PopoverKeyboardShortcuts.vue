@@ -61,8 +61,9 @@
                             {keys: ['v', 'l'], action: 'Change view to list.'},
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
-                            {keys: ['j', 'm'], action: 'Switch to marked tab.'},
-                            {keys: ['j', 'a'], action: 'Switch to history tab.'},
+                            {keys: ['j', 'm'], action: 'Switch to marked folder / files.'},
+                            {keys: ['j', 'a'], action: 'Switch to history.'},
+                            {keys: ['j', 't'], action: 'Switch to terminal.'},
                             {keys: ['tab'], action: 'Switch tabs.'},
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
                             {keys: ['d', 'b'], action: 'Show debug screen.'},
@@ -90,6 +91,12 @@
         methods: {
 
             keyboardEvent(keys, event) {
+
+                // Don't detect shortcuts in terminal
+                if (this.$store.state.activeTab === 'terminal') {
+                    return;
+                }
+
                 const store = this.$store;
                 const state = store.state;
 
@@ -290,20 +297,25 @@
                     return;
                 }
 
-                // Swtich to marked screen
+                // Switch to marked screen
                 if (keys.KeyJ && keys.KeyM) {
                     this.$store.commit('setActiveTab', 'marked');
                     return;
                 }
 
-                // Swtich to history screen
+                // Switch to history screen
                 if (keys.KeyJ && keys.KeyA) {
+                    this.$store.commit('setActiveTab', 'history');
+                }
+
+                // Switch to terminal screen
+                if (keys.KeyJ && keys.KeyT) {
                     this.$store.commit('setActiveTab', 'history');
                 }
 
                 // Switch tabs
                 if (keys.KeyTab && !keys.ctrlKey) {
-                    const tabs = ['home', 'marked', 'history'];
+                    const tabs = ['home', 'marked', 'history', 'terminal'];
                     let index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
                     // Rotate if end is reached
