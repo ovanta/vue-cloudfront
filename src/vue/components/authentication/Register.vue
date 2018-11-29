@@ -23,7 +23,7 @@
 <script>
 
     // Components
-    import InputField from '../../ui/InputField';
+    import InputField from './InputField';
 
     export default {
         components: {InputField},

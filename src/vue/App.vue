@@ -17,37 +17,7 @@
         </div>
 
         <!-- Actual application -->
-        <div class="app-content">
-
-            <!-- Menu bar and the stuff right of it -->
-            <menu-bar></menu-bar>
-            <div class="right-side">
-
-                <!-- Info-bar, shows important messages -->
-                <info-bar></info-bar>
-
-                <!-- Tabs, dynamic, getting changed via menu tabs -->
-                <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
-                <history v-show="$store.state.activeTab === 'history'"></history>
-                <terminal v-show="$store.state.activeTab === 'terminal'"></terminal>
-            </div>
-
-            <!-- Loading screen (fixed) -->
-            <loading-screen></loading-screen>
-
-            <!-- Login Screen (fixed) -->
-            <authentication></authentication>
-
-            <!-- Debug screen (fixed) -->
-            <debug-screen></debug-screen>
-
-            <!-- Helping pages (fixed) -->
-            <popover-filter-info></popover-filter-info>
-            <popover-keyboard-shortcuts></popover-keyboard-shortcuts>
-
-            <!-- Tooltip -->
-            <tool-tip></tool-tip>
-        </div>
+        <index></index>
 
     </div>
 </template>
@@ -60,49 +30,15 @@
     // Global directives
     import '../vue-extensions/directives';
 
-    // Components
-    import Navigator from './components/application/navigator/Navigator';
-    import History from './components/application/history/History';
-    import Terminal from './components/application/terminal/Terminal';
-    import MenuBar from './components/application/MenuBar';
-    import ToolTip from './components/application/ToolTip';
-    import InfoBar from './components/application/InfoBar';
-
-    // Popovers
-    import PopoverKeyboardShortcuts from './components/application/popovers/PopoverKeyboardShortcuts';
-    import PopoverFilterInfo from './components/application/popovers/PopoverFilterInfo';
-
-    // Loading screen and debug
-    import LoadingScreen from './components/application/screens/LoadingScreen';
-    import DebugScreen from './components/application/screens/DebugScreen';
-
-    // Authentication screens
-    import Authentication from './components/authentication/Authentication';
-
     // Font-awesome styles
     import '@fortawesome/fontawesome-free/css/all.css';
 
+    // Components
+    import Index from './components/Index';
+
     export default {
 
-        components: {
-
-            // Tabs
-            MenuBar,
-            Navigator,
-            History,
-            Terminal,
-
-            // Popovers and static components
-            PopoverKeyboardShortcuts,
-            PopoverFilterInfo,
-            LoadingScreen,
-            DebugScreen,
-            ToolTip,
-            InfoBar,
-
-            // Authentication
-            Authentication
-        },
+        components: {Index},
 
         data() {
             return {};
@@ -171,37 +107,6 @@
 
     body {
         background: $palette-snow-white;
-    }
-
-    .app-content {
-        font-family: $font-family-open-sans;
-        position: absolute;
-        margin: auto;
-        user-select: none;
-        @include flex(row);
-        @include position(0, 0, 0, 0);
-        @include width(70vw, 0, 1400px);
-        @include height(90vh, 0, 950px);
-        box-shadow: 0 0.4em 2.5em 0 rgba($palette-deep-blue, 0.13);
-        border-radius: 0.5em;
-        overflow: hidden;
-
-        .right-side {
-            background: mix($palette-snow-white, white, 75);
-            @include flex(column);
-            width: 100%;
-            overflow: hidden;
-        }
-
-        @include animate('0.75s ease-in-out') {
-            from {
-                transform: translateY(-1em);
-            }
-            to {
-                filter: none;
-                transform: none;
-            }
-        }
     }
 
     .app-background {

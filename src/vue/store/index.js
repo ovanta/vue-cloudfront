@@ -2,8 +2,8 @@ import Vue  from 'vue';
 import Vuex from 'vuex';
 
 // Server-related nodes
-import {nodes} from './nodes';
-import {auth}  from './auth';
+import {nodes} from './app/nodes';
+import {auth}  from './app/auth';
 
 // Virtual modules act only as visual helpers / representation
 import {location}  from './virtual/location';
