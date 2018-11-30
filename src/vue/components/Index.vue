@@ -38,9 +38,9 @@
 
     // Components
     import Navigator from './application/navigator/Navigator';
-    import History   from './application/history/History';
-    import Terminal  from './application/terminal/Terminal';
-    import Settings  from './application/settings/Settings';
+    import History   from './application/tabs/History';
+    import Terminal  from './application/tabs/Terminal';
+    import Settings  from './application/tabs/Settings';
 
     import MenuBar from './application/MenuBar';
     import ToolTip from './ToolTip';

@@ -126,7 +126,7 @@
     .search-bar {
         position: relative;
         padding: 1em;
-        background: #fff;
+        background: white;
         box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
     }
 

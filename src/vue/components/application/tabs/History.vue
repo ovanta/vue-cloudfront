@@ -1,60 +1,68 @@
 <template>
-    <div class="history">
+    <tab-container title="History">
 
-        <div class="header">
-            <h1>History</h1>
+        <template slot="header">
             <i v-tooltip="'Clear history'"
                class="fas fa-fw fa-trash"
                @click="clearActions()"></i>
-        </div>
+        </template>
 
-        <!-- Column header with sorting buttons -->
-        <div class="action actions-header">
+        <template slot="content">
 
-            <div class="sort-container name" @click="sort('name')">
-                <span>Action</span>
-                <i :class="`fas fa-fw fa-caret-${sortDirs.name ? 'down' : 'up'}`"></i>
+            <!-- Column header with sorting buttons -->
+            <div class="action actions-header">
+
+                <div class="sort-container name" @click="sort('name')">
+                    <span>Action</span>
+                    <i :class="`fas fa-fw fa-caret-${sortDirs.name ? 'down' : 'up'}`"></i>
+                </div>
+
+                <span class="description"></span>
+
+                <div class="sort-container performed" @click="sort('timestamp')">
+                    <span>Performed</span>
+                    <i :class="`fas fa-fw fa-caret-${sortDirs.timestamp ? 'down' : 'up'}`"></i>
+                </div>
+
+                <span class="timestamp">Timestamp</span>
             </div>
 
-            <span class="description"></span>
+            <!-- Actual list of actions -->
+            <div class="actions">
+                <div v-for="action of actions" class="action">
 
-            <div class="sort-container performed" @click="sort('timestamp')">
-                <span>Performed</span>
-                <i :class="`fas fa-fw fa-caret-${sortDirs.timestamp ? 'down' : 'up'}`"></i>
+                    <span :style="{background: action.color}" class="name">
+                        <i :class="action.iconClass"></i>
+                        <span>{{ action.name }}</span>
+                    </span>
+
+                    <span class="description">
+                        <span class="text">{{ action.description }}</span>
+
+                        <!-- Additional payload info -->
+                        <span v-if="action.payload.newColor"
+                              :style="{background: action.payload.newColor}"
+                              class="change-color"></span>
+                    </span>
+
+                    <span class="performed">{{ ($store.state.now - action.timestamp) | readableTimeStampDiff }}</span>
+                    <span class="timestamp">{{ action.timestamp | readableTimestamp }}</span>
+                </div>
             </div>
+        </template>
 
-            <span class="timestamp">Timestamp</span>
-        </div>
 
-        <!-- Actual list of actions -->
-        <div class="actions">
-            <div v-for="action of actions" class="action">
-
-                <span :style="{background: action.color}" class="name">
-                    <i :class="action.iconClass"></i>
-                    <span>{{ action.name }}</span>
-                </span>
-
-                <span class="description">
-                    <span class="text">{{ action.description }}</span>
-
-                    <!-- Additional payload info -->
-                    <span v-if="action.payload.newColor"
-                          :style="{background: action.payload.newColor}"
-                          class="change-color"></span>
-                </span>
-
-                <span class="performed">{{ ($store.state.now - action.timestamp) | readableTimeStampDiff }}</span>
-                <span class="timestamp">{{ action.timestamp | readableTimestamp }}</span>
-            </div>
-        </div>
-
-    </div>
+    </tab-container>
 </template>
 
 <script>
 
+    // Components
+    import TabContainer from '../TabContainer';
+
     export default {
+
+        components: {TabContainer},
 
         data() {
             return {
@@ -250,31 +258,14 @@
 
 <style lang="scss" scoped>
 
-    .history {
-        @include flex(column);
-        margin: 2em 1.5em 0 1.5em;
+    .fa-trash {
+        font-size: 1em;
+        color: $palette-decent-blue;
+        transition: all 0.3s;
+        cursor: pointer;
 
-        .header {
-            @include flex(row, center);
-            border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
-            padding-bottom: 0.25em;
-
-            h1 {
-                @include font(400, 1.25em);
-                color: $palette-deep-blue;
-                margin-right: auto;
-            }
-
-            i {
-                font-size: 1em;
-                color: $palette-decent-blue;
-                transition: all 0.3s;
-                cursor: pointer;
-
-                &:hover {
-                    color: $palette-tomatoe-red;
-                }
-            }
+        &:hover {
+            color: $palette-tomatoe-red;
         }
     }
 
@@ -351,7 +342,6 @@
         &.actions-header {
             position: relative;
             font-size: 0.85em;
-            margin: 1.5em 0.5em 0 0.5em;
 
             .name {
                 color: $palette-deep-blue;

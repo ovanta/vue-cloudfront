@@ -1,25 +1,28 @@
 <template>
-    <section class="terminal">
+    <tab-container title="Terminal" class="terminal">
 
-        <div class="header">
-            <h1>Terminal</h1>
-            <small>Type `help` to see all available commands</small>
-        </div>
+        <template slot="header">
+            <p class="hint">Type `help` to see all available commands</p>
+        </template>
 
-        <terminal-engine :title="location"
-                         @tab="tabKey"
-                         @enter="enterKey"></terminal-engine>
-    </section>
+        <template slot="content">
+            <terminal-engine :title="location"
+                             @tab="tabKey"
+                             @enter="enterKey"></terminal-engine>
+        </template>
+
+    </tab-container>
 </template>
 
 <script>
 
     // Components
     import TerminalEngine from '../../../ui/TerminalEngine';
+    import TabContainer   from '../TabContainer';
 
     export default {
 
-        components: {TerminalEngine},
+        components: {TerminalEngine, TabContainer},
 
         data() {
             return {};
@@ -248,26 +251,11 @@
 <style lang="scss" scoped>
 
     .terminal {
-        @include flex(column);
         height: 100%;
-        margin: 2em 1.5em 0 1.5em;
 
-        .header {
-            @include flex(row, center);
-            border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
-            padding-bottom: 0.25em;
-            flex-shrink: 0;
-
-            h1 {
-                @include font(400, 1.25em);
-                color: $palette-deep-blue;
-                margin-right: auto;
-            }
-
-            small {
-                font-size: 0.75em;
-                font-style: italic;
-            }
+        .hint {
+            font-size: 0.75em;
+            font-style: italic;
         }
 
         .terminal-engine {
