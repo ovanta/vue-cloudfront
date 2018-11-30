@@ -1,6 +1,9 @@
 <template>
     <div class="con">
 
+        <!-- Placeholder, will be moved if input contains text -->
+        <span :class="{placeholder: 1, error, moved: value}">{{ placeholder }}</span>
+
         <div class="field">
             <input ref="input"
                    :autofocus="autofocus"
@@ -17,9 +20,6 @@
             <i :class="{'fas fa-fw fa-times': 1, visible: value}"
                @click="value = ''"></i>
         </div>
-
-        <!-- Placeholder, will be moved if input contains text -->
-        <span :class="{placeholder: 1, error, moved: value}">{{ placeholder }}</span>
 
         <!-- Colored border to show focus -->
         <span :class="{border: 1, error, active: focused}"></span>
@@ -111,7 +111,6 @@
         position: absolute;
         color: $palette-decent-blue;
         transition: all 0.3s;
-        z-index: -1;
 
         &.error {
             color: $palette-tomatoe-red;
@@ -136,6 +135,7 @@
         input {
             padding: 0.75em 0;
             width: 100%;
+            z-index: 2;
         }
 
         i {

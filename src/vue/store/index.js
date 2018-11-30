@@ -2,8 +2,9 @@ import Vue  from 'vue';
 import Vuex from 'vuex';
 
 // Server-related nodes
-import {nodes} from './app/nodes';
-import {auth}  from './app/auth';
+import {nodes}    from './app/nodes';
+import {auth}     from './app/auth';
+import {settings} from './app/settings';
 
 // Virtual modules act only as visual helpers / representation
 import {location}  from './virtual/location';
@@ -23,6 +24,9 @@ export default new Vuex.Store({
 
         // Holds a session key
         auth,
+
+        // Holds user settings
+        settings,
 
         // Holds a single node where you are currently
         location,

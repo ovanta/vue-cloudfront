@@ -30,8 +30,14 @@
 
             <div class="eat-space"></div>
 
-            <div v-tooltip="'Logout'"
-                 :class="{'item bottom': 1}"
+            <div v-tooltip="'User settings'"
+                 :class="{'item bottom': 1, active: $store.state.activeTab === 'settings'}"
+                 @click="changeTab('settings')">
+                <i class="fas fa-fw fa-cog"></i>
+            </div>
+
+            <div v-tooltip="'Logout'" 
+                 class="item bottom"
                  @click="$store.commit('auth/update', {key: null})">
                 <i class="fas fa-fw fa-sign-out-alt"></i>
             </div>

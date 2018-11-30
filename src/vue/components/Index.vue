@@ -12,6 +12,7 @@
             <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
             <history v-show="$store.state.activeTab === 'history'"></history>
             <terminal v-show="$store.state.activeTab === 'terminal'"></terminal>
+            <settings v-show="$store.state.activeTab === 'settings'"></settings>
         </div>
 
         <!-- Loading screen (fixed) -->
@@ -39,9 +40,11 @@
     import Navigator from './application/navigator/Navigator';
     import History   from './application/history/History';
     import Terminal  from './application/terminal/Terminal';
-    import MenuBar   from './application/MenuBar';
-    import ToolTip   from './ToolTip';
-    import InfoBar   from './InfoBar';
+    import Settings  from './application/settings/Settings';
+
+    import MenuBar from './application/MenuBar';
+    import ToolTip from './ToolTip';
+    import InfoBar from './InfoBar';
 
     // Popovers
     import PopoverKeyboardShortcuts from './application/popovers/PopoverKeyboardShortcuts';
@@ -57,12 +60,13 @@
     export default {
 
         components: {
+            MenuBar,
 
             // Tabs
-            MenuBar,
             Navigator,
             History,
             Terminal,
+            Settings,
 
             // Popovers and static components
             PopoverKeyboardShortcuts,

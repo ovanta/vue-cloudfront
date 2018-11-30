@@ -64,6 +64,7 @@
                             {keys: ['j', 'm'], action: 'Switch to marked folder / files.'},
                             {keys: ['j', 'a'], action: 'Switch to history.'},
                             {keys: ['j', 't'], action: 'Switch to terminal.'},
+                            {keys: ['j', 's'], action: 'Switch to settigs.'},
                             {keys: ['tab'], action: 'Switch tabs.'},
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
                             {keys: ['d', 'b'], action: 'Show debug screen.'},
@@ -317,9 +318,14 @@
                     this.$store.commit('setActiveTab', 'terminal');
                 }
 
+                // Switch to settings screen
+                if (keys.KeyJ && keys.KeyS) {
+                    this.$store.commit('setActiveTab', 'settings');
+                }
+
                 // Switch tabs
                 if (keys.KeyTab && !keys.ctrlKey) {
-                    const tabs = ['home', 'marked', 'history', 'terminal'];
+                    const tabs = ['home', 'marked', 'history', 'settings', 'terminal'];
                     let index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
                     // Rotate if end is reached
