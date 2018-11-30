@@ -326,10 +326,10 @@
 
             .change-color {
                 display: inline-block;
-                @include size(15px);
+                @include size(12px);
                 border: 1px solid rgba(black, 0.1);
                 margin-left: 0.5em;
-                border-radius: 50% 50% 65% 50% / 40% 65% 35% 60%;
+                border-radius: 100%;
                 flex-shrink: 0;
             }
         }

@@ -12,18 +12,18 @@
 
         <!-- Human readable representation of the search result (if a search is currently performed) -->
         <div v-if="searchResult" class="amount-info">
-            <b v-if="searchResult.file">{{ searchResult.file }} files</b>
+            <b v-if="searchResult.file">{{ searchResult.file }} file{{ searchResult.file === 1 ? '' : 's' }}</b>
             <span v-if="searchResult.file && searchResult.folder"> and </span>
-            <b v-if="searchResult.folder">{{ searchResult.folder }} folders</b>
+            <b v-if="searchResult.folder">{{ searchResult.folder }} folder{{ searchResult.folder === 1 ? '' : 's' }}</b>
             <span v-if="searchResult.file || searchResult.folder"> found</span>
             <span v-if="!searchResult.file && !searchResult.folder">Nothing found</span>
         </div>
 
         <!-- Same as search info, but for marked nodes -->
         <div v-if="markedNodes && !searchResult" class="amount-info">
-            <b v-if="markedNodes.file">{{ markedNodes.file }} files</b>
+            <b v-if="markedNodes.file">{{ markedNodes.file }} file{{ markedNodes.file === 1 ? '' : 's' }}</b>
             <span v-if="markedNodes.file && markedNodes.folder"> and </span>
-            <b v-if="markedNodes.folder">{{ markedNodes.folder }} folders</b>
+            <b v-if="markedNodes.folder">{{ markedNodes.folder }} folder{{ markedNodes.folder === 1 ? '' : 's' }}</b>
             <span v-if="markedNodes.file || markedNodes.folder"> marked</span>
             <span v-if="!markedNodes.file && !markedNodes.folder">Nothing marked</span>
         </div>
@@ -79,6 +79,7 @@
         },
 
         methods: {
+
             updateLocation(node) {
                 this.$store.commit('location/update', node);
             }

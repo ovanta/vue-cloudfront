@@ -25,7 +25,8 @@
 
                 <button v-tooltip="'Get a impression of how it would look'"
                         class="demo"
-                        @click="demo">Show Demo</button>
+                        @click="demo">Show Demo
+                </button>
                 <button class="apply" @click="submit">{{ register ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>

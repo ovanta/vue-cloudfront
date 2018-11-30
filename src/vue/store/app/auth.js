@@ -41,7 +41,7 @@ export const auth = {
             state.userName = userName;
 
             // Update window title
-            document.title = `Nettic - ${userName}`
+            document.title = `Nettic - ${userName}`;
         }
 
     },

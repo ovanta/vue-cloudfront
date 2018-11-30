@@ -86,19 +86,15 @@
         height: 100%;
 
         .item {
+            @include flex(column, center, center);
+            @include size(2.5em);
             position: relative;
             margin-bottom: 1.5em;
-            border-radius: 100%;
-            padding: 0.5em;
             cursor: pointer;
             transition: all 0.3s;
 
-            &.active {
-                background: rgba($palette-deep-purple, 0.08);
-
-                i {
-                    color: $palette-deep-purple;
-                }
+            &.active i {
+                color: $palette-deep-purple;;
             }
 
             i {

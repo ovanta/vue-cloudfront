@@ -30,7 +30,6 @@
         <div class="views">
 
             <!-- Folder / file -views -->
-            <!-- TODO: Sticky header in both? -->
             <list-view v-if="$store.state.viewType === 'list'"
                        :nodes="nodes"
                        class="view"></list-view>
@@ -41,7 +40,18 @@
             <!-- Placeholder if folder is empty -->
             <div v-if="!nodes.file.length && !nodes.folder.length" class="placeholder">
                 <i class="fas fa-cloud"></i>
-                <span><b>Create a folder</b> or <b>drag and drop</b> to upload</span>
+
+                <span v-if="!$store.state.search.active && $store.state.activeTab === 'home'">
+                    <b>Create a folder</b> or <b>drag and drop</b> to upload!
+                </span>
+
+                <span v-if="!$store.state.search.active && $store.state.activeTab === 'marked'">
+                    Right click or use <b>m + a</b> to mark a file or directory!
+                </span>
+
+                <span v-if="$store.state.search.active">
+                    Nothing does match your search.
+                </span>
             </div>
         </div>
 

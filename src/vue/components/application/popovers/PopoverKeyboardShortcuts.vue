@@ -84,7 +84,11 @@
 
         mounted() {
             this.$callOnDestroy(
-                this.utils.detectKeyCombinations(window, this.keyboardEvent, e => e.target === document.body)
+                this.utils.detectKeyCombinations(
+                    window,
+                    this.keyboardEvent,
+                    e => !['TEXT-AREA', 'INPUT'].includes(e.target.tagName)
+                )
             );
         },
 
@@ -310,7 +314,7 @@
 
                 // Switch to terminal screen
                 if (keys.KeyJ && keys.KeyT) {
-                    this.$store.commit('setActiveTab', 'history');
+                    this.$store.commit('setActiveTab', 'terminal');
                 }
 
                 // Switch tabs

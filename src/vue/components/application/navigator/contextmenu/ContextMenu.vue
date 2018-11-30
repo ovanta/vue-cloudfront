@@ -252,7 +252,7 @@
         pointer-events: none;
         transition: opacity 0.3s;
         background: white;
-        padding: 0.5em 1em;
+        padding: 0.5em 0;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
         border-radius: 0.1em;
 
@@ -268,7 +268,7 @@
 
         .option {
             @include flex(row, center);
-            padding: 0.35em 0;
+            padding: 0.35em 1em;
             font-size: 0.85em;
             cursor: pointer;
             transition: all 0.3s;
@@ -306,7 +306,7 @@
                 .sub-menu {
                     position: absolute;
                     transform: translateX(-10px);
-                    left: 115%;
+                    left: 105%;
                     box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
                     background: white;
                     padding: 1em;

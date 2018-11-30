@@ -24,7 +24,7 @@
                    @keyup="updatePalette($event)">
 
             <!-- Used to accept a color -->
-            <i class="fas fa-save" @click="$emit('change', hexColor)"></i>
+            <button @click="$emit('change', hexColor)">Save!</button>
         </div>
 
     </div>
@@ -266,32 +266,37 @@
     }
 
     .result {
-        @include flex(row, center);
+        @include flex(row, stretch);
+        width: 13em;
 
         input {
             @include font(600, 0.85em);
-            min-width: 0;
             background: $palette-snow-white;
             color: $palette-deep-blue;
             border: 1px solid transparent;
             padding: 0.25em 0.75em;
             text-transform: uppercase;
             border-radius: 0.15em;
+            width: 0;
+            flex-grow: 1;
 
             &:focus {
                 border-color: darken($palette-snow-white, 5);
             }
         }
 
-        i {
+        button {
             margin-left: 0.75em;
-            font-size: 1.15em;
-            color: $palette-deep-blue;
+            background: $palette-cloud-blue;
             transition: all 0.3s;
             cursor: pointer;
+            border-radius: 0.15em;
+            color: white;
+            font-weight: 600;
+            padding: 0 0.75em;
 
             &:hover {
-                color: $palette-cloud-blue;
+                filter: brightness(1.1);
             }
         }
     }
