@@ -40,8 +40,8 @@
     import History   from './application/history/History';
     import Terminal  from './application/terminal/Terminal';
     import MenuBar   from './application/MenuBar';
-    import ToolTip   from './application/ToolTip';
-    import InfoBar   from './application/InfoBar';
+    import ToolTip   from './ToolTip';
+    import InfoBar   from './InfoBar';
 
     // Popovers
     import PopoverKeyboardShortcuts from './application/popovers/PopoverKeyboardShortcuts';

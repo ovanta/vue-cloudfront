@@ -11,7 +11,10 @@ export const auth = {
         sessionKey: null,
 
         // Defines mode, currently there are only 'normal' and 'demo'
-        userMode: 'normal'
+        userMode: 'normal',
+
+        // Username, also shown in the tab title
+        userName: ''
     },
 
     mutations: {
@@ -22,10 +25,10 @@ export const auth = {
          * @param state
          * @param key New "SessionKey"
          * @param mode Usermode, is used to change UI components and behaviour. Default is 'demo'
+         * @param userName Username, get's showed in the window title
          * @returns {Promise<void>}
          */
-        update(state, {key, mode}) {
-            !mode && (mode = 'demo');
+        update(state, {key = -1, mode = 'demo', userName = 'Unknown'}) {
 
             // Validate usermode
             if (!['normal', 'demo'].includes(mode)) {
@@ -35,6 +38,10 @@ export const auth = {
             // Set key and usermode
             state.sessionKey = key;
             state.userMode = mode;
+            state.userName = userName;
+
+            // Update window title
+            document.title = `Nettic - ${userName}`
         }
 
     },

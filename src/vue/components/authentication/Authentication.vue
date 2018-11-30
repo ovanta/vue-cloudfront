@@ -25,9 +25,7 @@
 
                 <button v-tooltip="'Get a impression of how it would look'"
                         class="demo"
-                        @click="$store.commit('auth/update', {key: -1})">Show Demo
-                </button>
-
+                        @click="demo">Show Demo</button>
                 <button class="apply" @click="submit">{{ register ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>
@@ -59,8 +57,14 @@
                 const type = this.register ? 'register' : 'login';
                 const credentials = this.$refs[type + 'Box'].getFormData();
 
-                this.$store.dispatch('auth/auth', {type, credentials}).catch(() => {
+                this.$store.dispatch('auth/login', {type, credentials}).catch(() => {
                     this.shakeAnimationActive = true;
+                });
+            },
+
+            demo() {
+                this.$store.commit('auth/update', {
+                    userName: 'Demo'
                 });
             }
         }
