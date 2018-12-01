@@ -60,9 +60,9 @@
         padding: 0.75em 1em;
         border: 2px solid rgba($palette-deep-blue, 0.1);
         border-width: 1px 1px 0 0;
+        border-top-right-radius: 0.5em;
         font-family: monospace;
         font-size: 0.9em;
-        border-top-right-radius: 0.5em;
         transform: translateY(110%);
         transform-origin: bottom left;
         transition: all 0.3s;

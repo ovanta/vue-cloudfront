@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 // Server-related nodes
 import {nodes}    from './app/nodes';
 import {auth}     from './app/auth';
-import {settings} from './app/settings';
+import {userdata} from './app/userdata';
 
 // Virtual modules act only as visual helpers / representation
 import {location}  from './virtual/location';
@@ -25,8 +25,8 @@ export default new Vuex.Store({
         // Holds a session key
         auth,
 
-        // Holds user settings
-        settings,
+        // Holds user related content
+        userdata,
 
         // Holds a single node where you are currently
         location,
@@ -54,7 +54,6 @@ export default new Vuex.Store({
 
         // UI Props
         viewType: 'grid',
-        skipIntroBoxes: false,
         showDebugScreen: false,
         activeTab: 'home',
         activePopup: null
@@ -64,10 +63,6 @@ export default new Vuex.Store({
 
         setActivePopup(state, popup) {
             state.activePopup = popup;
-        },
-
-        skipIntroBoxes(state, v) {
-            state.skipIntroBoxes = !!v;
         },
 
         showDebugScreen(state, v) {

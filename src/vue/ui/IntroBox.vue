@@ -1,5 +1,5 @@
 <template>
-    <div v-if="open && !$store.state.skipIntroBoxes"
+    <div v-if="$store.state.userdata.introBoxes[id]"
          ref="introBox"
          class="intro-box"
          @click="openIntroducion()">
@@ -39,7 +39,7 @@
                     <span class="skip"
                           @click="$store.commit('skipIntroBoxes', true)">Skip all</span>
 
-                    <button @click="open = false">
+                    <button @click="close()">
                         <span>Okay</span>
                         <i class="fas fa-fw fa-check"></i>
                     </button>
@@ -60,7 +60,13 @@
                 type: String,
                 required: true
             },
+
             header: {
+                type: String,
+                required: true
+            },
+
+            id: {
                 type: String,
                 required: true
             }
@@ -68,13 +74,15 @@
 
         data() {
             return {
-                open: true,
                 intro: false
             };
         },
 
-        methods: {
+        created() {
+            this.$store.dispatch('userdata/showIntroBox', {key: this.id, val: true});
+        },
 
+        methods: {
             openIntroducion() {
                 const {introBox, introContent} = this.$refs;
 
@@ -85,8 +93,11 @@
 
                 // Show introbox
                 this.intro = true;
-            }
+            },
 
+            close() {
+                this.$store.dispatch('userdata/showIntroBox', {key: this.id, val: false});
+            }
         }
     };
 

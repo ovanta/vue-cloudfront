@@ -1,5 +1,5 @@
 <template>
-    <div class="input-field">
+    <div class="text-input-field">
 
         <!-- Placeholder, will be moved if input contains text -->
         <span :class="{placeholder: 1, error, moved: value}">{{ placeholder }}</span>
@@ -72,7 +72,7 @@
 <style lang="scss" scoped>
 
 
-    .input-field {
+    .text-input-field {
         position: relative;
         @include inline-flex(row, center);
         border-radius: 0.15em;

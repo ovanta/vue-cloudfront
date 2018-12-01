@@ -1,9 +1,10 @@
-export const settings = {
+export const userdata = {
 
     namespaced: true,
 
     state: {
         username: null,
+        introBoxes: {},
         email: null
     },
 
@@ -29,6 +30,12 @@ export const settings = {
 
             // Apply
             state.email = email;
+        },
+
+        showIntroBox({state}, {key, val}) {
+
+            // Apply
+            state.introBoxes = {...state.introBoxes, [key]: val};
         }
 
     }

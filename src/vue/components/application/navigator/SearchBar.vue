@@ -35,7 +35,9 @@
             </div>
 
             <!-- Introduction -->
-            <intro-box header="Search Options" text="Filter by type, use regular expressions or ignore case."></intro-box>
+            <intro-box id="1"
+                       header="Search Options"
+                       text="Filter by type, use regular expressions or ignore case."></intro-box>
         </div>
     </section>
 </template>
@@ -43,8 +45,8 @@
 <script>
 
     // Components
-    import MultiSwitchButton from '../../../ui/SwitchButton';
-    import SimpleButton      from '../../../ui/ToggleButton';
+    import MultiSwitchButton from '../../../ui/TextSwitchButton';
+    import SimpleButton      from '../../../ui/TextToggleButton';
     import IntroBox          from '../../../ui/IntroBox';
 
     export default {

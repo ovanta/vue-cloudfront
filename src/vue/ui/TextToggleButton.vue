@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'toggle-button': 1, active}" @click="toggle">
+    <div :class="{'text-toggle-button': 1, active}" @click="toggle">
         <span>{{ text }}</span>
     </div>
 </template>
@@ -36,7 +36,7 @@
 
 <style lang="scss" scoped>
 
-    .toggle-button {
+    .text-toggle-button {
         @include flex(row, center);
         @include font(600, 0.7em);
         background: $palette-snow-white;

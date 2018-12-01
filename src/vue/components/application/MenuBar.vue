@@ -13,7 +13,9 @@
                  :class="{'item': 1, active: $store.state.activeTab === 'marked'}"
                  @click="changeTab('marked')">
                 <i class="fas fa-fw fa-bookmark"></i>
-                <intro-box header="Marked Folders and files" text="Mark your important files, folder or just use it as a quick way to access them."></intro-box>
+                <intro-box id="0"
+                           header="Marked Folders and files"
+                           text="Mark your important files, folder or just use it as a quick way to access them."></intro-box>
             </div>
 
             <div v-tooltip="'View history'"

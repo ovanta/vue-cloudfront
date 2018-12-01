@@ -7,12 +7,12 @@
 <script>
 
     // Components
-    import InputField   from '../../../ui/InputField';
+    import TextInputField   from '../../../ui/TextInputField';
     import TabContainer from '../TabContainer';
 
     export default {
 
-        components: {InputField, TabContainer},
+        components: {TextInputField, TabContainer},
 
         data() {
             return {};

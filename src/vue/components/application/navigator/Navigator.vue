@@ -23,7 +23,9 @@
                 <i class="fas fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
 
                 <!-- Introduction -->
-                <intro-box header="Search Options" text="Disable / enable grid or try out our keyboard shortcuts."></intro-box>
+                <intro-box id="2"
+                           header="Search Options"
+                           text="Disable / enable grid or try out our keyboard shortcuts."></intro-box>
             </div>
         </div>
 
