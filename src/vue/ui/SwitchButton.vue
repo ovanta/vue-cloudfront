@@ -1,5 +1,5 @@
 <template>
-    <div class="multi-switch">
+    <div class="switch-button">
 
         <span v-for="(opt, index) of options"
               ref="options"
@@ -66,7 +66,7 @@
 
 <style lang="scss" scoped>
 
-    .multi-switch {
+    .switch-button {
         position: relative;
         @include flex(row, center);
         @include font(600, 0.7em);

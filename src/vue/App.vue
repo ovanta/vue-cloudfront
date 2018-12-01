@@ -48,9 +48,6 @@
 
             // Update nodes
             this.$store.dispatch('nodes/update');
-
-            // Update timer every x seconds
-            setInterval(() => this.$store.commit('updateTimer'), 1000);
         },
 
         methods: {

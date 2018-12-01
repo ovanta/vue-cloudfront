@@ -45,7 +45,7 @@
                               class="change-color"></span>
                     </span>
 
-                    <span class="performed">{{ ($store.state.now - action.timestamp) | readableTimeStampDiff }}</span>
+                    <span class="performed">{{ (timeReference - action.timestamp) | readableTimeStampDiff }}</span>
                     <span class="timestamp">{{ action.timestamp | readableTimestamp }}</span>
                 </div>
             </div>
@@ -72,6 +72,7 @@
                     timestamp: false
                 },
 
+                timeReference: Date.now(),
                 interval: null
             };
         },
@@ -217,6 +218,9 @@
                 this.$store.subscribe(handle),
                 this.$store.subscribeAction(handle)
             );
+
+            // Update time-reference every 15 seconds
+            setInterval(() => this.timeReference = Date.now(), 15000);
         },
 
         methods: {

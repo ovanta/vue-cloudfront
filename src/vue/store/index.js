@@ -52,9 +52,6 @@ export default new Vuex.Store({
 
     state: {
 
-        // Gets updated every second
-        now: Date.now(),
-
         // UI Props
         viewType: 'grid',
         skipIntroBoxes: false,
@@ -89,10 +86,6 @@ export default new Vuex.Store({
             }
 
             state.viewType = type;
-        },
-
-        updateTimer(state) {
-            state.now = Date.now();
         }
     }
 });
