@@ -37,7 +37,10 @@
                             {keys: ['ctrl', 'a'], action: 'Select everything.'},
                             {keys: ['s', 'd'], action: 'Select directories.'},
                             {keys: ['s', 'f'], action: 'Select files.'},
-                            {keys: ['s', 'i'], action: 'Invert selection.'}
+                            {keys: ['s', 'i'], action: 'Invert selection.'},
+                            {keys: ['enter'], action: 'Enter first selected direcotry.'},
+                            {keys: ['arrow-up'], action: 'Select next element.'},
+                            {keys: ['arrow-down'], action: 'Select previous element.'}
                         ]
                     },
 
@@ -88,7 +91,7 @@
                 this.utils.detectKeyCombinations(
                     window,
                     this.keyboardEvent,
-                    ({target}) => !target.contentEditable && !['TEXT-AREA', 'INPUT'].includes(target.tagName)
+                    ({target}) => target.contentEditable !== 'true' && !['TEXT-AREA', 'INPUT'].includes(target.tagName)
                 )
             );
         },
@@ -96,16 +99,15 @@
         methods: {
 
             keyboardEvent(keys, event) {
+                const store = this.$store;
+                const state = store.state;
+                const {selection, clipboard, activeTab} = state;
 
                 // Don't detect shortcuts in terminal
-                if (this.$store.state.activeTab === 'terminal') {
+                if (activeTab === 'terminal') {
                     return;
                 }
 
-                const store = this.$store;
-                const state = store.state;
-
-                const {selection, clipboard, activeTab} = state;
                 const clipboardNodes = clipboard.nodes;
                 const currentLocation = state.location.node;
 
@@ -161,6 +163,16 @@
                         // Prevent setting the letter 'f' as folder name because the freshly created
                         // folder is editable.
                         event.preventDefault();
+                        return;
+                    }
+
+                    // Jump into folder
+                    if (keys.KeyEnter && selection.length) {
+                        const firstFolder = selection.find(v => v.type === 'folder');
+
+                        if (firstFolder) {
+                            this.$store.commit('location/update', firstFolder);
+                        }
                         return;
                     }
                 }

@@ -93,7 +93,7 @@
 
         data() {
             return {
-                selection: null,
+                keyboardSelectionIndex: -1,
                 draggablePlugin: null,
                 selectionPlugin: null
             };
@@ -123,8 +123,17 @@
 
                         // Clear selection
                         this.$store.commit('selection/clear');
+
+                        // Clear selected element index
+                        this.keyboardSelectionIndex = -1;
                     }
-                })
+                }),
+
+                this.utils.detectKeyCombinations(
+                    window,
+                    this.keyboardEvent,
+                    () => this.$store.state.activeTab === 'home'
+                )
             );
 
             // Draggable and selection plugin
@@ -153,9 +162,34 @@
 
             setViewType(type) {
                 this.$store.commit('setViewType', type);
-            }
+            },
 
+            keyboardEvent(keys) {
+                const all = this.nodes.folder.concat(this.nodes.file);
+                const idx = this.keyboardSelectionIndex;
+
+                function update() {
+
+                    // Clear only if user does not perform a multi-selection
+                    if (!(keys.ctrlKey && keys.shiftKey)) {
+                        this.$store.commit('selection/clear');
+                    }
+
+                    // Append node to current selection
+                    this.$store.commit('selection/append', [all[this.keyboardSelectionIndex]]);
+                }
+
+                // Check for navigation keys
+                if (keys.KeyArrowup || keys.KeyArrowleft) {
+                    this.keyboardSelectionIndex = (idx - 1) < 0 ? all.length - 1 : idx - 1;
+                    update();
+                } else if (keys.KeyArrowdown || keys.KeyArrowright) {
+                    this.keyboardSelectionIndex = (idx + 2) > all.length ? 0 : idx + 1;
+                    update();
+                }
+            }
         }
+
     };
 
 </script>
