@@ -1,5 +1,5 @@
 <template>
-    <tab-container title="Terminal" class="terminal">
+    <tab-container class="terminal" title="Terminal">
 
         <template slot="header">
             <p class="hint">Type `help` to see all available commands</p>
@@ -7,8 +7,8 @@
 
         <template slot="content">
             <terminal-engine :title="location"
-                             @tab="tabKey"
-                             @enter="enterKey"></terminal-engine>
+                             @enter="enterKey"
+                             @tab="tabKey"></terminal-engine>
         </template>
 
     </tab-container>

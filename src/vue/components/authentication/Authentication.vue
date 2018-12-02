@@ -58,7 +58,7 @@
                 const type = this.register ? 'register' : 'login';
                 const credentials = this.$refs[type + 'Box'].getFormData();
 
-                this.$store.dispatch('auth/login', {type, credentials}).catch(() => {
+                this.$store.dispatch('auth/auth', {type, credentials}).catch(() => {
                     this.shakeAnimationActive = true;
                 });
             },

@@ -88,7 +88,7 @@
                 this.utils.detectKeyCombinations(
                     window,
                     this.keyboardEvent,
-                    e => !['TEXT-AREA', 'INPUT'].includes(e.target.tagName)
+                    ({target}) => !target.contentEditable && !['TEXT-AREA', 'INPUT'].includes(target.tagName)
                 )
             );
         },

@@ -94,6 +94,7 @@
     .hierarchy {
         @include flex(row, center);
         flex-wrap: wrap;
+        min-height: 2.5em;
 
         .node {
             @include inline-flex(row, center);

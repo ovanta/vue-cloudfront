@@ -2,8 +2,8 @@
     <section v-click-outside-of-element="blur"
              ref="terminal"
              class="terminal-engine"
-             @click="focus"
-             @blur="blur">
+             @blur="blur"
+             @click="focus">
 
         <!-- Previous commands and their result -->
         <div v-for="cmd of cmds" class="command">

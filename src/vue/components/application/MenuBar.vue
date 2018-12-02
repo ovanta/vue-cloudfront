@@ -4,13 +4,13 @@
         <div class="items">
 
             <div v-tooltip="'Home'"
-                 :class="{'item': 1, active: $store.state.activeTab === 'home'}"
+                 :class="{'item': 1, active: activeTab === 'home'}"
                  @click="changeTab('home')">
                 <i class="fas fa-fw fa-home"></i>
             </div>
 
             <div v-tooltip="'View marked folder and files'"
-                 :class="{'item': 1, active: $store.state.activeTab === 'marked'}"
+                 :class="{'item': 1, active: activeTab === 'marked'}"
                  @click="changeTab('marked')">
                 <i class="fas fa-fw fa-bookmark"></i>
                 <intro-box id="0"
@@ -19,13 +19,13 @@
             </div>
 
             <div v-tooltip="'View history'"
-                 :class="{'item': 1, active: $store.state.activeTab === 'history'}"
+                 :class="{'item': 1, active: activeTab === 'history'}"
                  @click="changeTab('history')">
                 <i class="fas fa-fw fa-history"></i>
             </div>
 
             <div v-tooltip="'Terminal'"
-                 :class="{'item': 1, active: $store.state.activeTab === 'terminal'}"
+                 :class="{'item': 1, active: activeTab === 'terminal'}"
                  @click="changeTab('terminal')">
                 <i class="fas fa-fw fa-terminal"></i>
             </div>
@@ -33,7 +33,7 @@
             <div class="eat-space"></div>
 
             <div v-tooltip="'User settings'"
-                 :class="{'item bottom': 1, active: $store.state.activeTab === 'settings'}"
+                 :class="{'item bottom': 1, active: activeTab === 'settings'}"
                  @click="changeTab('settings')">
                 <i class="fas fa-fw fa-cog"></i>
             </div>
@@ -54,12 +54,19 @@
     // Components
     import IntroBox from '../../ui/IntroBox';
 
+    // Vue stuff
+    import {mapState} from 'vuex';
+
     export default {
 
         components: {IntroBox},
 
         data() {
             return {};
+        },
+
+        computed: {
+            ...mapState(['activeTab'])
         },
 
         methods: {

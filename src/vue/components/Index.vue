@@ -9,10 +9,10 @@
             <info-bar></info-bar>
 
             <!-- Tabs, dynamic, getting changed via menu tabs -->
-            <navigator v-show="$store.state.activeTab === 'marked' || $store.state.activeTab === 'home'"></navigator>
-            <history v-show="$store.state.activeTab === 'history'"></history>
-            <terminal v-show="$store.state.activeTab === 'terminal'"></terminal>
-            <settings v-show="$store.state.activeTab === 'settings'"></settings>
+            <navigator v-show="activeTab === 'marked' || activeTab === 'home'"></navigator>
+            <history v-show="activeTab === 'history'"></history>
+            <terminal v-show="activeTab === 'terminal'"></terminal>
+            <settings v-show="activeTab === 'settings'"></settings>
         </div>
 
         <!-- Loading screen (fixed) -->
@@ -57,6 +57,9 @@
     // Authentication screens
     import Authentication from './authentication/Authentication';
 
+    // Vue stuff
+    import {mapState} from 'vuex';
+
     export default {
 
         components: {
@@ -82,6 +85,10 @@
 
         data() {
             return {};
+        },
+
+        computed: {
+            ...mapState(['activeTab'])
         }
 
     };

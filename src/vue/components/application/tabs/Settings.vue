@@ -1,5 +1,5 @@
 <template>
-    <tab-container title="Settings" class="settings">
+    <tab-container class="settings" title="Settings">
 
         <div slot="content" class="content">
 

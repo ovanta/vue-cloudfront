@@ -24,7 +24,7 @@
             <span class="name">Download</span>
         </div>
 
-        <div v-if="!$store.state.search.active && activeTab === 'home'"
+        <div v-if="!search.active && activeTab === 'home'"
              class="option"
              @click="newFolder()">
             <i class="fas fa-fw fa-folder-plus"></i>
@@ -38,21 +38,21 @@
             <span class="name">Rename</span>
         </div>
 
-        <div v-if="$store.state.selection.length && activeTab === 'home'"
+        <div v-if="selection.length && activeTab === 'home'"
              class="option"
              @click="moveToClipboard('copy')">
             <i class="fas fa-fw fa-copy"></i>
             <span class="name">Copy</span>
         </div>
 
-        <div v-if="$store.state.selection.length"
+        <div v-if="selection.length"
              class="option"
              @click="moveToClipboard('move')">
             <i class="fas fa-fw fa-cut"></i>
             <span class="name">Cut</span>
         </div>
 
-        <div v-if="$store.state.clipboard.nodes.length && activeTab === 'home'"
+        <div v-if="clipboard.nodes.length && activeTab === 'home'"
              class="option"
              @click="execClipboardAction()">
             <i class="fas fa-fw fa-paste"></i>
@@ -73,6 +73,9 @@
 
     // Components
     import ColorChooser from './ColorChooser';
+
+    // Vue stuff
+    import {mapState} from 'vuex';
 
     export default {
 
@@ -111,8 +114,9 @@
 
             activeTab() {
                 return this.$store.state.activeTab;
-            }
+            },
 
+            ...mapState(['search', 'selection', 'clipboard'])
         },
 
         mounted() {

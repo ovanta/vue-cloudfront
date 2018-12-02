@@ -11,11 +11,11 @@
 
                 <!-- Node-views, grid and list -->
                 <i v-tooltip="'Switch to list view'"
-                   v-show="$store.state.viewType === 'grid'"
+                   v-show="viewType === 'grid'"
                    class="fas fa-fw fa-th-list"
                    @click="setViewType('list')"></i>
                 <i v-tooltip="'Switch to grid view'"
-                   v-show="$store.state.viewType === 'list'"
+                   v-show="viewType === 'list'"
                    class="fas fa-fw fa-th"
                    @click="setViewType('grid')"></i>
 
@@ -32,10 +32,10 @@
         <div class="views">
 
             <!-- Folder / file -views -->
-            <list-view v-if="$store.state.viewType === 'list'"
+            <list-view v-if="viewType === 'list'"
                        :nodes="nodes"
                        class="view"></list-view>
-            <grid-view v-if="$store.state.viewType === 'grid'"
+            <grid-view v-if="viewType === 'grid'"
                        :nodes="nodes"
                        class="view"></grid-view>
 
@@ -43,15 +43,15 @@
             <div v-if="!nodes.file.length && !nodes.folder.length" class="placeholder">
                 <i class="fas fa-cloud"></i>
 
-                <span v-if="!$store.state.search.active && $store.state.activeTab === 'home'">
+                <span v-if="!search.active && activeTab === 'home'">
                     <b>Create a folder</b> or <b>drag and drop</b> to upload!
                 </span>
 
-                <span v-if="!$store.state.search.active && $store.state.activeTab === 'marked'">
+                <span v-if="!search.active && activeTab === 'marked'">
                     Right click or use <b>m + a</b> to mark a file or directory!
                 </span>
 
-                <span v-if="$store.state.search.active">
+                <span v-if="search.active">
                     Nothing does match your search.
                 </span>
             </div>
@@ -77,6 +77,9 @@
     import SearchBar   from './SearchBar';
     import IntroBox    from '../../../ui/IntroBox';
 
+    // Vue stuff
+    import {mapState} from 'vuex';
+
     export default {
 
         components: {
@@ -99,7 +102,9 @@
         computed: {
             nodes() {
                 return this.$store.getters['nodes/currentDisplayedNodes'](this.$store.state.viewType === 'list');
-            }
+            },
+
+            ...mapState(['activeTab', 'viewType', 'search'])
         },
 
         mounted() {
