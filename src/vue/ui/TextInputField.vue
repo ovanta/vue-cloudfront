@@ -84,6 +84,7 @@
         position: absolute;
         @include position(auto, 0, 0, 0);
         @include size(100%, 1px);
+        opacity: 0.75;
 
         &::before,
         &::after {
@@ -111,6 +112,7 @@
         position: absolute;
         color: $palette-decent-blue;
         transition: all 0.3s;
+        @include font(400, 0.8em);
 
         &.error {
             color: $palette-tomatoe-red;
@@ -123,16 +125,12 @@
         }
     }
 
-    .placeholder,
-    .field input {
-        @include font(400, 0.9em);
-    }
-
     .field {
         @include flex(row, center);
         width: 100%;
 
         input {
+            @include font(400, 0.85em);
             padding: 0.75em 0;
             width: 100%;
             z-index: 2;

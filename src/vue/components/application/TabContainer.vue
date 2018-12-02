@@ -54,8 +54,9 @@
 
         .tab-content {
             @include flex(column);
-            margin: 1.25em 1.5em 0 1.5em;
+            padding: 1.25em 1.5em 0 1.5em;
             flex-grow: 1;
+            height: 100%;
         }
     }
 
