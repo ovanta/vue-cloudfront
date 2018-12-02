@@ -11,10 +11,7 @@ export const auth = {
         sessionKey: null,
 
         // Defines mode, currently there are only 'normal' and 'demo'
-        userMode: 'normal',
-
-        // Username, also shown in the tab title
-        userName: ''
+        userMode: 'normal'
     },
 
     mutations: {
@@ -28,7 +25,7 @@ export const auth = {
          * @param userName Username, get's showed in the window title
          * @returns {Promise<void>}
          */
-        update(state, {key = -1, mode = 'demo', userName = 'Unknown'}) {
+        update(state, {key = -1, mode = 'demo'}) {
 
             // Validate usermode
             if (!['normal', 'demo'].includes(mode)) {
@@ -38,10 +35,6 @@ export const auth = {
             // Set key and usermode
             state.sessionKey = key;
             state.userMode = mode;
-            state.userName = userName;
-
-            // Update window title
-            document.title = `Nettic - ${userName}`;
         }
 
     },
@@ -65,7 +58,9 @@ export const auth = {
                 throw `Cannot perform 'auth' in nodes. credentials needs a 'username' and 'password' prop.`;
             }
 
-            // TODO: Make ajax request and get a session key
+            /**
+             * TODO: Request API-Key; Reset nodes and userdata
+             */
             return Promise.reject();
         }
     }
