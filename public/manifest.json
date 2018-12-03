@@ -1,6 +1,6 @@
 {
-    "name": "Nettic",
-    "short_name": "Nettic",
+    "name": "Vue Cloudfront",
+    "short_name": "vue-cloudfront",
     "icons": [
         {
             "src": "./img/icons/android-chrome-192x192.png",
