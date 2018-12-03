@@ -15,9 +15,9 @@
         <div class="location">{{ title }}</div>
 
         <div class="input">
-            <span class="left-hand">{{ commandChar }} {{ leftHand }}</span>
-            <span v-if="focused" class="cursor">{{ rightHand[0] || ' ' }}</span>
-            <span class="right-hand">{{ rightHand.substring(1) }}</span>
+            <span class="left-hand">{{ commandChar }} {{ input.leftHand }}</span>
+            <span v-if="focused" :class="`cursor ${cursor}`">{{ input.cursorContent }}</span>
+            <span class="right-hand">{{ input.rightHand }}</span>
         </div>
 
     </section>
@@ -45,6 +45,8 @@
 
                 // Used to walk through history
                 cmdsIndex: 0,
+                cursor: 'block',
+                cursorTypes: ['block', 'line', 'underscore'],
 
                 leftHand: '',
                 rightHand: '',
@@ -63,6 +65,15 @@
                 return {
                     cmd: lh.toLowerCase().trim(),
                     params: rh.trim()
+                };
+            },
+
+            input() {
+                const {rightHand, cursor, leftHand} = this;
+                return {
+                    leftHand,
+                    rightHand: cursor === 'line' ? rightHand : rightHand.substring(1),
+                    cursorContent: cursor === 'line' ? '' : rightHand[0] || ' '
                 };
             }
 
@@ -93,6 +104,11 @@
 
                     // Append char to left-hand container
                     this.leftHand += key;
+                } else if (key === 'Insert') {
+
+                    // Rotate cursor type
+                    const nextIndex = this.cursorTypes.indexOf(this.cursor) + 1;
+                    this.cursor = this.cursorTypes[nextIndex > this.cursorTypes.length - 1 ? 0 : nextIndex];
                 } else if (key === 'Tab') {
 
                     // Fire auto completion
@@ -221,6 +237,8 @@
         @include flex(row, stretch);
         min-height: 1em;
         margin-bottom: 2em;
+        user-select: none;
+        cursor: default;
 
         .left-hand {
             white-space: pre-wrap; // Without a single space won't be visible
@@ -233,16 +251,45 @@
         }
 
         .cursor {
+            position: relative;
             white-space: pre-wrap;
 
-            @include animate('1s linear infinite') {
-                0%, 50% {
-                    background: $palette-deep-blue;
-                    color: white;
+            &.block,
+            &.line {
+                @include animate('1s linear infinite') {
+                    0%, 50% {
+                        background: $palette-deep-blue;
+                        color: white;
+                    }
+                    51%, 100% {
+                        background: transparent;
+                        color: $palette-deep-blue;
+                    }
                 }
-                51%, 100% {
-                    background: white;
-                    color: $palette-deep-blue;
+            }
+
+            &.line {
+                margin: 0 -1px;
+                width: 2px;
+            }
+
+            &.underscore {
+                overflow: visible;
+
+                &::before {
+                    @include pseudo();
+                    @include position(auto, 0, 0, 0);
+                    @include size(110%, 1px);
+                    @include animate('1s linear infinite') {
+                        0%, 50% {
+                            background: $palette-deep-blue;
+                            color: white;
+                        }
+                        51%, 100% {
+                            background: transparent;
+                            color: $palette-deep-blue;
+                        }
+                    }
                 }
             }
         }

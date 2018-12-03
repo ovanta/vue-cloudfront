@@ -2,7 +2,7 @@
     <tab-container class="terminal" title="Terminal">
 
         <template slot="header">
-            <p class="hint">Type `help` to see all available commands</p>
+            <p class="hint">Type `help` to see all available commands. Use `insert` to toggle cursor.</p>
         </template>
 
         <template slot="content">
