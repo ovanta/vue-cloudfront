@@ -27,6 +27,7 @@
                         class="demo"
                         @click="demo">Show Demo
                 </button>
+
                 <button class="apply" @click="submit">{{ register ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>

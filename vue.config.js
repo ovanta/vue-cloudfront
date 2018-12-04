@@ -4,8 +4,7 @@ module.exports = {
         loaderOptions: {
             sass: {
                 data: `
-                    @import "@/scss/_variables.scss";
-                    @import "@/scss/_mixins.scss";
+                    @import "@/scss/_main.scss";
                 `
             }
         }

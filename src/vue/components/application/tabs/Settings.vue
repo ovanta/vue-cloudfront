@@ -30,7 +30,6 @@
                                   :password="true"
                                   placeholder="Current password"></text-input-field>
                 <text-input-field ref="unameNew" placeholder="New Username"></text-input-field>
-                <text-input-field ref="unameRepeat" placeholder="Repeat Username"></text-input-field>
 
                 <button class="confirm" @click="changeEmail">Change Username</button>
                 <p :class="{info: 1, error: changeUsernameError}">{{ changeUsernameError || changeUsernameSuccess }}</p>
@@ -82,20 +81,15 @@
             },
 
             changeEmail() {
-                const {unamePwdCur, unameNew, unameRepeat} = this.$refs;
+                const {unamePwdCur, unameNew} = this.$refs;
                 this.changeUsernameError = '';
                 this.changeUsernameSuccess = '';
-
-                // Validate
-                if (unameNew.value !== unameRepeat.value) {
-                    return this.changeUsernameError = 'New usernames does not match';
-                }
 
                 this.$store.dispatch('userdata/changeUsername', {
                     currentPassword: unamePwdCur.value,
                     newUsername: unameNew.value
                 }).catch(error => this.changeUsernameError = error).then(() => {
-                    [unamePwdCur, unameNew, unameRepeat].forEach(v => v.value = '');
+                    [unamePwdCur, unameNew].forEach(v => v.value = '');
                     this.changeUsernameSuccess = 'Username successful changed!';
                 });
             }
@@ -119,6 +113,7 @@
             @include flex(column, stretch, flex-end);
             padding: 0 1.75em 1.5em;
             width: 20em;
+            height: 23em;
 
             .text-input-field {
                 margin-top: 1em;
