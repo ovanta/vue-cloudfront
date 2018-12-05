@@ -1,7 +1,9 @@
+import Vue from 'vue';
+
 /**
  * Calls a function if vue instance is destroyed.
  */
-export default {
+Vue.use({
 
     install(Vue) {
         const instances = {};
@@ -36,4 +38,4 @@ export default {
             instances[_uid].push(...subs);
         };
     }
-};
+});

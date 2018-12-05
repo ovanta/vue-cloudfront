@@ -24,12 +24,6 @@
 
 <script>
 
-    // Global filters
-    import '../vue-extensions/filters';
-
-    // Global directives
-    import '../vue-extensions/directives';
-
     // Font-awesome styles
     import '@fortawesome/fontawesome-free/css/all.css';
 

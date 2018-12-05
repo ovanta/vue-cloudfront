@@ -2,11 +2,6 @@ import Vue   from 'vue';
 import App   from './vue/App.vue';
 import store from './vue/store/index';
 
-// Custom plugins
-import CallOnDestroy from './vue-extensions/plugins/CallOnDestroy';
-
-Vue.use(CallOnDestroy);
-
 // Import service worker
 import './registerServiceWorker';
 
@@ -14,6 +9,11 @@ import './registerServiceWorker';
 import * as _ from './js/utils';
 
 Vue.prototype.utils = _;
+
+// Import global stuff
+import './vue-extensions/plugins';
+import './vue-extensions/filters';
+import './vue-extensions/directives';
 
 // Entry point
 new Vue({

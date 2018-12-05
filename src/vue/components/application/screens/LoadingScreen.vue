@@ -1,7 +1,7 @@
 <template>
     <div :class="{'loader': 1, open}">
         <div class="box"></div>
-        <p class="message">{{ randomMessage() }}...</p>
+        <p v-if="message" class="message">{{ message }}...</p>
     </div>
 </template>
 
@@ -12,6 +12,7 @@
         data() {
             return {
                 open: false,
+                message: '',
 
                 /**
                  * Thanks to github.com/NateSeymour for these
@@ -67,6 +68,7 @@
                      * appending the class directly.
                      */
                     this.open = true;
+                    this.message = this.messages[Math.floor(Math.random() * this.messages.length)];
 
                     // Wait untile browser repaints
                     requestAnimationFrame(() => {
@@ -90,14 +92,7 @@
                     dispatch(type, payload).then(resolve).catch(reject);
                 }
             });
-        },
-
-        methods: {
-            randomMessage() {
-                return this.messages[Math.floor(Math.random() * this.messages.length)];
-            }
         }
-
     };
 
 </script>
