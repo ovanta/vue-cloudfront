@@ -7,8 +7,7 @@
 
         <template slot="content">
             <terminal-engine :title="location"
-                             @enter="enterKey"
-                             @tab="tabKey"></terminal-engine>
+                             @input="input"></terminal-engine>
         </template>
 
     </tab-container>
@@ -17,7 +16,7 @@
 <script>
 
     // Components
-    import TerminalEngine from '../../../ui/TerminalEngine';
+    import TerminalEngine from '../../../ui/terminal-engine/TerminalEngine';
     import TabContainer   from '../TabContainer';
 
     export default {
@@ -40,27 +39,39 @@
 
         methods: {
 
-            tabKey({leftHand, setLeftHand}) {
+            input({event, command, history, leftHand, setValue, append, clearTerminal}) {
+                if (event.key === 'Tab') {
+                    this.autoComplete(leftHand, setValue);
+                } else if (event.key === 'Enter') {
+                    this.performCommand(command, append, history, clearTerminal);
+                }
+            },
+
+            autoComplete(leftHand, setValue) {
+                const store = this.$store;
                 const lmatch = leftHand.match(/ ([^ ]+)$/);
 
                 // Check if there is something to autocomplete
                 if (lmatch) {
                     const cmd = lmatch[1].toLowerCase();
-                    const locHash = this.$store.state.location.node.hash;
-                    const node = this.$store.state.nodes
+                    const locHash = store.state.location.node.hash;
+                    const node = store.state.nodes
                         .find(v => v.parent === locHash && v.name.toLowerCase().startsWith(cmd));
 
                     if (node) {
-                        setLeftHand(leftHand.replace(/([^ ]+)$/, node.name));
+                        setValue({left: leftHand.replace(/([^ ]+)$/, node.name)});
                     }
                 }
             },
 
-            enterKey({cmd, params, append, history, clearTerminal}) {
+            performCommand(command, append, history, clearTerminal) {
                 const store = this.$store;
 
                 // Header is always the current location so re-create the function
                 const appendTo = append.bind(null, this.location);
+
+                // Parse command
+                const [, cmd, params] = command.match(/^([^ ]*)(.*)/).map(v => v.trim());
 
                 // Parses strings like `"vala valb" valc 'valu'` to ['vala valb', 'valc', 'valu']
                 const parseArgStrings = str => {
