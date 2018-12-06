@@ -1,19 +1,16 @@
 <template>
     <div class="register">
 
-        <input-field :validate="/^[\w\d ]{3,}$/"
-                     class="in"
+        <input-field class="in"
                      placeholder="Username"
                      @update="setUsername"></input-field>
 
         <input-field :password="true"
-                     :validate="/^(.){6,}$/"
                      class="in"
                      placeholder="Password"
                      @update="setPassword"></input-field>
 
         <input-field :password="true"
-                     :validate="validatePassword"
                      class="in"
                      placeholder="Repeat Password"
                      @update="setRepeatedPassword"></input-field>
@@ -47,10 +44,6 @@
 
             setRepeatedPassword(value) {
                 this.passwordRepeat = value;
-            },
-
-            validatePassword() {
-                return this.password === this.passwordRepeat;
             },
 
             getFormData() {

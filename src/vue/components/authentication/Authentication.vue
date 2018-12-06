@@ -20,8 +20,12 @@
 
             </div>
 
+            <!-- Error box -->
+            <p class="error">{{ errorMsg }}</p>
+
+            <!-- Button bar -->
             <div class="accept">
-                <span @click="(fadeAnimationActive = true) && (register = !register)">{{ register ? 'Login' : 'Register' }}</span>
+                <span @click="switchAuthMode">{{ register ? 'Login' : 'Register' }}</span>
 
                 <button v-tooltip="'Get a impression of how it would look'"
                         class="demo"
@@ -47,7 +51,7 @@
         data() {
             return {
                 register: false,
-                error: false,
+                errorMsg: '',
 
                 fadeAnimationActive: false,
                 shakeAnimationActive: false
@@ -59,7 +63,9 @@
                 const type = this.register ? 'register' : 'login';
                 const credentials = this.$refs[type + 'Box'].getFormData();
 
-                this.$store.dispatch('auth/auth', {type, credentials}).catch(() => {
+                this.errorMsg = '';
+                this.$store.dispatch('auth/auth', {type, credentials}).catch(msg => {
+                    this.errorMsg = msg;
                     this.shakeAnimationActive = true;
                 });
             },
@@ -68,6 +74,11 @@
                 this.$store.commit('auth/update', {
                     userName: 'Demo'
                 });
+            },
+
+            switchAuthMode() {
+                this.fadeAnimationActive = true;
+                this.register = !this.register;
             }
         }
     };
@@ -134,9 +145,16 @@
             text-align: center;
         }
 
+        .error {
+            @include font(600, 0.75em);
+            color: $palette-tomatoe-red;
+            margin-top: 1em;
+            height: 1em;
+        }
+
         .accept {
             @include flex(row, flex-end);
-            margin-top: 2em;
+            margin-top: 0.75em;
 
             span {
                 font-size: 0.85em;

@@ -2,7 +2,7 @@
     <div class="text-input-field">
 
         <!-- Placeholder, will be moved if input contains text -->
-        <span :class="{placeholder: 1, error, moved: value}">{{ placeholder }}</span>
+        <span :class="{placeholder: 1, moved: value}">{{ placeholder }}</span>
 
         <div class="field">
             <input ref="input"
@@ -13,7 +13,7 @@
                    spellcheck="false"
                    @blur="focused = false"
                    @focus="focused = true"
-                   @input="updateValue"
+                   @input="$emit('update', value)"
                    @keyup.enter="$emit('submit')">
 
             <!-- Clear input -->
@@ -22,7 +22,7 @@
         </div>
 
         <!-- Colored border to show focus -->
-        <span :class="{border: 1, error, active: focused}"></span>
+        <span :class="{border: 1, active: focused}"></span>
 
     </div>
 </template>
@@ -33,37 +33,14 @@
         props: {
             placeholder: {type: String, required: true},
             password: {type: Boolean, default: false},
-            autofocus: {type: Boolean, default: false},
-            validate: {
-                type: [RegExp, Function], default: () => /.*/
-            }
+            autofocus: {type: Boolean, default: false}
         },
 
         data() {
             return {
                 value: '',
-                focused: false,
-                error: false
+                focused: false
             };
-        },
-
-        methods: {
-            updateValue() {
-                const {validate, value} = this;
-
-                // Emit event
-                this.$emit('update', value, this.error);
-
-                // Validate
-                this.error =
-                    (typeof validate === 'function' && !validate(value)) ||
-                    (validate instanceof RegExp && !validate.test(value));
-
-                // If value is empty dont show an error
-                if (!value) {
-                    this.error = false;
-                }
-            }
         }
     };
 
@@ -98,10 +75,6 @@
             transition: all 0.3s ease-in-out;
         }
 
-        &.error::after {
-            background: $palette-tomatoe-red;
-        }
-
         &.active::after {
             width: 100%;
             background: $palette-deep-purple;
@@ -113,10 +86,6 @@
         color: $palette-decent-blue;
         transition: all 0.3s;
         @include font(400, 0.8em);
-
-        &.error {
-            color: $palette-tomatoe-red;
-        }
 
         &.moved {
             transform: translateY(-95%) scale(0.75);
