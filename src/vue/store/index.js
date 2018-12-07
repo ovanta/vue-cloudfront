@@ -11,7 +11,7 @@ import {location}  from './virtual/location';
 import {clipboard} from './virtual/clipboard';
 import {selection} from './virtual/selection';
 import {editable}  from './virtual/editable';
-import {search}    from './virtual/search';
+import {search}    from './virtual/search/search';
 import {tooltip}   from './virtual/tooltip';
 
 Vue.use(Vuex);

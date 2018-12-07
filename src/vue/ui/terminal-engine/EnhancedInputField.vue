@@ -157,7 +157,7 @@
                 &::before {
                     @include pseudo();
                     @include position(auto, 0, 0, 0);
-                    @include size(110%, 1px);
+                    @include size(110%, 2px);
                     @include animate('1s linear infinite') {
                         0%, 50% {
                             background: $palette-deep-blue;
