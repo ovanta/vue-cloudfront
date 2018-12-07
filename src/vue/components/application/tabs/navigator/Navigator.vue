@@ -75,7 +75,7 @@
     import GridView    from './views/GridView';
     import ContextMenu from './contextmenu/ContextMenu';
     import SearchBar   from './SearchBar';
-    import IntroBox    from '../../../ui/IntroBox';
+    import IntroBox    from '../../../../ui/IntroBox';
 
     // Vue stuff
     import {mapState} from 'vuex';

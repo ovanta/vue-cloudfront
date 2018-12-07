@@ -37,7 +37,7 @@
 <script>
 
     // Components
-    import Navigator from './application/navigator/Navigator';
+    import Navigator from './application/tabs/navigator/Navigator';
     import History   from './application/tabs/History';
     import Terminal  from './application/tabs/Terminal';
     import Settings  from './application/tabs/Settings';

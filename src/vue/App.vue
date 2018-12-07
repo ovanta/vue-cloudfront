@@ -1,5 +1,5 @@
 <template>
-    <div id="app" @contextmenu="preventDefault">
+    <div id="app" @contextmenu.prevent="">
 
         <!-- Background shapes -->
         <div class="app-background">
@@ -42,12 +42,6 @@
 
             // Update nodes
             this.$store.dispatch('nodes/update');
-        },
-
-        methods: {
-            preventDefault(e) {
-                e.preventDefault();
-            }
         }
     };
 </script>
@@ -91,7 +85,8 @@
 
     // Actual app layout
     html,
-    body {
+    body,
+    #app {
         height: 100%;
         width: 100%;
     }

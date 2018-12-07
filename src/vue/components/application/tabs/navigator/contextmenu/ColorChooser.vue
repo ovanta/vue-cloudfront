@@ -18,7 +18,7 @@
 <script>
 
     // Components
-    import ColorPicker from '../../../../ui/ColorPicker';
+    import ColorPicker from '../../../../../ui/ColorPicker';
 
     export default {
 
