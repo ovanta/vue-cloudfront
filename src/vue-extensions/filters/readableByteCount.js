@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 /**
  * Convert a byte size to an human readable size.
+ * e.g. 123456 => '123.46 kB'
  */
 Vue.filter('readableByteCount', bytes => {
     bytes = Number(bytes);

@@ -1,9 +1,13 @@
 import Vue  from 'vue';
 import {on} from '../../js/utils';
 
+/**
+ * Forces a element to get blurred if user clicks on something
+ * which is not the element itself.
+ */
 Vue.directive('strict-focus', {
     inserted(el) {
-        on(window, 'mousedown', e => {
+        on(window, 'click', e => {
             e.target !== el && el.blur();
         });
     }

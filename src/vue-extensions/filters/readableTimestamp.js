@@ -1,7 +1,8 @@
 import Vue from 'vue';
 
 /**
- * Convert a timestamp to a fancy date string.
+ * Convert a timestamp to a better readable date-time string.
+ * e.g. 1544469018383 => '20:10 - 10 Dec. 2018'
  */
 Vue.filter('readableTimestamp', timestamp => {
     const date = new Date(timestamp);

@@ -1,7 +1,10 @@
 import Vue       from 'vue';
 import {on, off} from '../../js/utils';
 
-// Tooltip directive
+/**
+ * Basic tooltip directive, expect a string which
+ * is used as tooltip content.
+ */
 Vue.directive('tooltip', (() => {
     const state = new WeakMap();
 

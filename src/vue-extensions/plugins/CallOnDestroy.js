@@ -1,7 +1,8 @@
 import Vue from 'vue';
 
 /**
- * Calls a function if vue instance is destroyed.
+ * Every passed argument should be a function which gets
+ * called if vue instance is destroyed.
  */
 Vue.use({
 

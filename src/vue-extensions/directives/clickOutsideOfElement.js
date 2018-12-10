@@ -1,7 +1,10 @@
 import Vue             from 'vue';
 import {eventPath, on} from '../../js/utils';
 
-// Directive to detect if user has clicked outside of a element
+/**
+ * Fires a function (wich should be passed as value) if
+ * the user clicks outside of the binded element.
+ */
 Vue.directive('clickOutsideOfElement', {
     inserted(el, {value}) {
 

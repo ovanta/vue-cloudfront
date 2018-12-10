@@ -1,24 +1,24 @@
 import Vue from 'vue';
 
-// Will focus an input element if v-focus is true.
+/**
+ * Directive will, if evaluated value is truish, select
+ * the entire text-content of an specific node.
+ */
 Vue.directive('select-all', {
-    inserted: selectAll,
-    update: selectAll
-});
+    update(el, bind) {
+        if (bind.value) {
+            if (window.getSelection && document.createRange) {
+                const range = document.createRange();
+                range.selectNodeContents(el);
 
-function selectAll(el, bind) {
-    if (bind.value) {
-        if (window.getSelection && document.createRange) {
-            const range = document.createRange();
-            range.selectNodeContents(el);
-
-            const sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
-        } else if (document.body.createTextRange) {
-            const range = document.body.createTextRange();
-            range.moveToElementText(el);
-            range.select();
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            } else if (document.body.createTextRange) {
+                const range = document.body.createTextRange();
+                range.moveToElementText(el);
+                range.select();
+            }
         }
     }
-}
+});
