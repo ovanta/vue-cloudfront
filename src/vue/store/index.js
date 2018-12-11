@@ -54,7 +54,6 @@ export default new Vuex.Store({
 
         // UI Props
         viewType: 'grid',
-        showDebugScreen: false,
         activeTab: 'home',
         activePopup: null
     },
@@ -63,10 +62,6 @@ export default new Vuex.Store({
 
         setActivePopup(state, popup) {
             state.activePopup = popup;
-        },
-
-        showDebugScreen(state, v) {
-            state.showDebugScreen = v === 'toggle' ? !state.showDebugScreen : !!v;
         },
 
         setActiveTab(state, tab) {

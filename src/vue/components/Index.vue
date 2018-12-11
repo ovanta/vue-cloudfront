@@ -21,9 +21,6 @@
         <!-- Login Screen (fixed) -->
         <authentication></authentication>
 
-        <!-- Debug screen (fixed) -->
-        <debug-screen></debug-screen>
-
         <!-- Helping pages (fixed) -->
         <popover-filter-info></popover-filter-info>
         <popover-keyboard-shortcuts></popover-keyboard-shortcuts>
@@ -50,9 +47,8 @@
     import PopoverKeyboardShortcuts from './application/popovers/PopoverKeyboardShortcuts';
     import PopoverFilterInfo        from './application/popovers/PopoverFilterInfo';
 
-    // Loading screen and debug
+    // Loading screen
     import LoadingScreen from './application/screens/LoadingScreen';
-    import DebugScreen   from './application/screens/DebugScreen';
 
     // Authentication screens
     import Authentication from './authentication/Authentication';
@@ -75,7 +71,6 @@
             PopoverKeyboardShortcuts,
             PopoverFilterInfo,
             LoadingScreen,
-            DebugScreen,
             ToolTip,
             InfoBar,
 

@@ -70,7 +70,6 @@
                             {keys: ['j', 's'], action: 'Switch to settigs.'},
                             {keys: ['tab'], action: 'Switch tabs.'},
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
-                            {keys: ['d', 'b'], action: 'Show debug screen.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'}
                         ]
                     },
@@ -299,12 +298,6 @@
                 // Show search filters
                 if (keys.KeyH && keys.KeyF) {
                     this.$store.commit('setActivePopup', 'SearchFilters');
-                    return;
-                }
-
-                // Debug screen
-                if (keys.KeyD && keys.KeyB) {
-                    this.$store.commit('showDebugScreen', 'toggle');
                     return;
                 }
 
