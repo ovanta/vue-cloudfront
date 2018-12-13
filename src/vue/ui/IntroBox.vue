@@ -37,7 +37,7 @@
 
                 <div class="actions">
                     <span class="skip"
-                          @click="$store.commit('skipIntroBoxes', true)">Skip all</span>
+                          @click="$store.dispatch('userdata/skipIntroBoxes', true)">Skip all</span>
 
                     <button @click="close()">
                         <span>Okay</span>

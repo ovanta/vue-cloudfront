@@ -59,6 +59,16 @@ export const userdata = {
 
             // Apply
             state.introBoxes = {...state.introBoxes, [key]: val};
+        },
+
+        async skipIntroBoxes({state}, {key, val}) {
+
+            for (const key in state.introBoxes) {
+                state.introBoxes[key] = false;
+            }
+
+            // Apply
+            state.introBoxes = {...state.introBoxes};
         }
 
     }
