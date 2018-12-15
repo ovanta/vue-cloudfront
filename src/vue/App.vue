@@ -27,6 +27,9 @@
     // Font-awesome styles
     import '@fortawesome/fontawesome-free/css/all.css';
 
+    // Normalize css to look (almost) equal on all browsers
+    import 'normalize.css';
+
     // Components
     import Index from './components/Index';
 
