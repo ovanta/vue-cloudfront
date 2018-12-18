@@ -15,7 +15,7 @@
                 <i class="fas fa-fw fa-bookmark"></i>
                 <intro-box id="0"
                            header="Marked Folders and files"
-                           text="Mark your important files, folder or just use it as a quick way to access them."></intro-box>
+                           text="Mark your important files, folder or just use it as a quick way to access them."/>
             </div>
 
             <div v-tooltip="'View history'"

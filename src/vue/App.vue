@@ -17,7 +17,7 @@
         </div>
 
         <!-- Actual application -->
-        <index></index>
+        <index/>
 
     </div>
 </template>

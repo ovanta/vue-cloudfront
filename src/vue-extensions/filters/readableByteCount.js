@@ -1,4 +1,5 @@
-import Vue from 'vue';
+import config from '../../../config/default';
+import Vue    from 'vue';
 
 /**
  * Convert a byte size to an human readable size.
@@ -11,7 +12,7 @@ Vue.filter('readableByteCount', bytes => {
         return 'Empty';
     }
 
-    const si = true;
+    const si = config.sizeSIPrefix;
     const unit = si ? 1000 : 1024;
     const block = bytes / unit;
 

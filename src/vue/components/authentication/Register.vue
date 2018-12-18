@@ -3,17 +3,17 @@
 
         <input-field class="in"
                      placeholder="Username"
-                     @update="setUsername"></input-field>
+                     @update="setUsername"/>
 
         <input-field :password="true"
                      class="in"
                      placeholder="Password"
-                     @update="setPassword"></input-field>
+                     @update="setPassword"/>
 
         <input-field :password="true"
                      class="in"
                      placeholder="Repeat Password"
-                     @update="setRepeatedPassword"></input-field>
+                     @update="setRepeatedPassword"/>
     </div>
 </template>
 

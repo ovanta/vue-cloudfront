@@ -8,13 +8,13 @@
             <section class="sec">
                 <text-input-field ref="pwdOld"
                                   :password="true"
-                                  placeholder="Old password"></text-input-field>
+                                  placeholder="Old password"/>
                 <text-input-field ref="pwdNew"
                                   :password="true"
-                                  placeholder="New password"></text-input-field>
+                                  placeholder="New password"/>
                 <text-input-field ref="pwdRepeat"
                                   :password="true"
-                                  placeholder="Confirm new password"></text-input-field>
+                                  placeholder="Confirm new password"/>
 
                 <button class="confirm" @click="changePassword">Update Password</button>
                 <p :class="{info: 1, error: changePasswordError}">{{ changePasswordError || changePasswordSuccess }}</p>
@@ -28,8 +28,8 @@
             <section class="sec">
                 <text-input-field ref="unamePwdCur"
                                   :password="true"
-                                  placeholder="Current password"></text-input-field>
-                <text-input-field ref="unameNew" placeholder="New Username"></text-input-field>
+                                  placeholder="Current password"/>
+                <text-input-field ref="unameNew" placeholder="New Username"/>
 
                 <button class="confirm" @click="changeEmail">Change Username</button>
                 <p :class="{info: 1, error: changeUsernameError}">{{ changeUsernameError || changeUsernameSuccess }}</p>

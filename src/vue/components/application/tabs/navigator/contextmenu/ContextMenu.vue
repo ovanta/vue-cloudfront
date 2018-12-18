@@ -62,7 +62,7 @@
         <div v-if="type === 'folder'" class="option sub">
             <i class="fas fa-fw fa-palette"></i>
             <span class="name">Change color <i class="fas fa-fw fa-angle-right"></i></span>
-            <color-chooser class="sub-menu" @change="setColor"></color-chooser>
+            <color-chooser class="sub-menu" @change="setColor"/>
         </div>
 
     </div>

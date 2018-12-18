@@ -2,31 +2,31 @@
     <div class="index">
 
         <!-- Menu bar and the stuff right of it -->
-        <menu-bar></menu-bar>
+        <menu-bar/>
         <div class="right-side">
 
             <!-- Info-bar, shows important messages -->
-            <info-bar></info-bar>
+            <info-bar/>
 
             <!-- Tabs, dynamic, getting changed via menu tabs -->
-            <navigator v-show="activeTab === 'marked' || activeTab === 'home'"></navigator>
-            <history v-show="activeTab === 'history'"></history>
-            <terminal v-show="activeTab === 'terminal'"></terminal>
-            <settings v-show="activeTab === 'settings'"></settings>
+            <navigator v-show="activeTab === 'marked' || activeTab === 'home'"/>
+            <history v-show="activeTab === 'history'"/>
+            <terminal v-show="activeTab === 'terminal'"/>
+            <settings v-show="activeTab === 'settings'"/>
         </div>
 
         <!-- Loading screen (fixed) -->
-        <loading-screen></loading-screen>
+        <loading-screen/>
 
         <!-- Login Screen (fixed) -->
-        <authentication></authentication>
+        <authentication/>
 
         <!-- Helping pages (fixed) -->
-        <popover-filter-info></popover-filter-info>
-        <popover-keyboard-shortcuts></popover-keyboard-shortcuts>
+        <popover-filter-info/>
+        <popover-keyboard-shortcuts/>
 
         <!-- Tooltip -->
-        <tool-tip></tool-tip>
+        <tool-tip/>
 
     </div>
 </template>

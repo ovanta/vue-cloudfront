@@ -7,7 +7,7 @@
 
         <template slot="content">
             <terminal-engine :title="location"
-                             @input="input"></terminal-engine>
+                             @input="input"/>
         </template>
 
     </tab-container>

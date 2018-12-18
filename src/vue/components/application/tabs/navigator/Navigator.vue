@@ -1,11 +1,11 @@
 <template>
     <section class="navigator" @contextmenu.prevent="openMenu($event)">
 
-        <search-bar></search-bar>
+        <search-bar/>
 
         <!-- Navigation bar with hierarchy -->
         <div class="nav">
-            <hierarchy></hierarchy>
+            <hierarchy/>
 
             <div class="controls">
 
@@ -25,7 +25,7 @@
                 <!-- Introduction -->
                 <intro-box id="2"
                            header="Search Options"
-                           text="Disable / enable grid or try out our keyboard shortcuts."></intro-box>
+                           text="Disable / enable grid or try out our keyboard shortcuts."/>
             </div>
         </div>
 
@@ -34,10 +34,10 @@
             <!-- Folder / file -views -->
             <list-view v-if="viewType === 'list'"
                        :nodes="nodes"
-                       class="view"></list-view>
+                       class="view"/>
             <grid-view v-if="viewType === 'grid'"
                        :nodes="nodes"
-                       class="view"></grid-view>
+                       class="view"/>
 
             <!-- Placeholder if folder is empty -->
             <div v-if="!nodes.file.length && !nodes.folder.length" class="placeholder">
@@ -58,7 +58,7 @@
         </div>
 
         <!-- Context menu -->
-        <context-menu ref="contextMenu"></context-menu>
+        <context-menu ref="contextMenu"/>
 
     </section>
 </template>

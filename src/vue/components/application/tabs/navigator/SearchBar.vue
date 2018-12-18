@@ -23,21 +23,21 @@
             <div class="option">
                 <multi-switch-button :active="0"
                                      :options="['All', 'File', 'Folder']"
-                                     @change="setTypeOption"></multi-switch-button>
+                                     @change="setTypeOption"/>
             </div>
 
             <div class="option">
-                <simple-button text="Regex" @change="setRegexOption"></simple-button>
+                <simple-button text="Regex" @change="setRegexOption"/>
             </div>
 
             <div class="option">
-                <simple-button text="Case insensitive" @change="setCaseInsensitivOption"></simple-button>
+                <simple-button text="Case insensitive" @change="setCaseInsensitivOption"/>
             </div>
 
             <!-- Introduction -->
             <intro-box id="1"
                        header="Search Options"
-                       text="Filter by type, use regular expressions or ignore case."></intro-box>
+                       text="Filter by type, use regular expressions or ignore case."/>
         </div>
     </section>
 </template>

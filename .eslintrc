@@ -33,7 +33,7 @@
                 "html": {
                     "void": "never",
                     "normal": "never",
-                    "component": "never"
+                    "component": "always"
                 },
                 "svg": "never",
                 "math": "never"

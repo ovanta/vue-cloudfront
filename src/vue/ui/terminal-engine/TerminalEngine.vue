@@ -14,7 +14,7 @@
         <!-- Input field -->
         <div class="location">{{ title }}</div>
         <enhanced-input-field ref="inputField"
-                              @input="updateInput"></enhanced-input-field>
+                              @input="updateInput"/>
 
     </section>
 </template>

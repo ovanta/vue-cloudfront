@@ -5,13 +5,13 @@
                      class="in"
                      placeholder="Username"
                      @submit="$emit('submit')"
-                     @update="setUsername"></input-field>
+                     @update="setUsername"/>
 
         <input-field :password="true"
                      class="in"
                      placeholder="Password"
                      @submit="$emit('submit')"
-                     @update="setPassword"></input-field>
+                     @update="setPassword"/>
 
     </div>
 </template>

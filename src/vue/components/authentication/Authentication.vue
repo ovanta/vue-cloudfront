@@ -12,11 +12,11 @@
                 <login v-if="!register"
                        ref="loginBox"
                        class="field"
-                       @submit="submit"></login>
+                       @submit="submit"/>
 
                 <register v-if="register"
                           ref="registerBox"
-                          class="field"></register>
+                          class="field"/>
 
             </div>
 

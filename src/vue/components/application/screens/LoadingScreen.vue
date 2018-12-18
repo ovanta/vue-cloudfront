@@ -7,40 +7,15 @@
 
 <script>
 
+    // Config
+    import config from '../../../../../config/default';
+
     export default {
 
         data() {
             return {
                 open: false,
-                message: '',
-
-                /**
-                 * Thanks to github.com/NateSeymour for these
-                 * delightful messages.
-                 */
-                messages: [
-                    'Smoothing buttons',
-                    'Procentually generating icons',
-                    'Dropping shadows',
-                    'Eliminating errors',
-                    'Wiping UI clean',
-                    'Reading discette',
-                    'Baking cookies',
-                    'Serving cookies',
-                    'Polishing input fields',
-                    'Organizing folders',
-                    'Writing expense reports',
-                    'Hiding errors under the rug',
-                    'Designing icons',
-                    'The cake is a lie!',
-                    'Calculating the meaning of life, the universe and everything',
-                    'Polarizing matrices',
-                    'Good Morning, Mr. Freeman.',
-                    'Todo: remove arrow from knee',
-                    'Baaaaaa!',
-                    'Remembering to bring a towel',
-                    'Excuse me, it\'s called a "feature'
-                ]
+                message: ''
             };
         },
 
@@ -68,7 +43,7 @@
                      * appending the class directly.
                      */
                     this.open = true;
-                    this.message = this.messages[Math.floor(Math.random() * this.messages.length)];
+                    this.message = this.getRandomMessage();
 
                     // Wait untile browser repaints
                     requestAnimationFrame(() => {
@@ -92,6 +67,20 @@
                     dispatch(type, payload).then(resolve).catch(reject);
                 }
             });
+        },
+
+        methods: {
+
+            getRandomMessage() {
+                const {loadingScreenMessage} = config;
+
+                if (Array.isArray(loadingScreenMessage)) {
+                    return loadingScreenMessage[Math.floor(Math.random() * loadingScreenMessage.length)];
+                } else if (typeof loadingScreenMessage === 'string') {
+                    return loadingScreenMessage;
+                }
+            }
+
         }
     };
 
