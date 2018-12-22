@@ -106,7 +106,7 @@
                 position: relative;
                 cursor: pointer;
                 transition: all 0.3s;
-                padding: 0.3em 0.75em 0.3em;
+                padding: 0.3em 0.75em 0.4em;
                 border-radius: 50em;
                 background: white;
                 box-shadow: 0 1px 5px 0 darken(white, 5);

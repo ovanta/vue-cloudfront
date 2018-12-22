@@ -205,7 +205,7 @@
         .header {
             position: relative;
             background: $palette-deep-purple;
-            padding: 0.5em 0.75em;
+            padding: 0.2em 0.75em;
             color: #fff;
             border-radius: 0.2em 0.2em 0 0;
             overflow: hidden;
@@ -245,7 +245,7 @@
                 button {
                     @include flex(row, center);
                     background: rgba(black, 0.1);
-                    padding: 0.4em 0.85em 0.55em;
+                    padding: 0.5em 0.85em;
                     margin-top: 1em;
                     margin-left: 1em;
                     color: rgba(black, 0.5);
