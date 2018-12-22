@@ -1,4 +1,5 @@
 const manifestJSON = require('./public/manifest');
+const args = process.argv;
 
 module.exports = {
 
@@ -17,6 +18,13 @@ module.exports = {
         port: 3006,
         hot: true,
         disableHostCheck: true
+    },
+
+    pluginOptions: {
+        webpackBundleAnalyzer: {
+            analyzerMode: args.includes('--analyze-bundle') ? 'static' : 'disabled',
+            openAnalyzer: false
+        }
     },
 
     pwa: {
