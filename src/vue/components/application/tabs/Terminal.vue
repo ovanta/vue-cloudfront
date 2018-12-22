@@ -234,7 +234,7 @@
                     },
 
                     logout() {
-                        that.$store.commit('auth/update', {key: null});
+                        that.$store.commit('auth/logout');
                         clearTerminal();
                     },
 

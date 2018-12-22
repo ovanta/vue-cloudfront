@@ -21,8 +21,15 @@ export const auth = {
          * @param userMode Usermode, is used to change UI components and behaviour.
          * @returns {Promise<void>}
          */
-        update(state, {apikey = -1}) {
+        update(state, {apikey}) {
             state.apikey = apikey;
+        },
+
+        logout(state) {
+
+            // Reset apikey
+            state.apikey = null;
+            localStorage.removeItem('apikey');
         }
     },
 
@@ -35,16 +42,6 @@ export const auth = {
          * @param credentials username, password and so on.
          */
         async auth(_, {type, credentials}) {
-
-            // Validate
-            if (typeof type !== 'string' || !['login', 'register'].includes(type)) {
-                throw `Cannot perform 'auth' in nodes. type isn't a string and can only be 'login' or 'register.'`;
-            }
-
-            if (typeof credentials !== 'object' || typeof credentials.username !== 'string' || typeof credentials.password !== 'string') {
-                throw `Cannot perform 'auth' in nodes. credentials needs a 'username' and 'password' prop.`;
-            }
-
             return this.dispatch('fetch', {
                 route: type,
                 body: credentials
@@ -54,7 +51,33 @@ export const auth = {
                     throw error;
                 }
 
+                // Save apikey to localstorage and update module
+                localStorage.setItem('apikey', data.apikey);
                 this.commit('auth/update', {apikey: data.apikey});
+
+                // Update nodes
+                return this.dispatch('nodes/update');
+            });
+        },
+
+        /**
+         * Checks an existing apikey
+         * @param apikey
+         */
+        async key(_, {apikey}) {
+            return this.dispatch('fetch', {
+                route: 'checkApiKey',
+                body: {apikey}
+            }).then(({error}) => {
+
+                if (!error) {
+                    this.commit('auth/update', {apikey});
+
+                    // Update nodes
+                    return this.dispatch('nodes/update');
+                } else {
+                    this.commit('auth/logout');
+                }
             });
         }
     }

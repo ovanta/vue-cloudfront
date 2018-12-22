@@ -39,6 +39,16 @@
 
         data() {
             return {};
+        },
+
+        beforeCreate() {
+
+            const apikey = localStorage.getItem('apikey');
+
+            if (apikey) {
+                this.$store.dispatch('auth/key', {apikey});
+            }
+
         }
     };
 </script>

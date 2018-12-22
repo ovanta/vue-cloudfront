@@ -270,7 +270,7 @@
         width: 13em;
 
         input {
-            @include font(600, 0.85em);
+            @include font(600, 0.85em, 0.05em);
             background: $palette-snow-white;
             color: $palette-deep-blue;
             border: 1px solid transparent;
@@ -286,13 +286,13 @@
         }
 
         button {
+            @include font(600, 0.8em);
             margin-left: 0.75em;
             background: $palette-cloud-blue;
             transition: all 0.3s;
             cursor: pointer;
             border-radius: 0.15em;
             color: white;
-            font-weight: 600;
             padding: 0 0.75em;
 
             &:hover {

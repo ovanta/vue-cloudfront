@@ -414,26 +414,28 @@ export const nodes = {
 
         /**
          * Renames a node.
-         * @param state
+         * @param rootState
          * @param node The node which should be renamed
          * @param newName A new name.
          */
-        async rename({state}, {node, newName}) {
+        async rename({rootState}, {node, newName}) {
+            return this.dispatch('fetch', {
+                route: 'rename',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    target: node.id,
+                    newName
+                }
+            }).then(({error}) => {
 
-            // Validate
-            if (!node || !~state.indexOf(node)) {
-                throw `Cannot perform 'rename' in nodes. 'node' is invalid or not present in current state.`;
-            }
+                if (error) {
+                    throw error;
+                }
 
-            if (!(typeof newName === 'string') || newName.length === 0) {
-                throw `Cannot perform 'rename' in nodes. 'newName' should be a String and not empty.`;
-            }
-
-            // Update last-modified
-            node.lastModified = Date.now();
-
-            // Perform rename
-            node.name = newName;
+                // Update node lacally to save ressources
+                node.lastModified = Date.now();
+                node.name = newName;
+            });
         },
 
         /**
@@ -442,19 +444,23 @@ export const nodes = {
          * @param nodes Nodes from which the color should be changed.
          * @param color A (basically) hex value like #fff (for white).
          */
-        async changeColor(_, {nodes, color}) {
+        async changeColor({rootState}, {nodes, color}) {
+            return this.dispatch('fetch', {
+                route: 'changeColor',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    nodes: nodes.map(v => v.id),
+                    newColor: color
+                }
+            }).then(({error}) => {
 
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'changeColor' in nodes. nodes isn't an Array.`;
-            }
+                if (error) {
+                    throw error;
+                }
 
-            if (typeof color !== 'string') {
-                throw `Cannot perform 'changeColor' in nodes. color isn't a String.`;
-            }
-
-            // Override color
-            nodes.forEach(n => n.color = color);
+                // Override color
+                nodes.forEach(n => n.color = color);
+            });
         }
     }
 };

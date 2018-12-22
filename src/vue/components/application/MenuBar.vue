@@ -40,7 +40,7 @@
 
             <div v-tooltip="'Logout'"
                  class="item bottom"
-                 @click="$store.commit('auth/update', {key: null})">
+                 @click="$store.commit('auth/logout')">
                 <i class="fas fa-fw fa-sign-out-alt"></i>
             </div>
 

@@ -26,12 +26,6 @@
             <!-- Button bar -->
             <div class="accept">
                 <span @click="switchAuthMode">{{ register ? 'Login' : 'Register' }}</span>
-
-                <button v-tooltip="'Get a impression of how it would look'"
-                        class="demo"
-                        @click="demo">Show Demo
-                </button>
-
                 <button class="apply" @click="submit">{{ register ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>
@@ -64,19 +58,9 @@
                 const credentials = this.$refs[type + 'Box'].getFormData();
 
                 this.errorMsg = '';
-                this.$store.dispatch('auth/auth', {type, credentials}).then(() => {
-
-                    // Update nodes
-                    return this.$store.dispatch('nodes/update');
-                }).catch(msg => {
+                this.$store.dispatch('auth/auth', {type, credentials}).catch(msg => {
                     this.errorMsg = msg;
                     this.shakeAnimationActive = true;
-                });
-            },
-
-            demo() {
-                this.$store.commit('auth/update', {
-                    userName: 'Demo'
                 });
             },
 
@@ -173,26 +157,18 @@
                 }
             }
 
-            .demo,
             .apply {
                 padding: 0.5em 0.8em 0.55em 0.8em;
                 @include font(600, 0.75em);
                 border-radius: 0.15em;
                 transition: all 0.3s;
+                background: $palette-deep-purple;
                 color: $palette-snow-white;
+                margin-left: auto;
 
                 &:hover {
                     filter: brightness(1.1);
                 }
-            }
-
-            .demo {
-                background: $palette-happy-pink;
-                margin: 0 0.5em 0 auto;
-            }
-
-            .apply {
-                background: $palette-deep-purple;
             }
         }
     }

@@ -3,21 +3,21 @@
          :class="{menu: 1, open}"
          :style="style">
 
-        <div v-if="marked || type === 'files' || type === 'folder' || type === 'mixed'"
+        <div v-if="marked || type === 'files' || type === 'dir' || type === 'mixed'"
              class="option star"
              @click="star()">
             <i :class="`fa${marked ? 'r' : 's'} fa-fw fa-bookmark`"></i>
             <span class="name">{{ marked ? 'Remove mark' : 'Add mark' }}</span>
         </div>
 
-        <div v-if="type === 'files' || type === 'folder' || type === 'mixed'"
+        <div v-if="type === 'files' || type === 'dir' || type === 'mixed'"
              class="option delete"
              @click="del()">
             <i class="fas fa-fw fa-trash-alt"></i>
             <span class="name">Delete</span>
         </div>
 
-        <div v-if="type === 'files' || type === 'folder' || type === 'mixed'"
+        <div v-if="type === 'files' || type === 'dir' || type === 'mixed'"
              class="option"
              @click="download()">
             <i class="fas fa-fw fa-download"></i>
@@ -59,7 +59,7 @@
             <span class="name">Paste</span>
         </div>
 
-        <div v-if="type === 'folder'" class="option sub">
+        <div v-if="type === 'dir'" class="option sub">
             <i class="fas fa-fw fa-palette"></i>
             <span class="name">Change color <i class="fas fa-fw fa-angle-right"></i></span>
             <color-chooser class="sub-menu" @change="setColor"/>
@@ -140,7 +140,7 @@
             this.$on('show', evt => {
                 this.nodes = this.$store.state.selection;
                 const hasFiles = this.nodes.find(n => n.type === 'file');
-                const hasFolder = this.nodes.find(n => n.type === 'folder');
+                const hasFolder = this.nodes.find(n => n.type === 'dir');
 
                 // Check which nodes are present / currently selected
                 if (hasFiles && hasFolder) {
@@ -148,7 +148,7 @@
                 } else if (hasFiles) {
                     this.type = 'files';
                 } else if (hasFolder) {
-                    this.type = 'folder';
+                    this.type = 'dir';
                 } else {
                     this.type = 'none';
                 }
