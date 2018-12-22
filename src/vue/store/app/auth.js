@@ -36,7 +36,6 @@ export const auth = {
             state.sessionKey = key;
             state.userMode = mode;
         }
-
     },
 
     actions: {
@@ -58,10 +57,20 @@ export const auth = {
                 throw `Cannot perform 'auth' in nodes. credentials needs a 'username' and 'password' prop.`;
             }
 
-            /**
-             * TODO: Request API-Key; Reset nodes and userdata
-             */
-            return Promise.reject();
+            return this.dispatch('fetch', {
+                route: type,
+                body: credentials
+            }).then(({error, data}) => {
+
+                if (error) {
+                    throw error;
+                }
+
+                this.commit('auth/update', {
+                    key: data.apikey,
+                    mode: 'normal'
+                });
+            });
         }
     }
 };

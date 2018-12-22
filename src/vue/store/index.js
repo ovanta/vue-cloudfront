@@ -1,11 +1,11 @@
-import Vue  from 'vue';
-import Vuex from 'vuex';
-
+import Vue         from 'vue';
+import Vuex        from 'vuex';
+// Config
+import config      from '../../../config/default';
 // Server-related nodes
-import {nodes}    from './app/nodes';
-import {auth}     from './app/auth';
-import {userdata} from './app/userdata';
-
+import {nodes}     from './app/nodes';
+import {auth}      from './app/auth';
+import {userdata}  from './app/userdata';
 // Virtual modules act only as visual helpers / representation
 import {location}  from './virtual/location';
 import {clipboard} from './virtual/clipboard';
@@ -55,7 +55,10 @@ export default new Vuex.Store({
         // UI Props
         viewType: 'grid',
         activeTab: 'home',
-        activePopup: null
+        activePopup: null,
+
+        // Amount of how many requests are currently active
+        requestsActive: 0
     },
 
     mutations: {
@@ -77,5 +80,29 @@ export default new Vuex.Store({
 
             state.viewType = type;
         }
+    },
+
+    actions: {
+
+        async fetch({state}, {route, body}) {
+            state.requestsActive++;
+
+            return fetch(`${config.apiEndPoint}/${route}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(body)
+            }).then(async v => {
+                state.requestsActive--;
+                return v.json();
+            }).catch(() => {
+                state.requestsActive--;
+                // TODO: Handle error
+            });
+        }
+
     }
+
 });

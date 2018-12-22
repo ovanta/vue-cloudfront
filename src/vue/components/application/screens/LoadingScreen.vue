@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'loader': 1, open}">
+    <div :class="{'loader': 1, open: $store.state.requestsActive}">
         <div class="box"></div>
         <p v-if="message" class="message">{{ message }}...</p>
     </div>
@@ -14,63 +14,16 @@
 
         data() {
             return {
-                open: false,
                 message: ''
             };
         },
 
-        mounted() {
+        beforeUpdate() {
+            this.message = this.getRandomMessage();
 
-            /**
-             * Currently vuex does not support before and after
-             * callbacks on actions.
-             * See issue https://github.com/vuejs/vuex/issues/1098 and related PR: https://github.com/vuejs/vuex/pull/1115
-             *
-             * To implement a reasonable loader which appears on each action (and closes
-             * if it's getting resolved) I need to override the dispatch function.
-             *
-             * @type {Dispatch}
-             */
-            const dispatch = this.$store.dispatch;
-            this.$store.dispatch = (type, payload) => new Promise((resolve, reject) => {
-
-                // Show only on actions which are related to server-actions
-                if (type.startsWith('nodes')) {
-
-                    /**
-                     * VueJs's watchers have some delay and I
-                     * currently don't know a better solution as
-                     * appending the class directly.
-                     */
-                    this.open = true;
-                    this.message = this.getRandomMessage();
-
-                    // Wait untile browser repaints
-                    requestAnimationFrame(() => {
-
-                        // Wait until class has been appendet and element has been drawn
-                        requestAnimationFrame(() => {
-
-                            // Dispatch original data and hide loading screen after execution
-                            dispatch(type, payload).then(value => {
-                                resolve(value);
-                                this.open = false;
-                            }).catch(reason => {
-                                reject(reason);
-                                this.open = false;
-                            });
-                        });
-                    });
-                } else {
-
-                    // Nothing interesting, call original
-                    dispatch(type, payload).then(resolve).catch(reject);
-                }
-            });
         },
 
         methods: {
-
             getRandomMessage() {
                 const {loadingScreenMessage} = config;
 
@@ -80,7 +33,6 @@
                     return loadingScreenMessage;
                 }
             }
-
         }
     };
 
@@ -97,7 +49,7 @@
         @include flex(column, center, center);
         @include position(0, 0, 0, 0);
         background: $palette-snow-white;
-        z-index: 100;
+        z-index: 150;
         opacity: 0;
         pointer-events: none;
         transition: all 0.3s;

@@ -4,7 +4,7 @@ export default {
      * API-Endpoint to rest api TODO: ADD-LINK
      * The API should stay behind a nginx proxy.
      */
-    apiEndPoint: 'http://localhost:3000',
+    apiEndPoint: 'http://localhost:4001/api',
 
     /**
      * If folder / file sizes should be represent with

@@ -77,6 +77,7 @@
             },
 
             switchAuthMode() {
+                this.errorMsg = '';
                 this.fadeAnimationActive = true;
                 this.register = !this.register;
             }
