@@ -1,6 +1,3 @@
-import demoUpdate       from '../_demo/demoUpdate';
-import demoCreateFolder from '../_demo/demoCreateFolder';
-
 export const nodes = {
 
     namespaced: true,
@@ -110,36 +107,28 @@ export const nodes = {
          */
         async update({state, rootState}) {
 
-            // Check if user is in demo mode
-            if (rootState.auth.userMode === 'demo') {
-                const {nodes, root} = demoUpdate();
+            // Fetch from server
+            return this.dispatch('fetch', {
+                route: 'update',
+                body: {
+                    apikey: rootState.auth.apikey
+                }
+            }).then(({data: {nodes}, error}) => {
+
+                if (error) {
+                    throw error;
+                }
+
+                // Find root
+                const root = nodes.find(v => v.parent === 'root');
+
+                if (!root) {
+                    throw 'Cannot examine root node.';
+                }
+
                 this.commit('location/update', root);
                 state.splice(0, state.length, ...nodes);
-            } else {
-
-                // Fetch from server
-                return this.dispatch('fetch', {
-                    route: 'update',
-                    body: {
-                        apikey: rootState.auth.apikey
-                    }
-                }).then(({data: {nodes}, error}) => {
-
-                    if (error) {
-                        throw error;
-                    }
-
-                    // Find root
-                    const root = nodes.find(v => v.parent === 'root');
-
-                    if (!root) {
-                        throw 'Cannot examine root node.';
-                    }
-
-                    this.commit('location/update', root);
-                    state.splice(0, state.length, ...nodes);
-                });
-            }
+            });
         },
 
         /**
@@ -149,30 +138,22 @@ export const nodes = {
          */
         async createFolder({state, rootState}, destination) {
 
-            // Check if user is in demo mode
-            if (rootState.auth.userMode === 'demo') {
-                const newDir = demoCreateFolder();
-                state.push(newDir);
-                return newDir;
-            } else {
+            // Fetch from server
+            return this.dispatch('fetch', {
+                route: 'createFolder',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    parent: destination.id
+                }
+            }).then(({data: {node}, error}) => {
 
-                // Fetch from server
-                return this.dispatch('fetch', {
-                    route: 'createFolder',
-                    body: {
-                        apikey: rootState.auth.apikey,
-                        parent: destination.id
-                    }
-                }).then(({data: {node}, error}) => {
+                if (error) {
+                    throw error;
+                }
 
-                    if (error) {
-                        throw error;
-                    }
-
-                    state.push(node);
-                    return node;
-                });
-            }
+                state.push(node);
+                return node;
+            });
         },
 
         /**
