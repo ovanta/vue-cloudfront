@@ -1,7 +1,7 @@
 <template>
     <div :class="{'loader': 1, open: $store.state.requestsActive}">
         <div class="box"></div>
-        <p v-if="message" class="message">{{ message }}...</p>
+        <p v-if="message" class="message">{{ getRandomMessage() }}...</p>
     </div>
 </template>
 
@@ -18,21 +18,19 @@
             };
         },
 
-        beforeUpdate() {
-            this.message = this.getRandomMessage();
-
-        },
-
         methods: {
-            getRandomMessage() {
-                const {loadingScreenMessage} = config;
 
-                if (Array.isArray(loadingScreenMessage)) {
-                    return loadingScreenMessage[Math.floor(Math.random() * loadingScreenMessage.length)];
-                } else if (typeof loadingScreenMessage === 'string') {
-                    return loadingScreenMessage;
+            // TODO: Not working anymore
+            getRandomMessage() {
+                const msgs = config.loadingScreenMessages;
+
+                if (Array.isArray(msgs)) {
+                    return msgs[Math.floor(Math.random() * msgs.length)];
+                } else if (typeof msgs === 'string') {
+                    return msgs;
                 }
             }
+
         }
     };
 

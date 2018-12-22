@@ -13,19 +13,19 @@
         <!-- Human readable representation of the search result (if a search is currently performed) -->
         <div v-if="searchResult" class="amount-info">
             <b v-if="searchResult.file">{{ searchResult.file }} file{{ searchResult.file === 1 ? '' : 's' }}</b>
-            <span v-if="searchResult.file && searchResult.folder"> and </span>
-            <b v-if="searchResult.folder">{{ searchResult.folder }} folder{{ searchResult.folder === 1 ? '' : 's' }}</b>
-            <span v-if="searchResult.file || searchResult.folder"> found</span>
-            <span v-if="!searchResult.file && !searchResult.folder">Nothing found</span>
+            <span v-if="searchResult.file && searchResult.dir"> and </span>
+            <b v-if="searchResult.dir">{{ searchResult.dir }} folder{{ searchResult.dir === 1 ? '' : 's' }}</b>
+            <span v-if="searchResult.file || searchResult.dir"> found</span>
+            <span v-if="!searchResult.file && !searchResult.dir">Nothing found</span>
         </div>
 
         <!-- Same as search info, but for marked nodes -->
         <div v-if="markedNodes && !searchResult" class="amount-info">
             <b v-if="markedNodes.file">{{ markedNodes.file }} file{{ markedNodes.file === 1 ? '' : 's' }}</b>
-            <span v-if="markedNodes.file && markedNodes.folder"> and </span>
-            <b v-if="markedNodes.folder">{{ markedNodes.folder }} folder{{ markedNodes.folder === 1 ? '' : 's' }}</b>
-            <span v-if="markedNodes.file || markedNodes.folder"> marked</span>
-            <span v-if="!markedNodes.file && !markedNodes.folder">Nothing marked</span>
+            <span v-if="markedNodes.file && markedNodes.dir"> and </span>
+            <b v-if="markedNodes.dir">{{ markedNodes.dir }} folder{{ markedNodes.dir === 1 ? '' : 's' }}</b>
+            <span v-if="markedNodes.file || markedNodes.dir"> marked</span>
+            <span v-if="!markedNodes.file && !markedNodes.dir">Nothing marked</span>
         </div>
 
     </section>
@@ -53,7 +53,7 @@
                 }
 
                 // Calculate number of files / folders
-                const res = {folder: 0, file: 0};
+                const res = {dir: 0, file: 0};
                 const nodes = search.nodes;
                 const nodesAmount = nodes.length;
                 for (let i = 0, n; n = nodes[i], i < nodesAmount; i++) {
@@ -72,7 +72,7 @@
                 const nodes = this.$store.getters['nodes/currentDisplayedNodes']();
                 return {
                     file: nodes.file.length,
-                    folder: nodes.folder.length
+                    folder: nodes.dir.length
                 };
             }
 

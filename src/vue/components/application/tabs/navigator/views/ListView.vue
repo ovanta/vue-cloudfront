@@ -2,7 +2,7 @@
     <section class="list-view">
 
         <!-- Table header -->
-        <div v-if="nodes.folder.length || nodes.file.length" class="header">
+        <div v-if="nodes.dir.length || nodes.file.length" class="header">
             <i class="fas fa-fw" style="opacity: 0">folder</i>
 
             <div class="name" @click="sort('name')">
@@ -24,9 +24,9 @@
         <div class="list">
 
             <!-- Folders -->
-            <div v-for="node of nodes.folder"
-                 :class="{selected: node.selected, folder: 1, cutted: node.cutted}"
-                 :data-hash="node.hash"
+            <div v-for="node of nodes.dir"
+                 :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
+                 :data-hash="node.id"
                  @click.left="select($event, node)"
                  @click.right="select($event, node)"
                  @dblclick="updateLocation(node)">
@@ -47,7 +47,7 @@
             <!-- Files -->
             <div v-for="node of nodes.file"
                  :class="{selected: node.selected, file: 1, cutted: node.cutted}"
-                 :data-hash="node.hash"
+                 :data-hash="node.id"
                  @click.left="select($event, node)"
                  @click.right="select($event, node)">
 
@@ -73,7 +73,7 @@
         props: {
             nodes: {
                 type: Object,
-                default: () => ({file: [], folder: []})
+                default: () => ({file: [], dir: []})
             }
         },
 
@@ -117,7 +117,7 @@
 
                     // Select all nodes from 0 or an already selected to the target node
                     const selection = state.selection;
-                    const nodes = this.nodes.folder.concat(this.nodes.file);
+                    const nodes = this.nodes.dir.concat(this.nodes.file);
 
                     // Find start and end point
                     const [start, end] = [
@@ -158,7 +158,7 @@
 
                 // Sort pre-calulated nodes and re-render everything
                 this.nodes.file.sort(sortFn);
-                this.nodes.folder.sort(sortFn);
+                this.nodes.dir.sort(sortFn);
                 this.$forceUpdate();
 
                 // Toggle sort-direction to descending / ascending
@@ -180,7 +180,7 @@
         overflow: auto;
     }
 
-    .folder,
+    .dir,
     .file,
     .header {
         @include flex(row, center);

@@ -1,5 +1,5 @@
 <template>
-    <div :class="{auth: 1, visible: !$store.state.auth.sessionKey}">
+    <div :class="{auth: 1, visible: !$store.state.auth.apikey}">
 
         <div :class="{centered: 1, fadein: fadeAnimationActive, shake: shakeAnimationActive}"
              @animationend="fadeAnimationActive = shakeAnimationActive = false">
@@ -64,7 +64,11 @@
                 const credentials = this.$refs[type + 'Box'].getFormData();
 
                 this.errorMsg = '';
-                this.$store.dispatch('auth/auth', {type, credentials}).catch(msg => {
+                this.$store.dispatch('auth/auth', {type, credentials}).then(() => {
+
+                    // Update nodes
+                    return this.$store.dispatch('nodes/update');
+                }).catch(msg => {
                     this.errorMsg = msg;
                     this.shakeAnimationActive = true;
                 });

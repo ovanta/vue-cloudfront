@@ -8,7 +8,7 @@ export const auth = {
          * Session-key which can an and should be used to fetch data or perform actions.<
          * Is used in the nodes store module.
          */
-        sessionKey: null,
+        apikey: null,
 
         // Defines mode, currently there are only 'normal' and 'demo'
         userMode: 'normal'
@@ -20,21 +20,20 @@ export const auth = {
          * Updates the current authentication state
          *
          * @param state
-         * @param key New "SessionKey"
-         * @param mode Usermode, is used to change UI components and behaviour. Default is 'demo'
-         * @param userName Username, get's showed in the window title
+         * @param apikey New apikey
+         * @param userMode Usermode, is used to change UI components and behaviour. Default is 'demo'
          * @returns {Promise<void>}
          */
-        update(state, {key = -1, mode = 'demo'}) {
+        update(state, {apikey = -1, userMode = 'demo'}) {
 
             // Validate usermode
-            if (!['normal', 'demo'].includes(mode)) {
+            if (!['normal', 'demo'].includes(userMode)) {
                 throw `Cannot perform 'update' in mutations. newMode can only be 'normal' or 'demo'`;
             }
 
             // Set key and usermode
-            state.sessionKey = key;
-            state.userMode = mode;
+            state.apikey = apikey;
+            state.userMode = userMode;
         }
     },
 
@@ -67,8 +66,8 @@ export const auth = {
                 }
 
                 this.commit('auth/update', {
-                    key: data.apikey,
-                    mode: 'normal'
+                    apikey: data.apikey,
+                    userMode: 'normal'
                 });
             });
         }

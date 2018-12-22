@@ -18,7 +18,7 @@ export default {
      * one every time or an Array from which out a random message is getting picked
      * every time.
      */
-    loadingScreenMessage: [
+    loadingScreenMessages: [
         'Smoothing buttons',
         'Procentually generating icons',
         'Dropping shadows',

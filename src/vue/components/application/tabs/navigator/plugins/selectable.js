@@ -14,7 +14,7 @@ export default vue => new Selection({
 
     startThreshold: 10,
 
-    selectables: ['.file', '.folder'],
+    selectables: ['.file', '.dir'],
     startareas: ['.views'],
     boundaries: ['.views'],
 
@@ -48,7 +48,7 @@ export default vue => new Selection({
          * to the current selection.
          */
         const selectedHashes = selectedElements.map(v => v.getAttribute('data-hash'));
-        const selectedNodes = vue.$store.state.nodes.filter(v => selectedHashes.includes(v.hash));
+        const selectedNodes = vue.$store.state.nodes.filter(v => selectedHashes.includes(v.id));
         vue.$store.commit('selection/append', selectedNodes);
     }
 });

@@ -39,12 +39,6 @@
 
         data() {
             return {};
-        },
-
-        mounted() {
-
-            // Update nodes
-            this.$store.dispatch('nodes/update');
         }
     };
 </script>

@@ -54,7 +54,7 @@
                 // Check if there is something to autocomplete
                 if (lmatch) {
                     const cmd = lmatch[1].toLowerCase();
-                    const locHash = store.state.location.node.hash;
+                    const locHash = store.state.location.node.id;
                     const node = store.state.nodes
                         .find(v => v.parent === locHash && v.name.toLowerCase().startsWith(cmd));
 
@@ -107,7 +107,7 @@
 
                     // List folders and files of current location
                     ls() {
-                        const locHash = store.state.location.node.hash;
+                        const locHash = store.state.location.node.id;
                         const names = store.state.nodes
                             .filter(n => n.parent === locHash)
                             .sort(n => n.type === 'folder' ? -1 : 1)
@@ -128,7 +128,7 @@
                         }
 
                         // Find node where the name matches your submitted target
-                        const locHash = store.state.location.node.hash;
+                        const locHash = store.state.location.node.id;
                         const newLoc = store.state.nodes.find(n => n.parent === locHash && n.type === 'folder' && n.name === params);
 
                         // Show error if not found, change loc otherwise
@@ -157,7 +157,7 @@
                     rm() {
 
                         // Find node
-                        const locHash = store.state.location.node.hash;
+                        const locHash = store.state.location.node.id;
 
                         // Check for regular expression
                         const nodes = [];
@@ -194,7 +194,7 @@
                         }
 
                         // Find node
-                        const locHash = store.state.location.node.hash;
+                        const locHash = store.state.location.node.id;
                         const node = store.state.nodes.find(n => n.parent === locHash && n.name === name);
 
                         // Validate node
@@ -219,7 +219,7 @@
                         const sources = source.split(/(?<=[^\\]),/g);
 
                         // Find source / dest
-                        const locHash = store.state.location.node.hash;
+                        const locHash = store.state.location.node.id;
                         const sourceNodes = store.state.nodes.filter(n => n.parent === locHash && sources.includes(n.name));
                         const destNode = store.state.nodes.find(n => n.parent === locHash && n.name === dest);
 

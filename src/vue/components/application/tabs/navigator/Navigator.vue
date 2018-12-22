@@ -40,7 +40,7 @@
                        class="view"/>
 
             <!-- Placeholder if folder is empty -->
-            <div v-if="!nodes.file.length && !nodes.folder.length" class="placeholder">
+            <div v-if="!nodes.file.length && !nodes.dir.length" class="placeholder">
                 <i class="fas fa-cloud"></i>
 
                 <span v-if="!search.active && activeTab === 'home'">
@@ -165,7 +165,7 @@
             },
 
             keyboardEvent(keys) {
-                const all = this.nodes.folder.concat(this.nodes.file);
+                const all = this.nodes.dir.concat(this.nodes.file);
                 const idx = this.keyboardSelectionIndex;
 
                 function update() {

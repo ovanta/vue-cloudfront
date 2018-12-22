@@ -218,7 +218,7 @@
 
                     // Select all nodes which are currently under the current location
                     const nodesMap = nodes();
-                    store.commit('selection/append', nodesMap.file.concat(nodesMap.folder));
+                    store.commit('selection/append', nodesMap.file.concat(nodesMap.dir));
                     return;
                 }
 
@@ -229,7 +229,7 @@
                     store.commit('selection/clear');
 
                     // Select all folders which are currently under the current location
-                    store.commit('selection/append', nodes().folder);
+                    store.commit('selection/append', nodes().dir);
                     return;
                 }
 
@@ -261,7 +261,7 @@
                 // Inverse selection all files
                 if (keys.KeyS && keys.KeyI) {
                     const nodesMap = nodes();
-                    const notSelected = nodesMap.file.concat(nodesMap.folder).filter(v => !selection.includes(v));
+                    const notSelected = nodesMap.file.concat(nodesMap.dir).filter(v => !selection.includes(v));
 
                     // Clear selection
                     store.commit('selection/clear');

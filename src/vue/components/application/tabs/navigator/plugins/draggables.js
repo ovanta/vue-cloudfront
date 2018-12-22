@@ -7,10 +7,10 @@ import Draggable from '../../../../../../js/Draggable';
  * @returns {*}
  */
 export default (vue, selectionjs) => new Draggable({
-    draggable: '.file,.folder',
+    draggable: '.file,.dir',
     include: '.selected',
     startThreshold: 4,
-    target: '.folder',
+    target: '.dir',
     ghostLimit: 10,
 
     onDragStart() {
@@ -54,7 +54,7 @@ export default (vue, selectionjs) => new Draggable({
             const hash = dropTarget.getAttribute('data-hash');
 
             // Find target node
-            const targetNode = vue.$store.state.nodes.find(v => v.type === 'folder' && v.hash === hash);
+            const targetNode = vue.$store.state.nodes.find(v => v.type === 'dir' && v.id === hash);
 
             const {selection} = vue.$store.state;
             if (targetNode && selection.length) {

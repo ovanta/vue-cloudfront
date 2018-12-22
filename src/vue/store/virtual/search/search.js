@@ -104,7 +104,7 @@ export const search = {
                         const nSize = n.size;
 
                         // Folders are not included in size filter
-                        if (n.type === 'folder' ||
+                        if (n.type === 'dir' ||
                             type === 'smaller' && nSize > a ||
                             type === 'bigger' && nSize < a ||
                             type === 'between' && !(nSize > a && nSize < b)) {
