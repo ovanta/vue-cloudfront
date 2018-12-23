@@ -151,6 +151,19 @@ export default new Vuex.Store({
                 state.requestsActive--;
                 // TODO: Handle error
             });
+        },
+
+        /**
+         * Initiates a download
+         * @param state
+         * @param node
+         * @returns {Promise<void>}
+         */
+        async download({state}, {node}) {
+            const link = document.createElement('a');
+            link.download = node.name;
+            link.href = `${config.apiEndPoint}/download?id=${node.id}&apikey=${state.auth.apikey}`;
+            link.click();
         }
 
     }

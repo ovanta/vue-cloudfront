@@ -17,7 +17,7 @@
             <span class="name">Delete</span>
         </div>
 
-        <div v-if="type === 'files' || type === 'dir' || type === 'mixed'"
+        <div v-if="type === 'files' && nodes.length === 1"
              class="option"
              @click="download()">
             <i class="fas fa-fw fa-download"></i>
@@ -189,7 +189,10 @@
             },
 
             download() {
-                // TODO: Add download functionality
+                if (this.nodes.length === 1) {
+                    this.$store.dispatch('download', {node: this.nodes[0]});
+                    this.open = false;
+                }
             },
 
             newFolder() {

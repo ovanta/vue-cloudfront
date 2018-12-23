@@ -49,7 +49,8 @@
                  :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                  :data-hash="node.id"
                  @click.left="select($event, node)"
-                 @click.right="select($event, node)">
+                 @click.right="select($event, node)"
+                 @dblclick="$store.dispatch('download', {node})">
 
                 <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">
