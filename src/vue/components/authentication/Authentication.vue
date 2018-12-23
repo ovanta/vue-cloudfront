@@ -4,19 +4,40 @@
         <div :class="{centered: 1, fadein: fadeAnimationActive, shake: shakeAnimationActive}"
              @animationend="fadeAnimationActive = shakeAnimationActive = false">
 
-            <h1>{{ register ? 'Create an account!' : 'Welcome back!' }}</h1>
+            <h1>{{ registerMode ? 'Create an account!' : 'Welcome back!' }}</h1>
 
             <!-- Username and password input-fields -->
             <div class="input">
 
-                <login v-if="!register"
-                       ref="loginBox"
-                       class="field"
-                       @submit="submit"/>
+                <div v-if="!registerMode" class="field">
+                    <text-input-field ref="loginUsername"
+                                      :autofocus="true"
+                                      placeholder="Username"
+                                      @submit="submit"/>
 
-                <register v-if="register"
-                          ref="registerBox"
-                          class="field"/>
+                    <text-input-field ref="loginPassword"
+                                      :password="true"
+                                      placeholder="Password"
+                                      @submit="submit"/>
+                </div>
+
+
+                <div v-if="registerMode" class="field">
+                    <text-input-field ref="registerUsername"
+                                      placeholder="Username"
+                                      @submit="submit"/>
+
+                    <text-input-field ref="registerPassword"
+                                      :password="true"
+                                      placeholder="Password"
+                                      @submit="submit"/>
+
+                    <text-input-field ref="registerPasswordRepeat"
+                                      :password="true"
+                                      placeholder="Repeat Password"
+                                      @submit="submit"/>
+                </div>
+
 
             </div>
 
@@ -25,8 +46,8 @@
 
             <!-- Button bar -->
             <div class="accept">
-                <span @click="switchAuthMode">{{ register ? 'Login' : 'Register' }}</span>
-                <button class="apply" @click="submit">{{ register ? 'Create Account' : 'Login' }}</button>
+                <span @click="switchAuthMode">{{ registerMode ? 'Login' : 'Register' }}</span>
+                <button class="apply" @click="submit">{{ registerMode ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>
 
@@ -35,16 +56,15 @@
 
 <script>
 
-    // Components
-    import Login    from './Login';
-    import Register from './Register';
+    // UI Components
+    import TextInputField from '../../ui/TextInputField';
 
     export default {
-        components: {Login, Register},
+        components: {TextInputField},
 
         data() {
             return {
-                register: false,
+                registerMode: false,
                 errorMsg: '',
 
                 fadeAnimationActive: false,
@@ -53,13 +73,42 @@
         },
 
         methods: {
-            submit() {
-                const type = this.register ? 'register' : 'login';
-                const credentials = this.$refs[type + 'Box'].getFormData();
 
-                // TODO: Clear input fields
+            submit() {
+                this.registerMode ? this.register() : this.login();
+            },
+
+            login() {
+                const {loginUsername, loginPassword} = this.$refs;
                 this.errorMsg = '';
-                this.$store.dispatch('auth/auth', {type, credentials}).catch(msg => {
+
+                this.$store.dispatch('auth/login', {
+                    username: loginUsername.value,
+                    password: loginPassword.value
+                }).then(() => {
+                    [loginUsername, loginPassword].forEach(v => v.clear());
+                }).catch(msg => {
+                    this.errorMsg = msg;
+                    this.shakeAnimationActive = true;
+                });
+            },
+
+            register() {
+                const {registerUsername, registerPassword, registerPasswordRepeat} = this.$refs;
+                this.errorMsg = '';
+
+                // Validate
+                if (registerPassword.value !== registerPasswordRepeat.value) {
+                    this.errorMsg = 'Passwords are not indentical';
+                    return;
+                }
+
+                this.$store.dispatch('auth/register', {
+                    username: registerUsername.value,
+                    password: registerPassword.value
+                }).then(() => {
+                    [registerUsername, registerPassword, registerPasswordRepeat].forEach(v => v.clear());
+                }).catch(msg => {
                     this.errorMsg = msg;
                     this.shakeAnimationActive = true;
                 });
@@ -68,7 +117,7 @@
             switchAuthMode() {
                 this.errorMsg = '';
                 this.fadeAnimationActive = true;
-                this.register = !this.register;
+                this.registerMode = !this.registerMode;
             }
         }
     };
@@ -140,6 +189,14 @@
             color: $palette-tomatoe-red;
             margin-top: 1em;
             height: 1em;
+        }
+
+        .field {
+            @include flex(column);
+
+            .text-input-field {
+                margin: 0.4em 0;
+            }
         }
 
         .accept {

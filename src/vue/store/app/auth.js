@@ -37,13 +37,30 @@ export const auth = {
 
         /**
          * Authenticates a user
-         * @param _
-         * @param type 'register' or 'login'
          * @param credentials username, password and so on.
          */
-        async auth(_, {type, credentials}) {
+        async login(_, credentials) {
             return this.dispatch('fetch', {
-                route: type,
+                route: 'login',
+                body: credentials
+            }).then(({apikey}) => {
+
+                // Save apikey to localstorage and update module
+                localStorage.setItem('apikey', apikey);
+                this.commit('auth/update', {apikey});
+
+                // Update nodes
+                return this.dispatch('nodes/update');
+            });
+        },
+
+        /**
+         * Authenticates a user
+         * @param credentials username, password and so on.
+         */
+        async register(_, credentials) {
+            return this.dispatch('fetch', {
+                route: 'register',
                 body: credentials
             }).then(({apikey}) => {
 

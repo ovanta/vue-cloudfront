@@ -41,6 +41,13 @@
                 value: '',
                 focused: false
             };
+        },
+
+        methods: {
+
+            clear() {
+                this.value = '';
+            }
         }
     };
 
@@ -88,7 +95,7 @@
         @include font(400, 0.8em);
 
         &.moved {
-            transform: translateY(-95%) scale(0.75);
+            transform: translateY(-120%) scale(0.85);
             transform-origin: left;
             opacity: 0.9;
         }
