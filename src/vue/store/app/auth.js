@@ -45,15 +45,11 @@ export const auth = {
             return this.dispatch('fetch', {
                 route: type,
                 body: credentials
-            }).then(({error, data}) => {
-
-                if (error) {
-                    throw error;
-                }
+            }).then(({apikey}) => {
 
                 // Save apikey to localstorage and update module
-                localStorage.setItem('apikey', data.apikey);
-                this.commit('auth/update', {apikey: data.apikey});
+                localStorage.setItem('apikey', apikey);
+                this.commit('auth/update', {apikey});
 
                 // Update nodes
                 return this.dispatch('nodes/update');
@@ -68,16 +64,14 @@ export const auth = {
             return this.dispatch('fetch', {
                 route: 'checkApiKey',
                 body: {apikey}
-            }).then(({error}) => {
+            }).then(() => {
 
-                if (!error) {
-                    this.commit('auth/update', {apikey});
+                this.commit('auth/update', {apikey});
 
-                    // Update nodes
-                    return this.dispatch('nodes/update');
-                } else {
-                    this.commit('auth/logout');
-                }
+                // Update nodes
+                return this.dispatch('nodes/update');
+            }).catch(() => {
+                this.commit('auth/logout');
             });
         }
     }

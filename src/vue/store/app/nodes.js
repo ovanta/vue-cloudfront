@@ -114,11 +114,7 @@ export const nodes = {
                 body: {
                     apikey: rootState.auth.apikey
                 }
-            }).then(({data: {nodes}, error}) => {
-
-                if (error) {
-                    throw error;
-                }
+            }).then(({nodes}) => {
 
                 // Find root and try to restore location
                 const root = nodes.find(v => v.parent === 'root');
@@ -154,12 +150,7 @@ export const nodes = {
                     apikey: rootState.auth.apikey,
                     parent: destination.id
                 }
-            }).then(({data: {node}, error}) => {
-
-                if (error) {
-                    throw error;
-                }
-
+            }).then(({node}) => {
                 state.push(node);
                 return node;
             });
@@ -167,51 +158,29 @@ export const nodes = {
 
         /**
          * Move nodes to another folder.
-         * @param state
          * @param rootState
          * @param nodes Nodes which should be moved
          * @param destination Destination node
          */
-        async move({state, rootState}, {nodes, destination}) {
+        async move({rootState}, {nodes, destination}) {
 
             // Prevent copy / move actions if search is active or user isn't at home or terminal
             if (rootState.search.active || (rootState.activeTab !== 'home' && rootState.activeTab !== 'terminal')) {
                 return;
             }
 
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'move' in nodes. 'nodes' isn't a Array.`;
-            }
-
-            if (typeof destination !== 'object') {
-                throw `Cannot perform 'move' in nodes. 'destination' isn't a Object.`;
-            }
-
-            // Check if user paste folder into itself or one of its siblings
-            function getSubFolders(node) {
-                const hash = node.id;
-                const subfolder = [node];
-
-                for (let i = 0, n; n = state[i], i < state.length; i++) {
-                    if (n.parent === hash && n.type === 'dir') {
-                        subfolder.push(...getSubFolders(n));
-                    }
+            return this.dispatch('fetch', {
+                route: 'move',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    nodes: nodes.map(v => v.id),
+                    destination: destination.id
                 }
+            }).then(() => {
 
-                return subfolder;
-            }
-
-            // Check if user tries to put something into itself
-            for (let i = 0; i < nodes.length; i++) {
-                const subfolder = getSubFolders(nodes[i]);
-                if (subfolder.includes(destination)) {
-                    throw `Cannot perform 'move' in nodes. Cannot put a folder into itself`;
-                }
-            }
-
-            // Move nodes
-            nodes.forEach(n => n.parent = destination.id);
+                // Update node locally to save ressources
+                nodes.forEach(n => n.parent = destination.id);
+            });
         },
 
         /**
@@ -365,11 +334,7 @@ export const nodes = {
                     apikey: rootState.auth.apikey,
                     nodes: nodes.map(v => v.id)
                 }
-            }).then(({error}) => {
-
-                if (error) {
-                    throw error;
-                }
+            }).then(() => {
 
                 // Update nodes
                 return this.dispatch('nodes/update', {keepLocation: true});
@@ -387,13 +352,9 @@ export const nodes = {
                     apikey: rootState.auth.apikey,
                     nodes: nodes.map(v => v.id)
                 }
-            }).then(({error}) => {
+            }).then(() => {
 
-                if (error) {
-                    throw error;
-                }
-
-                // Update node lacally to save ressources
+                // Update node locally to save ressources
                 for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
                     n.marked = true;
                 }
@@ -411,13 +372,9 @@ export const nodes = {
                     apikey: rootState.auth.apikey,
                     nodes: nodes.map(v => v.id)
                 }
-            }).then(({error}) => {
+            }).then(() => {
 
-                if (error) {
-                    throw error;
-                }
-
-                // Update node lacally to save ressources
+                // Update node locally to save ressources
                 for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
                     n.marked = true;
                 }
@@ -438,13 +395,9 @@ export const nodes = {
                     target: node.id,
                     newName
                 }
-            }).then(({error}) => {
+            }).then(() => {
 
-                if (error) {
-                    throw error;
-                }
-
-                // Update node lacally to save ressources
+                // Update node locally to save ressources
                 node.lastModified = Date.now();
                 node.name = newName;
             });
@@ -464,11 +417,7 @@ export const nodes = {
                     nodes: nodes.map(v => v.id),
                     newColor: color
                 }
-            }).then(({error}) => {
-
-                if (error) {
-                    throw error;
-                }
+            }).then(() => {
 
                 // Override color
                 nodes.forEach(n => n.color = color);

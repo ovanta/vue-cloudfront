@@ -87,6 +87,14 @@ export default new Vuex.Store({
 
     actions: {
 
+        /**
+         * Request proxy
+         *
+         * @param state
+         * @param route API endpoint
+         * @param body JSON Bddy
+         * @returns {Promise<Response | Never>}
+         */
         async fetch({state}, {route, body}) {
             state.requestsActive++;
 
@@ -98,8 +106,14 @@ export default new Vuex.Store({
                 },
                 body: JSON.stringify(body)
             }).then(async v => {
+                const {error, data = {}} = await v.json();
                 state.requestsActive--;
-                return v.json();
+
+                if (error) {
+                    throw error;
+                }
+
+                return data;
             }).catch(() => {
                 state.requestsActive--;
                 // TODO: Handle error
@@ -111,7 +125,6 @@ export default new Vuex.Store({
          *
          * @param parent Target directory
          * @param dataTransfer drop dataTrasnsfer object
-         * @returns {Promise<void>}
          */
         async upload({state}, {parent, dataTransfer: {files}}) {
             state.requestsActive++;
