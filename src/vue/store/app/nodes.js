@@ -264,7 +264,7 @@ export const nodes = {
 
                 // Update node locally to save ressources
                 for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
-                    n.marked = true;
+                    n.marked = false;
                 }
             });
         },

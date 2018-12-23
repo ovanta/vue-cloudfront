@@ -43,7 +43,7 @@
     import Settings  from './application/tabs/Settings';
 
     import MenuBar from './application/MenuBar';
-    import ToolTip from './ToolTip';
+    import ToolTip from '../ui/ToolTip';
     import InfoBar from './InfoBar';
 
     // Popovers
@@ -101,15 +101,8 @@
 
     .index {
         font-family: $font-family-open-sans;
-        position: absolute;
-        margin: auto;
         user-select: none;
         @include flex(row);
-        @include position(0, 0, 0, 0);
-        @include width(70vw, 0, 1400px);
-        @include height(90vh, 0, 950px);
-        box-shadow: 0 0.4em 2.5em 0 rgba($palette-deep-blue, 0.13);
-        border-radius: 0.5em;
         overflow: hidden;
 
         .right-side {

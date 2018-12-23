@@ -1,5 +1,5 @@
 import Vue       from 'vue';
-import {on, off} from '../../js/utils';
+import {off, on} from '../../js/utils';
 
 /**
  * Basic tooltip directive, expect a string which

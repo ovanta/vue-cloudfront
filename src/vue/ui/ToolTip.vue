@@ -49,7 +49,7 @@
         z-index: 1000;
         pointer-events: none;
         opacity: 0;
-        padding: 0.25em 0.75em 0.3em;
+        padding: 0.4em 0.75em 0.5em;
         border-radius: 0.15em;
         @include font(600, 0.75em);
         background: $palette-deep-blue;

@@ -1,6 +1,6 @@
-import Vue   from 'vue';
-import App   from './vue/App.vue';
-import store from './vue/store/index';
+import Vue    from 'vue';
+import App    from './vue/App.vue';
+import store  from './vue/store/index';
 
 // Import service worker
 import './registerServiceWorker';
@@ -8,12 +8,12 @@ import './registerServiceWorker';
 // Add utils to vue
 import * as _ from './js/utils';
 
-Vue.prototype.utils = _;
-
 // Import global stuff
 import './vue-extensions/plugins';
 import './vue-extensions/filters';
 import './vue-extensions/directives';
+
+Vue.prototype.utils = _;
 
 // Entry point
 new Vue({

@@ -17,7 +17,7 @@
         </div>
 
         <!-- Actual application -->
-        <index/>
+        <index class="app-content"/>
 
     </div>
 </template>
@@ -26,10 +26,8 @@
 
     // Font-awesome styles
     import '@fortawesome/fontawesome-free/css/all.css';
-
     // Normalize css to look (almost) equal on all browsers
     import 'normalize.css';
-
     // Components
     import Index from './components/Index';
 
@@ -131,6 +129,16 @@
             right: 0;
             bottom: 0;
         }
+    }
+
+    .app-content {
+        position: absolute;
+        @include width(70vw, 0, 1400px);
+        @include height(90vh, 0, 950px);
+        @include position(0, 0, 0, 0);
+        border-radius: 0.5em;
+        margin: auto;
+        box-shadow: 0 0.4em 2.5em 0 rgba($palette-deep-blue, 0.13);
     }
 
     .selection-area {

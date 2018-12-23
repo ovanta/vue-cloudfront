@@ -134,7 +134,7 @@
                 'Update': 'fas fa-fw fa-sync-alt',
                 'Delete': 'fas fa-fw fa-trash-alt',
                 'Add Mark': 'fas fa-fw fa-bookmark',
-                'Remove Mark': 'far fa-bookmark',
+                'Remove Mark': 'far fa-fw fa-bookmark',
                 'Rename': 'fas fa-fw fa-pen',
                 'Create Folder': 'fas fa-fw fa-folder',
                 'Move': 'fas fa-fw fa-cut',
@@ -288,7 +288,7 @@
         .name {
             @include flex(row, center);
             border-bottom: 2px solid rgba(black, 0.1);
-            padding: 0.15em 0.5em;
+            padding: 0.4em 0.75em 0.28em;
             border-radius: 0.15em;
             color: white;
             margin-right: auto;
@@ -296,8 +296,9 @@
             font-size: 0.95em;
 
             i {
-                font-size: 0.8em;
+                font-size: 0.9em;
                 margin-right: 0.5em;
+                flex-shrink: 0;
             }
 
             span {
@@ -335,7 +336,6 @@
             width: 20%;
             flex-shrink: 0;
             white-space: nowrap;
-            overflow: hidden;
             text-overflow: ellipsis;
         }
 

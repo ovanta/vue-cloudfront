@@ -44,6 +44,7 @@
             box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
             padding: 1.25em 1.75em;
             flex-shrink: 0;
+            width: 100%;
 
             h1 {
                 @include font(400, 1.15em);

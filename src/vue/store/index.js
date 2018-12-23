@@ -106,7 +106,7 @@ export default new Vuex.Store({
                 },
                 body: JSON.stringify(body)
             }).then(async v => {
-                const {error, data = {}} = await v.json();
+                const {error, data} = await v.json();
                 state.requestsActive--;
 
                 if (error) {
@@ -114,9 +114,8 @@ export default new Vuex.Store({
                 }
 
                 return data;
-            }).catch(() => {
-                state.requestsActive--;
-                // TODO: Handle error
+            }).catch(reason => {
+                return Promise.reject(reason);
             });
         },
 
