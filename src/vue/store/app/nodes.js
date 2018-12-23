@@ -383,33 +383,48 @@ export const nodes = {
          * Marks nodes. Can be viewed in the marked menu-section.
          * @param nodes Nodes which get a mark.
          */
-        async addMark(_, nodes) {
+        async addMark({rootState}, nodes) {
+            return this.dispatch('fetch', {
+                route: 'addMark',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    nodes: nodes.map(v => v.id)
+                }
+            }).then(({error}) => {
 
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'mark' in nodes. 'nodes' isn't a Array.`;
-            }
+                if (error) {
+                    throw error;
+                }
 
-            for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
-                n.marked = true;
-            }
+                // Update node lacally to save ressources
+                for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
+                    n.marked = true;
+                }
+            });
         },
 
         /**
          * Removes a mark from nodes.
-         * @param state
          * @param nodes Nodes from which the mark gets removed.
          */
-        async removeMark(_, nodes) {
+        async removeMark({rootState}, nodes) {
+            return this.dispatch('fetch', {
+                route: 'removeMark',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    nodes: nodes.map(v => v.id)
+                }
+            }).then(({error}) => {
 
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'removeMark' in nodes. 'nodes' isn't a Array.`;
-            }
+                if (error) {
+                    throw error;
+                }
 
-            for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
-                n.marked = false;
-            }
+                // Update node lacally to save ressources
+                for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
+                    n.marked = true;
+                }
+            });
         },
 
         /**

@@ -28,6 +28,9 @@
         <!-- Tooltip -->
         <tool-tip/>
 
+        <!-- Upload area -->
+        <upload-area/>
+
     </div>
 </template>
 
@@ -50,6 +53,9 @@
     // Loading screen
     import LoadingScreen from './application/screens/LoadingScreen';
 
+    // File drop area
+    import UploadArea from './application/screens/UploadArea';
+
     // Authentication screens
     import Authentication from './authentication/Authentication';
 
@@ -71,6 +77,7 @@
             PopoverKeyboardShortcuts,
             PopoverFilterInfo,
             LoadingScreen,
+            UploadArea,
             ToolTip,
             InfoBar,
 

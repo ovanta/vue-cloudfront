@@ -168,7 +168,7 @@
                 const all = this.nodes.dir.concat(this.nodes.file);
                 const idx = this.keyboardSelectionIndex;
 
-                function update() {
+                const update = () => {
 
                     // Clear only if user does not perform a multi-selection
                     if (!(keys.ctrlKey && keys.shiftKey)) {
@@ -177,7 +177,7 @@
 
                     // Append node to current selection
                     this.$store.commit('selection/append', [all[this.keyboardSelectionIndex]]);
-                }
+                };
 
                 // Check for navigation keys
                 if (keys.KeyArrowup || keys.KeyArrowleft) {

@@ -1,11 +1,14 @@
-import Vue         from 'vue';
-import Vuex        from 'vuex';
+import Vue  from 'vue';
+import Vuex from 'vuex';
+
 // Config
-import config      from '../../../config/default';
+import config from '../../../config/default';
+
 // Server-related nodes
-import {nodes}     from './app/nodes';
-import {auth}      from './app/auth';
-import {userdata}  from './app/userdata';
+import {nodes}    from './app/nodes';
+import {auth}     from './app/auth';
+import {userdata} from './app/userdata';
+
 // Virtual modules act only as visual helpers / representation
 import {location}  from './virtual/location';
 import {clipboard} from './virtual/clipboard';
@@ -97,6 +100,39 @@ export default new Vuex.Store({
             }).then(async v => {
                 state.requestsActive--;
                 return v.json();
+            }).catch(() => {
+                state.requestsActive--;
+                // TODO: Handle error
+            });
+        },
+
+        /**
+         * Uploads files
+         *
+         * @param parent Target directory
+         * @param dataTransfer drop dataTrasnsfer object
+         * @returns {Promise<void>}
+         */
+        async upload({state}, {parent, dataTransfer: {files}}) {
+
+            // Build form
+            const formData = new FormData();
+            if (files.length) {
+                for (let i = 0; i < files.length; i++) {
+                    formData.append(`up-${i}`, files[i]);
+                }
+            }
+
+            // Upload
+            return fetch(`${config.apiEndPoint}/upload?apikey=${state.auth.apikey}&parent=${parent.id}`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                },
+                body: formData
+            }).then( () => {
+                state.requestsActive--;
+                return this.dispatch('nodes/update');
             }).catch(() => {
                 state.requestsActive--;
                 // TODO: Handle error

@@ -175,7 +175,7 @@
         .extension {
             @include font(600, 0.85em);
             background: $palette-deep-purple;
-            padding: 0.15em 0.35em;
+            padding: 0.25em 0.45em;
             text-transform: uppercase;
             border-radius: 0.15em;
             color: white;
@@ -213,7 +213,7 @@
             font-weight: 600;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
-            max-width: 7em;
+            max-width: 10em;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

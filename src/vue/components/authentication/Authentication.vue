@@ -57,6 +57,7 @@
                 const type = this.register ? 'register' : 'login';
                 const credentials = this.$refs[type + 'Box'].getFormData();
 
+                // TODO: Clear input fields
                 this.errorMsg = '';
                 this.$store.dispatch('auth/auth', {type, credentials}).catch(msg => {
                     this.errorMsg = msg;
