@@ -185,146 +185,34 @@ export const nodes = {
 
         /**
          * Copy a node tree into another folder
-         * @param state
          * @param rootState
          * @param nodes Nodes which should be copied
          * @param destination Destination node
          */
-        async copy({state, rootState}, {nodes, destination}) {
+        async copy({rootState}, {nodes, destination}) {
 
             // If user is currently not at home, ignore action
             if (rootState.activeTab !== 'home') {
                 return;
             }
 
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'copy' in nodes. nodes isn't an Array.`;
-            }
-
-            if (typeof destination !== 'object') {
-                throw `Cannot perform 'copy' in nodes. destination isn't a Object.`;
-            }
-
-            // TODO: Centralized hash-gen?!
-            const genHash = () => Math.round(Math.random() * 1e13).toString(16);
-
-            /**
-             * Clones a node-tree
-             * @param node Entry node
-             * @returns {Array} Cloned nodes
-             */
-            function cloneSiblings(node) {
-                const siblings = [];
-
-                /**
-                 * Every node needs a new hash (and so the childs a new parent), otherwise
-                 * each element would be copied in place.
-                 */
-                const newHash = genHash();
-
-                for (let i = 0, n; n = state[i], i < state.length; i++) {
-                    if (n.parent === node.id) {
-
-                        // Copy sibling via spread syntax
-                        siblings.push({...n});
-
-                        if (n.type === 'dir') {
-                            siblings.push(...cloneSiblings(n));
-                        }
-
-                        // Apply new hash from parent element
-                        n.parent = newHash;
-                    }
+            return this.dispatch('fetch', {
+                route: 'copy',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    nodes: nodes.map(v => v.id),
+                    destination: destination.id
                 }
+            }).then(() => {
 
-                node.id = newHash;
-                return siblings;
-            }
-
-            // Function to extract a name and extension from a filename
-            const parseName = name => {
-                const rdi = name.indexOf('.');
-                const di = ~rdi ? rdi : name.length;
-                return {name: name.substring(0, di), extension: name.substring(di, name.length)};
-            };
-
-            const spelledNumber = num => {
-                switch (num) {
-                    case 1:
-                        return `${num}st`;
-                    case 2:
-                        return `${num}nd`;
-                    case 3:
-                        return `${num}rd`;
-                    default:
-                        return `${num}th`;
-                }
-            };
-
-            // Clone nodes and add copy prefix
-            const cloned = nodes.map(v => {
-
-                // Extract name and extenstion
-                const vParsed = parseName(v.name);
-                const vName = vParsed.name;
-                const vExtension = vParsed.extension;
-
-                // Find previous copied versions
-                let version = 1, match;
-                for (let i = 0, n, l = state.length; n = state[i], i < l; i++) {
-
-                    // Extract raw name without any extensions
-                    const nParsed = parseName(n.name);
-                    const nName = nParsed.name;
-
-                    /**
-                     * First, check if node is child of the current location, if yes
-                     * and it starts with the current to-copy nodes name and
-                     * has already a copy flag increase it.
-                     */
-                    if (n.parent === destination.id &&
-                        n.name.startsWith(vName) &&
-                        (match = nName.match(/\((([\d]+)(st|nd|rd|th) |)Copy\)$/))) {
-
-                        // Check if node has been already multiple times copied
-                        if (match[2]) {
-                            const val = Number(match[2]);
-
-                            // Check if version is above current
-                            if (val && val >= version) {
-                                version = val + 1;
-                            }
-                        }
-                    }
-                }
-
-                return {
-                    ...v,
-
-                    // First copy gets only a '(Copy)' hint
-                    name: `${vName} ${version ? ` (${spelledNumber(version)} ` : '('}Copy)${vExtension}`
-                };
+                // Update nodes
+                return this.dispatch('nodes/update', {keepLocation: true});
             });
-
-            // Set new parent and clone siblings and push to nodes
-            const searchActive = rootState.search.active;
-            for (let i = 0, n, l = cloned.length; n = cloned[i], i < l; i++) {
-
-                // Don't re-define parents if search is performed
-                if (!searchActive) {
-                    n.parent = destination.id;
-                }
-
-                cloned.push(...cloneSiblings(n));
-            }
-
-            // Append cloned nodes
-            state.push(...cloned);
         },
 
         /**
          * Deletes nodes recursivly
+         * @param rootState
          * @param nodes Nodes which should be deleted
          */
         async delete({rootState}, nodes) {

@@ -5,7 +5,11 @@
         <div v-if="!searchResult && !markedNodes" class="nodes">
             <div v-for="(node, index) of nodes"
                  class="node">
-                <span class="name" @click="updateLocation(node)">{{ node.name }}</span>
+
+                <span :style="{'--color': index === nodes.length - 1 ? node.colorVariable : 'inherit'}"
+                      class="name"
+                      @click="updateLocation(node)">{{ node.name }}</span>
+
                 <i v-if="index < nodes.length - 1" class="fas fa-fw fa-angle-right"></i>
             </div>
         </div>
@@ -42,7 +46,17 @@
         computed: {
 
             nodes() {
-                return this.$store.getters['location/getHierarchy'];
+                return this.$store.getters['location/getHierarchy'].map(v => {
+
+                    // Create shallow copy
+                    v = {...v};
+
+                    // Convert to a rgb string which can be used as part of rgba()
+                    const [, r, g, b] = v.color.match(/#(..)(..)(..)/);
+                    v.colorVariable = `${parseInt(r, 16)}, ${parseInt(g, 16)}, ${parseInt(b, 16)}`;
+
+                    return v;
+                });
             },
 
             searchResult() {
@@ -106,7 +120,7 @@
                 position: relative;
                 cursor: pointer;
                 transition: all 0.3s;
-                padding: 0.3em 0.75em 0.4em;
+                padding: 0.35em 0.75em;
                 border-radius: 50em;
                 background: white;
                 box-shadow: 0 1px 5px 0 darken(white, 5);
@@ -128,8 +142,8 @@
             }
 
             &:last-child .name {
-                background: $palette-deep-purple;
-                box-shadow: 0 2px 10px 0 rgba($palette-deep-purple, 0.5);
+                background: #{'rgb(var(--color))'};
+                box-shadow: 0 1px 10px 0 #{'rgba(var(--color), 0.5)'};
                 color: white;
             }
         }
