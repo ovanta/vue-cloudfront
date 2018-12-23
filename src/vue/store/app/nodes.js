@@ -104,8 +104,9 @@ export const nodes = {
          * Updates / fetches nodes.
          * @param state
          * @param rootState
+         * @param keepLocation If function should try to restore the previous location
          */
-        async update({state, rootState}) {
+        async update({state, rootState}, {keepLocation = false} = {}) {
 
             // Fetch from server
             return this.dispatch('fetch', {
@@ -119,14 +120,22 @@ export const nodes = {
                     throw error;
                 }
 
-                // Find root
+                // Find root and try to restore location
                 const root = nodes.find(v => v.parent === 'root');
 
                 if (!root) {
                     throw 'Cannot examine root node.';
                 }
 
-                this.commit('location/update', root);
+                // Set location
+                if (keepLocation) {
+                    const locationId = rootState.location.node && rootState.location.node.id;
+                    const locNode = locationId && nodes.find(v => v.id === locationId);
+                    this.commit('location/update', locNode ? locNode : root);
+                } else {
+                    this.commit('location/update', root);
+                }
+
                 state.splice(0, state.length, ...nodes);
             });
         },
@@ -347,36 +356,24 @@ export const nodes = {
 
         /**
          * Deletes nodes recursivly
-         * @param state
          * @param nodes Nodes which should be deleted
          */
-        async delete({state}, nodes) {
+        async delete({rootState}, nodes) {
+            return this.dispatch('fetch', {
+                route: 'delete',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    nodes: nodes.map(v => v.id)
+                }
+            }).then(({error}) => {
 
-            // Validate
-            if (!Array.isArray(nodes)) {
-                throw `Cannot perform 'delete' in nodes. 'nodes' isn't a Array.`;
-            }
-
-            function rm(node) {
-
-                // If folder, delete all siblings first
-                if (node.type === 'dir') {
-                    for (let i = 0, n; n = state[i], i < state.length; i++) {
-                        if (n.parent === node.id) {
-                            rm(n);
-                            i = 0;
-                        }
-                    }
+                if (error) {
+                    throw error;
                 }
 
-                // Remove node
-                state.splice(state.indexOf(node), 1);
-            }
-
-            // Delete folder / files recursivly
-            for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
-                rm(n);
-            }
+                // Update nodes
+                return this.dispatch('nodes/update', {keepLocation: true});
+            });
         },
 
         /**

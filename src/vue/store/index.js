@@ -114,6 +114,7 @@ export default new Vuex.Store({
          * @returns {Promise<void>}
          */
         async upload({state}, {parent, dataTransfer: {files}}) {
+            state.requestsActive++;
 
             // Build form
             const formData = new FormData();
@@ -130,9 +131,9 @@ export default new Vuex.Store({
                     'Accept': 'application/json'
                 },
                 body: formData
-            }).then( () => {
+            }).then(() => {
                 state.requestsActive--;
-                return this.dispatch('nodes/update');
+                return this.dispatch('nodes/update', {keepLocation: true});
             }).catch(() => {
                 state.requestsActive--;
                 // TODO: Handle error
