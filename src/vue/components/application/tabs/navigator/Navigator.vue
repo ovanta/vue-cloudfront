@@ -130,7 +130,9 @@
                 this.utils.detectKeyCombinations(
                     window,
                     this.keyboardEvent,
-                    () => this.$store.state.activeTab === 'home'
+                    ({target}) => this.$store.state.activeTab === 'home' &&
+                        target.getAttribute('contenteditable') !== 'true' &&
+                        !['TEXT-AREA', 'INPUT'].includes(target.tagName)
                 )
             );
 

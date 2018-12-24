@@ -90,7 +90,7 @@
                 this.utils.detectKeyCombinations(
                     window,
                     this.keyboardEvent,
-                    ({target}) => target.contentEditable !== 'true' && !['TEXT-AREA', 'INPUT'].includes(target.tagName)
+                    ({target}) => target.getAttribute('contenteditable') !== 'true' && !['TEXT-AREA', 'INPUT'].includes(target.tagName)
                 )
             );
         },

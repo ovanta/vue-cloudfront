@@ -157,6 +157,7 @@
         box-shadow: 0 1px 3px 0 rgba(black, 0.05);
         background: white;
         border: 1px solid transparent;
+        max-width: 15em;
 
         .bookmark {
             position: absolute;
@@ -208,21 +209,26 @@
         }
 
         .name {
-            width: 100%;
             margin: 0 0.5em;
             padding: 0.15em 0 0.15em;
             font-weight: 600;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
-            max-width: 10em;
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis;
 
             &[contenteditable=true] {
                 border-color: $palette-deep-purple;
                 cursor: text;
                 outline: none;
+            }
+
+            &:focus {
+                text-overflow: clip;
+            }
+
+            &:not(:focus) {
+                text-overflow: ellipsis;
             }
         }
     }
