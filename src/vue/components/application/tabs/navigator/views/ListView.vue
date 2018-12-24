@@ -186,7 +186,7 @@
     .header {
         @include flex(row, center);
         user-select: none;
-        padding: 0.3em 0;
+        padding: 0.45em 0 0.25em;
         border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
         transition: all 0.3s;
         cursor: pointer;
@@ -196,6 +196,7 @@
             color: $palette-deep-blue;
             transition: all 0.3s;
             font-size: 1.3em;
+            margin-bottom: 0.2em;
         }
 
         &.selected {

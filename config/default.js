@@ -1,7 +1,7 @@
 export default {
 
     /**
-     * API-Endpoint to rest api TODO: ADD-LINK
+     * API-Endpoint to rest api.
      * The API should stay behind a nginx proxy.
      */
     apiEndPoint: 'http://localhost:4001/api',
@@ -10,7 +10,7 @@ export default {
      * If folder / file sizes should be represent with
      * base 1000 or 1024. See https://en.wikipedia.org/wiki/Binary_prefix
      */
-    sizeSIPrefix: false,
+    sizeSIPrefix: true,
 
     /**
      * Messages which are shown in the loading screen.

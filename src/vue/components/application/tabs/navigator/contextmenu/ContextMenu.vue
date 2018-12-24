@@ -259,9 +259,9 @@
         pointer-events: none;
         transition: opacity 0.3s;
         background: white;
-        padding: 0.5em 0;
+        padding: 0.4em 0.25em;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
-        border-radius: 0.1em;
+        border-radius: 0.25em;
 
         &:empty {
             display: none;

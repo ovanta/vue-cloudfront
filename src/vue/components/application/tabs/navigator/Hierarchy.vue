@@ -124,7 +124,7 @@
                 border-radius: 50em;
                 background: white;
                 box-shadow: 0 1px 5px 0 darken(white, 5);
-                max-width: 7em;
+                max-width: 10em;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;

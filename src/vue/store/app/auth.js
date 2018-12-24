@@ -49,6 +49,9 @@ export const auth = {
                 localStorage.setItem('apikey', apikey);
                 this.commit('auth/update', {apikey});
 
+                // Jump to home tab
+                this.commit('setActiveTab', 'home');
+
                 // Update nodes
                 return this.dispatch('nodes/update');
             });
@@ -67,6 +70,9 @@ export const auth = {
                 // Save apikey to localstorage and update module
                 localStorage.setItem('apikey', apikey);
                 this.commit('auth/update', {apikey});
+
+                // Jump to home tab
+                this.commit('setActiveTab', 'home');
 
                 // Update nodes
                 return this.dispatch('nodes/update');

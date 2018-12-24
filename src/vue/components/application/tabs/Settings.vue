@@ -4,36 +4,25 @@
         <div slot="content" class="content">
 
 
-            <!-- Change password -->
-            <section class="sec">
-                <text-input-field ref="pwdOld"
-                                  :password="true"
-                                  placeholder="Old password"/>
-                <text-input-field ref="pwdNew"
-                                  :password="true"
-                                  placeholder="New password"/>
-                <text-input-field ref="pwdRepeat"
-                                  :password="true"
-                                  placeholder="Confirm new password"/>
+            <text-input-field ref="currentPassword"
+                              :password="true"
+                              placeholder="Current password"/>
 
-                <button class="confirm" @click="changePassword">Update Password</button>
-                <p :class="{info: 1, error: changePasswordError}">{{ changePasswordError || changePasswordSuccess }}</p>
-            </section>
+            <text-input-field ref="newUsername"
+                              placeholder="Change Username"/>
 
-            <div class="divider">
-                <div></div>
-            </div>
+            <text-input-field ref="newPassword"
+                              :password="true"
+                              placeholder="Change Password"/>
 
-            <!-- Change email -->
-            <section class="sec">
-                <text-input-field ref="unamePwdCur"
-                                  :password="true"
-                                  placeholder="Current password"/>
-                <text-input-field ref="unameNew" placeholder="New Username"/>
+            <text-input-field ref="newPasswordRepeat"
+                              :password="true"
+                              placeholder="Repeat New Password"/>
 
-                <button class="confirm" @click="changeEmail">Change Username</button>
-                <p :class="{info: 1, error: changeUsernameError}">{{ changeUsernameError || changeUsernameSuccess }}</p>
-            </section>
+
+            <p class="error">{{ errorMsg }}</p>
+
+            <button class="confirm" @click="update">Update</button>
 
         </div>
 
@@ -52,45 +41,30 @@
 
         data() {
             return {
-                changePasswordError: '',
-                changePasswordSuccess: '',
-                changeUsernameError: '',
-                changeUsernameSuccess: ''
+                errorMsg: ''
             };
         },
 
         methods: {
 
-            changePassword() {
-                const {pwdOld, pwdNew, pwdRepeat} = this.$refs;
-                this.changePasswordError = '';
-                this.changePasswordSuccess = '';
+            update() {
+                const {currentPassword, newUsername, newPassword, newPasswordRepeat} = this.$refs;
+                this.errorMsg = '';
 
                 // Validate
-                if (pwdNew.value !== pwdRepeat.value) {
-                    return this.changePasswordError = 'New passwords does not match';
+                if (newPassword.value !== newPasswordRepeat.value) {
+                    this.errorMsg = 'Passwords are not indentical';
+                    return;
                 }
 
-                this.$store.dispatch('userdata/changePassword', {
-                    currentPassword: pwdOld.value,
-                    newPassword: pwdNew.value
-                }).catch(error => this.changePasswordError = error).then(() => {
-                    [pwdOld, pwdNew, pwdRepeat].forEach(v => v.value = '');
-                    this.changePasswordSuccess = 'Password successful changed!';
-                });
-            },
-
-            changeEmail() {
-                const {unamePwdCur, unameNew} = this.$refs;
-                this.changeUsernameError = '';
-                this.changeUsernameSuccess = '';
-
-                this.$store.dispatch('userdata/changeUsername', {
-                    currentPassword: unamePwdCur.value,
-                    newUsername: unameNew.value
-                }).catch(error => this.changeUsernameError = error).then(() => {
-                    [unamePwdCur, unameNew].forEach(v => v.value = '');
-                    this.changeUsernameSuccess = 'Username successful changed!';
+                this.$store.dispatch('userdata/applySettings', {
+                    currentPassword: currentPassword.value,
+                    newUsername: newUsername.value,
+                    newPassword: newPassword.value
+                }).then(() => {
+                    [currentPassword, newUsername, newPassword, newPasswordRepeat].forEach(v => v.clear());
+                }).catch(error => {
+                    this.errorMsg = error;
                 });
             }
 
@@ -102,35 +76,37 @@
 <style lang="scss" scoped>
 
     .settings {
+        @include flex(column, center, center);
 
         .content {
-            @include flex(row, center, space-evenly);
-            flex-grow: 1;
-            height: 100%;
-        }
-
-        .sec {
             @include flex(column, stretch, flex-end);
             padding: 0 1.75em 1.5em;
             width: 20em;
-            height: 23em;
+            margin: auto;
 
             .text-input-field {
-                margin-top: 1em;
+                margin-top: 1.5em;
             }
 
             button {
-                margin-top: 3em;
+                @include font(400, 0.9em);
+                margin-top: 1.5em;
+                margin-left: auto;
                 background: $palette-deep-purple;
                 border-radius: 0.15em;
-                padding: 0.75em 0;
+                padding: 0.55em 1.3em;
                 color: white;
-                font-weight: 600;
                 transition: all 0.3s;
 
                 &:hover {
                     background: darken($palette-deep-purple, 5);
                 }
+            }
+
+            .error {
+                @include font(600, 0.75em);
+                color: $palette-tomatoe-red;
+                margin-top: 1.5em;
             }
 
             .info {
@@ -141,10 +117,6 @@
                 text-align: center;
                 border-radius: 0.15em;
                 transition: all 0.3s;
-
-                &.error {
-                    background: $palette-tomatoe-red;
-                }
 
                 &:empty {
                     opacity: 0;
@@ -160,29 +132,7 @@
             }
         }
 
-        .divider {
-            @include flex(column, center, center);
-            height: 80%;
 
-            &::before,
-            &::after {
-                display: block;
-                @include pseudo(static);
-                @include size(1px, 100%);
-                background: $palette-decent-blue;
-                opacity: 0.5;
-            }
-
-            div {
-                @include size(11px);
-                border-radius: 100%;
-                border: 2px solid $palette-decent-blue;
-                background: transparent;
-                flex-shrink: 0;
-                margin: 1em 0;
-                opacity: 0.75;
-            }
-        }
     }
 
 </style>

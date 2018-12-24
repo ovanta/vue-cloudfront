@@ -5,9 +5,9 @@ import Vuex from 'vuex';
 import config from '../../../config/default';
 
 // Server-related nodes
-import {nodes}    from './app/nodes';
-import {auth}     from './app/auth';
-import {userdata} from './app/userdata';
+import {nodes} from './app/nodes';
+import {auth}  from './app/auth';
+import {user}  from './app/user';
 
 // Virtual modules act only as visual helpers / representation
 import {location}  from './virtual/location';
@@ -29,7 +29,7 @@ export default new Vuex.Store({
         auth,
 
         // Holds user related content
-        userdata,
+        userdata: user,
 
         // Holds a single node where you are currently
         location,
@@ -115,7 +115,8 @@ export default new Vuex.Store({
 
                 return data;
             }).catch(reason => {
-                return Promise.reject(reason);
+                state.requestsActive--;
+                throw reason;
             });
         },
 

@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
-export const userdata = {
+export const user = {
 
     namespaced: true,
 
     state: {
-        username: null,
         introBoxes: {}
     },
 
@@ -34,25 +33,29 @@ export const userdata = {
         },
 
         /**
-         * Responsible for changing of a password, if this promise
+         * Responsible for changing the password or username, if this promise
          * gets rejected String is used as error message.
-         * @param state
-         * @param currentPassword Current password for authentication
-         * @param newPassword New password
+         *
+         * @param _
+         * @param currentPassword Current password
+         * @param newUsername New username (optional)
+         * @param newPassword New passoword (optional)
+         * @returns {Promise<void>}
          */
-        async changePassword({state}, {currentPassword, newPassword}) {
-            // Validate and apply
-        },
+        async applySettings({rootState}, {currentPassword, newUsername, newPassword}) {
+            return this.dispatch('fetch', {
+                route: 'settings',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    currentPassword,
+                    newUsername,
+                    newPassword
+                }
+            }).then(() => {
 
-        /**
-         * Responsible for changing the username, if this promise
-         * gets rejected String is used as error message.
-         * @param state
-         * @param currentPassword Current password for authentication
-         * @param newUsername New username
-         */
-        async changeUsername({state}, {currentPassword, newUsername}) {
-            // Validate and apply
+                // Logout
+                this.commit('auth/logout');
+            });
         },
 
         async showIntroBox({state}, {key, val}) {
