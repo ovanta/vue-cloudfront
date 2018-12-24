@@ -1,5 +1,5 @@
 <template>
-    <div :class="{auth: 1, visible: !$store.state.auth.apikey}">
+    <div :class="{auth: 1, visible: !auth.apikey}">
 
         <div :class="{centered: 1, fadein: fadeAnimationActive, shake: shakeAnimationActive}"
              @animationend="fadeAnimationActive = shakeAnimationActive = false">
@@ -11,7 +11,7 @@
 
                 <div v-if="!registerMode" class="field">
                     <text-input-field ref="loginUsername"
-                                      :autofocus="true"
+                                      :autofocus="!!auth.apikey"
                                       placeholder="Username"
                                       @submit="submit"/>
 
@@ -59,6 +59,9 @@
     // UI Components
     import TextInputField from '../../ui/TextInputField';
 
+    // Vuex stuff
+    import {mapState} from 'vuex';
+
     export default {
         components: {TextInputField},
 
@@ -70,6 +73,10 @@
                 fadeAnimationActive: false,
                 shakeAnimationActive: false
             };
+        },
+
+        computed: {
+            ...mapState(['auth'])
         },
 
         methods: {

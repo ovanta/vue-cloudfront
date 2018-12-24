@@ -114,9 +114,6 @@ export default new Vuex.Store({
                 }
 
                 return data;
-            }).catch(reason => {
-                state.requestsActive--;
-                throw reason;
             });
         },
 

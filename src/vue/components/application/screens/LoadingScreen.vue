@@ -1,7 +1,7 @@
 <template>
-    <div :class="{'loader': 1, open: $store.state.requestsActive}">
+    <div :class="{'loader': 1, open: data.open}">
         <div class="box"></div>
-        <p v-if="message" class="message">{{ getRandomMessage() }}...</p>
+        <p class="message">{{ data.message }}...</p>
     </div>
 </template>
 
@@ -13,14 +13,26 @@
     export default {
 
         data() {
-            return {
-                message: ''
-            };
+            return {};
+        },
+
+        computed: {
+
+            /**
+             * The change of the request status should also trigger
+             * the placement of a new message.
+             */
+            data() {
+                return {
+                    open: this.$store.state.requestsActive,
+                    message: this.getRandomMessage()
+                };
+            }
+
         },
 
         methods: {
 
-            // TODO: Not working anymore
             getRandomMessage() {
                 const msgs = config.loadingScreenMessages;
 
@@ -91,7 +103,7 @@
 
     .message {
         @include font(600, 0.85em);
-        margin-top: 1.75em;
+        margin-top: 2em;
         font-style: italic;
         color: $palette-deep-purple;
         transform: translateY(-0.5em);

@@ -1,6 +1,6 @@
-import Vue    from 'vue';
-import App    from './vue/App.vue';
-import store  from './vue/store/index';
+import Vue   from 'vue';
+import App   from './vue/App.vue';
+import store from './vue/store/index';
 
 // Import service worker
 import './registerServiceWorker';

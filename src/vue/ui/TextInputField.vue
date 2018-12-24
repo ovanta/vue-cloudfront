@@ -6,7 +6,7 @@
 
         <div class="field">
             <input ref="input"
-                   :autofocus="autofocus"
+                   :autofocus="autofocus ? 'autofocus' : ''"
                    :class="{empty: !value}"
                    :type="password ? 'password' : 'text'"
                    v-model="value"
