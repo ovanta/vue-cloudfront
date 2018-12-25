@@ -2,7 +2,7 @@ import Vue  from 'vue';
 import Vuex from 'vuex';
 
 // Config
-import config from '../../../config/default';
+import config from '../../../config/config.json';
 
 // Server-related nodes
 import {nodes} from './app/nodes';

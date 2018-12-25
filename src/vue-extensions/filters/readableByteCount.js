@@ -1,4 +1,4 @@
-import config from '../../../config/default';
+import config from '../../../config/config.json';
 import Vue    from 'vue';
 
 /**

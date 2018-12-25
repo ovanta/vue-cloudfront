@@ -8,7 +8,7 @@
 <script>
 
     // Config
-    import config from '../../../../../config/default';
+    import config from '../../../../../config/config.json';
 
     export default {
 

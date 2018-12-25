@@ -18,7 +18,7 @@
 <script>
 
     // Config
-    import config from '../../../../../../../config/default.js';
+    import config from '../../../../../../../config/config.json';
 
     // Components
     import ColorPicker from '../../../../../ui/ColorPicker';

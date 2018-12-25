@@ -96,7 +96,7 @@
             },
 
             renameNode(evt, node) {
-                this.$store.commit('editable/reset');
+                this.$store.commit('editable/clear');
                 this.$store.dispatch('nodes/rename', {
                     node,
                     newName: evt.target.innerHTML

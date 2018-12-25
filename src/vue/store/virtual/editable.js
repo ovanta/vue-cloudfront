@@ -8,6 +8,10 @@ export const editable = {
 
     mutations: {
 
+        clear(state) {
+            state.node = null;
+        },
+
         /**
          * Sets an node which can be edited
          * @param state

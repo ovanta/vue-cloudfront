@@ -254,7 +254,7 @@
                     this.$store.commit('setActivePopup', null);
 
                     // Close editable node
-                    this.$store.commit('editable/reset');
+                    this.$store.commit('editable/clear');
                     return;
                 }
 

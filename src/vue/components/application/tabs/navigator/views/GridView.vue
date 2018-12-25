@@ -69,7 +69,7 @@
             },
 
             renameNode(evt, node) {
-                this.$store.commit('editable/reset');
+                this.$store.commit('editable/clear');
 
                 // Try to rename, restore previous value if failed
                 this.$store.dispatch('nodes/rename', {

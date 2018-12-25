@@ -5,7 +5,7 @@ import store from './vue/store/index';
 // Import service worker
 import './registerServiceWorker';
 
-// Add utils to vue
+// Vue utils
 import * as _ from './js/utils';
 
 // Import global stuff
