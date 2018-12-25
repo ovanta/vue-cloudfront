@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$store.state.userdata.introBoxes[id]"
+    <div v-if="$store.state.user.introBoxes[id]"
          ref="introBox"
          class="intro-box"
          @click="openIntroducion()">
@@ -37,7 +37,7 @@
 
                 <div class="actions">
                     <span class="skip"
-                          @click="$store.dispatch('userdata/skipIntroBoxes', true)">Skip all</span>
+                          @click="$store.dispatch('user/skipIntroBoxes', true)">Skip all</span>
 
                     <button @click="close()">
                         <span>Okay</span>
@@ -79,7 +79,7 @@
         },
 
         created() {
-            this.$store.dispatch('userdata/showIntroBox', {key: this.id, val: true});
+            this.$store.dispatch('user/showIntroBox', {key: this.id, val: true});
         },
 
         methods: {
@@ -96,7 +96,7 @@
             },
 
             close() {
-                this.$store.dispatch('userdata/showIntroBox', {key: this.id, val: false});
+                this.$store.dispatch('user/showIntroBox', {key: this.id, val: false});
             }
         }
     };

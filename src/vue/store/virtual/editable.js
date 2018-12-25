@@ -21,10 +21,6 @@ export const editable = {
             }
 
             state.node = node;
-        },
-
-        reset(state) {
-            state.node = null;
         }
 
     }

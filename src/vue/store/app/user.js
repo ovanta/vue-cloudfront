@@ -54,7 +54,7 @@ export const user = {
             }).then(() => {
 
                 // Logout
-                this.commit('auth/logout');
+                this.dispatch('auth/logout');
             });
         },
 

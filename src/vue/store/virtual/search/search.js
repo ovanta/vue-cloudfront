@@ -10,6 +10,9 @@ export const search = {
         // If the user is currently searching for somenthing
         active: false,
 
+        // Search result
+        nodes: [],
+
         /**
          * Search options, mutations are coming from
          * the buttons below the serach bar.
@@ -17,10 +20,7 @@ export const search = {
         options: {
             type: 'all',
             regex: false
-        },
-
-        // Search result
-        nodes: []
+        }
     },
 
     mutations: {

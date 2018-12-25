@@ -23,17 +23,15 @@ export const auth = {
          */
         update(state, {apikey}) {
             state.apikey = apikey;
-        },
-
-        logout(state) {
-
-            // Reset apikey
-            state.apikey = null;
-            localStorage.removeItem('apikey');
         }
     },
 
     actions: {
+
+        async logout() {
+            localStorage.removeItem('apikey');
+            return this.dispatch('reset');
+        },
 
         /**
          * Authenticates a user
@@ -94,7 +92,7 @@ export const auth = {
                 // Update nodes
                 return this.dispatch('nodes/update');
             }).catch(() => {
-                this.commit('auth/logout');
+                this.dispatch('auth/logout');
             });
         }
     }

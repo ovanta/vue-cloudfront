@@ -57,7 +57,7 @@
                     return;
                 }
 
-                this.$store.dispatch('userdata/applySettings', {
+                this.$store.dispatch('user/applySettings', {
                     currentPassword: currentPassword.value,
                     newUsername: newUsername.value,
                     newPassword: newPassword.value

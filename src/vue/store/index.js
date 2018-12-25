@@ -17,37 +17,40 @@ import {editable}  from './virtual/editable';
 import {search}    from './virtual/search/search';
 import {tooltip}   from './virtual/tooltip';
 
+// Injects a reset mutation to reset the module state
+import resetableModule from './resetableModule';
+
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+export default new Vuex.Store(resetableModule({
     modules: {
 
         // Holds an array of nodes
-        nodes,
+        nodes: resetableModule(nodes),
 
         // Holds a session key
-        auth,
+        auth: resetableModule(auth),
 
         // Holds user related content
-        userdata: user,
+        user: resetableModule(user),
 
         // Holds a single node where you are currently
-        location,
+        location: resetableModule(location),
 
         /**
          * Holds an array of nodes which are currently in the clipbord, including a type
          * string which defines whenever it's a copy or move action
          */
-        clipboard,
+        clipboard: resetableModule(clipboard),
 
         // Holds an array of nodes which are currently selected
-        selection,
+        selection: resetableModule(selection),
 
         // Holds a single node which is currently editable
-        editable,
+        editable: resetableModule(editable),
 
         // Holds a serch result and is also responsible for performing a search
-        search,
+        search: resetableModule(search),
 
         // Holds informations about the current tooltip, is used in combination with the v-tooltip directive
         tooltip
@@ -87,6 +90,18 @@ export default new Vuex.Store({
 
     actions: {
 
+        // Resetting all modules
+        reset() {
+            this.commit('reset');
+            this.commit('auth/reset');
+            this.commit('nodes/reset');
+            this.commit('search/reset');
+            this.commit('clipboard/reset');
+            this.commit('editable/reset');
+            this.commit('location/reset');
+            this.commit('selection/reset');
+        },
+
         /**
          * Request proxy
          *
@@ -107,13 +122,16 @@ export default new Vuex.Store({
                 body: JSON.stringify(body)
             }).then(async v => {
                 const {error, data} = await v.json();
-                state.requestsActive--;
 
                 if (error) {
                     throw error;
                 }
 
+                state.requestsActive--;
                 return data;
+            }).catch(v => {
+                state.requestsActive--;
+                throw v;
             });
         },
 
@@ -165,4 +183,4 @@ export default new Vuex.Store({
 
     }
 
-});
+}));

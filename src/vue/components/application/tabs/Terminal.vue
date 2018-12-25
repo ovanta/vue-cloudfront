@@ -234,7 +234,7 @@
                     },
 
                     logout() {
-                        that.$store.commit('auth/logout');
+                        that.$store.dispatch('auth/logout');
                         clearTerminal();
                     },
 
