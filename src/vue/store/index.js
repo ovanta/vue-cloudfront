@@ -17,40 +17,37 @@ import {editable}  from './virtual/editable';
 import {search}    from './virtual/search/search';
 import {tooltip}   from './virtual/tooltip';
 
-// Injects a reset mutation to reset the module state
-import resetableModule from './resetableModule';
-
 Vue.use(Vuex);
 
-export default new Vuex.Store(resetableModule({
+export default new Vuex.Store({
     modules: {
 
         // Holds an array of nodes
-        nodes: resetableModule(nodes),
+        nodes,
 
         // Holds a session key
-        auth: resetableModule(auth),
+        auth,
 
         // Holds user related content
-        user: resetableModule(user),
+        user,
 
         // Holds a single node where you are currently
-        location: resetableModule(location),
+        location,
 
         /**
          * Holds an array of nodes which are currently in the clipbord, including a type
          * string which defines whenever it's a copy or move action
          */
-        clipboard: resetableModule(clipboard),
+        clipboard,
 
         // Holds an array of nodes which are currently selected
-        selection: resetableModule(selection),
+        selection,
 
         // Holds a single node which is currently editable
-        editable: resetableModule(editable),
+        editable,
 
         // Holds a serch result and is also responsible for performing a search
-        search: resetableModule(search),
+        search,
 
         // Holds informations about the current tooltip, is used in combination with the v-tooltip directive
         tooltip
@@ -89,18 +86,6 @@ export default new Vuex.Store(resetableModule({
     },
 
     actions: {
-
-        // Resetting all modules
-        reset() {
-            this.commit('reset');
-            this.commit('auth/reset');
-            this.commit('nodes/reset');
-            this.commit('search/reset');
-            this.commit('clipboard/reset');
-            this.commit('editable/reset');
-            this.commit('location/reset');
-            this.commit('selection/reset');
-        },
 
         /**
          * Request proxy
@@ -183,4 +168,4 @@ export default new Vuex.Store(resetableModule({
 
     }
 
-}));
+});

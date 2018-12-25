@@ -46,7 +46,6 @@
             if (apikey) {
                 this.$store.dispatch('auth/key', {apikey});
             }
-
         }
     };
 </script>

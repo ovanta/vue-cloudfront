@@ -30,7 +30,7 @@ export const auth = {
 
         async logout() {
             localStorage.removeItem('apikey');
-            return this.dispatch('reset');
+            location.reload(true);
         },
 
         /**
