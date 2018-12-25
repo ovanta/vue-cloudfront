@@ -22,7 +22,10 @@
 
             <p class="error">{{ errorMsg }}</p>
 
-            <button class="confirm" @click="update">Update</button>
+            <div class="actions">
+                <button class="delete-account" @click="deleteAccount">Delete Account</button>
+                <button class="update" @click="update">Update</button>
+            </div>
 
         </div>
 
@@ -66,6 +69,19 @@
                 }).catch(error => {
                     this.errorMsg = error;
                 });
+            },
+
+            deleteAccount() {
+                const {currentPassword} = this.$refs;
+                this.errorMsg = '';
+
+                this.$store.dispatch('user/deleteAccount', {
+                    password: currentPassword.value
+                }).then(() => {
+                    currentPassword.clear();
+                }).catch(error => {
+                    this.errorMsg = error;
+                });
             }
 
         }
@@ -77,62 +93,74 @@
 
     .settings {
         @include flex(column, center, center);
+    }
 
-        .content {
-            @include flex(column, stretch, flex-end);
-            padding: 0 1.75em 1.5em;
-            width: 20em;
-            margin: auto;
+    .content {
+        @include flex(column, stretch, flex-end);
+        padding: 0 1.75em 1.5em;
+        width: 20em;
+        margin: auto;
 
-            .text-input-field {
-                margin-top: 1.5em;
+        .text-input-field {
+            margin-top: 1.5em;
+        }
+
+        .error {
+            @include font(600, 0.75em);
+            color: $palette-tomatoe-red;
+            margin-top: 1.5em;
+        }
+
+        .info {
+            @include font(600, 0.75em);
+            margin-top: 0.25em;
+            color: white;
+            background: $palette-deep-blue;
+            text-align: center;
+            border-radius: 0.15em;
+            transition: all 0.3s;
+
+            &:empty {
+                opacity: 0;
+                padding: 0;
+                max-height: 0;
             }
 
-            button {
-                @include font(400, 0.9em);
-                margin-top: 1.5em;
-                margin-left: auto;
-                background: $palette-deep-purple;
-                border-radius: 0.15em;
-                padding: 0.55em 1.3em;
-                color: white;
-                transition: all 0.3s;
+            &:not(:empty) {
+                padding: 0.25em 0;
+                opacity: 1;
+                max-height: 2em;
+            }
+        }
+    }
+
+    .actions {
+        @include flex(row, center, space-between);
+
+        button {
+            @include font(400, 0.85em);
+            margin-top: 1.5em;
+            border-radius: 0.15em;
+            padding: 0.55em 1.3em;
+            color: white;
+            transition: all 0.3s;
+
+            &.delete-account {
+                background: $palette-tomatoe-red;
 
                 &:hover {
-                    background: darken($palette-deep-purple, 5);
+                    background: darken($palette-tomatoe-red, 3);
                 }
             }
 
-            .error {
-                @include font(600, 0.75em);
-                color: $palette-tomatoe-red;
-                margin-top: 1.5em;
-            }
+            &.update {
+                background: $palette-deep-purple;
 
-            .info {
-                @include font(600, 0.75em);
-                margin-top: 0.25em;
-                color: white;
-                background: $palette-deep-blue;
-                text-align: center;
-                border-radius: 0.15em;
-                transition: all 0.3s;
-
-                &:empty {
-                    opacity: 0;
-                    padding: 0;
-                    max-height: 0;
-                }
-
-                &:not(:empty) {
-                    padding: 0.25em 0;
-                    opacity: 1;
-                    max-height: 2em;
+                &:hover {
+                    background: darken($palette-deep-purple, 3);
                 }
             }
         }
-
-
     }
 
 </style>

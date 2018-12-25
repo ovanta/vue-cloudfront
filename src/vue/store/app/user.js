@@ -58,6 +58,27 @@ export const user = {
             });
         },
 
+        /**
+         * Responsible to delete the accound (and all files)
+         *
+         * @param rootState
+         * @param password - Current password
+         * @returns {Promise<void>}
+         */
+        async deleteAccount({rootState}, {password}) {
+            return this.dispatch('fetch', {
+                route: 'deleteAccount',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    password
+                }
+            }).then(() => {
+
+                // Logout
+                this.dispatch('auth/logout');
+            });
+        },
+
         async showIntroBox({state}, {key, val}) {
 
             // Apply
