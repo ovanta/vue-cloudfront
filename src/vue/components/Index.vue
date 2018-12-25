@@ -11,7 +11,6 @@
             <!-- Tabs, dynamic, getting changed via menu tabs -->
             <navigator v-show="activeTab === 'marked' || activeTab === 'home'"/>
             <history v-show="activeTab === 'history'"/>
-            <terminal v-show="activeTab === 'terminal'"/>
             <settings v-show="activeTab === 'settings'"/>
         </div>
 
@@ -39,7 +38,6 @@
     // Components
     import Navigator from './application/tabs/navigator/Navigator';
     import History   from './application/tabs/History';
-    import Terminal  from './application/tabs/Terminal';
     import Settings  from './application/tabs/Settings';
 
     import MenuBar from './application/MenuBar';
@@ -70,7 +68,6 @@
             // Tabs
             Navigator,
             History,
-            Terminal,
             Settings,
 
             // Popovers and static components

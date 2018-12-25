@@ -66,7 +66,6 @@
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
                             {keys: ['j', 'm'], action: 'Switch to marked folder / files.'},
                             {keys: ['j', 'a'], action: 'Switch to history.'},
-                            {keys: ['j', 't'], action: 'Switch to terminal.'},
                             {keys: ['j', 's'], action: 'Switch to settigs.'},
                             {keys: ['tab'], action: 'Switch tabs.'},
                             {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
@@ -101,12 +100,6 @@
                 const store = this.$store;
                 const state = store.state;
                 const {selection, clipboard, activeTab} = state;
-
-                // Don't detect shortcuts in terminal
-                if (activeTab === 'terminal') {
-                    return;
-                }
-
                 const clipboardNodes = clipboard.nodes;
                 const currentLocation = state.location.node;
 
@@ -318,11 +311,6 @@
                     this.$store.commit('setActiveTab', 'history');
                 }
 
-                // Switch to terminal screen
-                if (keys.KeyJ && keys.KeyT) {
-                    this.$store.commit('setActiveTab', 'terminal');
-                }
-
                 // Switch to settings screen
                 if (keys.KeyJ && keys.KeyS) {
                     this.$store.commit('setActiveTab', 'settings');
@@ -330,7 +318,7 @@
 
                 // Switch tabs
                 if (keys.KeyTab && !keys.ctrlKey) {
-                    const tabs = ['home', 'marked', 'history', 'settings', 'terminal'];
+                    const tabs = ['home', 'marked', 'history', 'settings'];
                     let index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
                     // Rotate if end is reached

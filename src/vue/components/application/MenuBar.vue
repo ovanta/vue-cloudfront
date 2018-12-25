@@ -24,13 +24,14 @@
                 <i class="fas fa-fw fa-history"></i>
             </div>
 
-            <div v-tooltip="'Terminal'"
-                 :class="{'item': 1, active: activeTab === 'terminal'}"
-                 @click="changeTab('terminal')">
-                <i class="fas fa-fw fa-terminal"></i>
-            </div>
 
             <div class="eat-space"></div>
+
+            <div v-tooltip="'Refresh'"
+                 class="item bottom"
+                 @click="$store.dispatch('nodes/update')">
+                <i class="fas fa-fw fa-sync-alt"></i>
+            </div>
 
             <div v-tooltip="'User settings'"
                  :class="{'item bottom': 1, active: activeTab === 'settings'}"
