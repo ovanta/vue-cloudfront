@@ -7,7 +7,8 @@
         </div>
 
         <div class="preview">
-            <i class="fas fa-fw fa-chevron-left" @click="next"></i>
+            <i :class="{'fas fa-fw fa-chevron-left': 1, blocked: (index - 2) < 0}"
+               @click="index--"></i>
 
             <!-- Actual preview -->
             <div v-if="currentNode" class="file">
@@ -24,6 +25,15 @@
                        controls
                        autoplay></video>
 
+                <!-- PDFs -->
+                <object v-else-if="currentNode.name.match(/\.pdf$/)"
+                        :data="getUrl()"
+                        class="pdf"
+                        type="application/pdf"
+                        width="100%"
+                        height="100%">
+                </object>
+
                 <!-- Message if no preview is available -->
                 <div v-else class="no-preview">
                     Preview not available for
@@ -33,7 +43,8 @@
 
             </div>
 
-            <i class="fas fa-fw fa-chevron-right" @click="previous"></i>
+            <i :class="{'fas fa-fw fa-chevron-right': 1, blocked: (index + 2) > filepreview.nodes.length}"
+               @click="index++"></i>
         </div>
 
 
@@ -64,33 +75,22 @@
             ...mapState(['filepreview']),
 
             currentNode() {
-                return this.filepreview.nodes && this.filepreview.nodes[this.index];
+                return this.filepreview.nodes[this.index];
             }
         },
 
         methods: {
 
             close() {
+                window.tss = this;
 
                 // Reset index and clear preview
                 this.index = 0;
                 this.$store.commit('filepreview/clear');
             },
 
-            next() {
-                if (this.index - 1 > 0) {
-                    this.index--;
-                }
-            },
-
-            previous() {
-                if ((this.index + 1) < this.filepreview.nodes.length) {
-                    this.index++;
-                }
-            },
-
             getUrl() {
-                return `${config.apiEndPoint}/download?id=${this.currentNode.id}&apikey=${this.$store.state.auth.apikey}`;
+                return `${config.apiEndPoint}/static/${this.currentNode.name}?id=${this.currentNode.id}&apikey=${this.$store.state.auth.apikey}`;
             }
 
         }
@@ -150,6 +150,12 @@
 
             &:active {
                 transform: scale(1.1);
+            }
+
+            &.blocked {
+                pointer-events: none;
+                cursor: default;
+                opacity: 0;
             }
         }
 

@@ -3,7 +3,7 @@ export const filepreview = {
     namespaced: true,
 
     state: {
-        nodes: null
+        nodes: []
     },
 
     mutations: {
@@ -13,7 +13,7 @@ export const filepreview = {
         },
 
         clear(state) {
-            state.nodes = null;
+            state.nodes = [];
         }
 
     }
