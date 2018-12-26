@@ -31,7 +31,7 @@
                      :data-hash="node.id"
                      @click.left="select($event, node)"
                      @click.right="select($event, node)"
-                     @dblclick="$store.dispatch('download', {node})">
+                     @dblclick="$store.commit('filepreview/show', nodes.file)">
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <span class="extension">{{ node.extension }}</span>

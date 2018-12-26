@@ -1,16 +1,20 @@
 <template>
-    <div :class="{'loader': 1, open: data.open}">
+    <overlay :open="data.open" class="loader">
         <div class="box"></div>
         <p class="message">{{ data.message }}...</p>
-    </div>
+    </overlay>
 </template>
 
 <script>
+
+    // Components
+    import Overlay from './Overlay';
 
     // Config
     import config from '../../../../../config/config.json';
 
     export default {
+        components: {Overlay},
 
         data() {
             return {};
@@ -24,7 +28,7 @@
              */
             data() {
                 return {
-                    open: this.$store.state.requestsActive,
+                    open: !!this.$store.state.requestsActive,
                     message: this.getRandomMessage()
                 };
             }
@@ -60,19 +64,6 @@
         @include position(0, 0, 0, 0);
         background: $palette-snow-white;
         z-index: 150;
-        opacity: 0;
-        pointer-events: none;
-        transition: all 0.3s;
-
-        &.open {
-            opacity: 1;
-            pointer-events: all;
-
-            // Play animation only if visible
-            .box {
-                animation-play-state: running;
-            }
-        }
     }
 
     .box {

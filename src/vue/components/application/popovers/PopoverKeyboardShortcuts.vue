@@ -248,6 +248,9 @@
 
                     // Close editable node
                     this.$store.commit('editable/clear');
+
+                    // Close filepreview
+                    this.$store.commit('filepreview/clear');
                     return;
                 }
 
@@ -354,7 +357,7 @@
 
         .shortcut {
             @include flex(row, center);
-            padding-bottom: 0.5em;
+            padding: 0.35em 0;
 
             .keys {
                 flex-grow: 1;

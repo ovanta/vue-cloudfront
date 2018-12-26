@@ -29,7 +29,7 @@
 
             <div v-tooltip="'Refresh'"
                  class="item bottom"
-                 @click="$store.dispatch('nodes/update')">
+                 @click="refresh()">
                 <i class="fas fa-fw fa-sync-alt"></i>
             </div>
 
@@ -79,10 +79,17 @@
 
                 // Show new tab
                 this.$store.commit('setActiveTab', newTab);
+            },
+
+            refresh() {
+
+                // Clear selection
+                this.$store.dispatch('nodes/update');
+
+                // Go to home
+                this.changeTab('home');
             }
-
         }
-
     };
 
 </script>

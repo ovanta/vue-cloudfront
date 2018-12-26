@@ -1,15 +1,17 @@
 <template>
-    <div :class="{'upload-area': 1, 'drag-over': dragOver}">
-
+    <overlay :open="dragOver" class="upload-area">
         <i class="fas fa-file-upload"></i>
         <p>Upload</p>
-
-    </div>
+    </overlay>
 </template>
 
 <script>
 
+    // Components
+    import Overlay from './Overlay';
+
     export default {
+        components: {Overlay},
 
         data() {
             return {
@@ -57,14 +59,6 @@
         @include flex(column, center, center);
         background: $palette-snow-white;
         z-index: 200;
-        transition: all 0.3s;
-        opacity: 0;
-        pointer-events: none;
-
-        &.drag-over {
-            opacity: 1;
-            pointer-events: all;
-        }
 
         i, p {
             color: $palette-deep-purple;

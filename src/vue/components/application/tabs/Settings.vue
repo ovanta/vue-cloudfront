@@ -141,7 +141,7 @@
             @include font(400, 0.85em);
             margin-top: 1.5em;
             border-radius: 0.15em;
-            padding: 0.55em 1.3em;
+            padding: 0.55em 1.3em 0.6em;
             color: white;
             transition: all 0.3s;
 

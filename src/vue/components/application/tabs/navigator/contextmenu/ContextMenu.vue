@@ -38,14 +38,14 @@
             <span class="name">Rename</span>
         </div>
 
-        <div v-if="selection.length && activeTab === 'home'"
+        <div v-if="nodes.length && activeTab === 'home'"
              class="option"
              @click="moveToClipboard('copy')">
             <i class="fas fa-fw fa-copy"></i>
             <span class="name">Copy</span>
         </div>
 
-        <div v-if="selection.length"
+        <div v-if="nodes.length"
              class="option"
              @click="moveToClipboard('move')">
             <i class="fas fa-fw fa-cut"></i>
@@ -116,7 +116,7 @@
                 return this.$store.state.activeTab;
             },
 
-            ...mapState(['search', 'selection', 'clipboard'])
+            ...mapState(['search', 'clipboard'])
         },
 
         mounted() {
@@ -304,9 +304,11 @@
 
                 .name {
                     @include flex(row, center);
+                    width: 100%;
 
                     i {
-                        margin-left: 0.5em;
+                        margin-left: auto;
+                        padding-left: 0.75em;
                     }
                 }
 

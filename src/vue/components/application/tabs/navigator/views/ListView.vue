@@ -50,7 +50,7 @@
                  :data-hash="node.id"
                  @click.left="select($event, node)"
                  @click.right="select($event, node)"
-                 @dblclick="$store.dispatch('download', {node})">
+                 @dblclick="$store.commit('filepreview/show', nodes.file)">
 
                 <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">

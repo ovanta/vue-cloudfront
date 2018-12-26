@@ -17,6 +17,9 @@
         <!-- Loading screen (fixed) -->
         <loading-screen/>
 
+        <!-- File preview (fixed) -->
+        <file-preview/>
+
         <!-- Login Screen (fixed) -->
         <authentication/>
 
@@ -48,13 +51,10 @@
     import PopoverKeyboardShortcuts from './application/popovers/PopoverKeyboardShortcuts';
     import PopoverFilterInfo        from './application/popovers/PopoverFilterInfo';
 
-    // Loading screen
-    import LoadingScreen from './application/screens/LoadingScreen';
-
-    // File drop area
-    import UploadArea from './application/screens/UploadArea';
-
-    // Authentication screens
+    // Fixed screens
+    import LoadingScreen  from './application/overlay/LoadingScreen';
+    import UploadArea     from './application/overlay/UploadArea';
+    import FilePreview    from './application/overlay/FilePreview';
     import Authentication from './authentication/Authentication';
 
     // Vue stuff
@@ -77,6 +77,7 @@
             UploadArea,
             ToolTip,
             InfoBar,
+            FilePreview,
 
             // Authentication
             Authentication

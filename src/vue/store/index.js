@@ -10,12 +10,13 @@ import {auth}  from './app/auth';
 import {user}  from './app/user';
 
 // Virtual modules act only as visual helpers / representation
-import {location}  from './virtual/location';
-import {clipboard} from './virtual/clipboard';
-import {selection} from './virtual/selection';
-import {editable}  from './virtual/editable';
-import {search}    from './virtual/search/search';
-import {tooltip}   from './virtual/tooltip';
+import {location}    from './virtual/location';
+import {clipboard}   from './virtual/clipboard';
+import {selection}   from './virtual/selection';
+import {editable}    from './virtual/editable';
+import {search}      from './virtual/search/search';
+import {tooltip}     from './virtual/tooltip';
+import {filepreview} from './virtual/filepreview';
 
 Vue.use(Vuex);
 
@@ -50,7 +51,10 @@ export default new Vuex.Store({
         search,
 
         // Holds informations about the current tooltip, is used in combination with the v-tooltip directive
-        tooltip
+        tooltip,
+
+        // Holds nodes which are currently open in the file preview
+        filepreview
     },
 
     state: {
