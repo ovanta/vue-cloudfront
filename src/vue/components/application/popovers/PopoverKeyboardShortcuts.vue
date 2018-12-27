@@ -148,7 +148,7 @@
                     if (keys.KeyN && keys.KeyF) {
 
                         // Create a folder and immediatly make it editable
-                        store.dispatch('nodes/createFolder', currentLocation).then(folderNode => {
+                        store.dispatch('nodes/createFolder', {parent: currentLocation}).then(folderNode => {
                             store.commit('editable/set', folderNode);
                         });
 

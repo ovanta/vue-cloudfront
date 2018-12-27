@@ -139,16 +139,19 @@ export const nodes = {
         /**
          * Creates a new folder within the parent.
          * @param state
-         * @param destination Parent node
+         * @param rootState
+         * @param name Optional name
+         * @param parent Parent node
          */
-        async createFolder({state, rootState}, destination) {
+        async createFolder({state, rootState}, {name, parent}) {
 
             // Fetch from server
             return this.dispatch('fetch', {
                 route: 'createFolder',
                 body: {
                     apikey: rootState.auth.apikey,
-                    parent: destination.id
+                    parent: parent.id,
+                    name
                 }
             }).then(({node}) => {
                 state.push(node);

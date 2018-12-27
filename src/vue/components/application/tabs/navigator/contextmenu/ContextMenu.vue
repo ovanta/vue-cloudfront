@@ -198,7 +198,7 @@
             newFolder() {
 
                 // Create a folder and immediatly make it editable
-                this.$store.dispatch('nodes/createFolder', this.$store.state.location.node).then(folderNode => {
+                this.$store.dispatch('nodes/createFolder', {parent: this.$store.state.location.node}).then(folderNode => {
                     this.$store.commit('editable/set', folderNode);
                 });
 

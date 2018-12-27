@@ -152,8 +152,7 @@ export default new Vuex.Store({
                     } else if (item.isDirectory) {
 
                         // Create node and rename it
-                        const folderNode = await this.dispatch('nodes/createFolder', parent);
-                        await this.dispatch('nodes/rename', {node: folderNode, newName: item.name});
+                        const folderNode = await this.dispatch('nodes/createFolder', {parent, name: item.name});
 
                         // Resolve childs
                         await new Promise(resolve => item.createReader().readEntries(async entries => {
