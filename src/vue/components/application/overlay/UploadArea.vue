@@ -61,11 +61,8 @@
 <style lang="scss" scoped>
 
     .upload-area {
-        position: absolute;
-        @include position(0, 0, 0, 0);
         @include flex(column, center, center);
-        background: $palette-snow-white;
-        z-index: 200;
+        z-index: 155;
 
         i, p {
             color: $palette-deep-purple;

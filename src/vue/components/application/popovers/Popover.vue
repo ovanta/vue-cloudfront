@@ -36,7 +36,6 @@
                 type: String,
                 required: true
             }
-
         }
     };
 

@@ -14,24 +14,18 @@
             <settings v-show="activeTab === 'settings'"/>
         </div>
 
-        <!-- Loading screen (fixed) -->
+        <!-- Overlays -->
         <loading-screen/>
-
-        <!-- File preview (fixed) -->
         <file-preview/>
-
-        <!-- Login Screen (fixed) -->
         <authentication/>
+        <upload-area/>
 
-        <!-- Helping pages (fixed) -->
+        <!-- Popovers -->
         <popover-filter-info/>
         <popover-keyboard-shortcuts/>
 
         <!-- Tooltip -->
         <tool-tip/>
-
-        <!-- Upload area -->
-        <upload-area/>
 
     </div>
 </template>
@@ -48,10 +42,10 @@
     import InfoBar from './InfoBar';
 
     // Popovers
-    import PopoverKeyboardShortcuts from './application/popovers/PopoverKeyboardShortcuts';
-    import PopoverFilterInfo        from './application/popovers/PopoverFilterInfo';
+    import PopoverKeyboardShortcuts from './application/popovers/KeyboardShortcuts';
+    import PopoverFilterInfo        from './application/popovers/FilterInfo';
 
-    // Fixed screens
+    // Overlays
     import LoadingScreen  from './application/overlay/LoadingScreen';
     import UploadArea     from './application/overlay/UploadArea';
     import FilePreview    from './application/overlay/FilePreview';

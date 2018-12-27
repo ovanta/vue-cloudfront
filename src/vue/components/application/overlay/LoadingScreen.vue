@@ -1,5 +1,5 @@
 <template>
-    <overlay :open="data.open" class="loader">
+    <overlay :open="data.open" class="loading-screen">
         <div class="box"></div>
         <p class="message">{{ data.message }}...</p>
     </overlay>
@@ -58,11 +58,8 @@
     $small-border-radius: 0.15em;
     $jump-height: 0.25em;
 
-    .loader {
-        position: absolute;
+    .loading-screen {
         @include flex(column, center, center);
-        @include position(0, 0, 0, 0);
-        background: $palette-snow-white;
         z-index: 150;
     }
 

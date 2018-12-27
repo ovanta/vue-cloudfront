@@ -312,11 +312,13 @@
                 // Switch to history screen
                 if (keys.KeyJ && keys.KeyA) {
                     this.$store.commit('setActiveTab', 'history');
+                    return;
                 }
 
                 // Switch to settings screen
                 if (keys.KeyJ && keys.KeyS) {
                     this.$store.commit('setActiveTab', 'settings');
+                    return;
                 }
 
                 // Switch tabs
@@ -330,6 +332,7 @@
                     // Switch tab
                     this.$store.commit('setActiveTab', tabs[index]);
                     event.preventDefault();
+                    return;
                 }
             }
         }

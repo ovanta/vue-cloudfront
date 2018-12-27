@@ -102,12 +102,9 @@
 <style lang="scss" scoped>
 
     .file-preview {
-        position: absolute;
-        @include position(0, 0, 0, 0);
         @include flex(column);
-        background: $palette-snow-white;
-        z-index: 1;
         padding: 1.5em;
+        z-index: 1;
     }
 
     .header {
