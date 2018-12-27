@@ -13,6 +13,8 @@ export default {
             }
 
             const type = match[1];
+
+            // TODO: Firefox dont suppurt positiv lookbehind
             filters[type] = match[2].trim()
                 .split(/(?<!\\),/g)
                 .map(v => v.replace('\\,', ','));

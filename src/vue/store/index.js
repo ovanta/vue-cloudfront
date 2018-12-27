@@ -130,14 +130,77 @@ export default new Vuex.Store({
          * @param parent Target directory
          * @param dataTransfer drop dataTrasnsfer object
          */
-        async upload({state}, {parent, dataTransfer: {files}}) {
+        async upload({state}, {parent, dataTransfer: {files, items}}) {
             state.requestsActive++;
+
+            // Check if browser supports folder - dropping
+            if (items.length && (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry)) {
+                const getAsEntryFuncName = (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry).name;
+
+                const traverseFileTree = async (parent, item) => {
+
+                    if (item.isFile) {
+
+                        // Upload file file
+                        const fileObj = await new Promise((resolve, reject) => item.file(resolve, reject));
+                        if (fileObj) {
+                            await this.dispatch('uploadFile', {parent, files: fileObj});
+                        } else {
+                            // TODO: Handle error?
+                        }
+
+                    } else if (item.isDirectory) {
+
+                        // Create node and rename it
+                        const folderNode = await this.dispatch('nodes/createFolder', parent);
+                        await this.dispatch('nodes/rename', {node: folderNode, newName: item.name});
+
+                        // Resolve childs
+                        await new Promise(resolve => item.createReader().readEntries(async entries => {
+
+                            for (let i = 0; i < entries.length; i++) {
+                                await traverseFileTree(folderNode, entries[i], item.name + '/');
+                            }
+
+                            resolve();
+                        }));
+                    }
+                };
+
+                for (let i = 0; i < items.length; i++) {
+                    const item = items[i][getAsEntryFuncName]();
+                    item && (await traverseFileTree(parent, item));
+                }
+
+                state.requestsActive--;
+                return this.dispatch('nodes/update', {keepLocation: true});
+            } else {
+                return this.$dispatch('uploadFile', {parent, files}).then(() => {
+                    state.requestsActive--;
+                    return this.dispatch('nodes/update', {keepLocation: true});
+                }).catch(() => {
+                    // TODO: Handle error?
+                    state.requestsActive--;
+                });
+            }
+        },
+
+        /**
+         * Responsible to upload single files
+         * @returns {Promise<void>}
+         */
+        async uploadFile({state}, {parent, files}) {
+
+            // Wrap into array if not already
+            if (!Array.isArray(files)) {
+                files = [files];
+            }
 
             // Build form
             const formData = new FormData();
             if (files.length) {
                 for (let i = 0; i < files.length; i++) {
-                    formData.append(`up-${i}`, files[i]);
+                    formData.append(`${i}`, files[i]);
                 }
             }
 
@@ -148,12 +211,6 @@ export default new Vuex.Store({
                     'Accept': 'application/json'
                 },
                 body: formData
-            }).then(() => {
-                state.requestsActive--;
-                return this.dispatch('nodes/update', {keepLocation: true});
-            }).catch(() => {
-                state.requestsActive--;
-                // TODO: Handle error
             });
         },
 

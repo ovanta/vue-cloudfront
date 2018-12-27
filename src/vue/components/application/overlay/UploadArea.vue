@@ -27,6 +27,13 @@
 
                     if (e.type === 'dragenter') {
 
+                        // Check if dragged element is supported
+                        const {dataTransfer} = e;
+                        if ((dataTransfer.items.length && !DataTransferItem.prototype.webkitGetAsEntry && !DataTransferItem.prototype.getAsEntry) &&
+                            !dataTransfer.files.length) {
+                            return (this.dragOver = false);
+                        }
+
                         // Check if user enters the drag area
                         const path = this.utils.eventPath(e);
                         this.dragOver = path.some(v => v.classList && v.classList.contains('index'));
