@@ -13,11 +13,11 @@ export default {
             }
 
             const type = match[1];
+            const value = match[2].trim().match(/([\w]|\\,)+/g);
 
-            // TODO: Firefox dont suppurt positiv lookbehind
-            filters[type] = match[2].trim()
-                .split(/(?<!\\),/g)
-                .map(v => v.replace('\\,', ','));
+            if (value && value.length) {
+                filters[type] = value.map(v => v.replace('\\,', ','));
+            }
         }
 
         return {
