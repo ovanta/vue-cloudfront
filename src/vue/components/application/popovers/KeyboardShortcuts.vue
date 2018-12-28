@@ -19,7 +19,7 @@
 
 <script>
 
-    // Import component
+    // Components
     import Popup from './Popover';
 
     export default {
@@ -50,6 +50,7 @@
                             {keys: ['ctrl', 'x'], action: 'Cut folder / files.'},
                             {keys: ['ctrl', 'c'], action: 'Copy folder / files.'},
                             {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
+                            {keys: ['n', 's'], action: 'Share.'},
                             {keys: ['n', 'f'], action: 'Create new folder.'},
                             {keys: ['e', 'n'], action: 'Edit the name.'},
                             {keys: ['m', 'a'], action: 'Marks selected files / folders.'},
@@ -333,6 +334,12 @@
                     this.$store.commit('setActiveTab', tabs[index]);
                     event.preventDefault();
                     return;
+                }
+
+                // Share
+                if (keys.KeyN && keys.KeyS && selection.length === 1 && selection[0].type === 'file') {
+                    this.$store.commit('setActivePopup', 'ShareViaLink');
+                    this.$store.commit('share/set', selection[0]);
                 }
             }
         }

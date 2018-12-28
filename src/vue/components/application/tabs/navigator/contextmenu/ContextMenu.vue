@@ -59,6 +59,13 @@
             <span class="name">Paste</span>
         </div>
 
+        <div v-if="nodes.length === 1 && type === 'files'"
+             class="option"
+             @click="share()">
+            <i class="fas fa-fw fa-share-alt"></i>
+            <span class="name">Share</span>
+        </div>
+
         <div v-if="type === 'dir'" class="option sub">
             <i class="fas fa-fw fa-palette"></i>
             <span class="name">Change color <i class="fas fa-fw fa-angle-right"></i></span>
@@ -182,17 +189,13 @@
             },
 
             edit() {
-                if (this.nodes.length === 1) {
-                    this.$store.commit('editable/set', this.nodes[0]);
-                    this.open = false;
-                }
+                this.$store.commit('editable/set', this.nodes[0]);
+                this.open = false;
             },
 
             download() {
-                if (this.nodes.length === 1) {
-                    this.$store.dispatch('download', {node: this.nodes[0]});
-                    this.open = false;
-                }
+                this.$store.dispatch('download', {node: this.nodes[0]});
+                this.open = false;
             },
 
             newFolder() {
@@ -240,10 +243,16 @@
 
             setColor(color) {
                 this.$store.dispatch('nodes/changeColor', {nodes: this.nodes, color});
+            },
+
+            share() {
+                if (this.nodes.length === 1) {
+                    this.$store.commit('setActivePopup', 'ShareViaLink');
+                    this.$store.commit('share/set', this.nodes[0]);
+                    this.open = false;
+                }
             }
-
         }
-
     };
 
 </script>

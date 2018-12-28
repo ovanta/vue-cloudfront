@@ -313,6 +313,48 @@ export const nodes = {
                 // Override color
                 nodes.forEach(n => n.color = color);
             });
+        },
+
+        /**
+         * Requests a static link for this specific node
+         * @param rootState
+         * @param node
+         */
+        async addStaticId({rootState}, {node}) {
+            return this.dispatch('fetch', {
+                route: 'addStaticId',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    node: node.id
+                }
+            }).then(id => {
+
+                // Append link
+                node.staticIds = node.staticIds || [];
+                node.staticIds.push(id);
+                return id;
+            });
+        },
+
+        /**
+         * Requests a static link for this specific node
+         * @param rootState
+         * @param node
+         */
+        async removeStaticId({rootState}, {node, id}) {
+            return this.dispatch('fetch', {
+                route: 'removeStaticId',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    node: node.id,
+                    id
+                }
+            }).then(() => {
+
+                // Append link
+                node.staticIds = node.staticIds || [];
+                node.staticIds = node.staticIds.filter(v => v !== id);
+            });
         }
     }
 };

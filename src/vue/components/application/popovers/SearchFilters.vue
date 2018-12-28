@@ -19,7 +19,7 @@
 
 <script>
 
-    // Import component
+    // Components
     import Popup from './Popover';
 
     export default {

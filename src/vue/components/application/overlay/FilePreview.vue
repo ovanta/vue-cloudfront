@@ -14,7 +14,7 @@
             <div v-if="currentNode" class="file">
 
                 <!-- Images -->
-                <div v-if="currentNode.name.match(/\.(png|jpg|jpeg|svg|gif|bmp|webp|jpeg2000)$/)"
+                <div v-if="currentNode.name.match(/\.(png|jpg|jpeg|svg|gif|bmp|webp|jpeg2000|ico)$/)"
                      :style="{'background-image': `url(${getUrl()})`}"
                      class="image"></div>
 

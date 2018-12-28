@@ -21,8 +21,9 @@
         <upload-area/>
 
         <!-- Popovers -->
-        <popover-filter-info/>
-        <popover-keyboard-shortcuts/>
+        <search-filters/>
+        <keyboard-shortcuts/>
+        <share-via-link/>
 
         <!-- Tooltip -->
         <tool-tip/>
@@ -42,8 +43,9 @@
     import InfoBar from './InfoBar';
 
     // Popovers
-    import PopoverKeyboardShortcuts from './application/popovers/KeyboardShortcuts';
-    import PopoverFilterInfo        from './application/popovers/FilterInfo';
+    import KeyboardShortcuts from './application/popovers/KeyboardShortcuts';
+    import SearchFilters     from './application/popovers/SearchFilters';
+    import ShareViaLink      from './application/popovers/ShareViaLink';
 
     // Overlays
     import LoadingScreen  from './application/overlay/LoadingScreen';
@@ -65,8 +67,9 @@
             Settings,
 
             // Popovers and static components
-            PopoverKeyboardShortcuts,
-            PopoverFilterInfo,
+            KeyboardShortcuts,
+            SearchFilters,
+            ShareViaLink,
             LoadingScreen,
             UploadArea,
             ToolTip,

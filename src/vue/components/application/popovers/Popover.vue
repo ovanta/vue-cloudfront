@@ -62,6 +62,7 @@
     }
 
     .container {
+        @include flex(column);
         background: white;
         box-shadow: 0 8px 25px 0 rgba(black, 0.08), 0 0 5px 0 rgba(black, 0.02);
         padding: 1.25em 2em 2em;
@@ -80,8 +81,8 @@
 
             i {
                 margin-left: auto;
-                padding-bottom: 0.5em;
-                color: $palette-grayish-blue;
+                padding: 0 0 0.5em 1.5em;
+                color: $palette-decent-blue;
                 transition: all 0.3s;
                 cursor: pointer;
 

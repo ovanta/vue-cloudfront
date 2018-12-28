@@ -112,7 +112,7 @@
             @include flex(column, center, center);
             @include size(2.5em);
             position: relative;
-            margin-bottom: 1.5em;
+            margin-bottom: 1em;
             cursor: pointer;
             transition: all 0.3s;
 
@@ -126,7 +126,7 @@
             }
 
             &.bottom {
-                margin: 1.5em 0 0;
+                margin: 1em 0 0;
             }
         }
 
