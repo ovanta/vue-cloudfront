@@ -62,6 +62,7 @@
                     {
                         name: 'General',
                         shortcuts: [
+                            {keys: ['r'], action: 'Refresh everything.'},
                             {keys: ['v', 'l'], action: 'Change view to list.'},
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
@@ -88,7 +89,7 @@
         mounted() {
             this.$callOnDestroy(
                 this.utils.detectKeyCombinations(
-                    window,
+                    document,
                     this.keyboardEvent,
                     ({target}) => target.getAttribute('contenteditable') !== 'true' && !['TEXT-AREA', 'INPUT'].includes(target.tagName)
                 )
@@ -340,6 +341,12 @@
                 if (keys.KeyN && keys.KeyS && selection.length === 1 && selection[0].type === 'file') {
                     this.$store.commit('setActivePopup', 'ShareViaLink');
                     this.$store.commit('share/set', selection[0]);
+                    return;
+                }
+
+                // Refresh
+                if (keys.KeyR) {
+                    store.dispatch('nodes/update');
                 }
             }
         }
@@ -367,12 +374,12 @@
 
         .shortcut {
             @include flex(row, center);
-            padding: 0.35em 0;
+            padding: 0.25em 0;
 
             .keys {
                 flex-grow: 1;
                 font-family: monospace;
-                font-weight: 600;
+                @include font(600, 0.9em);
 
                 .key {
                     margin-right: 0.5em;
@@ -380,12 +387,12 @@
                     border: 1px solid rgba($palette-deep-purple, 0.75);
                     border-bottom: 2px solid rgba($palette-deep-purple, 0.9);
                     border-radius: 2px;
-                    padding: 0.1em 0.45em 0.15em 0.45em;
+                    padding: 0.05em 0.45em 0.1em 0.45em;
                 }
             }
 
             p {
-                @include font(600, 0.8em);
+                @include font(400, 0.8em);
                 color: darken($palette-grayish-blue, 15);
                 text-align: right;
             }

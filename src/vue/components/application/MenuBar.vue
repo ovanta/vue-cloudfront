@@ -83,7 +83,7 @@
 
             refresh() {
 
-                // Clear selection
+                // Update nodes
                 this.$store.dispatch('nodes/update');
 
                 // Go to home
