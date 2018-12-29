@@ -86,7 +86,7 @@
                 const nodes = this.$store.getters['nodes/currentDisplayedNodes']();
                 return {
                     file: nodes.file.length,
-                    folder: nodes.dir.length
+                    dir: nodes.dir.length
                 };
             }
 

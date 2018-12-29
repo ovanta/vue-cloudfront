@@ -2,10 +2,11 @@
     <div class="text-input-field">
 
         <!-- Placeholder, will be moved if input contains text -->
-        <span :class="{placeholder: 1, moved: value || focused}">{{ placeholder }}</span>
+        <label :for="labelId" :class="{placeholder: 1, moved: value || focused}">{{ placeholder }}</label>
 
         <div class="field">
             <input ref="input"
+                   :id="labelId"
                    :autofocus="autofocus ? 'autofocus' : ''"
                    :class="{empty: !value}"
                    :type="password ? 'password' : 'text'"
@@ -39,7 +40,8 @@
         data() {
             return {
                 value: '',
-                focused: false
+                focused: false,
+                labelId: `label-${(Date.now() + Math.floor(Math.random() * 1e15)).toString(36)}`
             };
         },
 
