@@ -194,7 +194,7 @@
             },
 
             download() {
-                this.$store.dispatch('download', {node: this.nodes[0]});
+                this.$store.dispatch('data/download', {node: this.nodes[0]});
                 this.open = false;
             },
 

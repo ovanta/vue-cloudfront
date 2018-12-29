@@ -38,7 +38,7 @@
                 <div v-else class="no-preview">
                     Preview not available for
                     <span>{{ currentNode.name }}</span>. -
-                    <button @click="$store.dispatch('download', {node: currentNode})">Download instead?</button>
+                    <button @click="$store.dispatch('data/download', {node: currentNode})">Download instead?</button>
                 </div>
 
             </div>

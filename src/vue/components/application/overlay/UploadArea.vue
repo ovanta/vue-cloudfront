@@ -43,7 +43,7 @@
                         this.dragOver = false;
 
                         // Upload
-                        this.$store.dispatch('upload', {
+                        this.$store.dispatch('data/upload', {
                             dataTransfer: e.dataTransfer,
                             parent: this.$store.state.location.node
                         });
