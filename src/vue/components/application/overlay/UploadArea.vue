@@ -37,9 +37,9 @@
                         // Check if user enters the drag area
                         const path = this.utils.eventPath(e);
                         this.dragOver = path.some(v => v.classList && v.classList.contains('index'));
-                    }
-
-                    if (e.type === 'drop') {
+                    } else if (e.type === 'dragleave' && e.target.classList.contains('upload-area')) {
+                        this.dragOver = false;
+                    } else if (e.type === 'drop') {
                         this.dragOver = false;
 
                         // Upload
@@ -79,7 +79,7 @@
         }
 
         i {
-            font-size: 4em;
+            font-size: 3em;
         }
 
         p {

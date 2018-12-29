@@ -100,7 +100,7 @@
     .upload {
         position: relative;
         @include flex(row, center, center);
-        margin-top: 2em;
+        margin-top: 4em;
         padding: 0.2em 0;
         background: $palette-decent-blue;
         width: 30%;
@@ -117,7 +117,7 @@
 
     .message {
         @include font(600, 0.85em);
-        margin-top: 2em;
+        margin-top: 3em;
         font-style: italic;
         color: $palette-deep-purple;
         transform: translateY(-0.5em);
