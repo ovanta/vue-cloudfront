@@ -26,12 +26,12 @@
             <!-- Files -->
             <h1 v-if="nodes.file.length">Files</h1>
             <div class="grid-container">
-                <div v-for="node of nodes.file"
+                <div v-for="(node, index) of nodes.file"
                      :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                      :data-hash="node.id"
                      @click.left="select($event, node)"
                      @click.right="select($event, node)"
-                     @dblclick="$store.commit('filepreview/show', nodes.file)">
+                     @dblclick="$store.commit('filepreview/show', {nodes: nodes.file, index})">
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <span class="extension">{{ node.extension }}</span>

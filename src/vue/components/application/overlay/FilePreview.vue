@@ -7,8 +7,8 @@
         </div>
 
         <div class="preview">
-            <i :class="{'fas fa-fw fa-chevron-left': 1, blocked: (index - 2) < 0}"
-               @click="index--"></i>
+            <i :class="{'fas fa-fw fa-chevron-left': 1, blocked: (filepreview.index - 1) < 0}"
+               @click="$store.commit('filepreview/previous')"></i>
 
             <!-- Actual preview -->
             <div v-if="currentNode" class="file">
@@ -43,10 +43,9 @@
 
             </div>
 
-            <i :class="{'fas fa-fw fa-chevron-right': 1, blocked: (index + 2) > filepreview.nodes.length}"
-               @click="index++"></i>
+            <i :class="{'fas fa-fw fa-chevron-right': 1, blocked: (filepreview.index + 1) > filepreview.nodes.length}"
+               @click="$store.commit('filepreview/next')"></i>
         </div>
-
 
     </overlay>
 </template>
@@ -66,16 +65,15 @@
         components: {Overlay},
 
         data() {
-            return {
-                index: 0
-            };
+            return {};
         },
 
         computed: {
             ...mapState(['filepreview']),
 
             currentNode() {
-                return this.filepreview.nodes[this.index];
+                const {index, nodes} = this.filepreview;
+                return nodes[index];
             }
         },
 
@@ -85,16 +83,13 @@
                 window.tss = this;
 
                 // Reset index and clear preview
-                this.index = 0;
                 this.$store.commit('filepreview/clear');
             },
 
             getUrl() {
                 return `${config.apiEndPoint}/static/${this.currentNode.name}?id=${this.currentNode.id}&apikey=${this.$store.state.auth.apikey}`;
             }
-
         }
-
     };
 
 </script>

@@ -45,12 +45,12 @@
             </div>
 
             <!-- Files -->
-            <div v-for="node of nodes.file"
+            <div v-for="(node, index) of nodes.file"
                  :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                  :data-hash="node.id"
                  @click.left="select($event, node)"
                  @click.right="select($event, node)"
-                 @dblclick="$store.commit('filepreview/show', nodes.file)">
+                 @dblclick="$store.commit('filepreview/show', {nodes: nodes.file, index})">
 
                 <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">
