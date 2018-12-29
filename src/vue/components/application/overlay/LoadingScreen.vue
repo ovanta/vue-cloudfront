@@ -1,7 +1,12 @@
 <template>
-    <overlay :open="data.open" class="loading-screen">
+    <overlay :open="loadingData.open" class="loading-screen">
         <div class="box"></div>
-        <p class="message">{{ data.message }}...</p>
+
+        <div v-if="data.upload.active" class="upload">
+            <div :style="{width: `${(data.upload.done / data.upload.total) * 100}%`}"></div>
+        </div>
+
+        <p v-else class="message">{{ loadingData.message }}...</p>
     </overlay>
 </template>
 
@@ -12,6 +17,9 @@
 
     // Config
     import config from '../../../../../config/config.json';
+
+    // Vuex stuff
+    import {mapState} from 'vuex';
 
     export default {
         components: {Overlay},
@@ -26,13 +34,14 @@
              * The change of the request status should also trigger
              * the placement of a new message.
              */
-            data() {
+            loadingData() {
                 return {
                     open: !!this.$store.state.requestsActive,
                     message: this.getRandomMessage()
                 };
-            }
+            },
 
+            ...mapState(['data'])
         },
 
         methods: {
@@ -46,7 +55,6 @@
                     return msgs;
                 }
             }
-
         }
     };
 
@@ -86,6 +94,24 @@
             100% {
                 transform: perspective($perspective) rotateX(0) rotateY(0);
             }
+        }
+    }
+
+    .upload {
+        position: relative;
+        @include flex(row, center, center);
+        margin-top: 2em;
+        padding: 0.2em 0;
+        background: $palette-decent-blue;
+        width: 30%;
+        border-radius: 50em;
+        overflow: hidden;
+
+        div {
+            position: absolute;
+            @include position(0, auto, 0, 0);
+            background: $palette-deep-purple;
+            transition: width 0.25s;
         }
     }
 
