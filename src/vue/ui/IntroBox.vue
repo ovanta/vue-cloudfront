@@ -1,5 +1,5 @@
 <template>
-    <div v-if="$store.state.user.introBoxes[id]"
+    <div v-if="events.introBoxes.includes(id)"
          ref="introBox"
          class="intro-box"
          @click="openIntroducion()">
@@ -37,7 +37,7 @@
 
                 <div class="actions">
                     <span class="skip"
-                          @click="$store.dispatch('user/skipIntroBoxes', true)">Skip all</span>
+                          @click="$store.dispatch('events/removeAllIntroBoxes')">Skip all</span>
 
                     <button @click="close()">
                         <span>Okay</span>
@@ -52,6 +52,9 @@
 </template>
 
 <script>
+
+    // Vuex stuff
+    import {mapState} from 'vuex';
 
     export default {
 
@@ -78,8 +81,8 @@
             };
         },
 
-        created() {
-            this.$store.dispatch('user/showIntroBox', {key: this.id, val: true});
+        computed: {
+            ...mapState(['events'])
         },
 
         methods: {
@@ -97,7 +100,7 @@
             },
 
             close() {
-                this.$store.dispatch('user/showIntroBox', {key: this.id, val: false});
+                this.$store.dispatch('events/removeIntroBox', {id: this.id});
             }
         }
     };

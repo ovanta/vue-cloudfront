@@ -60,7 +60,7 @@
                     return;
                 }
 
-                this.$store.dispatch('user/applySettings', {
+                this.$store.dispatch('auth/applySettings', {
                     currentPassword: currentPassword.value,
                     newUsername: newUsername.value,
                     newPassword: newPassword.value
@@ -75,7 +75,7 @@
                 const {currentPassword} = this.$refs;
                 this.errorMsg = '';
 
-                this.$store.dispatch('user/deleteAccount', {
+                this.$store.dispatch('auth/deleteAccount', {
                     password: currentPassword.value
                 }).then(() => {
                     currentPassword.clear();
@@ -83,7 +83,6 @@
                     this.errorMsg = error;
                 });
             }
-
         }
     };
 
