@@ -39,31 +39,38 @@ export const data = {
             state.upload.active = true;
             rootState.requestsActive++;
 
+            // See https://stackoverflow.com/a/25095250/7664765
+            files = Array.from(files).filter(v => v.type || v.size % 4096 !== 0);
+
             // Check if browser supports folder - dropping
             if (items.length && (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry)) {
                 const getAsEntryFuncName = (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry).name;
                 const fileMap = new Map();
 
+                if (files.length) {
+                    fileMap.set(parent, files);
+                }
+
                 const traverseFileTree = async (parent, item) => {
 
                     // See https://stackoverflow.com/a/25095250/7664765
-                    if (item.isFile && (item.type || (item.size % 4096) !== 0)) {
+                    if (item.isFile && (item.size % 4096) !== 0) {
 
                         // Upload file file
                         const fileObj = await new Promise((resolve, reject) => item.file(resolve, reject));
+
                         if (fileObj) {
 
                             if (!fileMap.has(parent)) {
                                 fileMap.set(parent, []);
                             }
 
-                            // Update total upload size
+                            // Update total upload size and add file
                             state.upload.total += fileObj.size;
                             fileMap.set(parent, fileMap.get(parent).concat([fileObj]));
                         } else {
                             // TODO: Handle error?
                         }
-
                     } else if (item.isDirectory) {
 
                         // Create node and rename it
@@ -83,10 +90,13 @@ export const data = {
                     }
                 };
 
+                const entryFolderPromises = [];
                 for (let i = 0; i < items.length; i++) {
-                    const item = items[i][getAsEntryFuncName]();
-                    item && (await traverseFileTree(parent, item));
+                    const entry = items[i][getAsEntryFuncName]();
+                    entry && (entryFolderPromises.push(traverseFileTree(parent, entry)));
                 }
+
+                await Promise.all(entryFolderPromises);
 
                 // Upload files
                 for (const [parent, files] of fileMap.entries()) {
@@ -99,7 +109,7 @@ export const data = {
                 // Update nodes
                 return this.dispatch('nodes/update', {keepLocation: true});
             } else {
-                return this.$dispatch('data/uploadFile', {parent, files: Array.from(files)}).then(() => {
+                return this.$dispatch('data/uploadFile', {parent, files}).then(() => {
                     this.commit('data/reset');
                     rootState.requestsActive--;
 
