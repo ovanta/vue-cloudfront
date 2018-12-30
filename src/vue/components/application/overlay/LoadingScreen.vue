@@ -2,8 +2,16 @@
     <overlay :open="loadingData.open" class="loading-screen">
         <div class="box"></div>
 
+        <!-- Upload progress bar -->
         <div v-if="data.upload.active" class="upload">
-            <div :style="{width: `${(data.upload.done / data.upload.total) * 100}%`}"></div>
+            <p>
+                Uploaded <b>{{ utils.readableByteCount(data.upload.done) }} </b> of
+                <b> {{ utils.readableByteCount(data.upload.total) }}</b>
+            </p>
+
+            <div class="progress-bar">
+                <div :style="{width: `${(data.upload.done / data.upload.total) * 100}%`}"></div>
+            </div>
         </div>
 
         <p v-else class="message">{{ loadingData.message }}...</p>
@@ -98,20 +106,29 @@
     }
 
     .upload {
-        position: relative;
-        @include flex(row, center, center);
+        @include flex(column);
         margin-top: 4em;
-        padding: 0.2em 0;
-        background: $palette-decent-blue;
         width: 30%;
-        border-radius: 50em;
-        overflow: hidden;
 
-        div {
-            position: absolute;
-            @include position(0, auto, 0, 0);
-            background: $palette-deep-purple;
-            transition: width 0.25s;
+        p {
+            @include font(400, 0.8em);
+            margin-bottom: 0.35em;
+            text-align: center;
+        }
+
+        .progress-bar {
+            position: relative;
+            padding: 0.25em 0;
+            background: $palette-decent-blue;
+            border-radius: 50em;
+            overflow: hidden;
+
+            div {
+                position: absolute;
+                @include position(0, auto, 0, 0);
+                background: $palette-deep-purple;
+                transition: width 0.25s;
+            }
         }
     }
 

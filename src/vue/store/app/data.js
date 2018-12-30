@@ -14,6 +14,19 @@ export const data = {
         }
     },
 
+    mutations: {
+
+        /**
+         * Resets the module state
+         * @param state
+         */
+        reset(state) {
+            state.upload.active = false;
+            state.upload.total = 0;
+            state.upload.done = 0;
+        }
+    },
+
     actions: {
 
         /**
@@ -80,18 +93,22 @@ export const data = {
                     await this.dispatch('data/uploadFile', {parent, files});
                 }
 
-                state.upload.active = false;
                 rootState.requestsActive--;
+                this.commit('data/reset');
+
+                // Update nodes
                 return this.dispatch('nodes/update', {keepLocation: true});
             } else {
                 return this.$dispatch('data/uploadFile', {parent, files: Array.from(files)}).then(() => {
+                    this.commit('data/reset');
                     rootState.requestsActive--;
-                    state.upload.active = false;
+
+                    // Update nodes
                     return this.dispatch('nodes/update', {keepLocation: true});
                 }).catch(() => {
                     // TODO: Handle error?
+                    this.commit('data/reset');
                     rootState.requestsActive--;
-                    state.upload.active = false;
                 });
             }
         },
