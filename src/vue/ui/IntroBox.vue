@@ -83,6 +83,7 @@
         },
 
         methods: {
+
             openIntroducion() {
                 const {introBox, introContent} = this.$refs;
 
@@ -101,9 +102,7 @@
         }
     };
 
-
 </script>
-
 
 <style lang="scss" scoped>
 
