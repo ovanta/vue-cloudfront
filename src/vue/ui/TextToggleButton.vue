@@ -44,7 +44,6 @@
         height: 21px;
         cursor: pointer;
         transition: all 0.3s;
-        padding-bottom: 0.1em;
 
         &.active {
             background: $palette-deep-purple;

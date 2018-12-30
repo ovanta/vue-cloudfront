@@ -284,6 +284,7 @@
         border-bottom: 1px solid rgba($palette-deep-blue, 0.04);
         padding: 0.5em 0;
         color: $palette-deep-blue;
+        flex-shrink: 0;
 
         .name {
             @include flex(row, center);

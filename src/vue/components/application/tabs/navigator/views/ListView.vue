@@ -52,7 +52,7 @@
                  @click.right="select($event, node)"
                  @dblclick="$store.commit('filepreview/show', {nodes: nodes.file, index})">
 
-                <i class="fas fa-fw fa-file"></i>
+                <span class="extension">{{ node.extension }}</span>
                 <div class="name" spellcheck="false">
                     <span v-select-all="node.editable"
                           :contenteditable="node.editable"
@@ -190,7 +190,7 @@
         border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
         transition: all 0.3s;
         cursor: pointer;
-        font-size: 0.78em;
+        font-size: 0.8em;
 
         i {
             color: $palette-deep-blue;
@@ -210,6 +210,15 @@
 
         &.cutted {
             opacity: 0.75;
+        }
+
+        .extension {
+            @include font(600, 0.75em);
+            background: $palette-deep-purple;
+            padding: 0.3em 0.5em;
+            text-transform: uppercase;
+            border-radius: 0.15em;
+            color: white;
         }
 
         .name,

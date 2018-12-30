@@ -1,5 +1,5 @@
 <template>
-    <popup store-prop="SearchFilters" title="SearchFilters">
+    <popup store-prop="SearchFilters" title="Search Filters">
 
         <div class="header">
             <p>Description</p>
@@ -39,7 +39,7 @@
                     },
                     {
                         examples: ['date:>05.25.2015', 'date:<01.01.2018', 'date:05.01.2015-12.01.2016'],
-                        description: 'Filter by last-modified date. Format is "Month.Day.Year"'
+                        description: 'Filter by last-modified date. The format is "Month.Day.Year"'
                     }
                 ]
             };
@@ -73,6 +73,7 @@
             border-radius: 0.15em;
             width: 50%;
             user-select: text;
+            line-height: 1.25em;
         }
 
         .description {

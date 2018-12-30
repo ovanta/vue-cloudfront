@@ -72,7 +72,6 @@
         @include font(600, 0.7em);
         background: $palette-snow-white;
         border-radius: 50em;
-        padding-bottom: 0.1em;
         height: 21px;
         cursor: pointer;
     }
