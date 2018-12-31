@@ -34,6 +34,26 @@
                     return {visible, text, style: {}};
                 }
 
+                // If the tooltip haas been updated, check for clipping
+                requestAnimationFrame(() => {
+                    const {toolTip} = this.$refs;
+                    const bcr = toolTip.getBoundingClientRect();
+
+                    toolTip.classList.remove(this.position);
+
+                    if (bcr.top < 0) {
+                        this.position = 'bottom';
+                    } else if (bcr.bottom > window.innerHeight) {
+                        this.position = 'top';
+                    } else if (bcr.left < 0) {
+                        this.position = 'right';
+                    } else if (bcr.right > window.innerWidth) {
+                        this.position = 'left';
+                    }
+
+                    toolTip.classList.add(this.position);
+                });
+
                 // Recalculate position
                 const bcr = el.getBoundingClientRect();
                 return {
@@ -68,25 +88,6 @@
                     })()
                 };
             }
-        },
-
-        updated() {
-            const {toolTip} = this.$refs;
-            const bcr = toolTip.getBoundingClientRect();
-
-            toolTip.classList.remove(this.position);
-
-            if (bcr.top < 0) {
-                this.position = 'bottom';
-            } else if (bcr.bottom > window.innerHeight) {
-                this.position = 'top';
-            } else if (bcr.left < 0) {
-                this.position = 'right';
-            } else if (bcr.right > window.innerWidth) {
-                this.position = 'left';
-            }
-
-            toolTip.classList.add(this.position);
         }
     };
 
