@@ -39,9 +39,6 @@ export const data = {
             state.upload.active = true;
             rootState.requestsActive++;
 
-            // See https://stackoverflow.com/a/25095250/7664765
-            files = Array.from(files).filter(v => v.type || v.size % 4096 !== 0);
-
             // Check if browser supports folder - dropping
             if (items.length && (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry)) {
                 const getAsEntryFuncName = (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry).name;
@@ -53,10 +50,9 @@ export const data = {
 
                 const traverseFileTree = async (parent, item) => {
 
-                    // See https://stackoverflow.com/a/25095250/7664765
-                    if (item.isFile && (item.size % 4096) !== 0) {
+                    if (item.isFile) {
 
-                        // Upload file file
+                        // Resolve item
                         const fileObj = await new Promise((resolve, reject) => item.file(resolve, reject));
 
                         if (fileObj) {
@@ -109,7 +105,7 @@ export const data = {
                 // Update nodes
                 return this.dispatch('nodes/update', {keepLocation: true});
             } else {
-                return this.$dispatch('data/uploadFile', {parent, files}).then(() => {
+                return this.dispatch('data/uploadFile', {parent, files}).then(() => {
                     this.commit('data/reset');
                     rootState.requestsActive--;
 
@@ -129,8 +125,35 @@ export const data = {
          */
         async uploadFile({state, rootState}, {parent, files}) {
 
+            // See https://stackoverflow.com/a/20874931/7664765 and https://stackoverflow.com/a/8857445/7664765
+            const isFile = file => new Promise(resolve => {
+
+                // Everything is assumed and I hope it works
+                if (!file.type && file.size % 4096 === 0) {
+                    resolve(false);
+                } else if (file.size > 1048576) {
+                    resolve(true);
+                } else {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(true);
+                    reader.onerror = () => resolve(false);
+                    reader.readAsArrayBuffer(file);
+                }
+            });
+
             if (!files.length) {
                 return Promise.resolve();
+            } else {
+                const realFiles = [];
+                for (const file of files) {
+                    await isFile(file) && realFiles.push(file);
+                }
+
+                if (!realFiles.length) {
+                    return Promise.resolve();
+                } else {
+                    files = realFiles;
+                }
             }
 
             // Build form

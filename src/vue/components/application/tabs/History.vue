@@ -280,7 +280,7 @@
 
     .action {
         @include flex(row, center);
-        @include font(600, 0.75em);
+        @include font(600, 0.7em);
         border-bottom: 1px solid rgba($palette-deep-blue, 0.04);
         padding: 0.5em 0;
         color: $palette-deep-blue;
