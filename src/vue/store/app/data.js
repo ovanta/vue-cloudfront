@@ -45,6 +45,8 @@ export const data = {
                 const fileMap = new Map();
 
                 if (files.length) {
+                    files = Array.from(files);
+                    state.upload.total += files.reduce((acc, cv) => cv.size + acc, 0);
                     fileMap.set(parent, files);
                 }
 
@@ -61,9 +63,15 @@ export const data = {
                                 fileMap.set(parent, []);
                             }
 
-                            // Update total upload size and add file
-                            state.upload.total += fileObj.size;
-                            fileMap.set(parent, fileMap.get(parent).concat([fileObj]));
+                            const fileList = fileMap.get(parent);
+
+                            // Check if file does aready exists
+                            if (!fileList.find(v => v.name === fileObj.name && v.size === fileObj.size && v.lastModified === fileObj.lastModified)) {
+
+                                // Update total upload size and add file
+                                state.upload.total += fileObj.size;
+                                fileMap.set(parent, fileList.concat([fileObj]));
+                            }
                         } else {
                             // TODO: Handle error?
                         }
@@ -86,18 +94,21 @@ export const data = {
                     }
                 };
 
-                const entryFolderPromises = [];
+                let promises = [];
                 for (let i = 0; i < items.length; i++) {
                     const entry = items[i][getAsEntryFuncName]();
-                    entry && (entryFolderPromises.push(traverseFileTree(parent, entry)));
+                    entry && (promises.push(traverseFileTree(parent, entry)));
                 }
 
-                await Promise.all(entryFolderPromises);
+                await Promise.all(promises);
 
                 // Upload files
+                promises = [];
                 for (const [parent, files] of fileMap.entries()) {
-                    await this.dispatch('data/uploadFile', {parent, files});
+                    promises.push(this.dispatch('data/uploadFiles', {parent, files}));
                 }
+
+                await Promise.all(promises);
 
                 rootState.requestsActive--;
                 this.commit('data/reset');
@@ -105,7 +116,7 @@ export const data = {
                 // Update nodes
                 return this.dispatch('nodes/update', {keepLocation: true});
             } else {
-                return this.dispatch('data/uploadFile', {parent, files}).then(() => {
+                return this.dispatch('data/uploadFiles', {parent, files}).then(() => {
                     this.commit('data/reset');
                     rootState.requestsActive--;
 
@@ -123,7 +134,7 @@ export const data = {
          * Responsible to upload single files
          * @returns {Promise<void>}
          */
-        async uploadFile({state, rootState}, {parent, files}) {
+        async uploadFiles({state, rootState}, {parent, files}) {
 
             // See https://stackoverflow.com/a/20874931/7664765 and https://stackoverflow.com/a/8857445/7664765
             const isFile = file => new Promise(resolve => {
@@ -141,19 +152,19 @@ export const data = {
                 }
             });
 
-            if (!files.length) {
+            const realFiles = [];
+            for (const file of files) {
+                if (await isFile(file)) {
+                    realFiles.push(file);
+                } else {
+                    state.upload.total -= file.size;
+                }
+            }
+
+            if (!realFiles.length) {
                 return Promise.resolve();
             } else {
-                const realFiles = [];
-                for (const file of files) {
-                    await isFile(file) && realFiles.push(file);
-                }
-
-                if (!realFiles.length) {
-                    return Promise.resolve();
-                } else {
-                    files = realFiles;
-                }
+                files = realFiles;
             }
 
             // Build form

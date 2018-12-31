@@ -19,6 +19,7 @@ export const search = {
          */
         options: {
             type: 'all',
+            ignoreCase: false,
             regex: false
         }
     },
@@ -34,7 +35,6 @@ export const search = {
         setOption(state, {key, value}) {
             state.options[key] = value;
         }
-
     },
 
     actions: {

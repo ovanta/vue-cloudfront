@@ -102,8 +102,12 @@ export default new Vuex.Store({
          * @returns {Promise<Response | Never>}
          */
         async fetch({state}, {route, body}) {
-            state.requestsActive++;
 
+            if (!navigator.onLine) {
+                return Promise.reject('User is currently offline');
+            }
+
+            state.requestsActive++;
             return fetch(`${config.apiEndPoint}/${route}`, {
                 method: 'POST',
                 headers: {
