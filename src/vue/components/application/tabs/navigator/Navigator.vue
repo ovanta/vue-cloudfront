@@ -68,15 +68,17 @@
     // Plugins
     import SelectionPlugin from './plugins/selectable';
     import DraggablePlugin from './plugins/draggables';
+
     // Components
-    import Hierarchy       from './Hierarchy';
-    import ListView        from './views/ListView';
-    import GridView        from './views/GridView';
-    import ContextMenu     from './contextmenu/ContextMenu';
-    import SearchBar       from './SearchBar';
-    import IntroBox        from '../../../../ui/IntroBox';
+    import Hierarchy   from './Hierarchy';
+    import ListView    from './views/ListView';
+    import GridView    from './views/GridView';
+    import ContextMenu from './contextmenu/ContextMenu';
+    import SearchBar   from './SearchBar';
+    import IntroBox    from '../../../../ui/IntroBox';
+
     // Vue stuff
-    import {mapState}      from 'vuex';
+    import {mapState} from 'vuex';
 
     export default {
 

@@ -4,12 +4,17 @@
 
         <!-- Upload progress bar -->
         <div v-if="data.upload.active" class="upload">
-            <p>
-                Uploaded <b>{{ utils.readableByteCount(data.upload.done) }} </b> of
-                <b> {{ utils.readableByteCount(data.upload.total) }}</b>
+
+            <p v-if="data.upload.done > 0">
+                Uploaded <b>{{ utils.readableByteCount(data.upload.done) }}</b> of
+                <b>{{ utils.readableByteCount(data.upload.total) }}</b>
             </p>
 
-            <div class="progress-bar">
+            <p v-else>
+                Found <b> {{ utils.readableByteCount(data.upload.total) }}</b> so far...
+            </p>
+
+            <div :class="{'progress-bar': 1, invisible: !data.upload.done}">
                 <div :style="{width: `${(data.upload.done / data.upload.total) * 100}%`}"></div>
             </div>
         </div>
@@ -112,7 +117,7 @@
 
         p {
             @include font(400, 0.8em);
-            margin-bottom: 0.35em;
+            margin-bottom: 0.5em;
             text-align: center;
         }
 
@@ -122,12 +127,18 @@
             background: $palette-decent-blue;
             border-radius: 50em;
             overflow: hidden;
+            transition: all 0.3s;
 
             div {
                 position: absolute;
                 @include position(0, auto, 0, 0);
                 background: $palette-deep-purple;
+                border-radius: 50em;
                 transition: width 0.25s;
+            }
+
+            &.invisible {
+                opacity: 0;
             }
         }
     }

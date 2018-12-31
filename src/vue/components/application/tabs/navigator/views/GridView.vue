@@ -177,6 +177,10 @@
         .extension {
             @include font(600, 0.85em);
             background: $palette-deep-purple;
+            max-width: 5em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-shrink: 0;
             padding: 0.25em 0.45em;
             text-transform: uppercase;
             border-radius: 0.15em;

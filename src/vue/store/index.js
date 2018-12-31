@@ -87,12 +87,6 @@ export default new Vuex.Store({
         },
 
         setViewType(state, type) {
-
-            // Validate
-            if (type !== 'list' && type !== 'grid') {
-                throw `Cannot perform 'setViewType' in index. 'type' is '${type}' but only 'grid' and 'list' are possible`;
-            }
-
             state.viewType = type;
         }
     },

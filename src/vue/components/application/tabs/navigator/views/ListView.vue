@@ -219,6 +219,10 @@
             text-transform: uppercase;
             border-radius: 0.15em;
             color: white;
+            max-width: 5em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-shrink: 0;
         }
 
         .name,

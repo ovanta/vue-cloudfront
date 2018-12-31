@@ -179,9 +179,11 @@ export const data = {
          */
         async download({rootState}, {node}) {
             const link = document.createElement('a');
+            document.body.appendChild(link);
             link.download = node.name;
             link.href = `${config.apiEndPoint}/download?id=${node.id}&apikey=${rootState.auth.apikey}`;
             link.click();
+            document.body.removeChild(link);
         }
     }
 };
