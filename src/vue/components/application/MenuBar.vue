@@ -79,7 +79,7 @@
             refresh() {
 
                 // Update nodes
-                this.$store.dispatch('nodes/update');
+                this.$store.dispatch('nodes/update', {keepLocation: true});
 
                 // Go to home
                 this.changeTab('home');

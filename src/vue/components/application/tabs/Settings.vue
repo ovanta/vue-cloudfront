@@ -3,7 +3,6 @@
 
         <div slot="content" class="content">
 
-
             <text-input-field ref="currentPassword"
                               :password="true"
                               placeholder="Current password"/>

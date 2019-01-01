@@ -1,5 +1,6 @@
-import squ       from './searchQueryUtils';
+import config    from '../../../../../config/config.json';
 import {toBytes} from '../../../../js/utils';
+import squ       from './searchQueryUtils';
 
 export const search = {
 
@@ -12,6 +13,8 @@ export const search = {
 
         // Search result
         nodes: [],
+
+        limit: config.searchBlockSize,
 
         /**
          * Search options, mutations are coming from
@@ -34,6 +37,16 @@ export const search = {
          */
         setOption(state, {key, value}) {
             state.options[key] = value;
+        },
+
+        loadMore(state) {
+            const {searchBlockSize} = config;
+
+            if (state.limit + searchBlockSize >= state.nodes.length) {
+                state.limit = state.nodes.length;
+            } else {
+                state.limit += searchBlockSize;
+            }
         }
     },
 
@@ -51,6 +64,9 @@ export const search = {
             state.active = !!rawQuery;
 
             if (state.active) {
+
+                // Reset limit to initial state
+                state.limit = config.searchBlockSize;
 
                 // Extract options
                 const {type, regex, ignoreCase} = state.options;
