@@ -162,7 +162,7 @@
             @include font(600, 0.75em);
             margin-left: 0.75em;
             background: $palette-deep-purple;
-            padding: 0.3em 0.75em 0.32em;
+            padding: 0.3em 0.75em 0.33em;
             border-radius: 0.15em;
             color: white;
             cursor: pointer;

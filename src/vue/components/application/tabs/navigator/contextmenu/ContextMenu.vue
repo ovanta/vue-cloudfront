@@ -332,6 +332,16 @@
                     opacity: 0;
                     transition: all 0.3s;
                     cursor: default;
+
+                    // To fill the gap between the menu and the sub-menu
+                    &::before {
+                        @include pseudo();
+                        @include position(0, auto, 0, 0);
+                        @include size(100%);
+                        background: transparent;
+                        margin-left: -1em;
+                        z-index: -1;
+                    }
                 }
 
                 &:hover .sub-menu {

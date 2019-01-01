@@ -280,7 +280,7 @@
 
     .action {
         @include flex(row, center);
-        @include font(600, 0.7em);
+        @include font(600, 0.75em);
         border-bottom: 1px solid rgba($palette-deep-blue, 0.04);
         padding: 0.5em 0;
         color: $palette-deep-blue;
@@ -294,7 +294,7 @@
             color: white;
             margin-right: auto;
             text-shadow: 1px 1px 0 rgba(black, 0.05);
-            font-size: 0.95em;
+            font-size: 0.9em;
 
             i {
                 font-size: 0.9em;

@@ -121,6 +121,7 @@
 
     .grid-view {
         @include flex(column);
+        flex-grow: 1;
     }
 
     .list {

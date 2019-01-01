@@ -117,16 +117,13 @@ export default new Vuex.Store({
                 body: JSON.stringify(body)
             }).then(async v => {
                 const {error, data} = await v.json();
+                state.requestsActive--;
 
                 if (error) {
                     throw error;
                 }
 
-                state.requestsActive--;
                 return data;
-            }).catch(v => {
-                state.requestsActive--;
-                throw v;
             });
         }
     }

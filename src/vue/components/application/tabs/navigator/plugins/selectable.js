@@ -16,7 +16,7 @@ export default vue => new Selection({
 
     selectables: ['.file', '.dir'],
     startareas: ['.views'],
-    boundaries: ['.views'],
+    boundaries: ['.list'],
 
     onStart(evt) {
 

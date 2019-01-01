@@ -15,19 +15,19 @@
 
                 <!-- Images -->
                 <div v-if="currentNode.name.match(/\.(png|jpg|jpeg|svg|gif|bmp|webp|jpeg2000|ico)$/)"
-                     :style="{'background-image': `url(${getUrl()})`}"
+                     :style="{'background-image': `url('${url}')`}"
                      class="image"></div>
 
                 <!-- Videos -->
                 <video v-else-if="currentNode.name.match(/\.(webm|mp4|wav|flac)$/)"
-                       :src="getUrl()"
+                       :src="url"
                        class="video"
                        controls
                        autoplay></video>
 
                 <!-- PDFs -->
                 <object v-else-if="currentNode.name.match(/\.pdf$/)"
-                        :data="getUrl()"
+                        :data="url"
                         class="pdf"
                         type="application/pdf"
                         width="100%"
@@ -43,7 +43,7 @@
 
             </div>
 
-            <i :class="{'fas fa-fw fa-chevron-right': 1, blocked: (filepreview.index + 1) > filepreview.nodes.length}"
+            <i :class="{'fas fa-fw fa-chevron-right': 1, blocked: (filepreview.index + 2) > filepreview.nodes.length}"
                @click="$store.commit('filepreview/next')"></i>
         </div>
 
@@ -74,6 +74,11 @@
             currentNode() {
                 const {index, nodes} = this.filepreview;
                 return nodes[index];
+            },
+
+            url() {
+                const name = encodeURIComponent(this.currentNode.name);
+                return `${config.apiEndPoint}/static/${name}?id=${this.currentNode.id}&apikey=${this.$store.state.auth.apikey}`;
             }
         },
 
@@ -84,10 +89,6 @@
 
                 // Reset index and clear preview
                 this.$store.commit('filepreview/clear');
-            },
-
-            getUrl() {
-                return `${config.apiEndPoint}/static/${this.currentNode.name}?id=${this.currentNode.id}&apikey=${this.$store.state.auth.apikey}`;
             }
         }
     };

@@ -238,6 +238,7 @@
 
             p {
                 @include font(400, 0.8em);
+                line-height: 1.3em;
                 color: rgba($palette-deep-blue, 0.75);
             }
 
