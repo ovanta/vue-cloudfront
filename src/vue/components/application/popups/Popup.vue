@@ -92,4 +92,11 @@
             }
         }
     }
+
+    @include notebook {
+        .popup {
+            padding: 1em;
+        }
+    }
+
 </style>

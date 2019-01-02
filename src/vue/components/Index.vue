@@ -43,9 +43,9 @@
     import InfoBar from './InfoBar';
 
     // Popovers
-    import KeyboardShortcuts from './application/popovers/KeyboardShortcuts';
-    import SearchFilters     from './application/popovers/SearchFilters';
-    import ShareViaLink      from './application/popovers/ShareViaLink';
+    import KeyboardShortcuts from './application/popups/KeyboardShortcuts';
+    import SearchFilters     from './application/popups/SearchFilters';
+    import ShareViaLink      from './application/popups/ShareViaLink';
 
     // Overlays
     import LoadingScreen  from './application/overlay/LoadingScreen';

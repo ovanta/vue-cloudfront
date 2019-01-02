@@ -2,7 +2,7 @@
     <div v-if="events.introBoxes.includes(id)"
          ref="introBox"
          class="intro-box"
-         @click="openIntroducion()">
+         @click="toggle()">
 
         <!-- Bouncing question mark -->
         <svg class="question-mark"
@@ -19,32 +19,34 @@
         <span class="outer-circle"></span>
 
         <!-- Text display -->
-        <div ref="introContent"
-             :class="{introduction: true, visible: intro}">
+        <div :class="{'content-wrap': 1, visible}">
+            <div ref="introContent"
+                 :class="{introduction: true, visible}">
 
-            <div class="header">
-                <h1><i class="fa fa-fw fa-question-circle"></i>{{ header }}</h1>
+                <div class="header">
+                    <h1><i class="fa fa-fw fa-question-circle"></i>{{ header }}</h1>
 
-                <svg viewBox="0 0 500 500"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M26.178,311.221C30.934,213.593,48.052,81.843,252.526,55.3S491.238,400.319,467.462,438.232s-84.643-59.714-207.327-53.079S21.423,408.849,26.178,311.221Z"></path>
-                </svg>
-            </div>
-
-            <div class="content">
-                <p>{{ text }}</p>
-
-                <div class="actions">
-                    <span class="skip"
-                          @click="$store.dispatch('events/removeAllIntroBoxes')">Skip all</span>
-
-                    <button @click="close()">
-                        <span>Okay</span>
-                        <i class="fas fa-fw fa-check"></i>
-                    </button>
+                    <svg viewBox="0 0 500 500"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M26.178,311.221C30.934,213.593,48.052,81.843,252.526,55.3S491.238,400.319,467.462,438.232s-84.643-59.714-207.327-53.079S21.423,408.849,26.178,311.221Z"></path>
+                    </svg>
                 </div>
 
+                <div class="content">
+                    <p>{{ text }}</p>
+
+                    <div class="actions">
+                        <span class="skip"
+                              @click="$store.dispatch('events/removeAllIntroBoxes')">Skip all</span>
+
+                        <button @click="close()">
+                            <span>Okay</span>
+                            <i class="fas fa-fw fa-check"></i>
+                        </button>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -77,7 +79,7 @@
 
         data() {
             return {
-                intro: false
+                visible: false
             };
         },
 
@@ -87,16 +89,20 @@
 
         methods: {
 
-            openIntroducion() {
-                const {introBox, introContent} = this.$refs;
+            toggle() {
+                if (this.visible) {
+                    this.visible = false;
+                } else {
+                    const {introBox, introContent} = this.$refs;
 
-                // Center introductionbox below eye-catcher
-                const ibc = introBox.getBoundingClientRect();
-                const icc = introContent.getBoundingClientRect();
-                introContent.style.marginLeft = `-${icc.width / 2 - ibc.width / 2}px`;
+                    // Center introductionbox below eye-catcher
+                    const ibc = introBox.getBoundingClientRect();
+                    const icc = introContent.getBoundingClientRect();
+                    introContent.style.marginLeft = `-${icc.width / 2 - ibc.width / 2}px`;
 
-                // Show introbox
-                this.intro = true;
+                    // Show introbox
+                    this.visible = true;
+                }
             },
 
             close() {
@@ -233,8 +239,8 @@
 
         .content {
             @include flex(column);
-            padding: 0.75em;
-            border-radius: 0 0 0.2em 0.2em;
+            padding: 1em 0.75em;
+            border-radius: 0 0 0.1em 0.25em;
 
             p {
                 @include font(400, 0.8em);
@@ -282,4 +288,33 @@
             }
         }
     }
+
+    @include notebook {
+        .content-wrap {
+            position: fixed;
+            @include position(0, 0, 0, 0);
+            @include flex(column, center, center);
+            z-index: 100;
+            background: rgba(black, 0.1);
+            transition: all 0.3s;
+            opacity: 0;
+            pointer-events: none;
+
+            &.visible {
+                pointer-events: all;
+                opacity: 1;
+            }
+
+            .introduction {
+                position: static;
+                margin: 0 !important;
+
+                &::before {
+                    content: none;
+                }
+            }
+        }
+    }
+
+
 </style>

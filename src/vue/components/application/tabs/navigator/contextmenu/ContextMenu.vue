@@ -161,17 +161,18 @@
                 }
 
                 // Set listener for out-of-bounds clicks
-                window.addEventListener('mousedown', detectOutsideClick);
+                this.utils.on(window, ['mousedown', 'touchstart'], detectOutsideClick);
 
                 // Set postion
-                this.style.left = `${evt.clientX + 5}px`;
-                this.style.top = `${evt.clientY + 5}px`;
+                const tap = (evt.touches && evt.touches[0] || evt);
+                this.style.left = `${tap.clientX + 5}px`;
+                this.style.top = `${tap.clientY + 5}px`;
                 this.open = true;
             });
 
             // Event to hide the menu
             this.$on('hide', () => {
-                window.removeEventListener('mousedown', detectOutsideClick);
+                this.utils.off(window, ['mousedown', 'touchstart'], detectOutsideClick);
                 this.open = false;
             });
         },

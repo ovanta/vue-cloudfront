@@ -6,12 +6,13 @@
             <!-- Folders -->
             <h1 v-if="nodes.dir.length">Folders</h1>
             <div class="grid-container">
-                <div v-for="node of nodes.dir"
+                <div v-double-click="() => updateLocation(node)"
+                     v-for="node of nodes.dir"
                      :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
                      :data-hash="node.id"
+                     @touchstart="select($event, node)"
                      @click.left="select($event, node)"
-                     @click.right="select($event, node)"
-                     @dblclick="updateLocation(node)">
+                     @click.right="select($event, node)">
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
@@ -26,12 +27,13 @@
             <!-- Files -->
             <h1 v-if="nodes.file.length">Files</h1>
             <div class="grid-container">
-                <div v-for="(node, index) of nodes.file"
+                <div v-double-click="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
+                     v-for="(node, index) of nodes.file"
                      :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                      :data-hash="node.id"
+                     @touchstart="select($event, node)"
                      @click.left="select($event, node)"
-                     @click.right="select($event, node)"
-                     @dblclick="$store.commit('filepreview/show', {nodes: nodes.file, index})">
+                     @click.right="select($event, node)">
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <span class="extension">{{ node.extension }}</span>

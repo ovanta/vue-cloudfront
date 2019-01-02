@@ -31,7 +31,7 @@
     import config from '../../../../../config/config.json';
 
     // Components
-    import Popup          from './Popover';
+    import Popup          from './Popup';
     import TextInputField from '../../../ui/TextInputField';
 
     // Vuex stuff

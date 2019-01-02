@@ -20,7 +20,7 @@
 <script>
 
     // Components
-    import Popup from './Popover';
+    import Popup from './Popup';
 
     export default {
 

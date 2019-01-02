@@ -85,7 +85,6 @@
         methods: {
 
             close() {
-                window.tss = this;
 
                 // Reset index and clear preview
                 this.$store.commit('filepreview/clear');

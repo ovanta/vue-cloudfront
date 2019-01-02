@@ -24,12 +24,13 @@
         <div class="list">
 
             <!-- Folders -->
-            <div v-for="node of nodes.dir"
+            <div v-double-click="() => updateLocation(node)"
+                 v-for="node of nodes.dir"
                  :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
                  :data-hash="node.id"
+                 @touchstart="select($event, node)"
                  @click.left="select($event, node)"
-                 @click.right="select($event, node)"
-                 @dblclick="updateLocation(node)">
+                 @click.right="select($event, node)">
 
                 <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
 
@@ -45,12 +46,13 @@
             </div>
 
             <!-- Files -->
-            <div v-for="(node, index) of nodes.file"
+            <div v-double-click="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
+                 v-for="(node, index) of nodes.file"
                  :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                  :data-hash="node.id"
+                 @touchstart="select($event, node)"
                  @click.left="select($event, node)"
-                 @click.right="select($event, node)"
-                 @dblclick="$store.commit('filepreview/show', {nodes: nodes.file, index})">
+                 @click.right="select($event, node)">
 
                 <span class="extension">{{ node.extension }}</span>
                 <div class="name" spellcheck="false">

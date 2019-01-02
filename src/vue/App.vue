@@ -154,10 +154,10 @@
     }
 
     // Switch to fullscreen mode if window is too small
-    @media all and (max-width: 1000px), all and (max-height: 650px) {
+    @include notebook {
         .app-content {
-            min-width: 100vw;
-            min-height: 100vh;
+            min-width: 100%;
+            min-height: 100%;
             border-radius: 0;
         }
     }
