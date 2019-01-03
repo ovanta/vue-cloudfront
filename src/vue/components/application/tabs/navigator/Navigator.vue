@@ -272,7 +272,7 @@
         }
 
         .placeholder {
-            flex-grow: 1;
+            flex-grow: 1000;
             color: $palette-decent-blue;
             @include position(0, 0, 0, 0);
             @include flex(column, center, center);

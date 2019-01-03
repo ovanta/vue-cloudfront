@@ -98,6 +98,17 @@ export const nodes = {
         }
     },
 
+    mutations: {
+
+        // Adds nodes to the collection
+        put(state, {nodes}) {
+            if (Array.isArray(nodes)) {
+                state.push(...nodes);
+            }
+        }
+
+    },
+
     actions: {
 
         /**

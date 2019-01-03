@@ -105,23 +105,20 @@ export const data = {
                 // Upload files
                 promises = [];
                 for (const [parent, files] of fileMap.entries()) {
-                    promises.push(this.dispatch('data/uploadFiles', {parent, files}));
+                    promises.push(
+                        this.dispatch('data/uploadFiles', {parent, files})
+                    );
                 }
 
                 await Promise.all(promises);
 
                 rootState.requestsActive--;
                 this.commit('data/reset');
-
-                // Update nodes
-                return this.dispatch('nodes/update', {keepLocation: true});
             } else {
-                return this.dispatch('data/uploadFiles', {parent, files}).then(() => {
+                return this.dispatch('data/uploadFiles', {parent, files}).then(newNodes => {
                     this.commit('data/reset');
                     rootState.requestsActive--;
-
-                    // Update nodes
-                    return this.dispatch('nodes/update', {keepLocation: true});
+                    this.commit('nodes/put', {nodes: newNodes});
                 }).catch(() => {
                     // TODO: Handle error?
                     this.commit('data/reset');
@@ -190,7 +187,21 @@ export const data = {
 
                 xhr.onreadystatechange = () => {
                     if (xhr.readyState === 4) {
-                        xhr.status === 200 ? resolve() : reject();
+                        if (xhr.status === 200) {
+
+                            // Parse and validate response
+                            const {error, data} = JSON.parse(xhr.responseText);
+
+                            if (error) {
+                                reject();
+                            } else {
+                                this.commit('nodes/put', {nodes: data});
+                                resolve();
+                            }
+
+                        } else {
+                            reject('Request failed');
+                        }
                     }
                 };
 
