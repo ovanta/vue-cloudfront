@@ -25,6 +25,11 @@
                        controls
                        autoplay></video>
 
+                <!-- Audio -->
+                <audio v-else-if="currentNode.name.match(/\.(mp3|wav|ogg)$/)" 
+                       :src="url" 
+                       controls></audio>
+
                 <!-- PDFs -->
                 <object v-else-if="currentNode.name.match(/\.pdf$/)"
                         :data="url"

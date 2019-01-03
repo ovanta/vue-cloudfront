@@ -16,6 +16,7 @@
                    v-show="viewType === 'grid'"
                    class="fas fa-fw fa-th-list"
                    @click="setViewType('list')"></i>
+
                 <i v-tooltip="'Switch to grid view'"
                    v-show="viewType === 'list'"
                    class="fas fa-fw fa-th"
@@ -34,12 +35,8 @@
         <div class="views">
 
             <!-- Folder / file -views -->
-            <list-view v-if="viewType === 'list'"
-                       :nodes="nodes"
-                       class="view"/>
-            <grid-view v-if="viewType === 'grid'"
-                       :nodes="nodes"
-                       class="view"/>
+            <list-view v-if="viewType === 'list'" :nodes="nodes"/>
+            <grid-view v-if="viewType === 'grid'" :nodes="nodes"/>
 
             <!-- Placeholder if folder is empty -->
             <div v-if="!nodes.file.length && !nodes.dir.length" class="placeholder">
@@ -205,7 +202,6 @@
                 }
             }
         }
-
     };
 
 </script>
@@ -257,7 +253,8 @@
         @include flex(column);
         flex-grow: 1;
 
-        .view {
+        .list-view,
+        .grid-view {
             margin: 0 2em 0 2em;
             overflow: hidden;
 

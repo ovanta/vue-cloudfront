@@ -120,6 +120,17 @@
             color: rgba($palette-deep-blue, 0.8);
             margin-bottom: 0.5em;
 
+            @include animate('0.3s') {
+                from {
+                    opacity: 0;
+                    transform: translateY(-0.2em);
+                }
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
+
             .name {
                 position: relative;
                 cursor: pointer;

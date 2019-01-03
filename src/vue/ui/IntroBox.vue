@@ -191,13 +191,13 @@
         z-index: 1;
         opacity: 0;
         pointer-events: none;
-        transform: translateY(2em);
+        transform: translateY(2em) rotateX(-10deg) perspective(100px);
         transition: opacity 0.3s, transform 0.3s;
         filter: drop-shadow(0 3px 8px rgba($palette-deep-blue, 0.2));
 
         &.visible {
             opacity: 1;
-            transform: translateY(3em);
+            transform: translateY(3em) perspective(100px);
             pointer-events: all;
         }
 

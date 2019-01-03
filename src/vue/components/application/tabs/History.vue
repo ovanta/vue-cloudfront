@@ -286,6 +286,17 @@
         color: $palette-deep-blue;
         flex-shrink: 0;
 
+        @include animate('0.3s') {
+            from {
+                opacity: 0;
+                transform: translateY(-0.2em);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
         .name {
             @include flex(row, center);
             border-bottom: 2px solid rgba(black, 0.1);

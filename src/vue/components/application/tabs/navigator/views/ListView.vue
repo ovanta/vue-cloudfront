@@ -54,7 +54,7 @@
                  @click.left="select($event, node)"
                  @click.right="select($event, node)">
 
-                <span class="extension">{{ node.extension }}</span>
+                <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">
                     <span v-select-all="node.editable"
                           :contenteditable="node.editable"
@@ -197,7 +197,7 @@
         i {
             color: $palette-deep-blue;
             transition: all 0.3s;
-            font-size: 1.3em;
+            font-size: 1.25em;
             margin-bottom: 0.2em;
         }
 
@@ -212,19 +212,6 @@
 
         &.cutted {
             opacity: 0.75;
-        }
-
-        .extension {
-            @include font(600, 0.75em);
-            background: $palette-deep-purple;
-            padding: 0.3em 0.5em;
-            text-transform: uppercase;
-            border-radius: 0.15em;
-            color: white;
-            max-width: 5em;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex-shrink: 0;
         }
 
         .name,
