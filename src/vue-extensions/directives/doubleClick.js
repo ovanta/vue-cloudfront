@@ -13,7 +13,12 @@ Vue.directive('doubleClick', {
         }
 
         let lastTap = 0;
-        on(el, ['touchend', 'mouseup'], () => {
+        on(el, ['touchend', 'mouseup'], ({button}) => {
+
+            if (typeof button === 'number' && button) {
+                return;
+            }
+
             if (Date.now() - lastTap < 500) {
                 value();
             }

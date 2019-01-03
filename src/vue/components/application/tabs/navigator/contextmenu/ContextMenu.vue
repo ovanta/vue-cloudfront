@@ -1,5 +1,5 @@
 <template>
-    <div ref="menuRoot"
+    <div ref="menu"
          :class="{menu: 1, open}"
          :style="style">
 
@@ -68,7 +68,7 @@
 
         <div v-if="type === 'dir'" class="option sub">
             <i class="fas fa-fw fa-palette"></i>
-            <span class="name">Change color <i class="fas fa-fw fa-angle-right"></i></span>
+            <span class="name">Change color</span>
             <color-chooser class="sub-menu" @change="setColor"/>
         </div>
 
@@ -126,15 +126,31 @@
             ...mapState(['search', 'clipboard'])
         },
 
+        updated() {
+
+            // Check if sub menus are clipped
+            requestAnimationFrame(() => {
+                const subMenus = this.$refs.menu.querySelectorAll('.sub-menu');
+                for (const sub of subMenus) {
+                    const subbcr = sub.getBoundingClientRect();
+                    if (subbcr.right > window.innerWidth) {
+                        sub.classList.add('left');
+                    } else if (subbcr.left < 0) {
+                        sub.classList.remove('left');
+                    }
+                }
+            });
+        },
+
         mounted() {
 
             // Close via escape key
-            window.addEventListener('keyup', e => e.key === 'Escape' && (this.open = false));
+            this.utils.on(window, 'keyup', e => e.key === 'Escape' && (this.open = false));
 
             // Function to check, if menu is open, if the user has clicked
             // outside of the menu. Only active is menu is visible.
             const detectOutsideClick = evt => {
-                if (!this.utils.eventPath(evt).includes(this.$refs.menuRoot)) {
+                if (!this.utils.eventPath(evt).includes(this.$refs.menu)) {
                     this.open = false;
                 }
             };
@@ -324,8 +340,9 @@
 
                 .sub-menu {
                     position: absolute;
-                    transform: translateX(-10px);
+                    transform: translateY(-10px) rotateX(15deg) perspective(100px);
                     left: 105%;
+                    bottom: -200%;
                     box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
                     background: white;
                     padding: 1em;
@@ -333,21 +350,26 @@
                     opacity: 0;
                     transition: all 0.3s;
                     cursor: default;
+                    border-radius: 0.25em;
+
+                    &.left {
+                        left: auto;
+                        right: 105%;
+                    }
 
                     // To fill the gap between the menu and the sub-menu
                     &::before {
                         @include pseudo();
                         @include position(0, auto, 0, 0);
-                        @include size(100%);
+                        @include size(110%, 100%);
                         background: transparent;
-                        margin-left: -1em;
                         z-index: -1;
                     }
                 }
 
                 &:hover .sub-menu {
                     opacity: 1;
-                    transform: none;
+                    transform: perspective(100px);
                     pointer-events: all;
                 }
             }
