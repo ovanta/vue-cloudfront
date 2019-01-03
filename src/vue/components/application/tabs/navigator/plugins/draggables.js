@@ -10,7 +10,7 @@ export default (vue, selectionjs) => new Draggable({
     draggable: '.file,.dir',
     include: '.selected',
     startThreshold: 4,
-    target: '.dir',
+    target: '.dir,.node',
     ghostLimit: 10,
 
     onDragStart() {

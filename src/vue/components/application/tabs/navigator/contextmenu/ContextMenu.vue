@@ -146,6 +146,7 @@
 
             // Close via escape key
             this.utils.on(window, 'keyup', e => e.key === 'Escape' && (this.open = false));
+            this.utils.on(window, 'resize', () => this.open = false);
 
             // Function to check, if menu is open, if the user has clicked
             // outside of the menu. Only active is menu is visible.

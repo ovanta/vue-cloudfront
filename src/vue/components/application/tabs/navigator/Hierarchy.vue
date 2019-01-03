@@ -4,6 +4,7 @@
         <!-- Default display of the current folder hierarchy -->
         <div v-if="!searchResult && !markedNodes" class="nodes">
             <div v-for="(node, index) of nodes"
+                 :data-hash="node.id"
                  class="node">
 
                 <span :style="{'--color': index === nodes.length - 1 ? node.colorVariable : 'inherit'}"
@@ -148,6 +149,12 @@
                 background: #{'rgb(var(--color))'};
                 box-shadow: 0 1px 10px 0 #{'rgba(var(--color), 0.5)'};
                 color: white;
+            }
+
+            &.droppable .name {
+                color: white;
+                background: $palette-cloud-blue;
+                box-shadow: 0 1px 10px 0 $palette-cloud-blue;
             }
         }
     }
