@@ -116,6 +116,14 @@ export default new Vuex.Store({
                 },
                 body: JSON.stringify(body)
             }).then(async v => {
+
+                if (!v.ok) {
+
+                    /* eslint-disable no-console */
+                    console.warn(v);
+                    throw 'Fetch failed';
+                }
+
                 const {error, data} = await v.json();
                 state.requestsActive--;
 

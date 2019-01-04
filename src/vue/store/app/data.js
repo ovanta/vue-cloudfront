@@ -71,8 +71,6 @@ export const data = {
                                 state.upload.total += fileObj.size;
                                 fileMap.set(parent, fileList.concat([fileObj]));
                             }
-                        } else {
-                            // TODO: Handle error?
                         }
                     } else if (item.isDirectory) {
 

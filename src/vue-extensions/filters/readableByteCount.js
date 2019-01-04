@@ -9,5 +9,5 @@ import Vue                 from 'vue';
  */
 Vue.filter('readableByteCount', bytes => {
     const res = readableByteCount(bytes);
-    return res ? res : 'Empty';
+    return res !== '0 B' ? res : 'Empty';
 });
