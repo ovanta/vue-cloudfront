@@ -171,6 +171,29 @@ export const nodes = {
         },
 
         /**
+         * Creates a folder hierarchy based on a liked-list-like array
+         * @param state
+         * @param rootState
+         * @param parent
+         * @param folders
+         */
+        createFolders({state, rootState}, {folders, parent}) {
+
+            // Fetch from server
+            return this.dispatch('fetch', {
+                route: 'createFolders',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    parent: parent.id,
+                    folders
+                }
+            }).then(({nodes, idMap}) => {
+                state.push(...nodes);
+                return {nodes, idMap};
+            });
+        },
+
+        /**
          * Move nodes to another folder.
          * @param rootState
          * @param nodes Nodes which should be moved

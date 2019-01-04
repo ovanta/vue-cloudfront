@@ -44,62 +44,67 @@ export const data = {
             if (items.length && (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry)) {
                 const getAsEntryFuncName = (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry).name;
                 const fileMap = {};
+                const folders = [];
+                let folderIndex = 0;
 
                 if (files.length) {
                     files = Array.from(files);
                     state.upload.total += files.reduce((acc, cv) => cv.size + acc, 0);
-                    fileMap[parent.id] = files;
+                    fileMap[-1] = files;
                 }
 
                 const traverseFileTree = async (parent, item) => {
-
                     if (item.isFile) {
 
                         // Resolve item
                         const fileObj = await new Promise((resolve, reject) => item.file(resolve, reject));
                         if (fileObj) {
 
-                            if (!(parent.id in fileMap)) {
-                                fileMap[parent.id] = [];
+                            if (!(parent in fileMap)) {
+                                fileMap[parent] = [];
                             }
 
                             // Check if file aready exists
-                            const fileList = fileMap[parent.id];
+                            const fileList = fileMap[parent];
                             if (!fileList.find(v => v.name === fileObj.name && v.size === fileObj.size && v.lastModified === fileObj.lastModified)) {
 
                                 // Update total upload size and add file
                                 state.upload.total += fileObj.size;
-                                fileMap[parent.id].push(fileObj);
+                                fileMap[parent].push(fileObj);
                             }
                         }
                     } else if (item.isDirectory) {
 
-                        // Create folder
-                        return this.dispatch('nodes/createFolder', {
-                            parent, name: item.name
-                        }).then(async folder => {
+                        // Resolve childs
+                        const newFolder = {parent, name: item.name, id: folderIndex++};
+                        const entries = await fileSystemUtils.readEntries(item);
+                        for (let i = 0; i < entries.length; i++) {
+                            await traverseFileTree(newFolder.id, entries[i]);
+                        }
 
-                            // Resolve childs
-                            const entries = await fileSystemUtils.readEntries(item);
-                            for (let i = 0; i < entries.length; i++) {
-                                await traverseFileTree(folder, entries[i]);
-                            }
-                        });
+                        folders.push(newFolder);
                     }
                 };
 
                 let promises = [];
                 for (let i = 0; i < items.length; i++) {
                     const entry = items[i][getAsEntryFuncName]();
-                    entry && (promises.push(traverseFileTree(parent, entry)));
+                    entry && (promises.push(traverseFileTree(-1, entry)));
                 }
 
                 await Promise.all(promises);
 
-                // Upload files
-                await this.dispatch('data/uploadFiles', fileMap);
+                // Create folders
+                const {idMap} = await this.dispatch('nodes/createFolders', {folders, parent});
 
-                await Promise.all(promises);
+                // Map created folder ids to the filemap
+                const mappedFileMap = {};
+                for (const [id, files] of Object.entries(fileMap)) {
+                    mappedFileMap[idMap[id]] = files;
+                }
+
+                // Upload files
+                await this.dispatch('data/uploadFiles', mappedFileMap);
                 rootState.requestsActive--;
                 this.commit('data/reset');
             } else {
@@ -107,14 +112,13 @@ export const data = {
                 reqObj[parent] = files;
 
                 // Upload single files
-                return this.dispatch('data/uploadFiles', reqObj).then(newNodes => {
-                    this.commit('data/reset');
+                return this.dispatch('data/uploadFiles', reqObj).then(() => {
                     rootState.requestsActive--;
-                    this.commit('nodes/put', {nodes: newNodes});
+                    this.commit('data/reset');
                 }).catch(() => {
-                    // TODO: Handle error?
-                    this.commit('data/reset');
                     rootState.requestsActive--;
+                    this.commit('data/reset');
+                    // TODO: Handle error?
                 });
             }
         },
