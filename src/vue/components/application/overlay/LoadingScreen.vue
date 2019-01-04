@@ -8,7 +8,7 @@
             <p v-if="data.upload.done > 0">
                 Uploaded <b>{{ utils.readableByteCount(data.upload.done) }}</b> of
                 <b>{{ utils.readableByteCount(data.upload.total) }}</b> -
-                <b> {{ ((data.upload.done / data.upload.total) * 100).toFixed(1) }}%</b>
+                <b> {{ Math.round((data.upload.done / data.upload.total) * 100) }}%</b>
             </p>
 
             <p v-else>

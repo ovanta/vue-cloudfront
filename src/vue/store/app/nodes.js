@@ -192,18 +192,19 @@ export const nodes = {
                 }
             }).then(() => {
 
-                // Update node locally to save ressources
+                // Update nodes locally to save ressources
                 nodes.forEach(n => n.parent = destination.id);
             });
         },
 
         /**
          * Copy a node tree into another folder
+         * @param state
          * @param rootState
          * @param nodes Nodes which should be copied
          * @param destination Destination node
          */
-        async copy({rootState}, {nodes, destination}) {
+        async copy({state, rootState}, {nodes, destination}) {
 
             // If user is currently not at home, ignore action
             if (rootState.activeTab !== 'home') {
@@ -217,19 +218,21 @@ export const nodes = {
                     nodes: nodes.map(v => v.id),
                     destination: destination.id
                 }
-            }).then(() => {
+            }).then(({nodes}) => {
 
-                // Update nodes
-                return this.dispatch('nodes/update', {keepLocation: true});
+                // Add new nodes
+                state.push(...nodes);
+                return nodes;
             });
         },
 
         /**
          * Deletes nodes recursivly
+         * @param state
          * @param rootState
          * @param nodes Nodes which should be deleted
          */
-        async delete({rootState}, nodes) {
+        async delete({state, rootState}, nodes) {
             return this.dispatch('fetch', {
                 route: 'delete',
                 body: {
@@ -238,8 +241,13 @@ export const nodes = {
                 }
             }).then(() => {
 
-                // Update nodes
-                return this.dispatch('nodes/update', {keepLocation: true});
+                // Update nodes locally to save ressources
+                for (let i = 0; i < nodes.length; i++) {
+                    const idx = state.indexOf(nodes[i]);
+                    if (~idx) {
+                        state.splice(idx, 1);
+                    }
+                }
             });
         },
 
