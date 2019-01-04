@@ -1,4 +1,5 @@
-import config from '../../../../config/config';
+import config            from '../../../../config/config';
+import {fileSystemUtils} from '../../../js/utils';
 
 export const data = {
 
@@ -39,7 +40,7 @@ export const data = {
             state.upload.active = true;
             rootState.requestsActive++;
 
-            // Check if browser supports folder - dropping
+            // Check if browser supports folder drag 'n drop
             if (items.length && (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry)) {
                 const getAsEntryFuncName = (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry).name;
                 const fileMap = new Map();
@@ -56,16 +57,14 @@ export const data = {
 
                         // Resolve item
                         const fileObj = await new Promise((resolve, reject) => item.file(resolve, reject));
-
                         if (fileObj) {
 
                             if (!fileMap.has(parent)) {
                                 fileMap.set(parent, []);
                             }
 
+                            // Check if file aready exists
                             const fileList = fileMap.get(parent);
-
-                            // Check if file does aready exists
                             if (!fileList.find(v => v.name === fileObj.name && v.size === fileObj.size && v.lastModified === fileObj.lastModified)) {
 
                                 // Update total upload size and add file
@@ -77,19 +76,16 @@ export const data = {
                         }
                     } else if (item.isDirectory) {
 
-                        // Create node and rename it
-                        const folderNode = await this.dispatch('nodes/createFolder', {parent, name: item.name});
+                        // Create folder
+                        return this.dispatch('nodes/createFolder', {
+                            parent, name: item.name
+                        }).then(async folder => {
 
-                        // Resolve childs
-                        await new Promise(resolve => {
-                            item.createReader().readEntries(async entries => {
-
-                                for (let i = 0; i < entries.length; i++) {
-                                    await traverseFileTree(folderNode, entries[i]);
-                                }
-
-                                resolve();
-                            });
+                            // Resolve childs
+                            const entries = await fileSystemUtils.readEntries(item);
+                            for (let i = 0; i < entries.length; i++) {
+                                await traverseFileTree(folder, entries[i]);
+                            }
                         });
                     }
                 };
@@ -105,16 +101,15 @@ export const data = {
                 // Upload files
                 promises = [];
                 for (const [parent, files] of fileMap.entries()) {
-                    promises.push(
-                        this.dispatch('data/uploadFiles', {parent, files})
-                    );
+                    promises.push(this.dispatch('data/uploadFiles', {parent, files}));
                 }
 
                 await Promise.all(promises);
-
                 rootState.requestsActive--;
                 this.commit('data/reset');
             } else {
+
+                // Upload single files
                 return this.dispatch('data/uploadFiles', {parent, files}).then(newNodes => {
                     this.commit('data/reset');
                     rootState.requestsActive--;
@@ -133,25 +128,9 @@ export const data = {
          */
         async uploadFiles({state, rootState}, {parent, files}) {
 
-            // See https://stackoverflow.com/a/20874931/7664765 and https://stackoverflow.com/a/8857445/7664765
-            const isFile = file => new Promise(resolve => {
-
-                // Everything is assumed and I hope it works
-                if (!file.type && file.size % 4096 === 0) {
-                    resolve(false);
-                } else if (file.size > 1048576) {
-                    resolve(true);
-                } else {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(true);
-                    reader.onerror = () => resolve(false);
-                    reader.readAsArrayBuffer(file);
-                }
-            });
-
             const realFiles = [];
             for (const file of files) {
-                if (await isFile(file)) {
+                if (await fileSystemUtils.isFile(file)) {
                     realFiles.push(file);
                 } else {
                     state.upload.total -= file.size;
