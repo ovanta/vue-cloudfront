@@ -1,13 +1,15 @@
 <template>
     <section class="grid-view">
 
-        <div class="list">
+        <div ref="list"
+             class="list"
+             @scroll="scroll">
 
             <!-- Folders -->
             <h1 v-if="nodes.dir.length">Folders</h1>
             <div class="grid-container">
                 <div v-double-click="() => updateLocation(node)"
-                     v-for="node of nodes.dir"
+                     v-for="node of croppedNodes.dir"
                      :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
                      :data-hash="node.id"
                      @touchstart="select($event, node)"
@@ -28,7 +30,7 @@
             <h1 v-if="nodes.file.length">Files</h1>
             <div class="grid-container">
                 <div v-double-click="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
-                     v-for="(node, index) of nodes.file"
+                     v-for="(node, index) of croppedNodes.file"
                      :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                      :data-hash="node.id"
                      @touchstart="select($event, node)"
@@ -51,6 +53,12 @@
 
 <script>
 
+    // Config stuff
+    import {visibleNodesLimit} from '../../../../../../../config/config';
+
+    // Selectable plugin
+    import Selectable from '../plugins/selectable';
+
     export default {
         props: {
             nodes: {
@@ -60,10 +68,71 @@
         },
 
         data() {
-            return {};
+            return {
+                fileLimit: visibleNodesLimit,
+                dirLimit: visibleNodesLimit
+            };
+        },
+
+        computed: {
+            croppedNodes() {
+                const {fileLimit, dirLimit} = this;
+                return {
+                    file: this.nodes.file.slice(0, fileLimit),
+                    dir: this.nodes.dir.slice(0, dirLimit)
+                };
+            }
+        },
+
+        watch: {
+            nodes(newValue, oldValue) {
+
+                // Mostly props get's changed. Update only if array lengths are changing
+                if (newValue.dir.length === oldValue.dir.length && newValue.file.length === oldValue.file.length) {
+                    return;
+                }
+
+                const listEl = this.$refs.list;
+                this.dirLimit = visibleNodesLimit;
+                this.fileLimit = visibleNodesLimit;
+
+                const check = () => {
+                    requestAnimationFrame(() => {
+                        if (listEl.scrollHeight === listEl.offsetHeight && this.increaseVisibleArea()) {
+                            check();
+                        }
+                    });
+                };
+
+                check();
+            }
+        },
+
+        updated() {
+            Selectable.resolveSelectables();
         },
 
         methods: {
+            scroll({target}) {
+                if (target.scrollHeight - (target.scrollTop + target.offsetHeight) < 25) {
+                    this.increaseVisibleArea();
+                }
+            },
+
+            increaseVisibleArea() {
+
+                if (this.dirLimit < this.nodes.dir.length) {
+                    this.dirLimit += visibleNodesLimit;
+                    return true;
+                }
+
+                if (this.fileLimit < this.nodes.file.length) {
+                    this.fileLimit += visibleNodesLimit;
+                    return true;
+                }
+
+                return false;
+            },
 
             updateLocation(node) {
                 this.$store.commit('setActiveTab', 'home');
@@ -169,7 +238,7 @@
             opacity: 0;
             transform: translateY(-0.15em) rotate(10deg);
             transition: all 0.3s;
-            color: $palette-deep-purple;
+            color: $palette-deep-blue;
 
             &.visible {
                 opacity: 1;
@@ -179,12 +248,13 @@
 
         .extension {
             @include font(600, 0.85em);
-            background: $palette-deep-purple;
+            background: $palette-deep-blue;
             max-width: 5em;
             overflow: hidden;
             text-overflow: ellipsis;
             flex-shrink: 0;
             padding: 0.25em 0.45em;
+            white-space: nowrap;
             text-transform: uppercase;
             border-radius: 0.15em;
             color: white;

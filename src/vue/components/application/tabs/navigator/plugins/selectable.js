@@ -1,11 +1,11 @@
 import Selection from '@simonwep/selection-js';
+import store     from '../../../../../store/index';
 
 /**
  * Is responsible for the selection area
- * @param vue Vue instance
  * @returns {*}
  */
-export default vue => new Selection({
+export default new Selection({
 
     class: 'selection-area',
 
@@ -22,7 +22,7 @@ export default vue => new Selection({
 
         // Every non-ctrlKey causes a selection reset
         if (!evt.originalEvent.ctrlKey) {
-            vue.$store.commit('selection/clear');
+            store.commit('selection/clear');
         }
     },
 
@@ -48,7 +48,7 @@ export default vue => new Selection({
          * to the current selection.
          */
         const selectedHashes = selectedElements.map(v => v.getAttribute('data-hash'));
-        const selectedNodes = vue.$store.state.nodes.filter(v => selectedHashes.includes(v.id));
-        vue.$store.commit('selection/append', selectedNodes);
+        const selectedNodes = store.state.nodes.filter(v => selectedHashes.includes(v.id));
+        store.commit('selection/append', selectedNodes);
     }
 });

@@ -21,11 +21,13 @@
             </div>
         </div>
 
-        <div class="list">
+        <div ref="list"
+             class="list"
+             @scroll="scroll">
 
             <!-- Folders -->
             <div v-double-click="() => updateLocation(node)"
-                 v-for="node of nodes.dir"
+                 v-for="node of croppedNodes.dir"
                  :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
                  :data-hash="node.id"
                  @touchstart="select($event, node)"
@@ -47,7 +49,7 @@
 
             <!-- Files -->
             <div v-double-click="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
-                 v-for="(node, index) of nodes.file"
+                 v-for="(node, index) of croppedNodes.file"
                  :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                  :data-hash="node.id"
                  @touchstart="select($event, node)"
@@ -72,6 +74,9 @@
 
 <script>
 
+    // Config stuff
+    import {visibleNodesLimit} from '../../../../../../../config/config';
+
     export default {
         props: {
             nodes: {
@@ -82,6 +87,8 @@
 
         data() {
             return {
+                fileLimit: visibleNodesLimit,
+                dirLimit: visibleNodesLimit,
                 sortDirs: {
                     name: false,
                     lastModified: false,
@@ -90,7 +97,60 @@
             };
         },
 
+        computed: {
+            croppedNodes() {
+                const {fileLimit, dirLimit} = this;
+                return {
+                    file: this.nodes.file.slice(0, fileLimit),
+                    dir: this.nodes.dir.slice(0, dirLimit)
+                };
+            }
+        },
+
+        watch: {
+            nodes(newValue, oldValue) {
+
+                // Mostly props get's changed. Update only if array lengths are changing
+                if (newValue.dir.length === oldValue.dir.length && newValue.file.length === oldValue.file.length) {
+                    return;
+                }
+
+                const listEl = this.$refs.list;
+                this.dirLimit = visibleNodesLimit;
+                this.fileLimit = visibleNodesLimit;
+
+                const check = () => {
+                    requestAnimationFrame(() => {
+                        if (listEl.scrollHeight === listEl.offsetHeight && this.increaseVisibleArea()) {
+                            check();
+                        }
+                    });
+                };
+
+                check();
+            }
+        },
+
         methods: {
+            scroll({target}) {
+                if (target.scrollHeight - (target.scrollTop + target.offsetHeight) < 25) {
+                    this.increaseVisibleArea();
+                }
+            },
+
+            increaseVisibleArea() {
+                if (this.dirLimit < this.nodes.dir.length) {
+                    this.dirLimit += visibleNodesLimit;
+                    return true;
+                }
+
+                if (this.fileLimit < this.nodes.file.length) {
+                    this.fileLimit += visibleNodesLimit;
+                    return true;
+                }
+
+                return false;
+            },
 
             updateLocation(node) {
                 this.$store.commit('setActiveTab', 'home');

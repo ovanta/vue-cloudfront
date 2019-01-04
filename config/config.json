@@ -1,7 +1,7 @@
 {
     "apiEndPoint": "/api",
     "sizeSIPrefix": true,
-    "searchBlockSize": 150,
+    "visibleNodesLimit": 25,
     "loadingScreenMessages": [
         "Smoothing buttons",
         "Procentually generating icons",

@@ -1,12 +1,12 @@
 import Draggable from '../../../../../../js/Draggable';
+import store     from '../../../../../store/index';
 
 /**
  * Is responsible for everything around dragging
- * @param vue Vue instance
  * @param selectionjs Selectionjs instance
  * @returns {*}
  */
-export default (vue, selectionjs) => new Draggable({
+export default selectionjs => new Draggable({
     draggable: '.file,.dir',
     include: '.selected',
     startThreshold: 4,
@@ -19,7 +19,7 @@ export default (vue, selectionjs) => new Draggable({
          * Disable dragging if search is active, the active menu-tab isn't home or user
          * is currently in list-view.
          */
-        const {state} = vue.$store;
+        const {state} = store;
         if (state.search.active ||
             state.activeTab !== 'home' ||
             state.viewType !== 'grid') {
@@ -54,19 +54,19 @@ export default (vue, selectionjs) => new Draggable({
             const hash = dropTarget.getAttribute('data-hash');
 
             // Find target node
-            const targetNode = vue.$store.state.nodes.find(v => v.type === 'dir' && v.id === hash);
+            const targetNode = store.state.nodes.find(v => v.type === 'dir' && v.id === hash);
 
-            const {selection} = vue.$store.state;
+            const {selection} = store.state;
             if (targetNode && selection.length) {
 
                 // Move elements
-                vue.$store.dispatch('nodes/move', {
+                store.dispatch('nodes/move', {
                     nodes: selection,
                     destination: targetNode
                 }).then(() => {
 
                     // Clear selection
-                    vue.$store.commit('selection/clear');
+                    store.commit('selection/clear');
                 });
             }
 

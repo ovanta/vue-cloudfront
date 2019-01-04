@@ -33,7 +33,7 @@ export const nodes = {
                  */
                 const nodes = (() => {
                     if (search.active) {
-                        return search.nodes.slice(0, rootState.search.limit);
+                        return search.nodes;
                     } else if (rootState.activeTab === 'marked') {
                         return state.filter(v => v.marked);
                     } else {

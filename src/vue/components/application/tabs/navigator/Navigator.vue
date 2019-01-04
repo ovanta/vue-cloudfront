@@ -138,8 +138,8 @@
             );
 
             // Draggable and selection plugin
-            this.selectionPlugin = SelectionPlugin(this);
-            this.draggablePlugin = DraggablePlugin(this, this.selectionPlugin);
+            this.selectionPlugin = SelectionPlugin;
+            this.draggablePlugin = DraggablePlugin(this.selectionPlugin);
         },
 
         destroyed() {

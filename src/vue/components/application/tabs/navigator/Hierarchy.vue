@@ -22,9 +22,6 @@
             <b v-if="searchResult.dir">{{ searchResult.dir }} folder{{ searchResult.dir === 1 ? '' : 's' }}</b>
             <span v-if="searchResult.file || searchResult.dir"> found</span>
             <span v-if="!searchResult.file && !searchResult.dir">Nothing found</span>
-
-            <span :class="{'load-more': 1, visible: $store.state.search.nodes.length > $store.state.search.limit}"
-                  @click="$store.commit('search/loadMore')">Load More</span>
         </div>
 
         <!-- Same as search info, but for marked nodes -->
@@ -175,28 +172,6 @@
         color: $palette-deep-blue;
         font-size: 0.9em;
         white-space: pre-wrap;
-
-        .load-more {
-            @include font(600, 0.75em);
-            margin-left: 0.75em;
-            background: $palette-deep-purple;
-            padding: 0.3em 0.75em 0.33em;
-            border-radius: 0.15em;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            opacity: 0;
-            pointer-events: none;
-
-            &:hover {
-                background: lighten($palette-deep-purple, 5);
-            }
-
-            &.visible {
-                opacity: 1;
-                pointer-events: all;
-            }
-        }
     }
 
 </style>
