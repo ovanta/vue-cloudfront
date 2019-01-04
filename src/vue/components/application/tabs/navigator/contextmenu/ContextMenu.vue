@@ -361,8 +361,8 @@
                     // To fill the gap between the menu and the sub-menu
                     &::before {
                         @include pseudo();
-                        @include position(0, auto, 0, 0);
-                        @include size(110%, 100%);
+                        @include position(-10%, -10%, auto, auto);
+                        @include size(120%, 120%);
                         background: transparent;
                         z-index: -1;
                     }

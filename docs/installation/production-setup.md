@@ -111,15 +111,16 @@ server {
     server_name ${Domain};
     client_max_body_size 500M;
 
-    location / {
-        autoindex on;
-        root ${VueCloudfrontPath}/dist;
-    }
-
-    location /(index.html|service-worker.js) {
+    location /service-worker.js {
         add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
         expires off;
         access_log off;
+        root ${VueCloudfrontPath}/dist;
+    }
+
+    location / {
+        autoindex on;
+        root ${VueCloudfrontPath}/dist;
     }
 
     location /api {
