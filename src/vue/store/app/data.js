@@ -43,12 +43,12 @@ export const data = {
             // Check if browser supports folder drag 'n drop
             if (items.length && (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry)) {
                 const getAsEntryFuncName = (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry).name;
-                const fileMap = new Map();
+                const fileMap = {};
 
                 if (files.length) {
                     files = Array.from(files);
                     state.upload.total += files.reduce((acc, cv) => cv.size + acc, 0);
-                    fileMap.set(parent, files);
+                    fileMap[parent.id] = files;
                 }
 
                 const traverseFileTree = async (parent, item) => {
@@ -59,17 +59,17 @@ export const data = {
                         const fileObj = await new Promise((resolve, reject) => item.file(resolve, reject));
                         if (fileObj) {
 
-                            if (!fileMap.has(parent)) {
-                                fileMap.set(parent, []);
+                            if (!(parent.id in fileMap)) {
+                                fileMap[parent.id] = [];
                             }
 
                             // Check if file aready exists
-                            const fileList = fileMap.get(parent);
+                            const fileList = fileMap[parent.id];
                             if (!fileList.find(v => v.name === fileObj.name && v.size === fileObj.size && v.lastModified === fileObj.lastModified)) {
 
                                 // Update total upload size and add file
                                 state.upload.total += fileObj.size;
-                                fileMap.set(parent, fileList.concat([fileObj]));
+                                fileMap[parent.id].push(fileObj);
                             }
                         }
                     } else if (item.isDirectory) {
@@ -97,18 +97,17 @@ export const data = {
                 await Promise.all(promises);
 
                 // Upload files
-                promises = [];
-                for (const [parent, files] of fileMap.entries()) {
-                    promises.push(this.dispatch('data/uploadFiles', {parent, files}));
-                }
+                await this.dispatch('data/uploadFiles', fileMap);
 
                 await Promise.all(promises);
                 rootState.requestsActive--;
                 this.commit('data/reset');
             } else {
+                const reqObj = {};
+                reqObj[parent] = files;
 
                 // Upload single files
-                return this.dispatch('data/uploadFiles', {parent, files}).then(newNodes => {
+                return this.dispatch('data/uploadFiles', reqObj).then(newNodes => {
                     this.commit('data/reset');
                     rootState.requestsActive--;
                     this.commit('nodes/put', {nodes: newNodes});
@@ -124,27 +123,22 @@ export const data = {
          * Responsible to upload single files
          * @returns {Promise<void>}
          */
-        async uploadFiles({state, rootState}, {parent, files}) {
-
-            const realFiles = [];
-            for (const file of files) {
-                if (await fileSystemUtils.isFile(file)) {
-                    realFiles.push(file);
-                } else {
-                    state.upload.total -= file.size;
-                }
-            }
-
-            if (!realFiles.length) {
-                return Promise.resolve();
-            } else {
-                files = realFiles;
-            }
+        async uploadFiles({state, rootState}, data) {
 
             // Build form
             const formData = new FormData();
-            for (let i = 0; i < files.length; i++) {
-                formData.append(`${i}`, files[i]);
+            formData.append('apikey', rootState.auth.apikey);
+            for (const [parent, files] of Object.entries(data)) {
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+
+                    // Check if file is REALLY a file
+                    if (await fileSystemUtils.isFile(file)) {
+                        formData.append(`${parent}-${i}`, file);
+                    } else {
+                        state.upload.total -= file.size;
+                    }
+                }
             }
 
             /**
@@ -184,7 +178,7 @@ export const data = {
 
                 xhr.open(
                     'POST',
-                    `${config.apiEndPoint}/upload?apikey=${rootState.auth.apikey}&parent=${parent.id}`,
+                    `${config.apiEndPoint}/upload`,
                     true
                 );
 
