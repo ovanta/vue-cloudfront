@@ -4,26 +4,33 @@ import {on} from '../../js/utils';
 /**
  * Double click, just also for touch devices
  */
-Vue.directive('doubleClick', {
-    inserted(el, {value}) {
+Vue.directive('doubleClick', (() => {
+    const map = new WeakMap();
 
-        // Validate
-        if (!(typeof value === 'function')) {
-            return;
+    return {
+        inserted(el, binding) {
+            map.set(el, binding.value);
+
+            let lastTap = 0;
+            on(el, ['touchend', 'mouseup'], ({button}) => {
+                const value = map.get(el);
+
+                if ((typeof button === 'number' && button) || typeof value !== 'function') {
+                    return;
+                }
+
+                if (Date.now() - lastTap < 500) {
+                    value();
+                }
+
+                lastTap = Date.now();
+            });
+        },
+
+        update(el, {value}) {
+
+            // Update expression
+            map.set(el, value);
         }
-
-        let lastTap = 0;
-        on(el, ['touchend', 'mouseup'], ({button}) => {
-
-            if (typeof button === 'number' && button) {
-                return;
-            }
-
-            if (Date.now() - lastTap < 500) {
-                value();
-            }
-
-            lastTap = Date.now();
-        });
-    }
-});
+    };
+})());
