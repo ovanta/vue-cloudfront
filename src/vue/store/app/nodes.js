@@ -265,12 +265,20 @@ export const nodes = {
             }).then(() => {
 
                 // Update nodes locally to save ressources
-                for (let i = 0; i < nodes.length; i++) {
-                    const idx = state.indexOf(nodes[i]);
-                    if (~idx) {
-                        state.splice(idx, 1);
+                const rm = node => {
+                    if (node.type === 'dir') {
+                        for (let i = 0; i < state.length; i++) {
+                            if (state[i].parent === node.id) {
+                                rm(state[i]);
+                                i = 0;
+                            }
+                        }
                     }
-                }
+                    const idx = state.indexOf(node);
+                    state.splice(idx, 1);
+                };
+
+                nodes.forEach(rm);
             });
         },
 
