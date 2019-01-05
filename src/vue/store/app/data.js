@@ -48,9 +48,7 @@ export const data = {
                 let folderIndex = 0;
 
                 if (files.length) {
-                    files = Array.from(files);
-                    state.upload.total += files.reduce((acc, cv) => cv.size + acc, 0);
-                    fileMap[-1] = files;
+                    fileMap[-1] = Array.from(files);
                 }
 
                 const traverseFileTree = async (parent, item) => {
@@ -67,9 +65,6 @@ export const data = {
                             // Check if file aready exists
                             const fileList = fileMap[parent];
                             if (!fileList.find(v => v.name === fileObj.name && v.size === fileObj.size && v.lastModified === fileObj.lastModified)) {
-
-                                // Update total upload size and add file
-                                state.upload.total += fileObj.size;
                                 fileMap[parent].push(fileObj);
                             }
                         }
@@ -95,12 +90,23 @@ export const data = {
                 await Promise.all(promises);
 
                 // Create folders
-                const {idMap} = await this.dispatch('nodes/createFolders', {folders, parent});
+                let idMap = {};
+                if (folders.length) {
+                    idMap = (await this.dispatch('nodes/createFolders', {folders, parent})).idMap;
+                } else {
+                    idMap[-1] = parent.id;
+                }
 
                 // Map created folder ids to the filemap
                 const mappedFileMap = {};
-                for (const [id, files] of Object.entries(fileMap)) {
-                    mappedFileMap[idMap[id]] = files;
+                for (const [virtualId, files] of Object.entries(fileMap)) {
+                    const id = idMap[virtualId];
+
+                    if (!id) {
+                        throw `Can't found corresponding id in map: ${id} / ${JSON.stringify(idMap)}`;
+                    }
+
+                    mappedFileMap[id] = files;
                 }
 
                 // Upload files
@@ -131,16 +137,20 @@ export const data = {
 
             // Build form
             const formData = new FormData();
-            formData.append('apikey', rootState.auth.apikey);
+
+            const appendToForm = (key, val) => {
+                state.upload.total += key.length + (typeof val === 'string' ? val.length : val.size);
+                formData.append(key, val);
+            };
+
+            appendToForm('apikey', rootState.auth.apikey);
             for (const [parent, files] of Object.entries(data)) {
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
 
                     // Check if file is REALLY a file
                     if (await fileSystemUtils.isFile(file)) {
-                        formData.append(`${parent}-${i}`, file);
-                    } else {
-                        state.upload.total -= file.size;
+                        appendToForm(`${parent}-${i}`, file);
                     }
                 }
             }
