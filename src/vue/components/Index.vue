@@ -50,7 +50,7 @@
     // Overlays
     import LoadingScreen  from './application/overlay/LoadingScreen';
     import UploadArea     from './application/overlay/UploadArea';
-    import FilePreview    from './application/overlay/FilePreview';
+    import FilePreview    from './application/overlay/filepreview/FilePreview';
     import Authentication from './authentication/Authentication';
 
     // Vue stuff

@@ -13,46 +13,12 @@
             <!-- Actual preview -->
             <div v-if="currentNode" class="file">
 
-                <!-- Images -->
-                <div v-if="currentNode.name.match(/\.(png|jpg|jpeg|svg|gif|bmp|webp|jpeg2000|ico)$/i)"
-                     :style="{'background-image': `url('${url}')`}"
-                     class="image"></div>
-
-                <!-- Videos -->
-                <video v-else-if="currentNode.name.match(/\.(webm|mp4|wav|flac)$/i)"
-                       :src="url"
-                       class="video"
-                       controls
-                       autoplay></video>
-
-                <!-- Audio -->
-                <audio v-else-if="currentNode.name.match(/\.(mp3|wav|ogg)$/i)"
-                       :src="url"
-                       controls></audio>
-
-                <!-- PDFs -->
-                <object v-else-if="currentNode.name.match(/\.pdf$/i)"
-                        :data="url"
-                        class="pdf"
-                        type="application/pdf"
-                        width="100%"
-                        height="100%">
-                </object>
-
-                <!-- Fonts -->
-                <div v-else-if="currentNode.name.match(/\.(ttf|otf|woff)$/i)"
-                     :style="{'font-family': loadFont(url)}"
-                     class="font">
-
-                    <h6>The quick brown fox jumps over the lazy dog</h6>
-                    <h5>The quick brown fox jumps over the lazy dog</h5>
-                    <h4>The quick brown fox jumps over the lazy dog</h4>
-                    <h3>The quick brown fox jumps over the lazy dog</h3>
-                    <h2>The quick brown fox jumps over the lazy dog</h2>
-                    <h1>The quick brown fox jumps over the lazy dog</h1>
-
-                    <p>abcdefghijklmnopqrstuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>1234567890<br>!&quot;#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~</p>
-                </div>
+                <!-- Previews -->
+                <image-preview v-if="currentNode.name.match(/\.(png|jpg|jpeg|svg|gif|bmp|webp|jpeg2000|ico)$/i)" :url="url"/>
+                <video-preview v-else-if="currentNode.name.match(/\.(webm|mp4|wav|flac)$/i)" :url="url"/>
+                <audio-preview v-else-if="currentNode.name.match(/\.(mp3|wav|ogg)$/i)" :url="url"/>
+                <pdf-preview v-else-if="currentNode.name.match(/\.pdf$/i)" :url="url"/>
+                <font-preview v-else-if="currentNode.name.match(/\.(ttf|otf|woff)$/i)" :url="url"/>
 
                 <!-- Message if no preview is available -->
                 <div v-else class="no-preview">
@@ -80,21 +46,33 @@
 <script>
 
     // Config
-    import config from '../../../../../config/config.json';
+    import config from '../../../../../../config/config.json';
 
     // Components
-    import Overlay from './Overlay';
+    import Overlay from '../Overlay';
+
+    // Preview components
+    import FontPreview  from './modules/FontPreview';
+    import PDFPreview   from './modules/PDFPreview';
+    import AudioPreview from './modules/AudioPreview';
+    import VideoPreview from './modules/VideoPreview';
+    import ImagePreview from './modules/ImagePreview';
 
     // Vuex stuff
     import {mapState} from 'vuex';
 
     export default {
-        components: {Overlay},
+        components: {
+            Overlay,
+            FontPreview,
+            ImagePreview,
+            VideoPreview,
+            AudioPreview,
+            'pdf-preview': PDFPreview
+        },
 
         data() {
-            return {
-                loadedFonts: {}
-            };
+            return {};
         },
 
         computed: {
@@ -102,6 +80,7 @@
 
             currentNode() {
                 const {index, nodes} = this.filepreview;
+
                 return nodes[index];
             },
 
@@ -117,31 +96,9 @@
 
                 // Reset index and clear preview
                 this.$store.commit('filepreview/clear');
-            },
-
-            loadFont(url) {
-
-                // Check if font name has already been used
-                if (this.loadedFonts[this.currentNode.name]) {
-                    return this.loadedFonts[this.currentNode.name];
-                }
-
-                const name = `font-preview-${Date.now() + Math.floor(Math.random() * 100)}`;
-                const style = document.createElement('style');
-                style.innerHTML = `
-                   @font-face {
-                       font-family: '${name}';
-                       src: url('${url}');
-                   }
-                `;
-
-                document.head.appendChild(style);
-                this.loadedFonts[this.currentNode.name] = name;
-                return name;
             }
         }
     };
-
 </script>
 
 <style lang="scss" scoped>
@@ -234,35 +191,7 @@
                     font-weight: 600;
                 }
             }
-
-            .image {
-                flex-grow: 1;
-                align-self: stretch;
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-            }
-
-            .video {
-                max-width: 100%;
-                max-height: 100%;
-                border-radius: 0.25em;
-            }
-
-            .font {
-                font-size: 1em;
-
-                > * {
-                    margin: 0.35em 0;
-                }
-
-                p {
-                    margin-top: 1em;
-                    line-height: 1.5em;
-                }
-            }
         }
     }
-
 
 </style>
