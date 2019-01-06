@@ -14,6 +14,6 @@ Vue.directive('mobileContextMenu', {
 
         let interval = null;
         on(el, 'touchstart', e => interval = setInterval(() => value(e), 500));
-        on(el, 'touchend', () => interval && clearInterval(interval));
+        on(el, ['touchend', 'touchcancel', 'touchmove'], () => interval && clearInterval(interval));
     }
 });

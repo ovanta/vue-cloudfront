@@ -96,7 +96,6 @@
 
 </script>
 
-
 <style lang="scss" scoped>
 
     .tooltip {

@@ -75,7 +75,6 @@
     </div>
 </template>
 
-
 <script>
 
     // Components
@@ -274,7 +273,6 @@
     };
 
 </script>
-
 
 <style lang="scss" scoped>
 

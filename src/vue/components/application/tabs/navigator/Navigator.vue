@@ -206,7 +206,6 @@
 
 </script>
 
-
 <style lang="scss" scoped>
 
     .navigator {

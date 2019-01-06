@@ -53,7 +53,7 @@ export default function (opt) {
         _init() {
 
             // Add event listener
-            _.on(document, 'mousedown', that._onTapStart);
+            _.on(document, ['mousedown', 'touchstart'], that._onTapStart);
         },
 
         _onTapStart(evt) {
@@ -77,8 +77,8 @@ export default function (opt) {
             that._active = false;
 
             // Add event listener
-            _.on(document, 'mousemove', that._delayedTapMove);
-            _.on(document, 'mouseup', that._onTapStop);
+            _.on(document, ['mousemove', 'touchmove'], that._delayedTapMove);
+            _.on(document, ['mouseup', 'touchend', 'touchcancel'], that._onTapStop);
         },
 
         _delayedTapMove(evt) {
@@ -88,8 +88,8 @@ export default function (opt) {
             if (Math.abs((x + y) - (that._startPos.x + that._startPos.y)) >= that.options.startThreshold) {
                 const {include, mapGhost, ghostLimit} = that.options;
 
-                _.off(document, 'mousemove', that._delayedTapMove);
-                _.on(document, 'mousemove', that._onTapMove);
+                _.off(document, ['mousemove', 'touchmove'], that._delayedTapMove);
+                _.on(document, ['mousemove', 'touchmove'], that._onTapMove);
 
                 // Clone nodes
                 const included = selectAll(include);
@@ -172,9 +172,9 @@ export default function (opt) {
         _onTapStop(evt) {
 
             // Remove event listener
-            _.off(document, 'mousemove', that._onTapMove);
-            _.off(document, 'mousemove', that._delayedTapMove);
-            _.off(document, 'mouseup', that._onTapStop);
+            _.off(document, ['mousemove', 'touchmove'], that._onTapMove);
+            _.off(document, ['mousemove', 'touchmove'], that._delayedTapMove);
+            _.off(document, ['mouseup', 'touchend', 'touchcancel'], that._onTapStop);
 
             // Remove elements from body
             that._inDrag.forEach(e => e.remove());
@@ -199,15 +199,15 @@ export default function (opt) {
             that._inDrag = [];
 
             // Remove listeners
-            _.off(document, 'mousemove', that._onTapMove);
-            _.off(document, 'mousemove', that._delayedTapMove);
-            _.off(document, 'mouseup', that._onTapStop);
+            _.off(document, ['mousemove', 'touchmove'], that._onTapMove);
+            _.off(document, ['mousemove', 'touchmove'], that._delayedTapMove);
+            _.off(document, ['mouseup', 'touchend', 'touchcancel'], that._onTapStop);
         },
 
         destroy() {
 
             // Remove event listener
-            _.off(document, 'mousedown', that._onTapStart);
+            _.off(document, ['mousedown', 'tocuhstart'], that._onTapStart);
         }
 
     };

@@ -125,7 +125,6 @@
     };
 </script>
 
-
 <style lang="scss" scoped>
 
     .search-bar {

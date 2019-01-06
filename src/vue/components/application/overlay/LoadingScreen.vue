@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <p v-else-if="loadingData.message" class="message" >{{ loadingData.message }}...</p>
+        <p v-else-if="loadingData.message" class="message">{{ loadingData.message }}...</p>
     </overlay>
 </template>
 

@@ -12,7 +12,7 @@
                      v-for="node of croppedNodes.dir"
                      :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
                      :data-hash="node.id"
-                     @touchstart="select($event, node)"
+                     @touchend="select($event, node)"
                      @click.left="select($event, node)"
                      @click.right="select($event, node)">
 
@@ -33,7 +33,7 @@
                      v-for="(node, index) of croppedNodes.file"
                      :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                      :data-hash="node.id"
-                     @touchstart="select($event, node)"
+                     @touchend="select($event, node)"
                      @click.left="select($event, node)"
                      @click.right="select($event, node)">
 
