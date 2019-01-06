@@ -111,24 +111,17 @@
             nodes(newValue, oldValue) {
 
                 // Mostly props get's changed. Update only if array lengths are changing
-                if (newValue.dir.length === oldValue.dir.length && newValue.file.length === oldValue.file.length) {
-                    return;
+                if (newValue.dir.length !== oldValue.dir.length || newValue.file.length !== oldValue.file.length) {
+
+                    this.dirLimit = visibleNodesLimit;
+                    this.fileLimit = visibleNodesLimit;
+                    this.riseVisibleArea();
                 }
-
-                const listEl = this.$refs.list;
-                this.dirLimit = visibleNodesLimit;
-                this.fileLimit = visibleNodesLimit;
-
-                const check = () => {
-                    requestAnimationFrame(() => {
-                        if (listEl.scrollHeight === listEl.offsetHeight && this.increaseVisibleArea()) {
-                            check();
-                        }
-                    });
-                };
-
-                check();
             }
+        },
+
+        mounted() {
+            this.riseVisibleArea();
         },
 
         methods: {
@@ -150,6 +143,20 @@
                 }
 
                 return false;
+            },
+
+            riseVisibleArea() {
+                const listEl = this.$refs.list;
+
+                const check = () => {
+                    requestAnimationFrame(() => {
+                        if (listEl.scrollHeight === listEl.offsetHeight && this.increaseVisibleArea()) {
+                            check();
+                        }
+                    });
+                };
+
+                check();
             },
 
             updateLocation(node) {
@@ -236,11 +243,14 @@
 
     .list-view {
         @include flex(column);
+        flex-grow: 1;
     }
 
     .list {
+        height: 0;
         flex-grow: 1;
         overflow: auto;
+        padding-bottom: 0.5em;
     }
 
     .dir,

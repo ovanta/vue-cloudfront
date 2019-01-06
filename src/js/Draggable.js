@@ -51,9 +51,18 @@ export default function (opt) {
         _active: false,
 
         _init() {
+            this.enable();
+        },
+
+        _bindStartEvents(type) {
 
             // Add event listener
-            _.on(document, ['mousedown', 'touchstart'], that._onTapStart);
+            _[type](document, 'mousedown', that._onTapStart);
+            if (!that.options.disableTouch) {
+                _[type](document, 'touchstart', that._onTapStart, {
+                    passive: false
+                });
+            }
         },
 
         _onTapStart(evt) {
@@ -177,7 +186,7 @@ export default function (opt) {
             _.off(document, ['mouseup', 'touchend', 'touchcancel'], that._onTapStop);
 
             // Remove elements from body
-            that._inDrag.forEach(e => e.remove());
+            that._inDrag.forEach(e => e.parentElement.removeChild(e));
             that._inDrag = [];
 
             /**
@@ -195,13 +204,21 @@ export default function (opt) {
         cancel() {
 
             // Remove elements from body
-            that._inDrag.forEach(e => e.remove());
+            that._inDrag.forEach(e => e.parentElement.removeChild(e));
             that._inDrag = [];
 
             // Remove listeners
             _.off(document, ['mousemove', 'touchmove'], that._onTapMove);
             _.off(document, ['mousemove', 'touchmove'], that._delayedTapMove);
             _.off(document, ['mouseup', 'touchend', 'touchcancel'], that._onTapStop);
+        },
+
+        enable() {
+            this._bindStartEvents('on');
+        },
+
+        disable() {
+            this._bindStartEvents('off');
         },
 
         destroy() {
