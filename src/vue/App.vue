@@ -47,6 +47,10 @@
             if (apikey) {
                 this.$store.dispatch('auth/key', {apikey});
             }
+
+            setTimeout(() => {
+                this.utils.on(Array.from(document.querySelectorAll('input,textarea')), 'focus', alert);
+            }, 2000);
         }
     };
 </script>
@@ -153,7 +157,7 @@
     }
 
     // Switch to fullscreen mode if window is too small
-    @include notebook {
+    @include tablet {
         .app-content {
             min-width: 100%;
             min-height: 100%;

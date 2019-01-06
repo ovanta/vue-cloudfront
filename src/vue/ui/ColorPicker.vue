@@ -21,7 +21,7 @@
                    type="text"
                    @blur="inputActive = false"
                    @focus="inputActive = true"
-                   @keyup="updatePalette($event)">
+                   @keyup="updatePalette">
 
             <!-- Used to accept a color -->
             <button @click="$emit('change', hexColor)">Save!</button>

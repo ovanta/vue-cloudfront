@@ -140,6 +140,7 @@
         z-index: 100;
         background: white;
         opacity: 0;
+        visibility: hidden;
         pointer-events: none;
         transition: opacity 0.5s;
 

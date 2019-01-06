@@ -1,13 +1,16 @@
 <template>
     <div ref="toolTip"
-         :class="{tooltip: 1, visible: data.visible}"
-         :style="data.style">
+         :class="`tooltip ${position} ${tooltip.visible ? 'visible' : ''}`"
+         :style="style">
 
-        {{ data.text }}
+        {{ tooltip.text }}
     </div>
 </template>
 
 <script>
+
+    // Vuex stuff
+    import {mapState} from 'vuex';
 
     export default {
 
@@ -19,78 +22,61 @@
 
         computed: {
 
-            data() {
+            style() {
 
-                /**
-                 * It's required to extract all data since this props
-                 * only get recomputed (and the element a new position)
-                 * whenever the tooltip store module changes.
-                 */
-                const {el, visible, text} = this.$store.state.tooltip;
-                const {position} = this;
-
-                // The reference element is at the very beginning null
-                if (!el) {
-                    return {visible, text, style: {}};
+                if (!this.tooltip.el) {
+                    return {};
                 }
 
-                // Recalculate position
-                const bcr = el.getBoundingClientRect();
-                return {
-                    visible, text,
-                    style: (() => {
-                        switch (position) {
-                            case 'top':
-                                return {
-                                    top: `${bcr.top - 30}px`,
-                                    left: `${bcr.left + bcr.width / 2}px`,
-                                    transform: 'translateX(-50%)'
-                                };
-                            case 'bottom':
-                                return {
-                                    top: `${bcr.bottom}px`,
-                                    left: `${bcr.left + bcr.width / 2}px`,
-                                    transform: 'translateX(-50%)'
-                                };
-                            case 'left':
-                                return {
-                                    top: `${bcr.bottom - bcr.height / 2}px`,
-                                    left: `${bcr.left - 30}px`,
-                                    transform: 'translateY(-50%) translateX(-100%)'
-                                };
-                            case 'right':
-                                return {
-                                    top: `${bcr.bottom - bcr.height / 2}px`,
-                                    left: `${bcr.right + 10}px`,
-                                    transform: 'translateY(-50%)'
-                                };
-                        }
-                    })()
-                };
-            }
-        },
+                // After repaint, check if there is clipping
+                /* eslint-disable vue/no-side-effects-in-computed-properties */
+                /* eslint-disable vue/no-async-in-computed-properties */
+                requestAnimationFrame(() => {
+                    const {toolTip} = this.$refs;
+                    const bcr = toolTip.getBoundingClientRect();
+                    if (bcr.top < 0) {
+                        this.position = 'bottom';
+                    } else if (bcr.bottom > window.innerHeight) {
+                        this.position = 'top';
+                    } else if (bcr.left < 0) {
+                        this.position = 'right';
+                    } else if (bcr.right > window.innerWidth) {
+                        this.position = 'left';
+                    }
+                });
 
-        updated() {
-
-            // Check for clipping
-            requestAnimationFrame(() => {
-                const {toolTip} = this.$refs;
-                const bcr = toolTip.getBoundingClientRect();
-
-                toolTip.classList.remove(this.position);
-
-                if (bcr.top < 0) {
-                    this.position = 'bottom';
-                } else if (bcr.bottom > window.innerHeight) {
-                    this.position = 'top';
-                } else if (bcr.left < 0) {
-                    this.position = 'right';
-                } else if (bcr.right > window.innerWidth) {
-                    this.position = 'left';
+                const bcr = this.tooltip.el.getBoundingClientRect();
+                switch (this.position) {
+                    case 'top':
+                        return {
+                            top: `${bcr.top - 30}px`,
+                            left: `${bcr.left + bcr.width / 2}px`,
+                            transform: 'translateX(-50%)'
+                        };
+                    case 'bottom':
+                        return {
+                            top: `${bcr.bottom}px`,
+                            left: `${bcr.left + bcr.width / 2}px`,
+                            transform: 'translateX(-50%)'
+                        };
+                    case 'left':
+                        return {
+                            top: `${bcr.bottom - bcr.height / 2}px`,
+                            left: `${bcr.left - 30}px`,
+                            transform: 'translateY(-50%) translateX(-100%)'
+                        };
+                    case 'right':
+                        return {
+                            top: `${bcr.bottom - bcr.height / 2}px`,
+                            left: `${bcr.right + 10}px`,
+                            transform: 'translateY(-50%)'
+                        };
+                    default:
+                        return {};
                 }
+            },
 
-                toolTip.classList.add(this.position);
-            });
+            ...mapState(['tooltip'])
         }
     };
 

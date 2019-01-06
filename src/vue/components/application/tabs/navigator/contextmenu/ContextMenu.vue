@@ -144,14 +144,14 @@
         mounted() {
 
             // Close via escape key
-            this.utils.on(window, 'keyup', e => e.key === 'Escape' && (this.open = false));
-            this.utils.on(window, 'resize', () => this.open = false);
+            this.utils.on(window, 'keyup', e => e.key === 'Escape' && this.$emit('hide'));
+            this.utils.on(window, 'resize', () => this.$emit('hide'));
 
             // Function to check, if menu is open, if the user has clicked
             // outside of the menu. Only active is menu is visible.
             const detectOutsideClick = evt => {
                 if (!this.utils.eventPath(evt).includes(this.$refs.menu)) {
-                    this.open = false;
+                    this.$emit('hide');
                 }
             };
 
@@ -197,22 +197,22 @@
 
             del() {
                 this.$store.dispatch('nodes/delete', this.nodes);
-                this.open = false;
+                this.$emit('hide');
             },
 
             star() {
                 this.$store.dispatch(`nodes/${this.marked ? 'remove' : 'add'}Mark`, this.nodes);
-                this.open = false;
+                this.$emit('hide');
             },
 
             edit() {
                 this.$store.commit('editable/set', this.nodes[0]);
-                this.open = false;
+                this.$emit('hide');
             },
 
             download() {
                 this.$store.dispatch('data/download', {node: this.nodes[0]});
-                this.open = false;
+                this.$emit('hide');
             },
 
             newFolder() {
@@ -222,7 +222,7 @@
                     this.$store.commit('editable/set', folderNode);
                 });
 
-                this.open = false;
+                this.$emit('hide');
             },
 
             moveToClipboard(type) {
@@ -234,7 +234,7 @@
                         type
                     });
                 }
-                this.open = false;
+                this.$emit('hide');
             },
 
             execClipboardAction() {
@@ -255,7 +255,7 @@
                         this.$store.commit('clipboard/clear');
                     }
                 }
-                this.open = false;
+                this.$emit('hide');
             },
 
             setColor(color) {
@@ -266,7 +266,7 @@
                 if (this.nodes.length === 1) {
                     this.$store.commit('setActivePopup', 'ShareViaLink');
                     this.$store.commit('share/set', this.nodes[0]);
-                    this.open = false;
+                    this.$emit('hide');
                 }
             }
         }

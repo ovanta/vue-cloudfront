@@ -22,7 +22,7 @@
 
             <div class="option">
                 <multi-switch-button :active="0"
-                                     :options="['All', 'File', 'Directory']"
+                                     :options="['All', 'File', 'Folder']"
                                      @change="setTypeOption"/>
             </div>
 
@@ -111,7 +111,7 @@
             },
 
             setTypeOption(state) {
-                (state === 'Directory') && (state = 'dir');
+                (state === 'Folder') && (state = 'dir');
 
                 this.$store.commit('search/setOption', {
                     key: 'type',

@@ -12,7 +12,7 @@ Vue.directive('doubleTap', (() => {
             map.set(el, binding.value);
 
             let lastTap = 0;
-            on(el, ['touchend', 'mouseup'], ({button}) => {
+            on(el, 'mouseup', ({button}) => {
                 const value = map.get(el);
 
                 if ((typeof button === 'number' && button) || typeof value !== 'function') {

@@ -1,6 +1,6 @@
 <template>
-    <section v-context-menu="e => openMenu(e)"
-             class="navigator">
+    <section class="navigator"
+             @contextmenu="openMenu">
 
         <search-bar/>
 

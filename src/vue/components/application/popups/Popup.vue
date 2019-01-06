@@ -93,7 +93,7 @@
         }
     }
 
-    @include notebook {
+    @include tablet {
         .popup {
             padding: 1em;
         }

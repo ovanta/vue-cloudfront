@@ -1,4 +1,4 @@
-@mixin notebook {
+@mixin tablet {
     @media all and (max-width: 1000px), all and (max-height: 650px) {
         @content
     }
