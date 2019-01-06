@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <p v-else class="message">{{ loadingData.message }}...</p>
+        <p v-else-if="loadingData.message" class="message" >{{ loadingData.message }}...</p>
     </overlay>
 </template>
 
@@ -67,6 +67,8 @@
                     return msgs[Math.floor(Math.random() * msgs.length)];
                 } else if (typeof msgs === 'string') {
                     return msgs;
+                } else {
+                    return null;
                 }
             }
         }

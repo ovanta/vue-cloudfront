@@ -1,6 +1,7 @@
 <template>
-    <div :style="{'background-image': `url('${url}')`}"
-         class="image-preview"></div>
+    <div class="image-preview">
+        <img :src="url" alt="">
+    </div>
 </template>
 
 <script>
@@ -23,11 +24,14 @@
 <style lang="scss" scoped>
 
     .image-preview {
+        @include flex(column, center, center);
         flex-grow: 1;
-        align-self: stretch;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+        height: 100%;
+
+        img {
+            max-height: 100%;
+            max-width: 100%;
+        }
     }
 
 </style>
