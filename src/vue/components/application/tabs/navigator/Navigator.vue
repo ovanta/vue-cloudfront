@@ -1,7 +1,6 @@
 <template>
-    <section v-mobile-context-menu="e => openMenu(e)"
-             class="navigator"
-             @contextmenu.prevent="openMenu($event)">
+    <section v-context-menu="e => openMenu(e)"
+             class="navigator">
 
         <search-bar/>
 

@@ -14,6 +14,8 @@ export default new Selection({
 
     startThreshold: 10,
 
+    disableTouch: true,
+
     selectables: ['.file', '.dir'],
     startareas: ['.views'],
     boundaries: ['.list'],

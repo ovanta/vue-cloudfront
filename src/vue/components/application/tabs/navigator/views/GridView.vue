@@ -8,7 +8,7 @@
             <!-- Folders -->
             <h1 v-if="nodes.dir.length">Folders</h1>
             <div class="grid-container">
-                <div v-double-click="() => updateLocation(node)"
+                <div v-double-tap="() => updateLocation(node)"
                      v-for="node of croppedNodes.dir"
                      :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
                      :data-hash="node.id"
@@ -29,7 +29,7 @@
             <!-- Files -->
             <h1 v-if="nodes.file.length">Files</h1>
             <div class="grid-container">
-                <div v-double-click="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
+                <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
                      v-for="(node, index) of croppedNodes.file"
                      :class="{selected: node.selected, file: 1, cutted: node.cutted}"
                      :data-hash="node.id"

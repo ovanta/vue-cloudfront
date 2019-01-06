@@ -4,7 +4,7 @@ import {on} from '../../js/utils';
 /**
  * Double click, just also for touch devices
  */
-Vue.directive('doubleClick', (() => {
+Vue.directive('doubleTap', (() => {
     const map = new WeakMap();
 
     return {

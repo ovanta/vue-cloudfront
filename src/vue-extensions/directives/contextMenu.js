@@ -2,9 +2,9 @@ import Vue  from 'vue';
 import {on} from '../../js/utils';
 
 /**
- * Detects long touch taps
+ * Context menu for both touch and desktop
  */
-Vue.directive('mobileContextMenu', {
+Vue.directive('contextMenu', {
     inserted(el, {value}) {
 
         // Validate
@@ -13,6 +13,7 @@ Vue.directive('mobileContextMenu', {
         }
 
         let interval = null;
+        on(el, 'contextmenu', value);
         on(el, 'touchstart', e => interval = setInterval(() => value(e), 500));
         on(el, ['touchend', 'touchcancel', 'touchmove'], () => interval && clearInterval(interval));
     }
