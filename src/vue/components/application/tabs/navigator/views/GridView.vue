@@ -29,26 +29,27 @@
             <!-- Files -->
             <h1 v-if="nodes.file.length">Files</h1>
             <div class="grid-container">
-                <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
-                     v-for="(node, index) of croppedNodes.file"
-                     :class="{selected: node.selected, file: 1, cutted: node.cutted}"
-                     :data-hash="node.id"
-                     @touchend="select($event, node)"
-                     @click.left="select($event, node)"
-                     @click.right="select($event, node)">
+                <div v-for="(node, index) of croppedNodes.file" class="wrapper">
+                    <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
+                         :class="{selected: node.selected, file: 1, cutted: node.cutted}"
+                         :data-hash="node.id"
+                         @touchend="select($event, node)"
+                         @click.left="select($event, node)"
+                         @click.right="select($event, node)">
 
-                    <embed-file-preview :node="node">
-                        <span>No preview avaiable</span>
-                    </embed-file-preview>
+                        <embed-file-preview :node="node">
+                            <span>No preview available</span>
+                        </embed-file-preview>
 
-                    <div class="info">
-                        <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
-                        <span class="extension">{{ node.extension }}</span>
-                        <span v-select-all="node.editable"
-                              :contenteditable="node.editable"
-                              class="name"
-                              spellcheck="false"
-                              @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
+                        <div class="info">
+                            <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
+                            <span class="extension">{{ node.extension }}</span>
+                            <span v-select-all="node.editable"
+                                  :contenteditable="node.editable"
+                                  class="name"
+                                  spellcheck="false"
+                                  @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -141,7 +142,7 @@
 
     .grid-container {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(12.5em, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(13em, 1fr));
     }
 
     .dir {
@@ -167,10 +168,14 @@
             > span {
                 margin: 1.5em;
             }
+
+            &:not(.empty) {
+                margin-bottom: 0.75em;
+            }
         }
 
         .info {
-            padding: 1em 0 0.25em;
+            padding: 0.25em 0;
             overflow: hidden;
             margin-top: auto;
             text-overflow: ellipsis;

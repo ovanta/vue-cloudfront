@@ -117,7 +117,7 @@ export default function (opt) {
                     document.body.appendChild(cloned);
 
                     // Map ghost and return it
-                    return mapGhost(cloned);
+                    return mapGhost(cloned) || cloned;
                 });
 
                 // Dragging is now active

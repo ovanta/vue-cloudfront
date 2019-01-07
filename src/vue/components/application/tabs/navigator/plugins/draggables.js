@@ -14,6 +14,18 @@ export default selectionjs => new Draggable({
     target: '.dir,.node',
     ghostLimit: 10,
 
+    mapGhost(element) {
+
+        // Remove inline file-preview
+        const embed = element.querySelector('.embed-file-preview');
+
+        if (embed) {
+            embed.parentElement.removeChild(embed);
+        }
+
+        return element;
+    },
+
     onDragStart() {
 
         /**

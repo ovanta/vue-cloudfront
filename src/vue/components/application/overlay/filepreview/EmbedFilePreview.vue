@@ -47,7 +47,7 @@
             url() {
                 return this.$store.getters['buildStaticUrl'](this.node);
             }
-        },
+        }
     };
 
 </script>
