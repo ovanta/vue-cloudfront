@@ -1,8 +1,7 @@
 <template>
     <video :src="url"
            class="video-preview"
-           controls
-           autoplay></video>
+           controls></video>
 </template>
 
 <script>

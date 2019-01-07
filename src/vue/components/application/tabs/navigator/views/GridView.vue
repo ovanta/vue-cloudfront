@@ -7,7 +7,7 @@
 
             <!-- Folders -->
             <h1 v-if="nodes.dir.length">Folders</h1>
-            <div class="grid-container">
+            <div class="flex-container">
                 <div v-double-tap="() => updateLocation(node)"
                      v-for="node of croppedNodes.dir"
                      :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
@@ -37,13 +37,19 @@
                      @click.left="select($event, node)"
                      @click.right="select($event, node)">
 
-                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
-                    <span class="extension">{{ node.extension }}</span>
-                    <span v-select-all="node.editable"
-                          :contenteditable="node.editable"
-                          class="name"
-                          spellcheck="false"
-                          @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
+                    <embed-file-preview :node="node">
+                        <span>No preview avaiable</span>
+                    </embed-file-preview>
+
+                    <div class="info">
+                        <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
+                        <span class="extension">{{ node.extension }}</span>
+                        <span v-select-all="node.editable"
+                              :contenteditable="node.editable"
+                              class="name"
+                              spellcheck="false"
+                              @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,9 +65,14 @@
     // Selectable plugin
     import Selectable from '../plugins/selectable';
 
+    // File preview
+    import EmbedFilePreview from '../../../overlay/filepreview/EmbedFilePreview';
+
     import shared from './shared';
 
     export default {
+        components: {EmbedFilePreview},
+
         props: {
             nodes: {
                 type: Object,
@@ -123,25 +134,58 @@
         margin: 1.5em 0 0.2em;
     }
 
-    .grid-container {
+    .flex-container {
         @include flex(row, flex-start);
         flex-wrap: wrap;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(12.5em, 1fr));
+    }
+
+    .dir {
+        @include flex(row, center);
+        margin: 0.5em 0.5em 0 0;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: 1px solid transparent;
+        max-width: 15em;
+    }
+
+    .file {
+        @include flex(column);
+        margin: 0 1em 1em 0;
+        cursor: pointer;
+
+        .embed-file-preview {
+            max-width: 100%;
+            max-height: 15em;
+            flex-grow: 1;
+            overflow: hidden;
+
+            > span {
+                margin: 1.5em;
+            }
+        }
+
+        .info {
+            padding: 1em 0 0.25em;
+            overflow: hidden;
+            margin-top: auto;
+            text-overflow: ellipsis;
+        }
     }
 
     .dir,
     .file {
         position: relative;
-        @include flex(row, center);
-        padding: 0.5em 0.9em;
-        margin: 0.5em 0.5em 0 0;
         border-radius: 0.15em;
-        transition: all 0.3s;
-        cursor: pointer;
         font-size: 0.8em;
         box-shadow: 0 1px 3px 0 rgba(black, 0.05);
         background: white;
         border: 1px solid transparent;
-        max-width: 15em;
+        padding: 0.5em 0.9em;
 
         .bookmark {
             position: absolute;
@@ -221,4 +265,5 @@
             }
         }
     }
+
 </style>

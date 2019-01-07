@@ -76,6 +76,20 @@ export default new Vuex.Store({
         requestsActive: 0
     },
 
+    getters: {
+
+        /**
+         * Returns a function which takes a node which returns
+         * a url to this specific file using the current APIKey.
+         *
+         * @returns {function(*): string}
+         */
+        buildStaticUrl(state) {
+            return node => `${config.apiEndPoint}/static/${encodeURIComponent(node.name)}?id=${node.id}&apikey=${state.auth.apikey}`;
+        }
+
+    },
+
     mutations: {
 
         setActivePopup(state, popup) {

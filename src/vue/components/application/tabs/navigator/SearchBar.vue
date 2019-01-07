@@ -147,7 +147,7 @@
         }
 
         input {
-            @include font(400, 0.85em);
+            @include font(400, 0.9em);
             color: $palette-deep-blue;
             flex-grow: 1;
 

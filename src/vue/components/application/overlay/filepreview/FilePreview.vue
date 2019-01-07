@@ -13,18 +13,13 @@
             <!-- Actual preview -->
             <div v-if="currentNode" class="file">
 
-                <!-- Previews -->
-                <image-preview v-if="currentNode.name.match(/\.(png|jpg|jpeg|svg|gif|bmp|webp|jpeg2000|ico)$/i)" :url="url"/>
-                <video-preview v-else-if="currentNode.name.match(/\.(webm|mp4|wav|flac)$/i)" :url="url"/>
-                <audio-preview v-else-if="currentNode.name.match(/\.(mp3|wav|ogg)$/i)" :url="url"/>
-                <pdf-preview v-else-if="currentNode.name.match(/\.pdf$/i)" :url="url"/>
-                <font-preview v-else-if="currentNode.name.match(/\.(ttf|otf|woff)$/i)" :url="url"/>
-
-                <!-- Message if no preview is available -->
-                <div v-else class="no-preview">
-                    Preview not available for
-                    <span>{{ currentNode.name }}</span>.
-                </div>
+                <!-- Preview -->
+                <embed-file-preview :node="currentNode">
+                    <div class="no-preview">
+                        Preview not available for
+                        <span>{{ currentNode.name }}</span>.
+                    </div>
+                </embed-file-preview>
 
                 <svg xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 384 512"
@@ -45,18 +40,9 @@
 
 <script>
 
-    // Config
-    import config from '../../../../../../config/config.json';
-
     // Components
-    import Overlay from '../Overlay';
-
-    // Preview components
-    import FontPreview  from './modules/FontPreview';
-    import PDFPreview   from './modules/PDFPreview';
-    import AudioPreview from './modules/AudioPreview';
-    import VideoPreview from './modules/VideoPreview';
-    import ImagePreview from './modules/ImagePreview';
+    import Overlay          from '../Overlay';
+    import EmbedFilePreview from './EmbedFilePreview';
 
     // Vuex stuff
     import {mapState} from 'vuex';
@@ -64,11 +50,7 @@
     export default {
         components: {
             Overlay,
-            FontPreview,
-            ImagePreview,
-            VideoPreview,
-            AudioPreview,
-            'pdf-preview': PDFPreview
+            EmbedFilePreview
         },
 
         data() {
@@ -82,11 +64,6 @@
                 const {index, nodes} = this.filepreview;
 
                 return nodes[index];
-            },
-
-            url() {
-                const name = encodeURIComponent(this.currentNode.name);
-                return `${config.apiEndPoint}/static/${name}?id=${this.currentNode.id}&apikey=${this.$store.state.auth.apikey}`;
             }
         },
 
@@ -160,7 +137,7 @@
 
         .file {
             position: relative;
-            @include flex(row, center, center);
+            @include flex(column, center, center);
             flex-grow: 1;
             margin: 2em;
 

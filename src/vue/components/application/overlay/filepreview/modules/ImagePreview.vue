@@ -31,6 +31,9 @@
         img {
             max-height: 100%;
             max-width: 100%;
+            object-fit: contain;
+            overflow: hidden;
+            border-radius: 0.25em;
         }
     }
 
