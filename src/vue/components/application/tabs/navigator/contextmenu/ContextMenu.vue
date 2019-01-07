@@ -139,6 +139,16 @@
                     }
                 }
             });
+
+            requestAnimationFrame(() => {
+                const {menu} = this.$refs;
+                const bcr = menu.getBoundingClientRect();
+                if (bcr.bottom > window.innerHeight) {
+                    menu.classList.add('top');
+                } else {
+                    menu.classList.remove('top');
+                }
+            });
         },
 
         mounted() {
@@ -279,7 +289,6 @@
     .menu {
         @include flex(column);
         position: fixed;
-        transform: translateY(-0.1em);
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s;
@@ -294,8 +303,11 @@
 
         &.open {
             opacity: 1;
-            transform: none;
             pointer-events: all;
+        }
+
+        &.top {
+            transform: translateY(-100%);
         }
 
         .option {
