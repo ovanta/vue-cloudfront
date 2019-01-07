@@ -172,6 +172,17 @@
         color: $palette-deep-blue;
         font-size: 0.9em;
         white-space: pre-wrap;
+
+        @include animate('0.3s') {
+            from {
+                opacity: 0;
+                transform: translateY(-0.3em);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
     }
 
 </style>
