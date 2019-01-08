@@ -2,7 +2,7 @@
     <div :class="{'embed-file-preview': 1, empty}">
 
         <!-- Previews -->
-        <image-preview v-if="node.name.match(/\.(png|jpg|jpeg|svg|gif|bmp|webp|jpeg2000|ico)$/i)" :url="url"/>
+        <image-preview v-if="node.name.match(/\.(png|jpg|jpeg|svg|gif|bmp|webp|jpeg2000|ico|apng)$/i)" :url="url"/>
         <video-preview v-else-if="node.name.match(/\.(webm|mp4|wav|flac)$/i)" :url="url"/>
         <audio-preview v-else-if="node.name.match(/\.(mp3|wav|ogg)$/i)" :url="url"/>
         <pdf-preview v-else-if="node.name.match(/\.pdf$/i)" :url="url"/>

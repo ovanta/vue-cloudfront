@@ -19,8 +19,8 @@
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
 
-                    <span v-select-all="node.editable"
-                          v-content-editable="node.editable"
+                    <span v-content-editable="node.editable"
+                          v-select-all="node.editable"
                           class="name"
                           spellcheck="false"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
@@ -46,8 +46,8 @@
                             <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                             <span class="extension">{{ node.extension }}</span>
 
-                            <span v-select-all="node.editable"
-                                  v-content-editable="node.editable"
+                            <span v-content-editable="node.editable"
+                                  v-select-all="node.editable"
                                   class="name"
                                   spellcheck="false"
                                   @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
