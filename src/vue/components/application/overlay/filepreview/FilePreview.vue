@@ -15,10 +15,18 @@
 
                 <!-- Preview -->
                 <embed-file-preview :node="currentNode">
+
+                    <!-- Fallback if no preview is available -->
                     <div class="no-preview">
                         Preview not available for
                         <span>{{ currentNode.name }}</span>.
+
+                        <button @click="$store.dispatch('data/download', {node: currentNode})">
+                            <i class="fas fa-cloud-download-alt"></i>
+                            <span>Download</span>
+                        </button>
                     </div>
+
                 </embed-file-preview>
 
                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +119,7 @@
         flex-grow: 1;
         min-height: 0;
 
-        i {
+        > i {
             color: $palette-deep-blue;
             cursor: pointer;
             transition: all 0.3s;
@@ -169,9 +177,30 @@
                 text-align: center;
                 width: 100%;
 
-                span {
-                    font-style: italic;
+                > span {
                     font-weight: 600;
+                }
+
+                > button {
+                    @include flex(row, center, center);
+                    display: block;
+                    margin: 1em auto 0;
+                    background: $palette-deep-blue;
+                    color: $palette-snow-white;
+                    transition: all 0.3s;
+                    padding: 0.35em 0.75em;
+                    border-radius: 0.15em;
+
+                    i {
+                        font-size: 1em;
+                        margin-right: 0.55em;
+                        color: $palette-snow-white;
+                    }
+
+
+                    &:hover {
+                        background: lighten($palette-deep-blue, 5);
+                    }
                 }
             }
         }

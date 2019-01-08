@@ -190,7 +190,7 @@
 
                     // Find last dir and jump into it
                     const {selection} = this.$store.state;
-                    for (let i = selection.length - 1; i >= 0; i++) {
+                    for (let i = selection.length - 1; i >= 0; i--) {
                         const node = selection[i];
 
                         if (node.type === 'dir') {

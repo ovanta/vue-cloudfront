@@ -25,6 +25,7 @@
 
     .image-preview {
         @include flex(column, center, center);
+        margin: auto;
         flex-grow: 1;
         height: 100%;
 

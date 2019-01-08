@@ -5,7 +5,6 @@
         <image-preview v-if="node.name.match(/\.(png|jpg|jpeg|svg|gif|bmp|webp|jpeg2000|ico|apng)$/i)" :url="url"/>
         <video-preview v-else-if="node.name.match(/\.(webm|mp4|wav|flac)$/i)" :url="url"/>
         <audio-preview v-else-if="node.name.match(/\.(mp3|wav|ogg)$/i)" :url="url"/>
-        <pdf-preview v-else-if="node.name.match(/\.pdf$/i)" :url="url"/>
         <font-preview v-else-if="node.name.match(/\.(ttf|otf|woff)$/i)" :url="url"/>
 
         <slot v-else></slot>
@@ -16,7 +15,6 @@
 
     // Preview components
     import FontPreview  from './modules/FontPreview';
-    import PDFPreview   from './modules/PDFPreview';
     import AudioPreview from './modules/AudioPreview';
     import VideoPreview from './modules/VideoPreview';
     import ImagePreview from './modules/ImagePreview';
@@ -26,8 +24,7 @@
             FontPreview,
             ImagePreview,
             VideoPreview,
-            AudioPreview,
-            'pdf-preview': PDFPreview
+            AudioPreview
         },
 
         props: {

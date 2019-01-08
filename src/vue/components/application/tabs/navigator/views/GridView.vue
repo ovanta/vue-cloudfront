@@ -162,8 +162,9 @@
         cursor: pointer;
 
         .embed-file-preview {
+            position: relative;
             max-width: 100%;
-            max-height: 15em;
+            max-height: 12.5em;
             flex-grow: 1;
             overflow: hidden;
 
@@ -175,6 +176,13 @@
 
             &:not(.empty) {
                 margin-bottom: 1em;
+            }
+
+            &::before {
+                @include pseudo();
+                @include position(auto, 0, -0.25em, 0);
+                background: linear-gradient(to bottom, transparent, white 50%);
+                height: 5%;
             }
         }
 
