@@ -8,7 +8,7 @@
         <pdf-preview v-else-if="node.name.match(/\.pdf$/i)" :url="url"/>
         <font-preview v-else-if="node.name.match(/\.(ttf|otf|woff)$/i)" :url="url"/>
 
-        <slot v-else-if="(empty = true)"></slot>
+        <slot v-else></slot>
     </div>
 </template>
 
@@ -45,6 +45,9 @@
 
         computed: {
             url() {
+
+                /* eslint-disable vue/no-side-effects-in-computed-properties */
+                this.empty = false;
                 return this.$store.getters['buildStaticUrl'](this.node);
             }
         }
@@ -55,7 +58,8 @@
 <style lang="scss" scoped>
 
     .embed-file-preview {
-        @include flex(column, center, center);
+        @include flex(column, flex-start, flex-start);
+        min-height: 0;
     }
 
 </style>

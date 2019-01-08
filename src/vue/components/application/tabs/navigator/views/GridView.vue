@@ -18,8 +18,9 @@
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
+
                     <span v-select-all="node.editable"
-                          :contenteditable="node.editable"
+                          v-content-editable="node.editable"
                           class="name"
                           spellcheck="false"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
@@ -44,8 +45,9 @@
                         <div class="info">
                             <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                             <span class="extension">{{ node.extension }}</span>
+
                             <span v-select-all="node.editable"
-                                  :contenteditable="node.editable"
+                                  v-content-editable="node.editable"
                                   class="name"
                                   spellcheck="false"
                                   @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
@@ -166,19 +168,21 @@
             overflow: hidden;
 
             > span {
-                margin: 1.5em;
+                margin: 1.5em 0;
+                width: 100%;
+                text-align: center;
             }
 
             &:not(.empty) {
-                margin-bottom: 0.75em;
+                margin-bottom: 1em;
             }
         }
 
         .info {
+            @include flex(row, center, flex-start);
             padding: 0.25em 0;
             overflow: hidden;
             margin-top: auto;
-            text-overflow: ellipsis;
         }
     }
 
@@ -254,6 +258,7 @@
             transition: all 0.3s;
             white-space: nowrap;
             overflow: hidden;
+            min-width: 0;
 
             &[contenteditable=true] {
                 border-color: $palette-deep-purple;

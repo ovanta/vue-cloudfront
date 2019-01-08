@@ -101,6 +101,7 @@
 
     body {
         background: $palette-snow-white;
+        font-family: $font-family-open-sans;
     }
 
     .app-background {

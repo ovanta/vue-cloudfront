@@ -109,6 +109,7 @@
     .preview {
         @include flex(row, stretch, space-between);
         flex-grow: 1;
+        min-height: 0;
 
         i {
             color: $palette-deep-blue;
@@ -140,6 +141,7 @@
             @include flex(column, center, center);
             flex-grow: 1;
             margin: 2em;
+            min-height: 0;
 
             .download-btn {
                 position: absolute;
