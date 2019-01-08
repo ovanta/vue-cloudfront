@@ -33,7 +33,6 @@
             const {on, off} = this.utils;
 
             const grabber = e => {
-                e.stopPropagation();
                 this.setPosition(e);
 
                 const listeners = [
@@ -66,6 +65,7 @@
         @include size(5em, 0.5em);
         background: $palette-decent-blue;
         border-radius: 50em;
+        overflow: visible;
     }
 
     .bar {
@@ -78,7 +78,7 @@
 
     .knob {
         position: absolute;
-        @include size(1em);
+        @include size(1.25em);
         background: $palette-deep-blue;
         top: 50%;
         transform: translate3d(-50%, -50%, 0);

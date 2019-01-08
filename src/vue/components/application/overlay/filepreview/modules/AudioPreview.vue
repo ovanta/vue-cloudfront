@@ -8,14 +8,13 @@
         <!-- Volume slider and icon -->
         <slider :value="volume"
                 class="volume-slider"
-                @mouseleave="showVolume = false"
                 @change="setVolume"/>
 
         <i :class="`fas fa-fw fa-volume-${volumeIcon}`"></i>
 
-        <div class="progress-bar">
-            <div :style="{width: `${(elapsedTime / duration) * 100}%`}"></div>
-        </div>
+        <slider :value="elapsedTime / duration"
+                class="time-slider"
+                @change="setTime"/>
     </div>
 </template>
 
@@ -66,16 +65,25 @@
             }
         },
 
+        watch: {
+            url(newUrl) {
+                this.audio.src = newUrl;
+            }
+        },
+
         mounted() {
             const {on} = this.utils;
             const audio = new Audio(this.url);
 
-            on(audio, 'canplay', () => {
+            on(audio, 'loadedmetadata', () => {
                 this.volume = audio.volume = 0.25;
+                this.paused = true;
                 this.duration = audio.duration;
                 this.elapsedTime = audio.currentTime;
+                audio.pause();
             });
 
+            on(audio, ['pause', 'play', 'ended'], () => this.paused = audio.paused);
             on(audio, 'timeupdate', () => this.elapsedTime = audio.currentTime);
             on(audio, 'volumechange', () => this.volume = audio.volume);
 
@@ -96,8 +104,12 @@
 
             setVolume(value) {
                 this.audio.volume = value;
+            },
+
+            setTime(value) {
+                this.audio.currentTime = value * this.duration;
             }
-        }
+        },
     };
 
 </script>
@@ -106,10 +118,11 @@
 
     .audio-preview {
         position: relative;
-        @include flex(row, center);
+        @include flex(row, center, space-between);
         color: $palette-deep-blue;
-        margin: 0.5em 0 0.25em;
-        padding-bottom: 0.75em;
+        margin: 0.5em auto 0.25em;
+        padding-bottom: 1.25em;
+        width: 90%;
 
         > i {
             flex-shrink: 0;
@@ -126,19 +139,15 @@
         .volume-slider {
             font-size: 0.75em;
             margin: 0 1.5em;
+            flex-grow: 1;
         }
 
-        .progress-bar {
+        .time-slider {
             position: absolute;
-            @include size(100%, 2px);
-            bottom: 0;
-            background: $palette-decent-blue;
-
-            div {
-                position: absolute;
-                @include position(0, auto, 0, 0);
-                background: $palette-deep-blue;
-            }
+            @include position(auto, 0, 0.1em, 0);
+            width: 100%;
+            margin: 0 auto;
+            font-size: 0.75em;
         }
     }
 

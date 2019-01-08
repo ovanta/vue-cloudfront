@@ -143,9 +143,13 @@
             margin: 2em;
             min-height: 0;
 
+            .embed-file-preview {
+                min-width: 40%;
+            }
+
             .download-btn {
                 position: absolute;
-                @include position(auto, 0, 0, auto);
+                @include position(auto, 0, -0.5em, auto);
                 @include size(30px);
                 cursor: pointer;
                 fill: $palette-snow-white;
