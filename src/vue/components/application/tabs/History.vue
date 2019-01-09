@@ -118,7 +118,9 @@
 
             // Each action / mutation gets a unique color
             const colorMap = {
-                'Update': '#66BB6A',
+                'Update': '#C0CA33',
+                'Put': '#8BC34A',
+                'Create Folders': '#4CAF50',
                 'Delete': '#EF5350',
                 'Add Mark': '#EC407A',
                 'Remove Mark': '#AB47BC',
@@ -132,6 +134,8 @@
             // Each action / mutation also gets a fancy icon
             const iconMap = {
                 'Update': 'fas fa-fw fa-sync-alt',
+                'Put': 'fas fa-fw fa-cloud-upload-alt',
+                'Create Folders': 'fas fa-fw fa-folder-open',
                 'Delete': 'fas fa-fw fa-trash-alt',
                 'Add Mark': 'fas fa-fw fa-bookmark',
                 'Remove Mark': 'far fa-fw fa-bookmark',
@@ -145,7 +149,13 @@
             // Map of functions which generate a description of each action the user perform
             const descriptionMap = {
                 'Update': () =>
-                    `Nodes updated.`,
+                    `Cloud updated.`,
+
+                'Put': payload =>
+                    `Uploaded ${pluralify(payload.nodes)}`,
+
+                'Create Folders': payload =>
+                    `Created ${pluralify(payload.folders)}`,
 
                 'Delete': payload =>
                     `Deleted ${pluralify(payload)}.`,

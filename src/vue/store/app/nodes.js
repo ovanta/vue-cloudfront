@@ -106,7 +106,6 @@ export const nodes = {
                 state.push(...nodes);
             }
         }
-
     },
 
     actions: {

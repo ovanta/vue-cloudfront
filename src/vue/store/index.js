@@ -87,7 +87,6 @@ export default new Vuex.Store({
         buildStaticUrl(state) {
             return node => `${config.apiEndPoint}/static/${encodeURIComponent(node.name)}?id=${node.id}&apikey=${state.auth.apikey}`;
         }
-
     },
 
     mutations: {

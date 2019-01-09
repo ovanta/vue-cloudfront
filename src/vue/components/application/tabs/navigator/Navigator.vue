@@ -188,14 +188,16 @@
                     update();
                 } else if (keys.KeyEnter) {
 
-                    // Find last dir and jump into it
+                    // Get last node
                     const {selection} = this.$store.state;
-                    for (let i = selection.length - 1; i >= 0; i--) {
-                        const node = selection[i];
+                    if (selection.length) {
+                        const lastNode = selection[selection.length - 1];
 
-                        if (node.type === 'dir') {
-                            this.$store.commit('location/update', node);
-                            return;
+                        // If directory, open it. If file, open file-preview
+                        if (lastNode.type === 'dir') {
+                            this.$store.commit('location/update', lastNode);
+                        } else if (lastNode.type === 'file') {
+                            this.$store.commit('filepreview/show', {nodes: this.nodes.file});
                         }
                     }
                 }

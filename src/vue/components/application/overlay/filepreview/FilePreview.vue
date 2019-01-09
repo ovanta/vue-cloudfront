@@ -70,7 +70,6 @@
 
             currentNode() {
                 const {index, nodes} = this.filepreview;
-
                 return nodes[index];
             }
         },
