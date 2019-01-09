@@ -1,26 +1,29 @@
 <template>
     <popup v-if="share.node"
-           title="Share via link"
+           title="Create public download links"
            store-prop="ShareViaLink"
            class="share-via-link">
 
-        <h3>{{ share.node.name }}</h3>
+        <h3>Everyone with on of these links can download <b>{{ share.node.name }}</b></h3>
 
         <!-- List of exising links -->
         <div class="exising-links">
 
             <div v-for="id of share.node.staticIds" class="link">
-                <span>{{ apiEndPoint }}/download?id={{ id }}</span>
-                <i class="fas fa-fw fa-times" @click="removeId(id)"></i>
+                <span class="link">{{ apiEndPoint }}/download?id={{ id }}</span>
+                <span class="delete" @click="removeId(id)">Delete</span>
             </div>
 
             <div v-if="!share.node.staticIds.length" class="placeholder">
-                There are currently no static links attached...
+                <p>There are currently no download links attached...</p>
             </div>
 
         </div>
 
-        <button class="add" @click="requestId">Add link</button>
+        <div class="actions">
+            <button class="remove-all" @click="removeAll">Remove all</button>
+            <button class="add" @click="requestId">Add link</button>
+        </div>
 
     </popup>
 </template>
@@ -58,7 +61,11 @@
             },
 
             removeId(id) {
-                this.$store.dispatch('nodes/removeStaticId', {node: this.share.node, id});
+                this.$store.dispatch('nodes/removeStaticId', {node: this.share.node, ids: [id]});
+            },
+
+            removeAll() {
+                this.$store.dispatch('nodes/removeStaticId', {node: this.share.node, ids: this.share.node.staticIds});
             }
         }
     };
@@ -72,39 +79,43 @@
         height: 100%;
 
         h3 {
-            @include font(400, 0.9em);
+            @include font(400, 0.85em);
             color: $palette-deep-blue;
-            padding: 0.5em 0;
         }
     }
 
     .exising-links {
         @include flex(column);
-        margin-top: 0.25em;
+        margin: 1.25em 0;
         max-height: 15em;
         overflow: auto;
         color: $palette-deep-blue;
 
         .link {
             @include flex(row, center);
-            margin: 0.15em 0;
+            margin: 0.25em 0;
             flex-shrink: 0;
 
-            span {
+            .link {
                 @include font(500, 0.8em);
-                width: 100%;
                 user-select: all;
                 cursor: pointer;
+                flex-grow: 1;
             }
 
-            i {
-                font-size: 1em;
+            .delete {
+                background: $palette-tomatoe-red;
+                @include font(600, 0.75em);
+                padding: 0.35em 0.5em;
+                color: white;
+                border-radius: 0.15em;
+                margin-left: 0.75em;
                 transition: all 0.3s;
                 cursor: pointer;
-                margin-left: 0.5em;
+                text-transform: uppercase;
 
                 &:hover {
-                    color: $palette-tomatoe-red;
+                    background: darken($palette-tomatoe-red, 2);
                 }
             }
         }
@@ -113,17 +124,37 @@
             text-align: center;
             margin: 1em 0;
             @include font(400, 0.85em);
-            color: $palette-decent-blue;
+            color: $palette-deep-blue;
         }
     }
 
-    .add {
-        margin: 1.5em 0 0 auto;
-        background: $palette-deep-purple;
-        color: white;
-        @include font(400, 0.85em);
-        padding: 0.5em 1em;
-        border-radius: 0.15em;
+    .actions {
+        @include flex(row, center, flex-end);
+
+        button {
+            @include font(400, 0.85em);
+            color: white;
+            padding: 0.5em 1em;
+            border-radius: 0.15em;
+            transition: all 0.3s;
+            margin-left: 0.5em;
+        }
+
+        .add {
+            background: $palette-deep-purple;
+
+            &:hover {
+                background: darken($palette-deep-purple, 2);
+            }
+        }
+
+        .remove-all {
+            background: $palette-tomatoe-red;
+
+            &:hover {
+                background: darken($palette-tomatoe-red, 2);
+            }
+        }
     }
 
 </style>

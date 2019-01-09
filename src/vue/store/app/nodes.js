@@ -390,19 +390,19 @@ export const nodes = {
          * @param rootState
          * @param node
          */
-        async removeStaticId({rootState}, {node, id}) {
+        async removeStaticId({rootState}, {node, ids}) {
             return this.dispatch('fetch', {
                 route: 'removeStaticId',
                 body: {
                     apikey: rootState.auth.apikey,
                     node: node.id,
-                    id
+                    ids
                 }
             }).then(() => {
 
                 // Append link
                 node.staticIds = node.staticIds || [];
-                node.staticIds = node.staticIds.filter(v => v !== id);
+                node.staticIds = node.staticIds.filter(id => !ids.includes(id));
             });
         }
     }
