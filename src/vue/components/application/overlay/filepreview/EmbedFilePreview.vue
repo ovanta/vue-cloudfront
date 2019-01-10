@@ -56,7 +56,7 @@
 
     .embed-file-preview {
         @include flex(column, flex-start, flex-start);
-        min-height: 0;
+        @include size(100%);
     }
 
 </style>

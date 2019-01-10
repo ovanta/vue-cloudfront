@@ -109,7 +109,7 @@
             setTime(value) {
                 this.audio.currentTime = value * this.duration;
             }
-        },
+        }
     };
 
 </script>
@@ -147,7 +147,7 @@
             @include position(auto, 0, 0.1em, 0);
             width: 100%;
             margin: 0 auto;
-            font-size: 0.75em;
+            font-size: 0.6em;
         }
     }
 
