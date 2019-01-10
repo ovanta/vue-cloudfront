@@ -2,25 +2,7 @@
     <overlay :open="loadingData.open" class="loading-screen">
         <div class="box"></div>
 
-        <!-- Upload progress bar -->
-        <div v-if="data.upload.active" class="upload">
-
-            <p v-if="data.upload.done > 0">
-                Uploaded <b>{{ utils.readableByteCount(data.upload.done) }}</b> of
-                <b>{{ utils.readableByteCount(data.upload.total) }}</b> -
-                <b> {{ Math.round((data.upload.done / data.upload.total) * 100) }}%</b>
-            </p>
-
-            <p v-else>
-                Found <b> {{ utils.readableByteCount(data.upload.total) }}</b> so far...
-            </p>
-
-            <div :class="{'progress-bar': 1, invisible: !data.upload.done}">
-                <div :style="{width: `${(data.upload.done / data.upload.total) * 100}%`}"></div>
-            </div>
-        </div>
-
-        <p v-else-if="loadingData.message" class="message">{{ loadingData.message }}...</p>
+        <p v-if="loadingData.message" class="message">{{ loadingData.message }}...</p>
     </overlay>
 </template>
 
@@ -31,9 +13,6 @@
 
     // Config
     import config from '../../../../../config/config.json';
-
-    // Vuex stuff
-    import {mapState} from 'vuex';
 
     export default {
         components: {Overlay},
@@ -53,9 +32,7 @@
                     open: !!this.$store.state.requestsActive,
                     message: this.getRandomMessage()
                 };
-            },
-
-            ...mapState(['data'])
+            }
         },
 
         methods: {
@@ -77,10 +54,6 @@
 </script>
 
 <style lang="scss" scoped>
-
-    $big-border-radius: 2em;
-    $small-border-radius: 0.15em;
-    $jump-height: 0.25em;
 
     .loading-screen {
         @include flex(column, center, center);
@@ -109,39 +82,6 @@
             }
             100% {
                 transform: perspective($perspective) rotateX(0) rotateY(0);
-            }
-        }
-    }
-
-    .upload {
-        @include flex(column);
-        margin-top: 4em;
-        width: 30%;
-
-        p {
-            @include font(400, 0.8em);
-            margin-bottom: 0.5em;
-            text-align: center;
-        }
-
-        .progress-bar {
-            position: relative;
-            padding: 0.25em 0;
-            background: $palette-decent-blue;
-            border-radius: 50em;
-            overflow: hidden;
-            transition: all 0.3s;
-
-            div {
-                position: absolute;
-                @include position(0, auto, 0, 0);
-                background: $palette-deep-purple;
-                border-radius: 50em;
-                transition: width 0.25s;
-            }
-
-            &.invisible {
-                opacity: 0;
             }
         }
     }

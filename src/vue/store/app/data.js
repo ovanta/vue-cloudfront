@@ -7,12 +7,8 @@ export const data = {
 
     state: {
 
-        // Upload progress informations
-        upload: {
-            active: false,
-            total: 0, // Total upload bytes
-            done: 0 // Bytes uploaded so far
-        }
+        // Uploads
+        uploads: []
     },
 
     mutations: {
@@ -22,9 +18,7 @@ export const data = {
          * @param state
          */
         reset(state) {
-            state.upload.active = false;
-            state.upload.total = 0;
-            state.upload.done = 0;
+            state.uploads.splice(0, state.uploads.length);
         }
     },
 
@@ -36,9 +30,28 @@ export const data = {
          * @param parent Target directory
          * @param dataTransfer drop dataTrasnsfer object
          */
-        async upload({state, rootState}, {parent, dataTransfer: {files, items}}) {
-            state.upload.active = true;
-            rootState.requestsActive++;
+        async upload({state}, {parent, dataTransfer: {files, items}}) {
+
+            // Create new upload object
+            const stats = {
+
+                /**
+                 * Available states are
+                 * 'init' = Not started
+                 * 'started' = Well, started
+                 * 'create-dirs' = Creating directories
+                 * 'upload-files' = Uploading files
+                 * 'done' = Well done
+                 */
+                state: 'init',
+                total: 0, // Total upload bytes
+                done: 0,  // Bytes uploaded so far
+                dirs: [], // List of directory names
+                files: [],       // List of file names
+                started: Date.now()
+            };
+
+            state.uploads.push(stats);
 
             // Check if browser supports folder drag 'n drop
             if (items.length && (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry)) {
@@ -87,12 +100,22 @@ export const data = {
                     entry && (promises.push(traverseFileTree(-1, entry)));
                 }
 
+                stats.state = 'stardet';
                 await Promise.all(promises);
 
                 // Create folders
                 let idMap = {};
                 if (folders.length) {
+
+                    // Update state and save directory names
+                    stats.state = 'create-dirs';
+                    stats.dirs = folders.map(v => v.name);
+
+                    // Create folders
                     idMap = (await this.dispatch('nodes/createFolders', {folders, parent})).idMap;
+
+                    // Also save the new directorie ids into stats if user wants to cancel this upload
+                    stats.dirIds = Object.values(idMap).filter(v => v !== parent);
                 } else {
                     idMap[-1] = parent.id;
                 }
@@ -110,20 +133,19 @@ export const data = {
                 }
 
                 // Upload files
-                await this.dispatch('data/uploadFiles', mappedFileMap);
-                rootState.requestsActive--;
-                this.commit('data/reset');
+                stats.state = 'upload-files';
+                await this.dispatch('data/uploadFiles', {fileMap: mappedFileMap, stats});
+                stats.state = 'done';
             } else {
-                const reqObj = {};
-                reqObj[parent] = files;
+                const fileMap = {};
+                fileMap[parent] = files;
 
                 // Upload single files
-                return this.dispatch('data/uploadFiles', reqObj).then(() => {
-                    rootState.requestsActive--;
-                    this.commit('data/reset');
+                stats.state = 'upload-files';
+                return this.dispatch('data/uploadFiles', {fileMap, stats}).then(() => {
+
                 }).catch(() => {
-                    rootState.requestsActive--;
-                    this.commit('data/reset');
+
                     // TODO: Handle error?
                 });
             }
@@ -133,23 +155,24 @@ export const data = {
          * Responsible to upload single files
          * @returns {Promise<void>}
          */
-        async uploadFiles({state, rootState}, data) {
+        async uploadFiles({rootState}, {fileMap, stats}) {
 
             // Build form
             const formData = new FormData();
 
             const appendToForm = (key, val) => {
-                state.upload.total += key.length + (typeof val === 'string' ? val.length : val.size);
+                stats.total += key.length + (typeof val === 'string' ? val.length : val.size);
                 formData.append(key, val);
             };
 
             appendToForm('apikey', rootState.auth.apikey);
-            for (const [parent, files] of Object.entries(data)) {
+            for (const [parent, files] of Object.entries(fileMap)) {
                 for (let i = 0; i < files.length; i++) {
                     const file = files[i];
 
                     // Check if file is REALLY a file
                     if (await fileSystemUtils.isFile(file)) {
+                        stats.files.push(file.name);
                         appendToForm(`${parent}-${i}`, file);
                     }
                 }
@@ -166,7 +189,7 @@ export const data = {
                 let lastDone = 0;
                 xhr.upload.onprogress = e => {
                     const done = e.position || e.loaded;
-                    state.upload.done += done - lastDone;
+                    stats.done += done - lastDone;
                     lastDone = done;
                 };
 

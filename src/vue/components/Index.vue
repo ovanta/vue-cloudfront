@@ -12,6 +12,9 @@
             <navigator v-show="activeTab === 'marked' || activeTab === 'home'"/>
             <history v-show="activeTab === 'history'"/>
             <settings v-show="activeTab === 'settings'"/>
+
+            <!-- Upload bar - shows the current upload progress of files -->
+            <upload-bar/>
         </div>
 
         <!-- Overlays -->
@@ -38,9 +41,10 @@
     import History   from './application/tabs/History';
     import Settings  from './application/tabs/Settings';
 
-    import MenuBar from './application/MenuBar';
-    import ToolTip from '../ui/ToolTip';
-    import InfoBar from './InfoBar';
+    import ToolTip   from '../ui/ToolTip';
+    import MenuBar   from './application/MenuBar';
+    import InfoBar   from './InfoBar';
+    import UploadBar from './UploadBar';
 
     // Popovers
     import KeyboardShortcuts from './application/popups/KeyboardShortcuts';
@@ -59,7 +63,9 @@
     export default {
 
         components: {
+            InfoBar,
             MenuBar,
+            UploadBar,
 
             // Tabs
             Navigator,
@@ -73,7 +79,6 @@
             LoadingScreen,
             UploadArea,
             ToolTip,
-            InfoBar,
             FilePreview,
 
             // Authentication

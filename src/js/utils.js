@@ -216,8 +216,11 @@ export function toBytes(size) {
 /**
  * Convert a byte size to an human readable size.
  * e.g. 123456 => '123.46 kB'
+ * @param bytes
+ * @param mapValue Optional mapper to manipulate the raw number
+ * @returns {string}
  */
-export function readableByteCount(bytes) {
+export function readableByteCount(bytes, mapValue = v => v) {
     bytes = Number(bytes);
 
     const si = config.sizeSIPrefix;
@@ -232,7 +235,7 @@ export function readableByteCount(bytes) {
         if (block < Math.pow(unit, i)) {
             const size = (block / Math.pow(unit, i - 1)).toFixed(2);
             const desc = ' ' + (si ? 'kMGTPEB' : 'kMGTPEiB').charAt(i - 1) + (si ? '' : 'i') + 'B';
-            return size + desc;
+            return mapValue(size) + desc;
         }
     }
 

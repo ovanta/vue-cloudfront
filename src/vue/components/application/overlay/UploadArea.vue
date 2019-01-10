@@ -25,10 +25,6 @@
                 ['drag', 'dragend', 'dragenter', 'dragstart', 'dragleave', 'dragover', 'drop'],
                 e => {
 
-                    if (this.$store.state.data.upload.active) {
-                        return;
-                    }
-
                     if (e.type === 'dragenter') {
 
                         // Check if dragged element is supported
