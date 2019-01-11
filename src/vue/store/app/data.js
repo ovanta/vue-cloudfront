@@ -184,8 +184,8 @@ export const data = {
                 const xhr = new XMLHttpRequest();
 
                 stats.cancel = () => {
-                    xhr.abort();
                     stats.state = 'aborted';
+                    xhr.abort();
                     return this.dispatch('nodes/delete', stats.dirNodes);
                 };
 
@@ -206,9 +206,9 @@ export const data = {
                             if (error) {
                                 reject();
                             } else {
-                                this.commit('nodes/put', {
-                                    nodes: data.concat(stats.dirNodes)
-                                });
+
+                                // Append folder & file nodes
+                                this.commit('nodes/put', {nodes: data.concat(stats.dirNodes)});
                                 resolve();
                             }
 
