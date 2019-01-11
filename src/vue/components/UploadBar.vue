@@ -14,22 +14,17 @@
 
         <div class="uploads">
             <div v-for="upload of uploads" class="upload">
-                <span class="circle"></span>
 
-                <span class="size">
-
-                    <span>{{ upload | genStatusMessage }}</span>
-
-                    <!--<span>-->
-                    <!--<b>{{ utils.readableByteCount(upload.done, Math.round) }}</b> /-->
-                    <!--<b>{{ utils.readableByteCount(upload.total, Math.round) }}</b>-->
-                    <!--<b> ({{ Math.round((upload.done / upload.total) * 100) }}%)</b>-->
-                    <!--</span>-->
-                </span>
+                <span class="info-message">{{ upload | genStatusMessage }}</span>
 
                 <div class="indicator">
-                    <i v-if="upload.done / upload.total >= 1" class="fas fa-fw fa-check"></i>
-                    <circle-progress-bar v-else :value="upload.done / upload.total"/>
+                    <i v-if="upload.state === 'aborted'" class="fas fa-fw fa-trash"></i>
+                    <i v-if="upload.done / upload.total >= 1 && upload.state !== 'aborted'" class="fas fa-fw fa-check"></i>
+                    <circle-progress-bar v-if="upload.done / upload.total < 1 && upload.state !== 'aborted'" :value="upload.done / upload.total"/>
+
+                    <button v-if="upload.state === 'upload-files'" class="cancel">
+                        <i class="fas fa-fw fa-times" @click="cancel(upload)"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -91,6 +86,8 @@
                         return `${Math.round((upload.done / upload.total) * 100)}% Uploading ${pluralify(upload.files)}`;
                     case 'done':
                         return `Uploaded ${pluralify(upload.files)}!`;
+                    case 'aborted':
+                        return `Upload aborted`;
                     default:
                         return 'Here should be a message...';
                 }
@@ -107,7 +104,7 @@
         computed: {
 
             activeUploadCount() {
-                return this.uploads.filter(v => v.state !== 'done').length;
+                return this.uploads.filter(v => v.state !== 'done' && v.state !== 'aborted').length;
             },
 
             uploads() {
@@ -197,16 +194,11 @@
             color: $palette-deep-blue;
             flex-shrink: 0;
 
-            .circle {
-                display: inline-block;
-                @include size(6px);
-                background: $palette-deep-blue;
-                border-radius: 100%;
-                margin-right: 0.75em;
-                flex-shrink: 0;
+            &:hover .indicator .cancel {
+                opacity: 1;
             }
 
-            .size {
+            .info-message {
                 font-size: 0.8em;
                 margin-right: 1.5em;
                 line-height: 1.2em;
@@ -221,6 +213,18 @@
                 @include size(24px);
                 margin-left: auto;
                 flex-shrink: 0;
+
+                .cancel {
+                    @include flex(row, center, center);
+                    @include size(26px);
+                    position: absolute;
+                    background: $palette-deep-blue;
+                    border-radius: 100%;
+                    color: white;
+                    font-size: 0.8em;
+                    opacity: 0;
+                    transition: all 0.3s;
+                }
 
                 .circle-progress-bar {
                     @include size(100%);

@@ -176,7 +176,7 @@ export const nodes = {
          * @param parent
          * @param folders
          */
-        createFolders({state, rootState}, {folders, parent}) {
+        createFolders({rootState}, {folders, parent}) {
 
             // Fetch from server
             return this.dispatch('fetch', {
@@ -187,7 +187,6 @@ export const nodes = {
                     folders
                 }
             }).then(({nodes, idMap}) => {
-                state.push(...nodes);
                 return {nodes, idMap};
             });
         },

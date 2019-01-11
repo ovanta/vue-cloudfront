@@ -42,13 +42,15 @@ export const data = {
                  * 'create-dirs' = Creating directories
                  * 'upload-files' = Uploading files
                  * 'done' = Well done
+                 * 'aborted' = Upload has been aborted
                  */
                 state: 'init',
                 total: 0, // Total upload bytes
                 done: 0,  // Bytes uploaded so far
                 dirs: [], // List of directory names
-                files: [],       // List of file names
-                started: Date.now()
+                files: [],    // List of file names
+                dirNodes: [], // List of directorie nodes
+                cancel: null  // Get's a function to abort the upload
             };
 
             state.uploads.push(stats);
@@ -112,10 +114,11 @@ export const data = {
                     stats.dirs = folders.map(v => v.name);
 
                     // Create folders
-                    idMap = (await this.dispatch('nodes/createFolders', {folders, parent})).idMap;
+                    const result = await this.dispatch('nodes/createFolders', {folders, parent});
+                    idMap = result.idMap;
 
                     // Also save the new directorie ids into stats if user wants to cancel this upload
-                    stats.dirIds = Object.values(idMap).filter(v => v !== parent);
+                    stats.dirNodes = result.nodes;
                 } else {
                     idMap[-1] = parent.id;
                 }
@@ -133,7 +136,6 @@ export const data = {
                 }
 
                 // Upload files
-                stats.state = 'upload-files';
                 await this.dispatch('data/uploadFiles', {fileMap: mappedFileMap, stats});
                 stats.state = 'done';
             } else {
@@ -141,7 +143,6 @@ export const data = {
                 fileMap[parent] = files;
 
                 // Upload single files
-                stats.state = 'upload-files';
                 return this.dispatch('data/uploadFiles', {fileMap, stats}).then(() => {
 
                 }).catch(() => {
@@ -186,6 +187,12 @@ export const data = {
             return new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
 
+                stats.cancel = () => {
+                    xhr.abort();
+                    stats.state = 'aborted';
+                    return this.dispatch('nodes/delete', stats.dirNodes);
+                };
+
                 let lastDone = 0;
                 xhr.upload.onprogress = e => {
                     const done = e.position || e.loaded;
@@ -203,11 +210,13 @@ export const data = {
                             if (error) {
                                 reject();
                             } else {
-                                this.commit('nodes/put', {nodes: data});
+                                this.commit('nodes/put', {
+                                    nodes: data.concat(stats.dirNodes)
+                                });
                                 resolve();
                             }
 
-                        } else {
+                        } else if (stats.state !== 'aborted') {
                             reject('Request failed');
                         }
                     }
@@ -219,6 +228,7 @@ export const data = {
                     true
                 );
 
+                stats.state = 'upload-files';
                 xhr.send(formData);
             });
         },
