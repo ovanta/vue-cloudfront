@@ -42,7 +42,9 @@ export const data = {
                  * 'create-dirs' = Creating directories
                  * 'upload-files' = Uploading files
                  * 'done' = Well done
+                 *
                  * 'aborted' = Upload has been aborted
+                 * 'failed' = Upload is failed (connection error etc.)
                  */
                 state: 'init',
                 total: 0, // Total upload bytes
@@ -56,14 +58,15 @@ export const data = {
             state.uploads.push(stats);
 
             // Check if browser supports folder drag 'n drop
+            let fileMap = {};
             if (items.length && (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry)) {
                 const getAsEntryFuncName = (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry).name;
-                const fileMap = {};
+                const prequelFileMap = [];
                 const folders = [];
                 let folderIndex = 0;
 
                 if (files.length) {
-                    fileMap[-1] = Array.from(files);
+                    prequelFileMap[-1] = Array.from(files);
                 }
 
                 const traverseFileTree = async (parent, item) => {
@@ -73,14 +76,14 @@ export const data = {
                         const fileObj = await new Promise((resolve, reject) => item.file(resolve, reject));
                         if (fileObj) {
 
-                            if (!(parent in fileMap)) {
-                                fileMap[parent] = [];
+                            if (!(parent in prequelFileMap)) {
+                                prequelFileMap[parent] = [];
                             }
 
                             // Check if file aready exists
-                            const fileList = fileMap[parent];
+                            const fileList = prequelFileMap[parent];
                             if (!fileList.find(v => v.name === fileObj.name && v.size === fileObj.size && v.lastModified === fileObj.lastModified)) {
-                                fileMap[parent].push(fileObj);
+                                prequelFileMap[parent].push(fileObj);
                             }
                         }
                     } else if (item.isDirectory) {
@@ -124,32 +127,25 @@ export const data = {
                 }
 
                 // Map created folder ids to the filemap
-                const mappedFileMap = {};
-                for (const [virtualId, files] of Object.entries(fileMap)) {
+                for (const [virtualId, files] of Object.entries(prequelFileMap)) {
                     const id = idMap[virtualId];
 
                     if (!id) {
                         throw `Can't found corresponding id in map: ${id} / ${JSON.stringify(idMap)}`;
                     }
 
-                    mappedFileMap[id] = files;
+                    fileMap[id] = files;
                 }
-
-                // Upload files
-                await this.dispatch('data/uploadFiles', {fileMap: mappedFileMap, stats});
-                stats.state = 'done';
             } else {
-                const fileMap = {};
                 fileMap[parent] = files;
-
-                // Upload single files
-                return this.dispatch('data/uploadFiles', {fileMap, stats}).then(() => {
-
-                }).catch(() => {
-
-                    // TODO: Handle error?
-                });
             }
+
+            // Upload files
+            return this.dispatch('data/uploadFiles', {fileMap, stats}).then(() => {
+                stats.state = 'done';
+            }).catch(() => {
+                stats.state = 'failed';
+            });
         },
 
         /**

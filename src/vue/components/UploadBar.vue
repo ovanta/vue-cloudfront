@@ -12,16 +12,23 @@
                @click="close"></i>
         </div>
 
-        <div class="uploads">
+        <!-- List of active uploads -->
+        <div ref="uploads" class="uploads">
             <div v-for="upload of uploads" class="upload">
 
-                <span class="info-message">{{ upload | genStatusMessage }}</span>
+                <span class="info-message">{{ genStatusMessage(upload) }}</span>
 
                 <div class="indicator">
+
+                    <!-- Icons -->
                     <i v-if="upload.state === 'aborted'" class="fas fa-fw fa-trash"></i>
                     <i v-if="upload.done / upload.total >= 1 && upload.state !== 'aborted'" class="fas fa-fw fa-check"></i>
-                    <circle-progress-bar v-if="upload.done / upload.total < 1 && upload.state !== 'aborted'" :value="upload.done / upload.total"/>
 
+                    <circle-progress-bar v-if="upload.done / upload.total < 1 && upload.state !== 'aborted'"
+                                         :indeterminate="['init', 'stardet', 'create-dirs'].includes(upload.state)"
+                                         :value="upload.done / upload.total"/>
+
+                    <!-- Abort button -->
                     <button v-if="upload.state === 'upload-files'" class="cancel">
                         <i class="fas fa-fw fa-times" @click="cancel(upload)"></i>
                     </button>
@@ -36,12 +43,36 @@
 
     // Components
     import CircleProgressBar from '../ui/CircleProgressBar';
-    // Vuex stuff
 
     export default {
         components: {CircleProgressBar},
 
-        filters: {
+        data() {
+            return {
+                showDetails: true,
+                open: false
+            };
+        },
+
+        computed: {
+
+            activeUploadCount() {
+
+                // $refs is not available during mounting
+                /* eslint-disable vue/no-side-effects-in-computed-properties */
+                if (this.$refs.uploads) {
+                    this.$refs.uploads.scrollTop = 0;
+                }
+
+                return this.uploads.filter(v => v.state !== 'done' && v.state !== 'aborted').length;
+            },
+
+            uploads() {
+                return this.$store.state.data.uploads;
+            }
+        },
+
+        methods: {
 
             genStatusMessage(upload) {
 
@@ -75,44 +106,28 @@
                     }
                 };
 
+                // Create a appropriate message
                 switch (upload.state) {
                     case 'init':
                         return 'Initializing...';
                     case 'stardet':
                         return 'Searching for files...';
                     case 'create-dirs':
-                        return 'Creating required folders...';
-                    case 'upload-files':
-                        return `${Math.round((upload.done / upload.total) * 100)}% Uploading ${pluralify(upload.files)}`;
+                        return 'Creating folders...';
+                    case 'upload-files': {
+                        const percent = Math.round((this.utils.limit(upload.done / upload.total, 0, 1)) * 100);
+                        return `${percent}% - Uploading ${pluralify(upload.files)}`;
+                    }
                     case 'done':
                         return `Uploaded ${pluralify(upload.files)}!`;
                     case 'aborted':
-                        return `Upload aborted`;
+                        return 'Upload canceled';
+                    case 'failed':
+                        return 'Something went wrong...';
                     default:
                         return 'Here should be a message...';
                 }
-            }
-        },
-
-        data() {
-            return {
-                showDetails: true,
-                open: false
-            };
-        },
-
-        computed: {
-
-            activeUploadCount() {
-                return this.uploads.filter(v => v.state !== 'done' && v.state !== 'aborted').length;
             },
-
-            uploads() {
-                return this.$store.state.data.uploads;
-            }
-        },
-
-        methods: {
 
             close() {
                 this.open = false;

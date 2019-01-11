@@ -9,24 +9,26 @@
 
         <!-- Actual progressbar -->
         <circle :stroke-dashoffset="53.40707511102649 - (utils.limit(value, 0, 1) * 53.40707511102649)"
+                :class="{progress: 1, indeterminate}"
                 cx="10"
                 cy="10"
-                r="8.5"
-                class="progress"></circle>
+                r="8.5"></circle>
     </svg>
 </template>
 
 <script>
 
     export default {
-
         props: {
             value: {
                 type: Number,
                 required: true
+            },
+            indeterminate: {
+                type: Boolean,
+                default: false
             }
         }
-
     };
 
 </script>
@@ -48,6 +50,24 @@
             &.progress {
                 stroke: $palette-deep-purple;
                 stroke-dasharray: 53.40707511102649;
+                transform-origin: center;
+
+                &.indeterminate {
+                    @include animate('2.5s ease-out infinite') {
+                        0%, 10% {
+                            stroke-dashoffset: 53.40707511102649;
+                            transform: none;
+                        }
+                        50% {
+                            stroke-dashoffset: 0;
+                            transform: rotate(180deg);
+                        }
+                        100% {
+                            stroke-dashoffset: -53.40707511102649;
+                            transform: rotate(360deg);
+                        }
+                    }
+                }
             }
 
             &.background {
