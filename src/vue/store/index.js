@@ -73,7 +73,10 @@ export default new Vuex.Store({
         activePopup: null,
 
         // Amount of how many requests are currently active
-        requestsActive: 0
+        requestsActive: 0,
+
+        // Array of routes where requestsActive will not be updated
+        ignoredRequestRoutes: ['createFolders']
     },
 
     getters: {
@@ -120,7 +123,7 @@ export default new Vuex.Store({
                 return Promise.reject('User is currently offline');
             }
 
-            state.requestsActive++;
+            !state.ignoredRequestRoutes.includes(route) && state.requestsActive++;
             return fetch(`${config.apiEndPoint}/${route}`, {
                 method: 'POST',
                 headers: {
@@ -138,7 +141,7 @@ export default new Vuex.Store({
                 }
 
                 const {error, data} = await v.json();
-                state.requestsActive--;
+                !state.ignoredRequestRoutes.includes(route) && state.requestsActive--;
 
                 if (error) {
                     throw error;

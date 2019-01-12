@@ -68,7 +68,8 @@
             },
 
             uploads() {
-                return this.$store.state.data.uploads;
+                const sortMap = ['init', 'started', 'failed', 'aborted', 'done', 'upload-files', 'create-dirs'];
+                return this.$store.state.data.uploads.sort((a, b) => sortMap.indexOf(a.state) - sortMap.indexOf(b.state));
             }
         },
 
