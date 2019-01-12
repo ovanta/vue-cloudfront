@@ -42,15 +42,13 @@
         },
 
         beforeCreate() {
+
+            // Try to recreate session
             const apikey = localStorage.getItem('apikey');
 
             if (apikey) {
                 this.$store.dispatch('auth/key', {apikey});
             }
-
-            setTimeout(() => {
-                this.utils.on(Array.from(document.querySelectorAll('input,textarea')), 'focus', alert);
-            }, 2000);
         }
     };
 </script>
