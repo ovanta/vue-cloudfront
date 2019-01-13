@@ -91,7 +91,15 @@
         },
 
         computed: {
-            ...shared.computed
+            ...shared.computed,
+
+            croppedNodes() {
+                const {fileLimit, dirLimit} = this;
+                return {
+                    file: this.nodes.file.slice(0, fileLimit),
+                    dir: this.nodes.dir.slice(0, dirLimit)
+                };
+            }
         },
 
         watch: {

@@ -7,17 +7,17 @@
 
             <div class="name" @click="sort('name')">
                 <span>Name</span>
-                <i :class="`sort fas fa-fw fa-caret-${sortDirs.name ? 'down' : 'up'}`"></i>
+                <i :class="`sort fas fa-fw fa-caret-${sortProps.name ? 'down' : 'up'}`"></i>
             </div>
 
             <div class="detail" @click="sort('lastModified')">
                 <span>Last modified</span>
-                <i :class="`sort fas fa-fw fa-caret-${sortDirs.lastModified ? 'down' : 'up'}`"></i>
+                <i :class="`sort fas fa-fw fa-caret-${sortProps.lastModified ? 'down' : 'up'}`"></i>
             </div>
 
             <div class="detail" @click="sort('size')">
                 <span>Size</span>
-                <i :class="`sort fas fa-fw fa-caret-${sortDirs.size ? 'down' : 'up'}`"></i>
+                <i :class="`sort fas fa-fw fa-caret-${sortProps.size ? 'down' : 'up'}`"></i>
             </div>
         </div>
 
@@ -98,7 +98,9 @@
             return {
                 fileLimit: visibleNodesLimit,
                 dirLimit: visibleNodesLimit,
-                sortDirs: {
+
+                sortProp: null,
+                sortProps: {
                     name: false,
                     lastModified: false,
                     size: false
@@ -107,7 +109,35 @@
         },
 
         computed: {
-            ...shared.computed
+            ...shared.computed,
+
+            croppedNodes() {
+                const {fileLimit, dirLimit} = this;
+                const nodes = {
+                    file: this.nodes.file.slice(0, fileLimit),
+                    dir: this.nodes.dir.slice(0, dirLimit)
+                };
+
+                const {sortProp} = this;
+                if (sortProp) {
+
+                    /**
+                     * Values which are used to toggle
+                     * each sorting type individually.
+                     */
+                    const ra = this.sortProps[sortProp] ? -1 : 1;
+                    const rb = ra * -1;
+
+                    // Find correct sorting function
+                    const sortFn = (a, b) => a[sortProp] > b[sortProp] ? ra : rb;
+
+                    // Sort pre-calulated nodes and re-render everything
+                    nodes.file.sort(sortFn);
+                    nodes.dir.sort(sortFn);
+                }
+
+                return nodes;
+            }
         },
 
         watch: {
@@ -127,32 +157,9 @@
 
             sort(type) {
 
-                /**
-                 * Values which are used to toggle
-                 * each sorting type individually.
-                 */
-                const ra = this.sortDirs[type] ? -1 : 1;
-                const rb = this.sortDirs[type] ? 1 : -1;
-
-                // Find correct sorting function
-                const sortFn = (() => {
-                    switch (type) {
-                        case 'name':
-                            return (a, b) => a.name > b.name ? ra : rb;
-                        case 'lastModified':
-                            return (a, b) => a.lastModified > b.lastModified ? ra : rb;
-                        case 'size':
-                            return (a, b) => a.size > b.size ? ra : rb;
-                    }
-                })();
-
-                // Sort pre-calulated nodes and re-render everything
-                this.nodes.file.sort(sortFn);
-                this.nodes.dir.sort(sortFn);
-                this.$forceUpdate();
-
                 // Toggle sort-direction to descending / ascending
-                this.sortDirs[type] = !this.sortDirs[type];
+                this.sortProps[type] = !this.sortProps[type];
+                this.sortProp = type;
             }
         }
     };
