@@ -47,8 +47,9 @@
         methods: {
             setPosition(e) {
                 e.stopPropagation();
+                const {x} = this.utils.simplifyEvent(e);
                 const bcr = this.$refs.slider.getBoundingClientRect();
-                let value = 1 - (bcr.right - e.pageX) / bcr.width;
+                let value = 1 - (bcr.right - x) / bcr.width;
                 if (value < 0) value = 0;
                 if (value > 1) value = 1;
                 this.$emit('change', value);

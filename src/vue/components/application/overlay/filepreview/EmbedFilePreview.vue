@@ -55,7 +55,7 @@
 <style lang="scss" scoped>
 
     .embed-file-preview {
-        @include flex(column, flex-start, flex-start);
+        @include flex(column, center, center);
         @include size(100%);
     }
 
