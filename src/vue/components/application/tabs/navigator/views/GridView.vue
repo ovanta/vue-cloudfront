@@ -170,6 +170,8 @@
         cursor: pointer;
 
         .embed-file-preview {
+            align-items: flex-start;
+            justify-content: flex-start;
             position: relative;
             max-width: 100%;
             max-height: 12.5em;

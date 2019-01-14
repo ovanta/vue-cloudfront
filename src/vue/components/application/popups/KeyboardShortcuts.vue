@@ -383,9 +383,9 @@
 
                 .key {
                     margin-right: 0.5em;
-                    color: $palette-deep-purple;
-                    border: 1px solid rgba($palette-deep-purple, 0.75);
-                    border-bottom: 2px solid rgba($palette-deep-purple, 0.9);
+                    color: $palette-deep-blue;
+                    border: 1px solid rgba($palette-deep-blue, 0.75);
+                    border-bottom: 2px solid rgba($palette-deep-blue, 0.9);
                     border-radius: 2px;
                     padding: 0.05em 0.45em 0.1em 0.45em;
                 }

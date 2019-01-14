@@ -73,11 +73,12 @@
             border-radius: 0.15em;
             width: 50%;
             user-select: text;
-            line-height: 1.25em;
+            line-height: 1.3em;
         }
 
         .description {
             @include font(400, 0.8em);
+            line-height: 1.3em;
             width: 50%;
             color: darken($palette-grayish-blue, 15);
         }
