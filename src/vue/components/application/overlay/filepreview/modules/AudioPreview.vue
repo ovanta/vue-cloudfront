@@ -1,30 +1,35 @@
 <template>
     <div class="audio-preview">
 
-        <!-- Time and play-pause button -->
-        <i :class="`fas fa-fw fa-${paused ? 'play' : 'pause'}`" @click="togglePlay"></i>
-        <span class="time"><b>{{ elapsedTime | formatSeconds }}</b> / <b>{{ duration | formatSeconds }}</b></span>
+        <div :class="{player: 1, playable}">
+            <!-- Time and play-pause button -->
+            <i :class="`fas fa-fw fa-${paused ? 'play' : 'pause'}`" @click="togglePlay"></i>
+            <span class="time"><b>{{ elapsedTime | formatSeconds }}</b> / <b>{{ duration | formatSeconds }}</b></span>
 
-        <!-- Volume slider and icon -->
-        <slider :value="volume"
-                class="volume-slider"
-                @change="setVolume"/>
+            <!-- Volume slider and icon -->
+            <slider :value="volume"
+                    class="volume-slider"
+                    @change="setVolume"/>
 
-        <i :class="`fas fa-fw fa-volume-${volumeIcon}`"></i>
+            <i :class="`fas fa-fw fa-volume-${volumeIcon}`"></i>
 
-        <slider :value="elapsedTime / duration"
-                class="time-slider"
-                @change="setTime"/>
+            <slider :value="elapsedTime / duration"
+                    class="time-slider"
+                    @change="setTime"/>
+        </div>
+
+        <wave-loader :visible="!playable"/>
     </div>
 </template>
 
 <script>
 
     // Components
-    import Slider from '../../../../../ui/Slider';
+    import Slider     from '../../../../../ui/Slider';
+    import WaveLoader from '../../../../../ui/WaveLoader';
 
     export default {
-        components: {Slider},
+        components: {Slider, WaveLoader},
 
         filters: {
 
@@ -44,6 +49,7 @@
 
         data() {
             return {
+                playable: false,
                 audio: null,
                 paused: true,
                 duration: 0,
@@ -68,6 +74,7 @@
         watch: {
             url(newUrl) {
                 this.audio.src = newUrl;
+                this.playable = false;
             }
         },
 
@@ -80,6 +87,7 @@
                 this.paused = true;
                 this.duration = audio.duration;
                 this.elapsedTime = audio.currentTime;
+                this.playable = true;
                 audio.pause();
             });
 
@@ -124,30 +132,47 @@
         padding-bottom: 1.25em;
         width: 90%;
 
-        > i {
-            flex-shrink: 0;
-            font-size: 0.85em;
-            margin-right: 0.5em;
-            cursor: pointer;
+        .player {
+            @include flex(row, center, space-between);
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+
+            &.playable {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            > i {
+                flex-shrink: 0;
+                font-size: 0.85em;
+                margin-right: 0.5em;
+                cursor: pointer;
+            }
+
+            > span {
+                flex-shrink: 0;
+                font-size: 0.87em;
+            }
+
+            .volume-slider {
+                font-size: 0.75em;
+                margin: 0 1.5em;
+                flex-grow: 1;
+            }
+
+            .time-slider {
+                position: absolute;
+                @include position(auto, 0, 0.1em, 0);
+                width: 100%;
+                margin: 0 auto;
+                font-size: 0.6em;
+            }
         }
 
-        > span {
-            flex-shrink: 0;
-            font-size: 0.87em;
-        }
-
-        .volume-slider {
-            font-size: 0.75em;
-            margin: 0 1.5em;
-            flex-grow: 1;
-        }
-
-        .time-slider {
+        .wave-loader {
             position: absolute;
-            @include position(auto, 0, 0.1em, 0);
-            width: 100%;
-            margin: 0 auto;
-            font-size: 0.6em;
+            @include position(0, 0, 0, 0);
         }
     }
 
