@@ -35,7 +35,7 @@
 
     // Components
     import Popup          from './Popup';
-    import TextInputField from '../../../ui/TextInputField';
+    import TextInputField from '../../../ui/input/TextInputField';
 
     // Vuex stuff
     import {mapState} from 'vuex';

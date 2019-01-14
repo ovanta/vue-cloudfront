@@ -33,7 +33,7 @@
 <script>
 
     // Helper
-    import Moveable from '../../js/Moveable';
+    import Moveable from '../../../js/Moveable';
 
     export default {
 

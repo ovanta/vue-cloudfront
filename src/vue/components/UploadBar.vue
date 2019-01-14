@@ -42,7 +42,7 @@
 <script>
 
     // Components
-    import CircleProgressBar from '../ui/CircleProgressBar';
+    import CircleProgressBar from '../ui/loaders/CircleProgressBar';
 
     export default {
         components: {CircleProgressBar},

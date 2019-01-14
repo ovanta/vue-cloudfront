@@ -41,7 +41,7 @@
     import History   from './application/tabs/History';
     import Settings  from './application/tabs/Settings';
 
-    import ToolTip   from '../ui/ToolTip';
+    import ToolTip   from '../ui/specific/ToolTip';
     import MenuBar   from './application/MenuBar';
     import InfoBar   from './InfoBar';
     import UploadBar from './UploadBar';

@@ -25,8 +25,8 @@
 <script>
 
     // Components
-    import Slider     from '../../../../../ui/Slider';
-    import WaveLoader from '../../../../../ui/WaveLoader';
+    import Slider     from '../../../../../ui/input/Slider';
+    import WaveLoader from '../../../../../ui/loaders/WaveLoader';
 
     export default {
         components: {Slider, WaveLoader},

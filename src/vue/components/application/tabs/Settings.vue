@@ -34,7 +34,7 @@
 <script>
 
     // Components
-    import TextInputField from '../../../ui/TextInputField';
+    import TextInputField from '../../../ui/input/TextInputField';
     import TabContainer   from '../TabContainer';
 
     export default {
