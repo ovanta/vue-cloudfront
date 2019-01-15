@@ -13,7 +13,7 @@ export default {
             }
 
             const type = match[1];
-            const value = match[2].trim().match(/([\w]|\\,)+/g);
+            const value = match[2].trim().match(/[^,]+/g);
 
             if (value && value.length) {
                 filters[type] = value.map(v => v.replace('\\,', ','));

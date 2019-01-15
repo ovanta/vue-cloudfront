@@ -94,8 +94,11 @@ export const search = {
                     }
 
                     // Check is filter
-                    if (is && is.length && !is.includes(n.name.replace(/.*\./, ''))) {
-                        continue;
+                    if (is && is.length) {
+                        const extension = n.name.replace(/.*\./, '');
+                        if (extension === n.name || !is.includes(extension)) {
+                            continue;
+                        }
                     }
 
                     // Check size filter
