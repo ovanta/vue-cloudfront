@@ -86,18 +86,11 @@ export const search = {
 
                 state.nodes = [];
                 const {nodes} = rootState;
-                outer: for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
+                for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
 
                     // Check type, if root or if in trash
-                    if ((type !== 'all' && n.type !== type) || n.parent === 'root' || n.bin) {
+                    if ((type !== 'all' && n.type !== type) || n.parent === 'root' || n._subBin) {
                         continue;
-                    }
-
-                    // Bubble nodes up and check if one is in bin
-                    for (let parent = n; (parent = nodes.find(v => v.id === parent.parent));) {
-                        if (parent.bin) {
-                            continue outer;
-                        }
                     }
 
                     // Check is filter

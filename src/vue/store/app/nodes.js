@@ -143,6 +143,27 @@ export const nodes = {
                     this.commit('location/update', root);
                 }
 
+                /**
+                 * To prevent nodes from poppin' up during search find all
+                 * sub-nodes from every node which has been moved to the bin and mark
+                 * these via _subBin. These nodes will be skipped while searching.
+                 * @type {Array}
+                 */
+                const binDirs = [];
+                for (let i = 0, count = nodes.length; i < count; i++) {
+                    const n = nodes[i];
+
+                    if (!n._subBin && (n.bin || binDirs.includes(n.parent))) {
+
+                        if (n.type === 'dir') {
+                            binDirs.push(n.id);
+                        }
+
+                        n._subBin = true;
+                        i = 0;
+                    }
+                }
+
                 state.splice(0, state.length, ...nodes);
             });
         },
@@ -266,24 +287,29 @@ export const nodes = {
             }).then(() => {
 
                 // Update nodes locally to save ressources
-                if (permanently) {
-                    nodes.forEach(function rm(node) {
-                        if (node.type === 'dir') {
-                            for (let i = 0; i < state.length; i++) {
-                                if (state[i].parent === node.id) {
-                                    rm(state[i]);
-                                    i = 0;
-                                }
+                nodes.forEach(function rm(node) {
+                    if (node.type === 'dir') {
+                        for (let i = 0; i < state.length; i++) {
+                            if (state[i].parent === node.id) {
+                                rm(state[i]);
+                                permanently && (i = 0);
                             }
                         }
+                    }
 
+                    if (permanently) {
                         const idx = state.indexOf(node);
                         state.splice(idx, 1);
-                    });
-                } else {
+                    } else {
+                        node._subBin = true;
+                    }
+                });
+
+                if (!permanently) {
                     nodes.forEach(v => v.bin = true);
-                    state.splice(0, state.length, ...state);
                 }
+
+                state.splice(0, state.length, ...state);
             });
         },
 
@@ -295,7 +321,7 @@ export const nodes = {
          * @param nodes
          * @returns {Promise<void>}
          */
-        async restore({rootState}, nodes) {
+        async restore({state, rootState}, nodes) {
             return this.dispatch('fetch', {
                 route: 'restoreFromBin',
                 body: {
@@ -305,7 +331,20 @@ export const nodes = {
             }).then(() => {
 
                 // Update nodes locally to save ressources
+                nodes.forEach(function rm(node) {
+                    if (node.type === 'dir') {
+                        for (let i = 0; i < state.length; i++) {
+                            if (state[i].parent === node.id) {
+                                rm(state[i]);
+                            }
+                        }
+                    }
+
+                    node._subBin = false;
+                });
+
                 nodes.forEach(v => v.bin = false);
+                state.splice(0, state.length, ...state);
             });
         },
 
