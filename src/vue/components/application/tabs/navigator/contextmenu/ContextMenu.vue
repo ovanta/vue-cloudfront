@@ -106,8 +106,11 @@
         computed: {
 
             marked() {
-                const amount = this.nodes.filter(v => v.marked).length;
+                if (!this.nodes.length) {
+                    return 0;
+                }
 
+                const amount = this.nodes.filter(v => v.marked).length;
                 if (amount === this.nodes.length) {
                     return 2;
                 } else if (amount) {
