@@ -25,6 +25,7 @@ export const nodes = {
              * of each folder should be calculated.
              */
             return includeFolderSize => {
+                const totalNodes = state.length;
 
                 /**
                  * The nodes which should be shown changed if
@@ -42,7 +43,7 @@ export const nodes = {
                     }
                 })();
 
-                const stateNodesAmount = nodes.length;
+                const nodesAmount = nodes.length;
                 const locHash = location.node && location.node.id;
                 const ret = {file: [], dir: []}; // Seperate files and folders
 
@@ -50,7 +51,7 @@ export const nodes = {
                     let size = 0;
 
                     // Find childrens of current location
-                    for (let i = 0, n; n = nodes[i], i < stateNodesAmount; i++) {
+                    for (let i = 0, n; n = state[i], i < totalNodes; i++) {
                         if (n.parent === hash) {
                             const {type} = n;
 
@@ -69,7 +70,7 @@ export const nodes = {
                 // Find folder and files which has the current locations as parent
                 // and calculate size
                 const autoAdd = activeTab === 'marked' || activeTab === 'bin' || search.active;
-                for (let i = 0, n; n = nodes[i], i < stateNodesAmount; i++) {
+                for (let i = 0, n; n = nodes[i], i < nodesAmount; i++) {
 
                     // Check if parent is the current location
                     if (autoAdd || n.parent === locHash) {

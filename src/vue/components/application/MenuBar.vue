@@ -125,7 +125,7 @@
         }
 
         &:not(.active):hover i {
-            color: darken($palette-decent-blue, 5);
+            color: $palette-deep-blue;
         }
 
         &.bottom {

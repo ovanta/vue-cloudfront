@@ -28,9 +28,17 @@
         <div v-if="simpleCount && !searchResult" class="amount-info">
             <b v-if="simpleCount.file">{{ simpleCount.file }} file{{ simpleCount.file === 1 ? '' : 's' }}</b>
             <span v-if="simpleCount.file && simpleCount.dir"> and </span>
-            <b v-if="simpleCount.dir">{{ simpleCount.dir }} folder{{ simpleCount.dir === 1 ? '' : 's' }}</b>
-            <span v-if="simpleCount.file || simpleCount.dir"> {{ activeTab === 'bin' ? 'deleted' : 'marked' }}</span>
-            <span v-if="!simpleCount.file && !simpleCount.dir"> {{ activeTab === 'bin' ? 'Nothing deleted yet' : 'Nothing marked' }}</span>
+            <b v-if="simpleCount.dir">{{ simpleCount.dir }} folder{{ simpleCount.dir === 1 ? '' : 's' }} </b>
+
+            <span v-if="simpleCount.file || simpleCount.dir">
+                <span v-if="activeTab === 'bin'">moved to the trash can</span>
+                <span v-else-if="activeTab === 'marked'">marked</span>
+            </span>
+
+            <span v-if="!simpleCount.file && !simpleCount.dir">
+                <span v-if="activeTab === 'bin'">Nothing deleted yet</span>
+                <span v-else-if="activeTab === 'marked'">Nothing marked</span>
+            </span>
         </div>
 
     </section>
@@ -103,7 +111,6 @@
                 this.$store.commit('location/update', node);
             }
         }
-
     };
 
 </script>
