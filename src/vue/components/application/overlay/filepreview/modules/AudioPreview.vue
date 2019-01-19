@@ -28,6 +28,7 @@
     import Slider     from '../../../../../ui/input/Slider';
     import WaveLoader from '../../../../../ui/loaders/WaveLoader';
 
+    // Holds a reference to the currently playing audio object
     let activeAudio = null;
 
     export default {
@@ -109,7 +110,7 @@
             togglePlay(e) {
                 e.stopPropagation();
 
-                // Pause other audioPreview to prevent audio overlap
+                // Pause other audioPreviews to prevent audio overlap
                 if (activeAudio) {
                     activeAudio.pause();
                 }
