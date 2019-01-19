@@ -28,6 +28,8 @@
     import Slider     from '../../../../../ui/input/Slider';
     import WaveLoader from '../../../../../ui/loaders/WaveLoader';
 
+    let activeAudio = null;
+
     export default {
         components: {Slider, WaveLoader},
 
@@ -106,8 +108,16 @@
 
             togglePlay(e) {
                 e.stopPropagation();
+
+                // Pause other audioPreview to prevent audio overlap
+                if (activeAudio) {
+                    activeAudio.pause();
+                }
+
                 this.audio[this.paused ? 'play' : 'pause']();
                 this.paused = !this.paused;
+
+                activeAudio = !this.paused ? this.audio : null;
             },
 
             setVolume(value) {

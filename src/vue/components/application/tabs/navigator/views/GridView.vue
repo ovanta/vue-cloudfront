@@ -44,7 +44,7 @@
 
                         <div class="info">
                             <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
-                            <span class="extension">{{ node.extension }}</span>
+                            <span v-if="node.extension" class="extension">{{ node.extension }}</span>
 
                             <span v-content-editable="node.editable"
                                   v-select-all="node.editable"
@@ -162,6 +162,10 @@
         cursor: pointer;
         border: 1px solid transparent;
         max-width: 15em;
+
+        > i {
+            font-size: 1.25em;
+        }
     }
 
     .file {

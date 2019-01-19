@@ -16,16 +16,16 @@ export const nodes = {
          * viewing the marked nodes.
          */
         currentDisplayedNodes(state, getters, rootState) {
+            const {selection, clipboard, editable, search, location} = rootState;
+            const selectionNodes = selection;
+            const clipboardNodes = clipboard.nodes;
+            const editableNode = editable.node;
 
             /**
              * Return a function which expects as argument if the size
              * of each folder should be calculated.
              */
             return includeFolderSize => {
-                const {selection, clipboard, editable, search, location} = rootState;
-                const selectionNodes = selection;
-                const clipboardNodes = clipboard.nodes;
-                const editableNode = editable.node;
 
                 /**
                  * The nodes which should be shown changed if

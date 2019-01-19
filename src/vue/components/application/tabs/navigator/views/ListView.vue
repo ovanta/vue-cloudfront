@@ -7,17 +7,17 @@
 
             <div class="name" @click="sort('name')">
                 <span>Name</span>
-                <i :class="`sort fas fa-fw fa-caret-${sortProps.name ? 'down' : 'up'}`"></i>
+                <i :class="`sort fas fa-fw fa-angle-${sortProps.name ? 'down' : 'up'}`"></i>
             </div>
 
             <div class="detail" @click="sort('lastModified')">
                 <span>Last modified</span>
-                <i :class="`sort fas fa-fw fa-caret-${sortProps.lastModified ? 'down' : 'up'}`"></i>
+                <i :class="`sort fas fa-fw fa-angle-${sortProps.lastModified ? 'down' : 'up'}`"></i>
             </div>
 
             <div class="detail" @click="sort('size')">
                 <span>Size</span>
-                <i :class="`sort fas fa-fw fa-caret-${sortProps.size ? 'down' : 'up'}`"></i>
+                <i :class="`sort fas fa-fw fa-angle-${sortProps.size ? 'down' : 'up'}`"></i>
             </div>
         </div>
 
@@ -186,7 +186,7 @@
         @include flex(row, center);
         user-select: none;
         padding: 0.45em 0 0.25em;
-        border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
+        border-bottom: 1px solid rgba($palette-deep-blue, 0.08);
         transition: all 0.3s;
         cursor: pointer;
         font-size: 0.8em;
@@ -194,7 +194,7 @@
         i {
             color: $palette-deep-blue;
             transition: all 0.3s;
-            font-size: 1.25em;
+            font-size: 1.2em;
             margin-bottom: 0.2em;
         }
 
@@ -267,6 +267,10 @@
         .detail {
             @include flex(row, center);
             font-weight: 600;
+
+            i {
+                margin: 0;
+            }
 
             &:hover {
                 color: $palette-deep-purple;
