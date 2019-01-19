@@ -36,23 +36,6 @@
             <!-- Folder / file -views -->
             <list-view v-if="viewType === 'list'" :nodes="nodes"/>
             <grid-view v-if="viewType === 'grid'" :nodes="nodes"/>
-
-            <!-- Placeholder if folder is empty -->
-            <div v-if="!nodes.file.length && !nodes.dir.length" class="placeholder">
-                <i class="fas fa-cloud"></i>
-
-                <span v-if="!search.active && activeTab === 'home'">
-                    <b>Create a folder</b> or <b>drag and drop</b> to upload!
-                </span>
-
-                <span v-if="!search.active && activeTab === 'marked'">
-                    Right click or use <b>m + a</b> to mark a file or directory!
-                </span>
-
-                <span v-if="search.active">
-                    Nothing does match your search.
-                </span>
-            </div>
         </div>
 
         <!-- Context menu -->
@@ -265,22 +248,6 @@
                 to {
                     opacity: 1;
                 }
-            }
-        }
-
-        .placeholder {
-            flex-grow: 1000;
-            color: $palette-decent-blue;
-            @include position(0, 0, 0, 0);
-            @include flex(column, center, center);
-
-            i {
-                font-size: 2em;
-            }
-
-            span {
-                @include font(400, 0.85em);
-                margin-top: 0.2em;
             }
         }
     }

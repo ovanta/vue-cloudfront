@@ -20,12 +20,40 @@ export const nodes = {
             const clipboardNodes = clipboard.nodes;
             const editableNode = editable.node;
 
+            const calcFolderSize = (() => {
+                const memoization = new Map();
+
+                return hash => {
+                    let size = 0;
+
+                    if (memoization.has(hash)) {
+                        return memoization.get(hash);
+                    }
+
+                    // Find childrens of current location
+                    for (let i = 0, n, total = state.length; n = state[i], i < total; i++) {
+                        if (n.parent === hash) {
+                            const {type} = n;
+
+                            // If folder, recursivly calculate it otherwise just append size
+                            if (type === 'dir') {
+                                size += calcFolderSize(n.id);
+                            } else if (type === 'file') {
+                                size += n.size;
+                            }
+                        }
+                    }
+
+                    memoization.set(hash, size);
+                    return size;
+                };
+            })();
+
             /**
              * Return a function which expects as argument if the size
              * of each folder should be calculated.
              */
             return includeFolderSize => {
-                const totalNodes = state.length;
 
                 /**
                  * The nodes which should be shown changed if
@@ -46,26 +74,6 @@ export const nodes = {
                 const nodesAmount = nodes.length;
                 const locHash = location.node && location.node.id;
                 const ret = {file: [], dir: []}; // Seperate files and folders
-
-                function calcFolderSize(hash) {
-                    let size = 0;
-
-                    // Find childrens of current location
-                    for (let i = 0, n; n = state[i], i < totalNodes; i++) {
-                        if (n.parent === hash) {
-                            const {type} = n;
-
-                            // If folder, recursivly calculate it otherwise just append size
-                            if (type === 'dir') {
-                                size += calcFolderSize(n.id);
-                            } else if (type === 'file') {
-                                size += n.size;
-                            }
-                        }
-                    }
-
-                    return size;
-                }
 
                 // Find folder and files which has the current locations as parent
                 // and calculate size
