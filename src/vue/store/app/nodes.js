@@ -16,8 +16,7 @@ export const nodes = {
          * viewing the marked nodes.
          */
         currentDisplayedNodes(state, getters, rootState) {
-            const {selection, clipboard, editable, search, location} = rootState;
-            const selectionNodes = selection;
+            const {selection, clipboard, editable, search, location, activeTab} = rootState;
             const clipboardNodes = clipboard.nodes;
             const editableNode = editable.node;
 
@@ -34,10 +33,12 @@ export const nodes = {
                 const nodes = (() => {
                     if (search.active) {
                         return search.nodes;
-                    } else if (rootState.activeTab === 'marked') {
-                        return state.filter(v => v.marked);
+                    } else if (activeTab === 'marked') {
+                        return state.filter(v => v.marked && !v.bin);
+                    } else if (activeTab === 'bin') {
+                        return state.filter(v => v.bin);
                     } else {
-                        return state;
+                        return state.filter(v => !v.bin);
                     }
                 })();
 
@@ -67,7 +68,7 @@ export const nodes = {
 
                 // Find folder and files which has the current locations as parent
                 // and calculate size
-                const autoAdd = rootState.activeTab === 'marked' || search.active;
+                const autoAdd = activeTab === 'marked' || activeTab === 'bin' || search.active;
                 for (let i = 0, n; n = nodes[i], i < stateNodesAmount; i++) {
 
                     // Check if parent is the current location
@@ -76,7 +77,7 @@ export const nodes = {
 
                         // Pre calculations
                         n.cutted = clipboard.type === 'move' && clipboardNodes.includes(n);
-                        n.selected = selectionNodes.includes(n);
+                        n.selected = selection.includes(n);
                         n.editable = n === editableNode;
                         ret[type].push(n);
 
@@ -254,8 +255,10 @@ export const nodes = {
          * @param nodes Nodes which should be deleted
          */
         async delete({state, rootState}, nodes) {
+            const permanently = nodes.every(v => v.bin);
+
             return this.dispatch('fetch', {
-                route: 'delete',
+                route: permanently ? 'delete' : 'moveToBin',
                 body: {
                     apikey: rootState.auth.apikey,
                     nodes: nodes.map(v => v.id)
@@ -263,20 +266,46 @@ export const nodes = {
             }).then(() => {
 
                 // Update nodes locally to save ressources
-                const rm = node => {
-                    if (node.type === 'dir') {
-                        for (let i = 0; i < state.length; i++) {
-                            if (state[i].parent === node.id) {
-                                rm(state[i]);
-                                i = 0;
+                if (permanently) {
+                    nodes.forEach(function rm(node) {
+                        if (node.type === 'dir') {
+                            for (let i = 0; i < state.length; i++) {
+                                if (state[i].parent === node.id) {
+                                    rm(state[i]);
+                                    i = 0;
+                                }
                             }
                         }
-                    }
-                    const idx = state.indexOf(node);
-                    state.splice(idx, 1);
-                };
 
-                nodes.forEach(rm);
+                        const idx = state.indexOf(node);
+                        state.splice(idx, 1);
+                    });
+                } else {
+                    nodes.forEach(v => v.bin = true);
+                    state.splice(0, state.length, ...state);
+                }
+            });
+        },
+
+        /**
+         * Restores nodes from bin
+         *
+         * @param state
+         * @param rootState
+         * @param nodes
+         * @returns {Promise<void>}
+         */
+        async restore({rootState}, nodes) {
+            return this.dispatch('fetch', {
+                route: 'restoreFromBin',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    nodes: nodes.map(v => v.id)
+                }
+            }).then(() => {
+
+                // Update nodes locally to save ressources
+                nodes.forEach(v => v.bin = false);
             });
         },
 
@@ -294,9 +323,7 @@ export const nodes = {
             }).then(() => {
 
                 // Update node locally to save ressources
-                for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
-                    n.marked = true;
-                }
+                nodes.forEach(v => v.marked = true);
             });
         },
 
@@ -314,9 +341,7 @@ export const nodes = {
             }).then(() => {
 
                 // Update node locally to save ressources
-                for (let i = 0, n; n = nodes[i], i < nodes.length; i++) {
-                    n.marked = false;
-                }
+                nodes.forEach(v => v.marked = false);
             });
         },
 

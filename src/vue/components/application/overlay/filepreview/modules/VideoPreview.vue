@@ -1,6 +1,6 @@
 <template>
-    <video :src="url"
-           ref="video"
+    <video ref="video"
+           :src="url"
            class="video-preview"
            controls></video>
 </template>

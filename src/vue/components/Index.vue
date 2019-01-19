@@ -9,7 +9,7 @@
             <info-bar/>
 
             <!-- Tabs, dynamic, getting changed via menu tabs -->
-            <navigator v-show="activeTab === 'marked' || activeTab === 'home'"/>
+            <navigator v-show="['marked', 'home', 'bin'].includes(activeTab)"/>
             <history v-show="activeTab === 'history'"/>
             <settings v-show="activeTab === 'settings'"/>
 

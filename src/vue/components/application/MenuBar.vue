@@ -16,6 +16,12 @@
                        text="Mark your important files, folder or just use it as a quick way to access them."/>
         </div>
 
+        <div v-tooltip="'Bin'"
+             :class="{'item': 1, active: activeTab === 'bin'}"
+             @click="changeTab('bin')">
+            <i class="fas fa-fw fa-trash-alt"></i>
+        </div>
+
         <div v-tooltip="'View history'"
              :class="{'item': 1, active: activeTab === 'history'}"
              @click="changeTab('history')">

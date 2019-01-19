@@ -40,8 +40,17 @@ export default {
         },
 
         updateLocation(node) {
-            this.$store.commit('setActiveTab', 'home');
-            this.$store.commit('location/update', node);
+            const update = () => {
+                this.$store.commit('setActiveTab', 'home');
+                this.$store.commit('location/update', node);
+            };
+
+            // If node has been moved to trash restore it
+            if (node.bin) {
+                this.$store.dispatch('nodes/restore', [node]).then(update);
+            } else {
+                update();
+            }
         },
 
         renameNode(evt, node) {

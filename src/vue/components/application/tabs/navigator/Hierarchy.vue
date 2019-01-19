@@ -2,7 +2,7 @@
     <section class="hierarchy">
 
         <!-- Default display of the current folder hierarchy -->
-        <div v-if="!searchResult && !markedNodes" class="nodes">
+        <div v-if="!searchResult && !simpleCount" class="nodes">
             <div v-for="(node, index) of nodes"
                  :data-hash="node.id"
                  class="node">
@@ -24,19 +24,22 @@
             <span v-if="!searchResult.file && !searchResult.dir">Nothing found</span>
         </div>
 
-        <!-- Same as search info, but for marked nodes -->
-        <div v-if="markedNodes && !searchResult" class="amount-info">
-            <b v-if="markedNodes.file">{{ markedNodes.file }} file{{ markedNodes.file === 1 ? '' : 's' }}</b>
-            <span v-if="markedNodes.file && markedNodes.dir"> and </span>
-            <b v-if="markedNodes.dir">{{ markedNodes.dir }} folder{{ markedNodes.dir === 1 ? '' : 's' }}</b>
-            <span v-if="markedNodes.file || markedNodes.dir"> marked</span>
-            <span v-if="!markedNodes.file && !markedNodes.dir">Nothing marked</span>
+        <!-- Same as search info, but for marked nodes and nodes which are currently in the bin -->
+        <div v-if="simpleCount && !searchResult" class="amount-info">
+            <b v-if="simpleCount.file">{{ simpleCount.file }} file{{ simpleCount.file === 1 ? '' : 's' }}</b>
+            <span v-if="simpleCount.file && simpleCount.dir"> and </span>
+            <b v-if="simpleCount.dir">{{ simpleCount.dir }} folder{{ simpleCount.dir === 1 ? '' : 's' }}</b>
+            <span v-if="simpleCount.file || simpleCount.dir"> {{ activeTab === 'bin' ? 'deleted' : 'marked' }}</span>
+            <span v-if="!simpleCount.file && !simpleCount.dir"> {{ activeTab === 'bin' ? 'Nothing deleted yet' : 'Nothing marked' }}</span>
         </div>
 
     </section>
 </template>
 
 <script>
+
+    // Vuex stuff
+    import {mapState} from 'vuex';
 
     export default {
 
@@ -45,6 +48,7 @@
         },
 
         computed: {
+            ...mapState(['activeTab']),
 
             nodes() {
                 return this.$store.getters['location/getHierarchy'].map(v => {
@@ -78,9 +82,9 @@
                 return res;
             },
 
-            markedNodes() {
+            simpleCount() {
 
-                if (this.$store.state.activeTab !== 'marked') {
+                if (!['marked', 'bin'].includes(this.activeTab)) {
                     return null;
                 }
 

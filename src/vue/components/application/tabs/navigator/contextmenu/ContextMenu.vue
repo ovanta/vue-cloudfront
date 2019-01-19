@@ -5,35 +5,42 @@
 
         <div v-if="marked || type === 'files' || type === 'dir' || type === 'mixed'"
              class="option star"
-             @click="star()">
-            <i :class="`fa${marked ? 'r' : 's'} fa-fw fa-bookmark`"></i>
-            <span class="name">{{ marked ? 'Remove mark' : 'Add mark' }}</span>
+             @click="star">
+            <i :class="`fa${ marked === 2 ? 'r' : 's'} fa-fw fa-bookmark`"></i>
+            <span class="name">{{ marked === 2 ? 'Remove mark' : 'Add mark' }}</span>
         </div>
 
         <div v-if="type === 'files' || type === 'dir' || type === 'mixed'"
              class="option delete"
-             @click="del()">
+             @click="del">
             <i class="fas fa-fw fa-trash-alt"></i>
-            <span class="name">Delete</span>
+            <span class="name">{{ deleted ? 'Delete forever' : 'Remove' }}</span>
+        </div>
+
+        <div v-if="deleted"
+             class="option"
+             @click="restore">
+            <i class="fas fa-fw fa-redo"></i>
+            <span class="name">Restore</span>
         </div>
 
         <div v-if="type === 'files' && nodes.length === 1"
              class="option"
-             @click="download()">
+             @click="download">
             <i class="fas fa-fw fa-download"></i>
             <span class="name">Download</span>
         </div>
 
         <div v-if="!search.active && activeTab === 'home'"
              class="option"
-             @click="newFolder()">
+             @click="newFolder">
             <i class="fas fa-fw fa-folder-plus"></i>
             <span class="name">New Folder</span>
         </div>
 
         <div v-if="nodes.length === 1"
              class="option"
-             @click="edit()">
+             @click="edit">
             <i class="fas fa-fw fa-pen"></i>
             <span class="name">Rename</span>
         </div>
@@ -45,7 +52,7 @@
             <span class="name">Copy</span>
         </div>
 
-        <div v-if="nodes.length"
+        <div v-if="nodes.length && activeTab === 'home'"
              class="option"
              @click="moveToClipboard('move')">
             <i class="fas fa-fw fa-cut"></i>
@@ -54,14 +61,14 @@
 
         <div v-if="clipboard.nodes.length && activeTab === 'home'"
              class="option"
-             @click="execClipboardAction()">
+             @click="execClipboardAction">
             <i class="fas fa-fw fa-paste"></i>
             <span class="name">Paste</span>
         </div>
 
         <div v-if="nodes.length === 1 && type === 'files'"
              class="option"
-             @click="share()">
+             @click="share">
             <i class="fas fa-fw fa-share-alt"></i>
             <span class="name">Share</span>
         </div>
@@ -98,24 +105,20 @@
 
         computed: {
 
-            /**
-             * Returns a state.
-             * 0: None or some are marked
-             * 1: All nodes are marked
-             */
             marked() {
+                const amount = this.nodes.filter(v => v.marked).length;
 
-                if (!this.nodes.length) {
-                    return;
+                if (amount === this.nodes.length) {
+                    return 2;
+                } else if (amount) {
+                    return 1;
+                } else {
+                    return 0;
                 }
+            },
 
-                for (let i = 0, a = this.nodes.length, n; n = this.nodes[i], i < a; i++) {
-                    if (!n.marked) {
-                        return 0;
-                    }
-                }
-
-                return 1;
+            deleted() {
+                return this.nodes.find(v => v.bin) ? 1 : 0;
             },
 
             activeTab() {
@@ -210,8 +213,13 @@
                 this.$emit('hide');
             },
 
+            restore() {
+                this.$store.dispatch('nodes/restore', this.nodes);
+                this.$emit('hide');
+            },
+
             star() {
-                this.$store.dispatch(`nodes/${this.marked ? 'remove' : 'add'}Mark`, this.nodes);
+                this.$store.dispatch(`nodes/${this.marked === 2 ? 'remove' : 'add'}Mark`, this.nodes);
                 this.$emit('hide');
             },
 
