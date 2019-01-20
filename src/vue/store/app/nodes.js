@@ -283,12 +283,13 @@ export const nodes = {
          * @param state
          * @param rootState
          * @param nodes Nodes which should be deleted
+         * @param permanently Force permanently remove
          */
-        async delete({state, rootState}, nodes) {
-            const permanently = nodes.every(v => v.bin);
+        async delete({state, rootState}, {nodes, permanently = false}) {
+            const prm = permanently || nodes.every(v => v.bin);
 
             return this.dispatch('fetch', {
-                route: permanently ? 'delete' : 'moveToBin',
+                route: prm ? 'delete' : 'moveToBin',
                 body: {
                     apikey: rootState.auth.apikey,
                     nodes: nodes.map(v => v.id)
@@ -301,12 +302,12 @@ export const nodes = {
                         for (let i = 0; i < state.length; i++) {
                             if (state[i].parent === node.id) {
                                 rm(state[i]);
-                                permanently && (i = 0);
+                                prm && (i = 0);
                             }
                         }
                     }
 
-                    if (permanently) {
+                    if (prm) {
                         const idx = state.indexOf(node);
                         state.splice(idx, 1);
                     } else {
@@ -314,7 +315,7 @@ export const nodes = {
                     }
                 });
 
-                if (!permanently) {
+                if (!prm) {
                     nodes.forEach(v => v.bin = true);
                 }
 

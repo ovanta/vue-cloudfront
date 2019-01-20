@@ -55,7 +55,8 @@
                             {keys: ['e', 'n'], action: 'Edit the name.'},
                             {keys: ['m', 'a'], action: 'Marks selected files / folders.'},
                             {keys: ['m', 'r'], action: 'Removes the mark from selected files / folders.'},
-                            {keys: ['delete'], action: 'Deletes currently selected files / folders.'}
+                            {keys: ['delete'], action: 'Move selected files / folders to the bin.'},
+                            {keys: ['delete', 'shift'], action: 'Permanently delete selected files / folders.'}
                         ]
                     },
 
@@ -283,7 +284,7 @@
 
                 // Delete nodes
                 if (keys.KeyDelete && selection.length) {
-                    store.dispatch('nodes/delete', selection);
+                    store.dispatch('nodes/delete', {nodes: selection, permanently: keys.shiftKey});
                     return;
                 }
 

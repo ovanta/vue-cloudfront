@@ -212,7 +212,7 @@
         methods: {
 
             del() {
-                this.$store.dispatch('nodes/delete', this.nodes);
+                this.$store.dispatch('nodes/delete', {nodes: this.nodes});
                 this.$emit('hide');
             },
 
