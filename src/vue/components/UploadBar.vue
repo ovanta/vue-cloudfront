@@ -24,7 +24,7 @@
                     <i v-if="upload.state === 'aborted'" class="fas fa-fw fa-trash"></i>
                     <i v-if="upload.done / upload.total >= 1 && upload.state !== 'aborted'" class="fas fa-fw fa-check"></i>
 
-                    <circle-progress-bar v-if="upload.done / upload.total < 1 && upload.state !== 'aborted'"
+                    <circle-progress-bar v-if="(upload.done / upload.total < 1 || !upload.total) && upload.state !== 'aborted'"
                                          :indeterminate="['init', 'stardet', 'create-dirs'].includes(upload.state)"
                                          :value="upload.done / upload.total"/>
 
@@ -68,10 +68,10 @@
             },
 
             uploads() {
-                const sortMap = ['init', 'started', 'failed', 'aborted', 'done', 'upload-files', 'create-dirs'];
+                const sortMap = ['failed', 'aborted', 'done', 'upload-files', 'create-dirs', 'started', 'init'];
                 const {uploads} = this.$store.state.data;
-                uploads.sort((a, b) => sortMap.indexOf(a.state) - sortMap.indexOf(b.state));
 
+                uploads.sort((a, b) => sortMap.indexOf(a.state) - sortMap.indexOf(b.state));
                 return uploads;
             }
         },

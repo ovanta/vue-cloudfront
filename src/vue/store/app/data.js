@@ -73,29 +73,38 @@ export const data = {
                     if (item.isFile) {
 
                         // Resolve item
-                        const fileObj = await new Promise((resolve, reject) => item.file(resolve, reject));
-                        if (fileObj) {
+                        return new Promise(resolve => {
+                            item.file(fileObj => {
 
-                            if (!(parent in prequelFileMap)) {
-                                prequelFileMap[parent] = [];
-                            }
+                                if (!(parent in prequelFileMap)) {
+                                    prequelFileMap[parent] = [];
+                                }
 
-                            // Check if file aready exists
-                            const fileList = prequelFileMap[parent];
-                            if (!fileList.find(v => v.name === fileObj.name && v.size === fileObj.size && v.lastModified === fileObj.lastModified)) {
+                                // Check if file aready exists
+                                const fileList = prequelFileMap[parent];
+                                for (let i = 0, am = fileList.length; i < am; i++) {
+                                    const {name, size, lastModified} = fileList[i];
+                                    if (name === fileObj.name && size === fileObj.size && lastModified === fileObj.lastModified) {
+                                        return;
+                                    }
+                                }
+
                                 prequelFileMap[parent].push(fileObj);
-                            }
-                        }
+                                resolve();
+                            }, () => 0);
+                        });
                     } else if (item.isDirectory) {
 
                         // Resolve childs
                         const newFolder = {parent, name: item.name, id: folderIndex++};
                         const entries = await fileSystemUtils.readEntries(item);
-                        for (let i = 0; i < entries.length; i++) {
-                            await traverseFileTree(newFolder.id, entries[i]);
+                        const promises = [];
+                        for (let i = 0, n = entries.length; i < n; i++) {
+                            promises.push(traverseFileTree(newFolder.id, entries[i]));
                         }
 
                         folders.push(newFolder);
+                        return Promise.all(promises);
                     }
                 };
 
@@ -114,7 +123,10 @@ export const data = {
 
                     // Update state and save directory names
                     stats.state = 'create-dirs';
-                    stats.dirs = folders.map(v => v.name);
+                    stats.dirs = new Array(folders.length);
+                    for (let i = 0, n = folders.length; i < n; i++) {
+                        stats.dirs[i] = folders[i].name;
+                    }
 
                     // Create folders
                     const result = await this.dispatch('nodes/createFolders', {folders, parent});

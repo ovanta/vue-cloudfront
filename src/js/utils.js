@@ -256,8 +256,8 @@ export const fileSystemUtils = {
             const entries = [];
 
             for (; ;) {
-                const newEntries = await new Promise(resolve1 => {
-                    dirItemReader.readEntries(entries => resolve1(entries));
+                const newEntries = await new Promise(res => {
+                    dirItemReader.readEntries(entries => res(entries));
                 });
 
                 if (newEntries.length) {
