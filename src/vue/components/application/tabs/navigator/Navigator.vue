@@ -36,6 +36,12 @@
             <!-- Folder / file -views -->
             <list-view v-if="viewType === 'list'" :nodes="nodes"/>
             <grid-view v-if="viewType === 'grid'" :nodes="nodes"/>
+
+            <!-- Placeholder if folder is empty -->
+            <div v-if="!nodes.file.length && !nodes.dir.length" class="placeholder">
+                <i class="fas fa-fw fa-box-open"></i>
+                <p>Nothing here...</p>
+            </div>
         </div>
 
         <!-- Context menu -->
@@ -247,6 +253,34 @@
                 }
                 to {
                     opacity: 1;
+                }
+            }
+        }
+
+        .placeholder {
+            @include flex(column, center, center);
+            width: 100%;
+            flex-grow: 1000;
+            padding-bottom: 10%;
+            color: $palette-deep-blue;
+
+            p {
+                @include font(600, 0.9em);
+            }
+
+            i {
+                font-size: 2em;
+                margin-bottom: 0.3em;
+            }
+
+            @include animate('0.3s ease-in-out') {
+                from {
+                    opacity: 0;
+                    transform: translateY(-0.5em);
+                }
+                to {
+                    opacity: 1;
+                    transform: none;
                 }
             }
         }
