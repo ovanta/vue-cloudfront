@@ -2,10 +2,19 @@
     <img src="/docs/img/logo.png" alt="Logo">
 </h1>
 
-Vue Cloudfront is a standalone PWA cloudfront, mainly for self-hosting purposes. 
+<p align="center">
+    <a href="https://vuejs.org/"><img alt="VueJS 2" src="https://img.shields.io/badge/Vue-v2-%2398b23c.svg"/></a>
+    <a href="https://nodejs.org/en/"><img alt="NodeJS v10" src="https://img.shields.io/badge/Node-v10.x-%2343b23c.svg"/></a>
+    <a href="https://github.com/Simonwep/vue-cloudfront/tree/master"><img alt="Stable Branch" src="https://img.shields.io/badge/Stable%20Branch-master-%233FB27F.svg"/></a>
+    <a href="https://github.com/Simonwep/vue-cloudfront/tree/dev"><img alt="Development Branch" src="https://img.shields.io/badge/Dev%20Branch-dev-%233eacb2.svg"/></a>
+    <img alt="Product state: Alpha" src="https://img.shields.io/badge/State-Pre--Alpha-%233c71b2.svg"/>
+</p>
+
+
+Vue Cloudfront is a standalone PWA cloudfront, basically for self-hosting purposes. 
 Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/Simonwep/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
 
-For anyone who wants some guidance, feel free to contact me on Discord: 'Simon#6765'
+For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6765`
 
 ## Features
 
