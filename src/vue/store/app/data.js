@@ -85,7 +85,7 @@ export const data = {
                                 for (let i = 0, am = fileList.length; i < am; i++) {
                                     const {name, size, lastModified} = fileList[i];
                                     if (name === fileObj.name && size === fileObj.size && lastModified === fileObj.lastModified) {
-                                        return;
+                                        return resolve();
                                     }
                                 }
 

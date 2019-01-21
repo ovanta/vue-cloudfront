@@ -103,7 +103,6 @@
                 const store = this.$store;
                 const state = store.state;
                 const {selection, clipboard, activeTab} = state;
-                const clipboardNodes = clipboard.nodes;
                 const currentLocation = state.location.node;
 
                 // Shortcuts which are only available at the home screen
@@ -123,6 +122,7 @@
                     }
 
                     // Paste nodes
+                    const clipboardNodes = clipboard.nodes;
                     if (clipboardNodes.length && keys.KeyV && keys.ctrlKey) {
 
                         // Move elements

@@ -288,6 +288,9 @@ export const nodes = {
         async delete({state, rootState}, {nodes, permanently = false}) {
             const prm = permanently || nodes.every(v => v.bin);
 
+            // Clear clipboard
+            this.commit('clipboard/clear');
+
             return this.dispatch('fetch', {
                 route: prm ? 'delete' : 'moveToBin',
                 body: {
