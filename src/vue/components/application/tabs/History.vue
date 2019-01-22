@@ -23,8 +23,6 @@
                     <span>Performed</span>
                     <i :class="`fas fa-fw fa-caret-${sortDirs.timestamp ? 'down' : 'up'}`"></i>
                 </div>
-
-                <span class="timestamp">Timestamp</span>
             </div>
 
             <!-- Actual list of actions -->
@@ -46,7 +44,6 @@
                     </span>
 
                     <span class="performed">{{ (timeReference - action.timestamp) | readableTimeStampDiff }}</span>
-                    <span class="timestamp">{{ action.timestamp | readableTimestamp }}</span>
                 </div>
             </div>
         </template>
@@ -121,6 +118,7 @@
                 'Update': '#C0CA33',
                 'Put': '#8BC34A',
                 'Create Folders': '#4CAF50',
+                'Restore': '#86ad2c',
                 'Delete': '#EF5350',
                 'Add Mark': '#EC407A',
                 'Remove Mark': '#AB47BC',
@@ -134,6 +132,7 @@
             // Each action / mutation also gets a fancy icon
             const iconMap = {
                 'Update': 'fas fa-fw fa-sync-alt',
+                'Restore': 'fas fa-fw fa-redo-alt',
                 'Put': 'fas fa-fw fa-cloud-upload-alt',
                 'Create Folders': 'fas fa-fw fa-folder-open',
                 'Delete': 'fas fa-fw fa-trash-alt',
@@ -153,6 +152,9 @@
 
                 'Put': payload =>
                     `Uploaded ${pluralify(payload.nodes)}`,
+
+                'Restore': payload =>
+                    `Restored ${pluralify(payload)} from bin`,
 
                 'Create Folders': payload =>
                     `Created ${pluralify(payload.folders)}`,
@@ -284,7 +286,7 @@
     }
 
     .actions {
-        margin: 1em 0.5em 0 0.5em;
+        margin: 1em 0 0 0;
         overflow: auto;
     }
 
@@ -332,7 +334,7 @@
 
         .description {
             @include flex(row, center);
-            width: 40%;
+            width: 60%;
             margin: 0 1em;
             overflow: hidden;
 
@@ -340,6 +342,7 @@
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
+                line-height: 1.2em;
             }
 
             .change-color {
@@ -352,7 +355,6 @@
             }
         }
 
-        .timestamp,
         .performed {
             opacity: 0.75;
             width: 20%;
@@ -367,7 +369,6 @@
 
         &.actions-header {
             position: relative;
-            font-size: 0.85em;
 
             .name {
                 color: $palette-deep-blue;
@@ -379,6 +380,7 @@
             .sort-container {
                 @include flex(row, center);
                 cursor: pointer;
+                font-size: 1.05em;
 
                 i {
                     font-size: inherit;
