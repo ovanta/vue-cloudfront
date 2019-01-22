@@ -3,6 +3,13 @@
          :class="{menu: 1, open}"
          :style="style">
 
+        <div v-if="search.active && nodes.length === 1"
+             class="option"
+             @click="jump">
+            <i class="fas fa-fw fa-compass"></i>
+            <span class="name">Locate</span>
+        </div>
+
         <div v-if="marked || type === 'files' || type === 'dir' || type === 'mixed'"
              class="option star"
              @click="star">
@@ -159,9 +166,8 @@
 
         mounted() {
 
-            // Close via escape key
-            this.utils.on(window, 'keyup', e => e.key === 'Escape' && this.$emit('hide'));
-            this.utils.on(window, 'resize', () => this.$emit('hide'));
+            // Close on resize and keypress
+            this.utils.on(window, ['resize', 'keydown'], () => this.$emit('hide'));
 
             // Function to check, if menu is open, if the user has clicked
             // outside of the menu. Only active is menu is visible.
@@ -210,6 +216,20 @@
         },
 
         methods: {
+
+            jump() {
+                const {nodes} = this.$store.state;
+                const parentId = this.nodes[0].parent;
+
+                for (let i = 0, n = nodes.length; i < n; i++) {
+                    if (nodes[i].id === parentId) {
+                        this.$store.commit('location/update', nodes[i]);
+                        break;
+                    }
+                }
+
+                this.$emit('hide');
+            },
 
             del() {
                 this.$store.dispatch('nodes/delete', {nodes: this.nodes});
