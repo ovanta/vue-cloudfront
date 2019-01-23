@@ -46,10 +46,5 @@
         "sass-loader": "^7.1.0",
         "vue-cli-plugin-webpack-bundle-analyzer": "^1.2.0",
         "vue-template-compiler": "^2.5.17"
-    },
-    "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not ie <= 11"
-    ]
+    }
 }

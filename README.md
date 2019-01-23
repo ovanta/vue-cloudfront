@@ -11,7 +11,7 @@
 </p>
 
 
-Vue Cloudfront is a standalone PWA cloudfront, basically for self-hosting purposes. 
+Vue Cloudfront is a blazing fast, standalone PWA cloudfront, basically for self-hosting purposes. 
 Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/Simonwep/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
 
 For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6765`
@@ -21,11 +21,12 @@ For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6
 Vue-cloudfront currently has full desktop and touch support (tablets / notebooks with touch support),
 but no support for mobile devices (but [it's in progress](https://github.com/Simonwep/vue-cloudfront/tree/mobile-support))
 
-All modern browsers like Chrome, Firefox, Opera and Edge are supported. **IE will never be supported!**
+All modern browsers like Chrome, Firefox, Opera, Edge and Safari are supported. See [.browserslistrc](/.browserslistrc) for further details.
+IE support is and will never be in consideration.
 
 #### Vue Cloudfront - unique features
 * 100% Offline support (Navigation and searching) - via [localStorage.](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
-* Ultra lightweight, only '~ 50kb' js and '~ 17kb' css! (both gzipped)
+* Ultra lightweight, only '~ 60kb' js and '~ 20kb' css! (both gzipped)
 * Blazing fast with local caching: Average server response time: '~ 30ms' / Client-side rendering time: '~ 1.5s'
 * Installable - [Install on desktop](https://developers.google.com/web/progressive-web-apps/desktop) (Currently only supported by Chrome 70+ under Linux, Windows and Chrome OS).
 * Modern Vue frontend with material-design - easy to design and customize.
