@@ -54,7 +54,7 @@ As a comparison, I compared the upload stats with these from google drive.
 All benchmarks are made with an upload speed of `9.89 Mbit/s` / a ping of `~9ms`
 
 ##### Upload of node_modules (26.3MB, 7.567 Files and 590 Folders)
-* Vue Cloudfront: `~58 Seconds` / `2 Requests`
+* Vue Cloudfront: `~40 Seconds` / `2 Requests`
 * Google Drive: `~39 Minutes` / `9644 Requests`
 
 ##### Upload of one file (123MB)

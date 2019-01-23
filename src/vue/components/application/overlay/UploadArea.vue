@@ -25,6 +25,11 @@
                 ['drag', 'dragend', 'dragenter', 'dragstart', 'dragleave', 'dragover', 'drop'],
                 e => {
 
+                    // Prevent upload during action
+                    if (this.$store.state.requestsActive) {
+                        return e.preventDefault();
+                    }
+
                     if (e.type === 'dragenter') {
 
                         // Check if dragged element is supported

@@ -142,12 +142,14 @@
         margin: 0.5em auto 0.25em;
         padding-bottom: 1.25em;
         width: 90%;
+        max-width: 20vw;
 
         .player {
             @include flex(row, center, space-between);
             opacity: 0;
             transition: all 0.3s;
             pointer-events: none;
+            width: 100%;
 
             &.playable {
                 opacity: 1;
