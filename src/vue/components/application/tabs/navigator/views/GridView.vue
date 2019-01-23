@@ -10,7 +10,7 @@
             <div class="flex-container">
                 <div v-double-tap="() => updateLocation(node)"
                      v-for="node of croppedNodes.dir"
-                     :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
+                     :class="{selected: node._selected, dir: 1, cutted: node._cutted}"
                      :data-hash="node.id"
                      @touchend="select($event, node)"
                      @click.left="select($event, node)"
@@ -19,8 +19,8 @@
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
 
-                    <span v-content-editable="node.editable"
-                          v-select-all="node.editable"
+                    <span v-content-editable="node._editable"
+                          v-select-all="node._editable"
                           class="name"
                           spellcheck="false"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
@@ -32,7 +32,7 @@
             <div class="grid-container">
                 <div v-for="(node, index) of croppedNodes.file" class="wrapper">
                     <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
-                         :class="{selected: node.selected, file: 1, cutted: node.cutted}"
+                         :class="{selected: node._selected, file: 1, cutted: node._cutted}"
                          :data-hash="node.id"
                          @touchend="select($event, node)"
                          @click.left="select($event, node)"
@@ -46,8 +46,8 @@
                             <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                             <span v-if="node.extension" class="extension">{{ node.extension }}</span>
 
-                            <span v-content-editable="node.editable"
-                                  v-select-all="node.editable"
+                            <span v-content-editable="node._editable"
+                                  v-select-all="node._editable"
                                   class="name"
                                   spellcheck="false"
                                   @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
@@ -91,15 +91,7 @@
         },
 
         computed: {
-            ...shared.computed,
-
-            croppedNodes() {
-                const {fileLimit, dirLimit} = this;
-                return {
-                    file: this.nodes.file.slice(0, fileLimit),
-                    dir: this.nodes.dir.slice(0, dirLimit)
-                };
-            }
+            ...shared.computed
         },
 
         watch: {

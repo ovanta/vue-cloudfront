@@ -27,8 +27,8 @@
 
             <!-- Folders -->
             <div v-double-tap="() => updateLocation(node)"
-                 v-for="node of croppedNodes.dir"
-                 :class="{selected: node.selected, dir: 1, cutted: node.cutted}"
+                 v-for="node of sortedNodes.dir"
+                 :class="{selected: node._selected, dir: 1, cutted: node._cutted}"
                  :data-hash="node.id"
                  @touchend="select($event, node)"
                  @click.left="select($event, node)"
@@ -38,8 +38,8 @@
 
                 <div class="name" spellcheck="false">
 
-                    <span v-content-editable="node.editable"
-                          v-select-all="node.editable"
+                    <span v-content-editable="node._editable"
+                          v-select-all="node._editable"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
@@ -51,8 +51,8 @@
 
             <!-- Files -->
             <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
-                 v-for="(node, index) of croppedNodes.file"
-                 :class="{selected: node.selected, file: 1, cutted: node.cutted}"
+                 v-for="(node, index) of sortedNodes.file"
+                 :class="{selected: node._selected, file: 1, cutted: node._cutted}"
                  :data-hash="node.id"
                  @touchend="select($event, node)"
                  @click.left="select($event, node)"
@@ -61,8 +61,8 @@
                 <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">
 
-                    <span v-content-editable="node.editable"
-                          v-select-all="node.editable"
+                    <span v-content-editable="node._editable"
+                          v-select-all="node._editable"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
 
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
@@ -111,12 +111,8 @@
         computed: {
             ...shared.computed,
 
-            croppedNodes() {
-                const {fileLimit, dirLimit} = this;
-                const nodes = {
-                    file: this.nodes.file.slice(0, fileLimit),
-                    dir: this.nodes.dir.slice(0, dirLimit)
-                };
+            sortedNodes() {
+                const nodes = this.croppedNodes;
 
                 const {sortProp} = this;
                 if (sortProp) {

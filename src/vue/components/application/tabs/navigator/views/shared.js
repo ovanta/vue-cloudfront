@@ -99,6 +99,39 @@ export default {
         }
     },
 
+    computed: {
+        croppedNodes() {
+            const {fileLimit, dirLimit} = this;
+            const {selection, clipboard, editable} = this.$store.state;
+            const clipboardNodes = clipboard.nodes;
+            const editableNode = editable.node;
+
+            const createSubPart = (type, limit) => {
+                const nodes = this.nodes[type];
+                const amount = nodes.length > limit ? limit : nodes.length;
+                const list = new Array(amount);
+
+                for (let i = 0; i < amount; i++) {
+                    const n = nodes[i];
+
+                    // Inject props
+                    n._cutted = clipboard.type === 'move' && clipboardNodes.includes(n);
+                    n._selected = selection.includes(n);
+                    n._editable = n === editableNode;
+
+                    list[i] = n;
+                }
+
+                return list;
+            };
+
+            return {
+                file: createSubPart('file', fileLimit),
+                dir: createSubPart('dir', dirLimit)
+            };
+        }
+    },
+
     watch: {
         nodes(newValue, oldValue) {
 

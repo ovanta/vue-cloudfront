@@ -16,9 +16,7 @@ export const nodes = {
          * viewing the marked nodes.
          */
         currentDisplayedNodes(state, getters, rootState) {
-            const {selection, clipboard, editable, search, location, activeTab} = rootState;
-            const clipboardNodes = clipboard.nodes;
-            const editableNode = editable.node;
+            const {search, location, activeTab} = rootState;
 
             const calcFolderSize = (() => {
                 const memoization = new Map();
@@ -84,12 +82,6 @@ export const nodes = {
                     if (autoAdd || n.parent === locHash) {
                         const {type} = n;
 
-                        // Pre calculations
-                        n.cutted = clipboard.type === 'move' && clipboardNodes.includes(n);
-                        n.selected = selection.includes(n);
-                        n.editable = n === editableNode;
-                        ret[type].push(n);
-
                         // Calculate recursivly the size of each folder
                         if (includeFolderSize && type === 'dir') {
                             n.size = calcFolderSize(n.id);
@@ -100,6 +92,8 @@ export const nodes = {
                             const extensionCut = n.name.lastIndexOf('.');
                             n.extension = ~extensionCut ? n.name.substring(extensionCut + 1) : '?';
                         }
+
+                        ret[type].push(n);
                     }
                 }
 
