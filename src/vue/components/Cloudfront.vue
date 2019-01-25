@@ -44,12 +44,12 @@
     import ToolTip   from '../ui/specific/ToolTip';
     import MenuBar   from './application/MenuBar';
     import InfoBar   from './InfoBar';
-    import UploadBar from './UploadBar';
+    import UploadBar from './UploadToasts';
 
     // Popovers
-    import KeyboardShortcuts from './application/popups/KeyboardShortcuts';
-    import SearchFilters     from './application/popups/SearchFilters';
-    import ShareViaLink      from './application/popups/ShareViaLink';
+    import KeyboardShortcuts from './application/popup/KeyboardShortcuts';
+    import SearchFilters     from './application/popup/SearchFilters';
+    import ShareViaLink      from './application/popup/ShareViaLink';
 
     // Overlays
     import LoadingScreen  from './application/overlay/LoadingScreen';

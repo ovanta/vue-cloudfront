@@ -17,7 +17,7 @@
         </div>
 
         <!-- Actual application -->
-        <index class="app-content"/>
+        <cloudfront class="app-content"/>
 
     </div>
 </template>
@@ -31,11 +31,11 @@
     import 'normalize.css';
 
     // Components
-    import Index from './components/Index';
+    import Cloudfront from './components/Cloudfront';
 
     export default {
 
-        components: {Index},
+        components: {Cloudfront},
 
         data() {
             return {};
