@@ -32,5 +32,4 @@ module.exports = {
         msTileColor: '#F5F6FA',
         manifestPath: 'manifest.json'
     }
-
 };

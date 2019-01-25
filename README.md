@@ -26,10 +26,10 @@ All modern browsers like Chrome, Firefox, Opera, Edge and Safari are supported. 
 IE support is and will never be in consideration.
 
 #### Vue Cloudfront - unique features
-* 100% Offline support (Navigation and searching) - via [localStorage.](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+* 100% Offline support (Navigation and searching) - via [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 * Ultra lightweight, only '~ 60kb' js and '~ 20kb' css! (both gzipped)
 * Blazing fast with local caching: Average server response time: '~ 30ms' / Client-side rendering time: '~ 1.5s'
-* Installable - [Install on desktop](https://developers.google.com/web/progressive-web-apps/desktop) (Currently only supported by Chrome 70+ under Linux, Windows and Chrome OS).
+* Installable - [Install it on your desktop](https://developers.google.com/web/progressive-web-apps/desktop) (Currently only supported by Chrome 70+ under Linux, Windows and Chrome OS).
 * Modern Vue frontend with material-design - easy to design and customize.
 * Simply structure and just a few dependencies.
 * MongoDB Backend.

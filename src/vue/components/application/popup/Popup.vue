@@ -49,7 +49,7 @@
         @include flex(row, center, center);
         pointer-events: none;
         opacity: 0;
-        transform: translateY(-1em);
+        transform: translateY(-1em) rotateX(10deg);
         transition: all 0.3s;
         background: rgba($palette-deep-blue, 0.05);
         z-index: 10;
