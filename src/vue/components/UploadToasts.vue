@@ -22,9 +22,10 @@
 
                     <!-- Icons -->
                     <i v-if="upload.state === 'aborted'" class="fas fa-fw fa-trash"></i>
-                    <i v-if="upload.done / upload.total >= 1 && upload.state !== 'aborted'" class="fas fa-fw fa-check"></i>
+                    <i v-else-if="upload.state === 'failed'" class="fas fa-fw fa-exclamation"></i>
+                    <i v-else-if="upload.done / upload.total >= 1" class="fas fa-fw fa-check"></i>
 
-                    <circle-progress-bar v-if="(upload.done / upload.total < 1 || !upload.total) && upload.state !== 'aborted'"
+                    <circle-progress-bar v-if="(upload.done / upload.total < 1 || !upload.total) && !['aborted', 'failed'].includes(upload.state)"
                                          :indeterminate="['init', 'stardet', 'create-dirs'].includes(upload.state)"
                                          :value="upload.done / upload.total"/>
 
