@@ -31,7 +31,7 @@
             <b v-if="simpleCount.dir">{{ simpleCount.dir }} folder{{ simpleCount.dir === 1 ? '' : 's' }} </b>
 
             <span v-if="simpleCount.file || simpleCount.dir">
-                <span v-if="activeTab === 'bin'">moved to the trash can</span>
+                <span v-if="activeTab === 'bin'">moved to the bin</span>
                 <span v-else-if="activeTab === 'marked'">marked</span>
             </span>
 

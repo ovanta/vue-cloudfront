@@ -14,7 +14,7 @@
             <settings v-show="activeTab === 'settings'"/>
 
             <!-- Upload bar - shows the current upload progress of files -->
-            <upload-bar/>
+            <upload-toasts/>
         </div>
 
         <!-- Overlays -->
@@ -41,10 +41,10 @@
     import History   from './application/tabs/History';
     import Settings  from './application/tabs/Settings';
 
-    import ToolTip   from '../ui/specific/ToolTip';
-    import MenuBar   from './application/MenuBar';
-    import InfoBar   from './InfoBar';
-    import UploadBar from './UploadToasts';
+    import ToolTip      from '../ui/specific/ToolTip';
+    import MenuBar      from './application/MenuBar';
+    import InfoBar      from './InfoBar';
+    import UploadToasts from './UploadToasts';
 
     // Popovers
     import KeyboardShortcuts from './application/popup/KeyboardShortcuts';
@@ -65,7 +65,7 @@
         components: {
             InfoBar,
             MenuBar,
-            UploadBar,
+            UploadToasts,
 
             // Tabs
             Navigator,
