@@ -167,7 +167,7 @@
         mounted() {
 
             // Close on resize and keypress
-            this.utils.on(window, ['resize', 'keydown'], () => this.$emit('hide'));
+            this.utils.on(window, ['resize', 'keydown', 'wheel', 'blur'], () => this.$emit('hide'));
 
             // Function to check, if menu is open, if the user has clicked
             // outside of the menu. Only active is menu is visible.
