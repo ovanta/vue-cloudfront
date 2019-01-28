@@ -1,5 +1,5 @@
 <template>
-    <div v-if="events.introBoxes.includes(id)"
+    <div v-if="stats.introBoxes.includes(id)"
          ref="introBox"
          class="intro-box"
          @click="toggle()">
@@ -38,7 +38,7 @@
 
                     <div class="actions">
                         <span class="skip"
-                              @click="$store.dispatch('events/removeAllIntroBoxes')">Skip all</span>
+                              @click="closeAll">Skip all</span>
 
                         <button @click="close()">
                             <span>Okay</span>
@@ -84,7 +84,7 @@
         },
 
         computed: {
-            ...mapState(['events'])
+            ...mapState(['stats'])
         },
 
         methods: {
@@ -106,7 +106,17 @@
             },
 
             close() {
-                this.$store.dispatch('events/removeIntroBox', {id: this.id});
+                this.$store.dispatch('stats/change', stats => {
+                    stats.introBoxes = stats.introBoxes.filter(v => v !== this.id);
+                    return stats;
+                });
+            },
+
+            closeAll() {
+                this.$store.dispatch('stats/change', stats => {
+                    stats.introBoxes = [];
+                    return stats;
+                });
             }
         }
     };

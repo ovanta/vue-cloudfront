@@ -36,7 +36,7 @@ export const auth = {
                 this.commit('setActiveTab', 'home');
 
                 // Update events and nodes
-                return Promise.all([this.dispatch('nodes/update'), this.dispatch('events/update')]);
+                return Promise.all([this.dispatch('nodes/update'), this.dispatch('stats/update')]);
             });
         },
 
@@ -60,9 +60,8 @@ export const auth = {
 
                 // Update nodes
                 return Promise.all([
-                    this.dispatch('events/sync'),
-                    this.dispatch('nodes/update'),
-                    this.dispatch('events/update')
+                    this.dispatch('stats/sync'),
+                    this.dispatch('nodes/update')
                 ]);
             });
         },
@@ -80,7 +79,7 @@ export const auth = {
                 state.apikey = apikey;
 
                 // Update nodes
-                return Promise.all([this.dispatch('nodes/update'), this.dispatch('events/update')]);
+                return Promise.all([this.dispatch('nodes/update'), this.dispatch('stats/update')]);
             }).catch(() => {
                 this.dispatch('auth/logout');
             });

@@ -5,10 +5,10 @@ import Vuex from 'vuex';
 import config from '../../../config/config.json';
 
 // Server-related nodes
-import {nodes}  from './app/nodes';
-import {auth}   from './app/auth';
-import {events} from './app/events';
-import {data}   from './app/data';
+import {nodes} from './app/nodes';
+import {auth}  from './app/auth';
+import {stats} from './app/stats';
+import {data}  from './app/data';
 
 // Virtual modules act only as visual helpers / representation
 import {location}    from './virtual/location';
@@ -32,7 +32,7 @@ export default new Vuex.Store({
         auth,
 
         // Holds user related content
-        events,
+        stats,
 
         // Responsible for uploading / downloading data
         data,
