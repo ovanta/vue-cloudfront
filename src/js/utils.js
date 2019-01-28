@@ -223,7 +223,7 @@ export function toBytes(size) {
 export function readableByteCount(bytes, mapValue = v => v) {
     bytes = Number(bytes);
 
-    const si = config.sizeSIPrefix;
+    const si = config.binaryPrefix;
     const unit = si ? 1000 : 1024;
     const block = bytes / unit;
 

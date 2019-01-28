@@ -63,7 +63,7 @@
 <script>
 
     // Config stuff
-    import {visibleNodesLimit} from '../../../../../../../config/config';
+    import {visibleNodesChunkSize} from '../../../../../../../config/config';
 
     // Selectable plugin
     import Selectable from '../plugins/selectable';
@@ -85,8 +85,8 @@
 
         data() {
             return {
-                fileLimit: visibleNodesLimit,
-                dirLimit: visibleNodesLimit
+                fileLimit: visibleNodesChunkSize,
+                dirLimit: visibleNodesChunkSize
             };
         },
 

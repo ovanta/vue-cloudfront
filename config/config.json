@@ -1,7 +1,7 @@
 {
     "apiEndPoint": "/api",
-    "sizeSIPrefix": true,
-    "visibleNodesLimit": 25,
+    "binaryPrefix": true,
+    "visibleNodesChunkSize": 25,
     "loadingScreenMessages": [
         "Smoothing buttons",
         "Procentually generating icons",
@@ -25,7 +25,7 @@
         "Remembering to bring a towel",
         "Excuse me, it's called a \"feature\""
     ],
-    "colors": [
+    "predefinedColors": [
         "#EF5350",
         "#EC407A",
         "#AB47BC",

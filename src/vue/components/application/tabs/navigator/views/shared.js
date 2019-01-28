@@ -1,5 +1,5 @@
 // Config stuff
-import {visibleNodesLimit} from '../../../../../../../config/config';
+import {visibleNodesChunkSize} from '../../../../../../../config/config';
 
 export default {
 
@@ -12,12 +12,12 @@ export default {
 
         increaseVisibleArea() {
             if (this.dirLimit < this.nodes.dir.length) {
-                this.dirLimit += visibleNodesLimit;
+                this.dirLimit += visibleNodesChunkSize;
                 return true;
             }
 
             if (this.fileLimit < this.nodes.file.length) {
-                this.fileLimit += visibleNodesLimit;
+                this.fileLimit += visibleNodesChunkSize;
                 return true;
             }
 
@@ -138,8 +138,8 @@ export default {
             // Mostly props get's changed. Update only if array lengths are changing
             if (newValue.dir.length !== oldValue.dir.length || newValue.file.length !== oldValue.file.length) {
 
-                this.dirLimit = visibleNodesLimit;
-                this.fileLimit = visibleNodesLimit;
+                this.dirLimit = visibleNodesChunkSize;
+                this.fileLimit = visibleNodesChunkSize;
                 this.riseVisibleArea();
             }
         }

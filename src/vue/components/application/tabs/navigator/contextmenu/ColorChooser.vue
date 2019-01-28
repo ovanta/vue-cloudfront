@@ -31,7 +31,7 @@
 
         data() {
             return {
-                colors: config.colors
+                colors: config.predefinedColors
             };
         },
 
