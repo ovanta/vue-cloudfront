@@ -252,7 +252,7 @@ export const data = {
             const link = document.createElement('a');
             document.body.appendChild(link);
             link.download = node.name;
-            link.href = `${config.apiEndPoint}/download?id=${node.id}&apikey=${rootState.auth.apikey}`;
+            link.href = `${config.apiEndPoint}/d/${node.id}?apikey=${rootState.auth.apikey}`;
             link.click();
             document.body.removeChild(link);
         }

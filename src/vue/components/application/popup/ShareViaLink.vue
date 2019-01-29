@@ -10,7 +10,7 @@
         <div class="exising-links">
 
             <div v-for="id of share.node.staticIds" class="link">
-                <span class="link">{{ apiEndPoint }}/download?id={{ id }}</span>
+                <span class="link">{{ apiEndPoint }}/d/{{ id }}</span>
                 <span class="delete" @click="removeId(id)">Delete</span>
             </div>
 
@@ -31,7 +31,7 @@
 <script>
 
     // Config
-    import config from '../../../../../config/config.json';
+    import {apiEndPoint} from '../../../../../config/config.json';
 
     // Components
     import Popup          from './Popup';
@@ -46,7 +46,7 @@
 
         data() {
             return {
-                apiEndPoint: config.apiEndPoint
+                apiEndPoint: apiEndPoint.startsWith('http') ? apiEndPoint : location.origin + apiEndPoint
             };
         },
 
