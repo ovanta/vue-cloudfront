@@ -94,3 +94,4 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 * [Express as Framework](https://expressjs.com/)
 * [Mongoose as database API](https://mongoosejs.com/)
 * [MongoDB as database](https://www.mongodb.com/)
+* [PM2 as load balancer](https://pm2.io)

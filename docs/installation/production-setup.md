@@ -16,6 +16,7 @@ Dependencies
  5. certbot - _to get an ssl certificate_ (Tested with 0.28.0)
  6. tmux - _to split processes_
  7. dirmngr - _to add the MongoDB public GPG Key_
+ 8. pm2 - _as load balancer_
 
 Repositories
  1. vue-cloudfront (https://github.com/Simonwep/vue-cloudfront)
@@ -93,13 +94,11 @@ npm run build
 cd ../vue-cloudfront-api
 sudo npm i
 
-# Make storage directory
-mkdir _storage
-
-# Run vue-cloudfront-api in a tmux session
-tmux new -d -s vue-cloudfront-api 'npm run launch'
+# Start vue-cloudfront-api 
+npm run launch
 ```
-As with MongoDB, we can access the process via `tmux a -t vue-cloudfront-api`
+This will spin up a PM2 cluster. You can always see the status of your running server-instance with `pm2 ls` (run `npm i -g pm2` to install PM2). 
+See [pm2.io](https://pm2.io) for further documentation.
 
 After this is done, we need to configure nginx to proxy each request to its correspondending endpoint:
 ```bash
