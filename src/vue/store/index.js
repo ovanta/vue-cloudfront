@@ -117,7 +117,7 @@ export default new Vuex.Store({
          * @param body JSON Bddy
          * @returns {Promise<Response | Never>}
          */
-        async fetch({state}, {route, body}) {
+        async fetch({state}, {raw = false, route, body}) {
 
             if (!navigator.onLine) {
                 return Promise.reject('User is currently offline');
@@ -131,16 +131,22 @@ export default new Vuex.Store({
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify(body)
-            }).then(async v => {
+            }).then(async response => {
 
-                if (!v.ok) {
+                if (raw) {
+                    return {
+                        response, done: () => state.requestsActive--
+                    };
+                }
+
+                if (!response.ok) {
 
                     /* eslint-disable no-console */
-                    console.warn(v);
+                    console.warn(response);
                     throw 'Fetch failed';
                 }
 
-                const {error, data} = await v.json();
+                const {error, data} = await response.json();
                 !state.ignoredRequestRoutes.includes(route) && state.requestsActive--;
 
                 if (error) {

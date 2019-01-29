@@ -248,13 +248,43 @@ export const data = {
          * @param node
          * @returns {Promise<void>}
          */
-        async download({rootState}, {node}) {
-            const link = document.createElement('a');
-            document.body.appendChild(link);
-            link.download = node.name;
-            link.href = `${config.apiEndPoint}/d/${node.id}?apikey=${rootState.auth.apikey}`;
-            link.click();
-            document.body.removeChild(link);
+        async download({rootState}, {nodes}) {
+            const names = nodes.map(({name}) => name);
+
+            // Create filename
+            let name;
+            if (names.length < 3) {
+                name = names.slice(0, 2).join(' and ');
+            } else if (names.length < 4) {
+                name = names.slice(0, names.length - 1).join(', ');
+                name += ` and ${names[names.length - 1]}`;
+            } else {
+                name = names.slice(0, 2).join(', ');
+                name += ` and ${names.length - 2} others`;
+            }
+
+            return this.dispatch('fetch', {
+                raw: true,
+                route: 'zip',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    nodes: nodes.map(v => v.id)
+                }
+
+                // TODO: Consider alternative to blob, blob => memory => issues
+            }).then(async ({response, done}) => {
+                const blob = await response.blob();
+
+                const link = document.createElement('a');
+                document.body.appendChild(link);
+
+                link.download = `${name}.zip`;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                document.body.removeChild(link);
+
+                done();
+            });
         }
     }
 };
