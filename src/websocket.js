@@ -6,14 +6,19 @@ function sendMessage(type, value) {
     socket.send(JSON.stringify({type, value}));
 }
 
-socket.onmessage = msg => {
-    try {
-        const {action, payload} = JSON.parse(msg.data);
-        store.commit('nodes/sync', {action, payload});
-    } catch (e) {
+let registered = false;
+socket.onmessage = ({data}) => {
+    if (data === 'registration-approval') {
+        registered = true;
+    } else {
+        try {
+            const {module, action, payload} = JSON.parse(data);
+            store.commit(`${module}/socketSync`, {action, payload});
+        } catch (e) {
 
-        /* eslint-disable no-console */
-        console.warn(e);
+            /* eslint-disable no-console */
+            console.warn(e);
+        }
     }
 };
 
@@ -21,7 +26,13 @@ export default {
     register(apikey) {
         sendMessage('register', apikey);
     },
-    broadcast(action, payload) {
-        sendMessage('broadcast', {action, payload});
+
+    broadcast(module, action, payload) {
+        if (registered) {
+            sendMessage('broadcast', {module, action, payload});
+        } else {
+            /* eslint-disable no-console */
+            console.warn('Tried to broadcast message but websockt is currently not approved.');
+        }
     }
 };

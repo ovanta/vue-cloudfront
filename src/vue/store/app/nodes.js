@@ -110,16 +110,16 @@ export const nodes = {
         // Adds nodes to the collection
         put(state, {nodes}) {
             if (Array.isArray(nodes)) {
-                websocket.broadcast('put', nodes);
+                websocket.broadcast('nodes', 'put', nodes);
                 state.push(...nodes);
             }
         },
 
         // Websocket sync
-        sync(state, {action, payload}) {
+        socketSync(state, {action, payload}) {
             switch (action) {
                 case 'put': {
-                   return state.push(...payload);
+                    return state.push(...payload);
                 }
                 case 'change': {
 
@@ -226,7 +226,7 @@ export const nodes = {
                 }
             }).then(({node}) => {
                 state.push(node);
-                websocket.broadcast('put', [node]);
+                websocket.broadcast('nodes', 'put', [node]);
                 return node;
             });
         },
@@ -276,7 +276,7 @@ export const nodes = {
 
                 // Update nodes locally to save ressources
                 nodes.forEach(n => n.parent = destination.id);
-                websocket.broadcast('change', nodes.map(v => pick(v, 'id', 'parent')));
+                websocket.broadcast('nodes', 'change', nodes.map(v => pick(v, 'id', 'parent')));
             });
         },
 
@@ -305,7 +305,7 @@ export const nodes = {
 
                 // Add new nodes
                 state.push(...nodes);
-                websocket.broadcast('put', nodes);
+                websocket.broadcast('nodes', 'put', nodes);
                 return nodes;
             });
         },
@@ -356,9 +356,9 @@ export const nodes = {
                         v.lastModified = Date.now();
                     });
 
-                    websocket.broadcast('change', nodes.map(v => pick(v, 'id', 'bin', 'lastModified')));
+                    websocket.broadcast('nodes', 'change', nodes.map(v => pick(v, 'id', 'bin', 'lastModified')));
                 } else {
-                    websocket.broadcast('delete', nodes.map(v => v.id));
+                    websocket.broadcast('nodes', 'delete', nodes.map(v => v.id));
                 }
 
                 state.splice(0, state.length, ...state);
@@ -400,7 +400,7 @@ export const nodes = {
                     v.lastModified = Date.now();
                 });
 
-                websocket.broadcast('change', nodes.map(v => pick(v, 'id', 'bin', 'lastModified')));
+                websocket.broadcast('nodes', 'change', nodes.map(v => pick(v, 'id', 'bin', 'lastModified')));
                 state.splice(0, state.length, ...state);
             });
         },
@@ -424,7 +424,7 @@ export const nodes = {
                     v.lastModified = Date.now();
                 });
 
-                websocket.broadcast('change', nodes.map(v => pick(v, 'id', 'marked', 'lastModified')));
+                websocket.broadcast('nodes', 'change', nodes.map(v => pick(v, 'id', 'marked', 'lastModified')));
             });
         },
 
@@ -447,7 +447,7 @@ export const nodes = {
                     v.lastModified = Date.now();
                 });
 
-                websocket.broadcast('change', nodes.map(v => pick(v, 'id', 'marked', 'lastModified')));
+                websocket.broadcast('nodes', 'change', nodes.map(v => pick(v, 'id', 'marked', 'lastModified')));
             });
         },
 
@@ -471,7 +471,7 @@ export const nodes = {
                 node.lastModified = Date.now();
                 node.name = newName;
 
-                websocket.broadcast('change', [pick(node, 'id', 'lastModified', 'name')]);
+                websocket.broadcast('nodes', 'change', [pick(node, 'id', 'lastModified', 'name')]);
             });
         },
 
@@ -497,7 +497,7 @@ export const nodes = {
                     v.lastModified = Date.now();
                 });
 
-                websocket.broadcast('change', nodes.map(v => pick(v, 'id', 'color', 'lastModified')));
+                websocket.broadcast('nodes', 'change', nodes.map(v => pick(v, 'id', 'color', 'lastModified')));
             });
         },
 
@@ -519,7 +519,7 @@ export const nodes = {
                 node.staticIds = node.staticIds || [];
                 node.staticIds.push(id);
 
-                websocket.broadcast('change', [pick(node, 'id', 'staticIds')]);
+                websocket.broadcast('nodes', 'change', [pick(node, 'id', 'staticIds')]);
                 return id;
             });
         },
@@ -542,7 +542,7 @@ export const nodes = {
                 // Append link
                 node.staticIds = node.staticIds || [];
                 node.staticIds = node.staticIds.filter(id => !ids.includes(id));
-                websocket.broadcast('change', [pick(node, 'id', 'staticIds')]);
+                websocket.broadcast('nodes', 'change', [pick(node, 'id', 'staticIds')]);
             });
         }
     }
