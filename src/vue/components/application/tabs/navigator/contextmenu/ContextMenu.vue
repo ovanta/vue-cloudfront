@@ -31,7 +31,7 @@
             <span class="name">Restore</span>
         </div>
 
-        <div v-if="nodes.length"
+        <div v-if="nodes.length === 1"
              class="option"
              @click="download">
             <i class="fas fa-fw fa-download"></i>
@@ -73,7 +73,7 @@
             <span class="name">Paste</span>
         </div>
 
-        <div v-if="nodes.length === 1 && type === 'files'"
+        <div v-if="nodes.length === 1"
              class="option"
              @click="share">
             <i class="fas fa-fw fa-share-alt"></i>
@@ -252,7 +252,7 @@
             },
 
             download() {
-                this.$store.dispatch('data/download', {nodes: this.nodes});
+                this.$store.dispatch('data/download', {node: this.nodes[0]});
                 this.$emit('hide');
             },
 

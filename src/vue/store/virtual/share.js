@@ -11,7 +11,5 @@ export const share = {
         set(state, node) {
             state.node = node;
         }
-
     }
-
 };
