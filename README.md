@@ -43,6 +43,7 @@ IE support is and will never be in consideration.
 * Almost no latency during a search.
 * Copy, cut and move files and folders like on your notebook.
 * Simultaneous uploads with a neat upload popup to control and see current uploads.
+* Download entire directorie structures as zip file.
 
 #### General
 * Tooltips and introduction boxes to quickly understand how everything works.

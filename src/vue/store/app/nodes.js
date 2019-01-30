@@ -206,13 +206,12 @@ export const nodes = {
             // Fetch from server
             return this.dispatch('fetch', {
                 route: 'createFolders',
+                silent: true,
                 body: {
                     apikey: rootState.auth.apikey,
                     parent: parent.id,
                     folders
                 }
-            }).then(({nodes, idMap}) => {
-                return {nodes, idMap};
             });
         },
 
@@ -313,7 +312,10 @@ export const nodes = {
                 });
 
                 if (!prm) {
-                    nodes.forEach(v => v.bin = true);
+                    nodes.forEach(v => {
+                        v.bin = true;
+                        v.lastModified = Date.now();
+                    });
                 }
 
                 state.splice(0, state.length, ...state);
@@ -350,7 +352,11 @@ export const nodes = {
                     node._subBin = false;
                 });
 
-                nodes.forEach(v => v.bin = false);
+                nodes.forEach(v => {
+                    v.bin = false;
+                    v.lastModified = Date.now();
+                });
+
                 state.splice(0, state.length, ...state);
             });
         },
@@ -369,7 +375,10 @@ export const nodes = {
             }).then(() => {
 
                 // Update node locally to save ressources
-                nodes.forEach(v => v.marked = true);
+                nodes.forEach(v => {
+                    v.marked = true;
+                    v.lastModified = Date.now();
+                });
             });
         },
 
@@ -387,7 +396,10 @@ export const nodes = {
             }).then(() => {
 
                 // Update node locally to save ressources
-                nodes.forEach(v => v.marked = false);
+                nodes.forEach(v => {
+                    v.marked = false;
+                    v.lastModified = Date.now();
+                });
             });
         },
 
@@ -430,7 +442,10 @@ export const nodes = {
             }).then(() => {
 
                 // Override color
-                nodes.forEach(n => n.color = color);
+                nodes.forEach(v => {
+                    v.color = color;
+                    v.lastModified = Date.now();
+                });
             });
         },
 

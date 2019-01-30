@@ -95,9 +95,9 @@ export const auth = {
          * @param newPassword New passoword (optional)
          * @returns {Promise<void>}
          */
-        async applySettings({state}, {currentPassword, newUsername, newPassword}) {
+        async updateCredentials({state}, {currentPassword, newUsername, newPassword}) {
             return this.dispatch('fetch', {
-                route: 'settings',
+                route: 'updateCredentials',
                 body: {
                     apikey: state.apikey,
                     currentPassword,
