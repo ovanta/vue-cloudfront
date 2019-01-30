@@ -1,3 +1,5 @@
+import websocket from '../../../websocket';
+
 export const auth = {
 
     namespaced: true,
@@ -32,11 +34,17 @@ export const auth = {
                 localStorage.setItem('apikey', apikey);
                 state.apikey = apikey;
 
+                // Register as service worker
+                websocket.register(apikey);
+
                 // Jump to home tab
                 this.commit('setActiveTab', 'home');
 
                 // Update events and nodes
-                return Promise.all([this.dispatch('nodes/update'), this.dispatch('stats/update')]);
+                return Promise.all([
+                    this.dispatch('nodes/update'),
+                    this.dispatch('stats/update')
+                ]);
             });
         },
 
@@ -55,10 +63,13 @@ export const auth = {
                 localStorage.setItem('apikey', apikey);
                 state.apikey = apikey;
 
+                // Register as service worker
+                websocket.register(apikey);
+
                 // Jump to home tab
                 this.commit('setActiveTab', 'home');
 
-                // Update nodes
+                // Update nodes and perform first-time sync of stats
                 return Promise.all([
                     this.dispatch('stats/sync'),
                     this.dispatch('nodes/update')
@@ -77,6 +88,9 @@ export const auth = {
                 body: {apikey}
             }).then(() => {
                 state.apikey = apikey;
+
+                // Register as service worker
+                websocket.register(apikey);
 
                 // Update nodes
                 return Promise.all([this.dispatch('nodes/update'), this.dispatch('stats/update')]);
