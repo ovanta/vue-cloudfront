@@ -1,26 +1,47 @@
-import store from './vue/store/index';
+import config from '../config/config';
+import store  from './vue/store/index';
 
-const socket = new WebSocket('ws://79.214.141.96:8080');
-
-function sendMessage(type, value) {
-    socket.send(JSON.stringify({type, value}));
-}
+const [, , websocketUrl] = config.apiEndPoint.match(/(https?:\/\/|^)(.*?)(\/|$)/);
+const socket = new WebSocket(`ws://${websocketUrl}`);
 
 let registered = false;
-socket.onmessage = ({data}) => {
-    if (data === 'registration-approval') {
-        registered = true;
-    } else {
+Object.assign(socket, {
+    onmessage({data}) {
+
         try {
-            const {module, action, payload} = JSON.parse(data);
-            store.commit(`${module}/socketSync`, {action, payload});
+            data = JSON.parse(data);
         } catch (e) {
 
             /* eslint-disable no-console */
             console.warn(e);
         }
+
+        const {type, value} = data;
+        switch (type) {
+            case 'registration-approval': {
+                registered = true;
+
+                /* eslint-disable no-console */
+                console.log(`[WS] Websocket successful registered. Connections: ${value.connections}`);
+                break;
+            }
+            case 'broadcast': {
+                const {module, action, payload} = value;
+                store.commit(`${module}/socketSync`, {action, payload});
+                break;
+            }
+            default: {
+
+                /* eslint-disable no-console */
+                console.warn(`[WS] Unknown message type: ${type}`);
+            }
+        }
     }
-};
+});
+
+function sendMessage(type, value) {
+    socket.send(JSON.stringify({type, value}));
+}
 
 export default {
     register(apikey) {

@@ -1,9 +1,19 @@
+import websocket from '../../../websocket';
+
 export const stats = {
 
     namespaced: true,
 
     state: {
         introBoxes: ['0', '1', '2']
+    },
+
+    mutations: {
+
+        // Websocket sync
+        socketSync(state, {payload}) {
+            Object.assign(state, payload);
+        }
     },
 
     actions: {
@@ -62,7 +72,14 @@ export const stats = {
                     apikey: rootState.auth.apikey,
                     stats: newState
                 }
-            }).then(() => Object.assign(state, newState));
+            }).then(() => {
+
+                // Sync with other instances
+                websocket.broadcast('stats', 'change', newState);
+
+                // Apply changes
+                Object.assign(state, newState);
+            });
         }
     }
 };
