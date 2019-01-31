@@ -7,7 +7,7 @@
         <audio-preview v-else-if="node.name.match(/\.(mp3|wav|ogg)$/i)" :url="url"/>
         <font-preview v-else-if="node.name.match(/\.(ttf|otf|woff)$/i)" :url="url"/>
 
-        <slot v-else></slot>
+        <slot v-else-if="empty = true"></slot>
     </div>
 </template>
 

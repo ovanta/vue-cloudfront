@@ -23,7 +23,7 @@
 
                         <button @click="$store.dispatch('data/download', {node: currentNode})">
                             <i class="fas fa-cloud-download-alt"></i>
-                            <span>Download</span>
+                            <span>Download instead</span>
                         </button>
                     </div>
 
@@ -182,12 +182,11 @@
 
                 > button {
                     @include flex(row, center, center);
-                    display: block;
                     margin: 1em auto 0;
                     background: $palette-deep-blue;
                     color: $palette-snow-white;
                     transition: all 0.3s;
-                    padding: 0.35em 0.75em;
+                    padding: 0.5em 1em;
                     border-radius: 0.15em;
 
                     i {

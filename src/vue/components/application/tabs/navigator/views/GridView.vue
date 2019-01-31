@@ -39,7 +39,13 @@
                          @click.right="select($event, node)">
 
                         <embed-file-preview :node="node">
-                            <span>No preview available</span>
+
+                            <!-- Fallback if no preview is available -->
+                            <button @click="$store.dispatch('data/download', {node})">
+                                Download - {{ node.size | readableByteCount }}
+                            </button>
+
+                            <i>No preview available</i>
                         </embed-file-preview>
 
                         <div class="info">
@@ -174,12 +180,6 @@
             flex-grow: 1;
             overflow: hidden;
 
-            > span {
-                margin: 1.5em 0;
-                width: 100%;
-                text-align: center;
-            }
-
             &:not(.empty) {
                 margin-bottom: 1em;
             }
@@ -189,6 +189,33 @@
                 @include position(auto, 0, -0.25em, 0);
                 background: linear-gradient(to bottom, transparent, white 50%);
                 height: 5%;
+            }
+
+            &.empty {
+                margin: 0.5em 0;
+
+                > i {
+                    @include font(600, 0.9em);
+                    width: 100%;
+                    text-align: center;
+                    color: $palette-deep-blue;
+                    margin-top: 0.75em;
+                }
+
+                > button {
+                    @include font(600, 0.95em);
+                    margin: 0 auto;
+                    background: $palette-deep-blue;
+                    color: $palette-snow-white;
+                    transition: all 0.3s;
+                    padding: 0.4em 0.8em;
+                    border-radius: 0.15em;
+                    width: 100%;
+
+                    &:hover {
+                        background: lighten($palette-deep-blue, 5);
+                    }
+                }
             }
         }
 
