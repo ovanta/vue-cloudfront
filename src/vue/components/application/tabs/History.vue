@@ -4,7 +4,7 @@
         <template slot="header">
             <i v-tooltip="'Clear history'"
                class="fas fa-fw fa-trash"
-               @click="clearActions()"></i>
+               @click="clearActions"></i>
         </template>
 
         <template slot="content">

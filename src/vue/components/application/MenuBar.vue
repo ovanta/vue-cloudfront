@@ -32,7 +32,7 @@
 
         <div v-tooltip="'Refresh'"
              class="item bottom"
-             @click="refresh()">
+             @click="refresh">
             <i class="fas fa-fw fa-sync-alt"></i>
         </div>
 

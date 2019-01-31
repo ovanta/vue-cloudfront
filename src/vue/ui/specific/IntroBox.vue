@@ -2,7 +2,7 @@
     <div v-if="stats.introBoxes.includes(id)"
          ref="introBox"
          class="intro-box"
-         @click="toggle()">
+         @click="toggle">
 
         <!-- Bouncing question mark -->
         <svg class="question-mark"
@@ -40,7 +40,7 @@
                         <span class="skip"
                               @click="closeAll">Skip all</span>
 
-                        <button @click="close()">
+                        <button @click="close">
                             <span>Okay</span>
                             <i class="fas fa-fw fa-check"></i>
                         </button>
@@ -79,7 +79,8 @@
 
         data() {
             return {
-                visible: false
+                visible: false,
+                closeEventListenerProps: []
             };
         },
 
@@ -102,6 +103,10 @@
 
                     // Show introbox
                     this.visible = true;
+                    this.closeEventListenerProps = this.utils.on(window, 'mousedown', () => {
+                        this.visible = false;
+                        this.utils.off(...this.closeEventListenerProps);
+                    });
                 }
             },
 

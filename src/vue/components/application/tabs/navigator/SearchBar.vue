@@ -10,7 +10,7 @@
                    placeholder="Search..."
                    spellcheck="false"
                    type="text"
-                   @input="updateSearch()">
+                   @input="updateSearch">
             <i :class="{delete: 1, 'fas fa-times': 1, visible: searchQuery.length}" @click="clear"></i>
 
             <!-- Show available filters -->
