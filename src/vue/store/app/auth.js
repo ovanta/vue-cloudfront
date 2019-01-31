@@ -1,4 +1,4 @@
-import websocket from '../../../websocket';
+import websocket from '../../../socket/socket';
 
 export const auth = {
 
@@ -34,7 +34,7 @@ export const auth = {
                 localStorage.setItem('apikey', apikey);
                 state.apikey = apikey;
 
-                // Register as service worker
+                // Register websocket
                 websocket.register(apikey);
 
                 // Jump to home tab
@@ -63,7 +63,7 @@ export const auth = {
                 localStorage.setItem('apikey', apikey);
                 state.apikey = apikey;
 
-                // Register as service worker
+                // Register websocket
                 websocket.register(apikey);
 
                 // Jump to home tab
@@ -89,7 +89,7 @@ export const auth = {
             }).then(() => {
                 state.apikey = apikey;
 
-                // Register as service worker
+                // Register websocket
                 websocket.register(apikey);
 
                 // Update nodes

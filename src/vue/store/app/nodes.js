@@ -1,4 +1,4 @@
-import websocket from '../../../websocket';
+import websocket from '../../../socket/socket';
 import {pick}    from '../../../js/utils';
 
 export const nodes = {

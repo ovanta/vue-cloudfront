@@ -1,4 +1,4 @@
-import websocket from '../../../websocket';
+import websocket from '../../../socket/socket';
 
 export const stats = {
 
