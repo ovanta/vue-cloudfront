@@ -299,7 +299,7 @@
             transition: all 0.3s;
             white-space: nowrap;
             overflow: hidden;
-            min-width: 0;
+            width: 100%;
 
             &[contenteditable=true] {
                 border-color: $palette-deep-purple;

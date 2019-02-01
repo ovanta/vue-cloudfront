@@ -182,7 +182,7 @@
         @include flex(row, center);
         user-select: none;
         padding: 0.45em 0 0.25em;
-        border-bottom: 1px solid rgba($palette-deep-blue, 0.08);
+        border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
         transition: all 0.3s;
         cursor: pointer;
         font-size: 0.8em;
