@@ -1,34 +1,67 @@
-import config             from '../../config/config';
-import store              from '../vue/store/index';
-import createSocketClient from './createWebSocketClient';
+import config            from '../../config/config';
+import store             from '../vue/store/index';
+import enhancedWebSocket from './enhancedWebSocket';
 
 // Create socket client
-const socket = createSocketClient(`ws://${config.apiEndPoint.match(/(https?:\/\/|^)(.*?)(\/|$)/)[2]}`);
+const ws = enhancedWebSocket(`ws://${config.apiEndPoint.match(/(https?:\/\/|^)(.*?)(\/|$)/)[2]}`);
 
 // If socket has been registered on the backend
 let registered = false;
+let apikey = null;
 
-/* eslint-disable no-console */
-socket.on('registration-approval', () => {
-    registered = true;
-    console.log(`[WS] Websocket successful registered.`);
+ws.on('connected', () => {
+
+    // Try to re-register
+    if (apikey && !registered) {
+        ws.send(JSON.stringify({type: 'register', value: apikey}));
+    }
+
+    /* eslint-disable no-console */
+    console.log(`[WS] Websocket successful connected.`);
 });
 
-socket.on('broadcast', ({module, action, payload}) => {
-    store.commit(`${module}/socketSync`, {action, payload});
+ws.on('disconnected', () => {
+    registered = false;
+
+    /* eslint-disable no-console */
+    console.log(`[WS] Websocket disconnected.`);
+});
+
+ws.on('message', ({data}) => {
+
+    try {
+        data = JSON.parse(data);
+    } catch (e) {
+
+        /* eslint-disable no-console */
+        return console.warn(`[WS] Couldn't parse json: `, e);
+    }
+
+    const {type, value} = data;
+    switch (type) {
+        case 'registration-approval': {
+            console.log(`[WS] Websocket successful registered.`);
+            return registered = true;
+        }
+        case 'broadcast': {
+            const {module, action, payload} = value;
+            store.commit(`${module}/socketSync`, {action, payload});
+        }
+    }
 });
 
 // Export public functions
 export default {
-    register(apikey) {
+    register(akey) {
+        apikey = akey;
         if (!registered) {
-            socket.sendMessage('register', apikey);
+            ws.send(JSON.stringify({type: 'register', value: apikey}));
         }
     },
 
     broadcast(module, action, payload) {
         if (registered) {
-            socket.sendMessage('broadcast', {module, action, payload});
+            ws.send(JSON.stringify({type: 'broadcast', value: {module, action, payload}}));
         } else {
 
             /* eslint-disable no-console */
