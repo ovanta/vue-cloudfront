@@ -232,7 +232,7 @@
                 }
 
                 &:hover {
-                    color: $palette-deep-purple;
+                    color: $palette-theme-primary;
                 }
             }
         }

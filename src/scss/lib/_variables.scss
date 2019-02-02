@@ -1,21 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
 
-$font-family-open-sans: 'Open Sans';
+$font-family: 'Open Sans';
 
 // Color palette
 $palette-snow-white: #f5f6fa;
+$palette-decent-blue: #d8d6e2;
 $palette-grayish-blue: #979899;
 $palette-deep-blue: #333333;
-$palette-decent-blue: #d8d6e2;
 $palette-cloud-blue: #538afc;
 $palette-tomatoe-red: #ef5350;
-$palette-grassy-green: #8BC34A;
 
-// Should attract attention - primary used in intro-boxes
-$palette-deep-purple: #512da8;
-$palette-bright-purple: #673ab7;
-$palette-happy-pink: #D81B60;
-
+// Theme colors
+$palette-theme-primary: #512DA8;
+$palette-theme-secondary: #5E35B1;
 
 // Transparency pattern
 $pattern-transparency: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="rgba(155, 155, 155, 0.2)" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');

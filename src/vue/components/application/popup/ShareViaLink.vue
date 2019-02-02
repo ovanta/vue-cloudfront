@@ -141,10 +141,10 @@
         }
 
         .add {
-            background: $palette-deep-purple;
+            background: $palette-theme-primary;
 
             &:hover {
-                background: darken($palette-deep-purple, 2);
+                background: darken($palette-theme-primary, 2);
             }
         }
 

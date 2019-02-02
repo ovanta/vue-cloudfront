@@ -313,7 +313,6 @@
             @include flex(row, center);
             border-bottom: 2px solid rgba(black, 0.1);
             padding: 0.4em 0.75em;
-            border-radius: 0.15em;
             color: white;
             margin-right: auto;
             text-shadow: 1px 1px 0 rgba(black, 0.05);
@@ -388,10 +387,10 @@
                 }
 
                 &:hover {
-                    color: $palette-deep-purple;
+                    color: $palette-theme-primary;
 
                     .sort {
-                        color: $palette-deep-purple;
+                        color: $palette-theme-primary;
                     }
                 }
             }

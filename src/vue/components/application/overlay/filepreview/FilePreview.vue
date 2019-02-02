@@ -128,7 +128,7 @@
             margin: auto 0;
 
             &:hover {
-                color: $palette-bright-purple;
+                color: $palette-theme-secondary;
                 opacity: 1;
             }
 

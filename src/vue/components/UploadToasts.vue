@@ -178,7 +178,7 @@
 
     .header {
         @include flex(row, center);
-        background: linear-gradient(to bottom right, $palette-bright-purple, $palette-deep-purple);
+        background: linear-gradient(to bottom right, $palette-theme-secondary, $palette-theme-primary);
         padding: 0.75em 1em;
         color: white;
 

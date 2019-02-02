@@ -45,7 +45,7 @@
         transition: all 0.3s;
 
         &.active {
-            background: $palette-deep-purple;
+            background: $palette-theme-primary;
             box-shadow: none;
 
             span {

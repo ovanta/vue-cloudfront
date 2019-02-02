@@ -86,7 +86,7 @@
 
         &.active::after {
             width: 100%;
-            background: $palette-deep-purple;
+            background: $palette-theme-primary;
         }
     }
 

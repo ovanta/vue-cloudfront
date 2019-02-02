@@ -181,16 +181,19 @@
     .header {
         @include flex(row, center);
         user-select: none;
-        padding: 0.45em 0 0.25em;
-        border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
+        padding: 0.3em 0.3em;
         transition: all 0.3s;
         cursor: pointer;
         font-size: 0.8em;
 
+        &:nth-child(even) {
+            background: rgba(black, 0.02);
+        }
+
         i {
             color: $palette-deep-blue;
             transition: all 0.3s;
-            font-size: 1.2em;
+            font-size: 1.25em;
             margin-bottom: 0.2em;
         }
 
@@ -225,7 +228,7 @@
             text-overflow: ellipsis;
 
             span[contenteditable=true] {
-                border-color: $palette-deep-purple;
+                border-color: $palette-theme-primary;
                 cursor: text;
                 outline: none;
             }
@@ -249,10 +252,6 @@
             width: 60%;
             opacity: 0.8;
         }
-
-        &:nth-last-child(1) {
-            border-bottom: none;
-        }
     }
 
     .header {
@@ -269,10 +268,10 @@
             }
 
             &:hover {
-                color: $palette-deep-purple;
+                color: $palette-theme-primary;
 
                 .sort {
-                    color: $palette-deep-purple;
+                    color: $palette-theme-primary;
                 }
             }
 

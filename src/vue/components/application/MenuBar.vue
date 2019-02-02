@@ -121,7 +121,7 @@
         }
 
         &.active i {
-            color: $palette-deep-purple;
+            color: $palette-theme-primary;
         }
 
         &:not(.active):hover i {

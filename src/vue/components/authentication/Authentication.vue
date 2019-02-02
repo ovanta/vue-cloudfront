@@ -219,7 +219,7 @@
                 transition: all 0.3s;
 
                 &:hover {
-                    color: $palette-deep-purple;
+                    color: $palette-theme-primary;
                 }
             }
 
@@ -228,7 +228,7 @@
                 @include font(600, 0.75em);
                 border-radius: 0.15em;
                 transition: all 0.3s;
-                background: $palette-deep-purple;
+                background: $palette-theme-primary;
                 color: $palette-snow-white;
                 margin-left: auto;
 

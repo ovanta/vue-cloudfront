@@ -48,7 +48,7 @@
             fill: transparent;
 
             &.progress {
-                stroke: $palette-deep-purple;
+                stroke: $palette-theme-primary;
                 stroke-dasharray: 53.40707511102649;
                 transform-origin: center;
 

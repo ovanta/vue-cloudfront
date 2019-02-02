@@ -302,7 +302,7 @@
             width: 100%;
 
             &[contenteditable=true] {
-                border-color: $palette-deep-purple;
+                border-color: $palette-theme-primary;
                 cursor: text;
                 outline: none;
             }

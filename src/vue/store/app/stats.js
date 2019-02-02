@@ -50,7 +50,7 @@ export const stats = {
         async change({state, rootState}, cb) {
 
             // Sync with server
-            await this.dispatch('stats/update');
+            await this.dispatch('stats/update')
 
             // Call callback
             const newState = cb(JSON.parse(JSON.stringify(state)));

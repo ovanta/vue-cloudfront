@@ -142,7 +142,7 @@
 
         &:focus-within {
             i {
-                color: $palette-deep-purple;
+                color: $palette-theme-primary;
             }
         }
 
@@ -187,7 +187,7 @@
             transition: all 0.5s;
 
             &:hover {
-                color: $palette-deep-purple;
+                color: $palette-theme-primary;
             }
         }
     }

@@ -100,7 +100,7 @@
 <style lang="scss" scoped>
 
     .index {
-        font-family: $font-family-open-sans;
+        font-family: $font-family;
         user-select: none;
         @include flex(row);
         overflow: hidden;

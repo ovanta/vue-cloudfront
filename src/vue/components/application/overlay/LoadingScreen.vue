@@ -63,7 +63,7 @@
     .box {
         position: relative;
         @include size(2.5em);
-        background: $palette-deep-purple;
+        background: $palette-theme-primary;
         animation-play-state: paused;
 
         $perspective: 5em;
@@ -90,7 +90,7 @@
         @include font(600, 0.85em);
         margin-top: 3em;
         font-style: italic;
-        color: $palette-deep-purple;
+        color: $palette-theme-primary;
         transform: translateY(-0.5em);
     }
 

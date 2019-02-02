@@ -143,7 +143,7 @@
         margin: auto;
         overflow: visible;
         opacity: 0.9;
-        fill: $palette-deep-purple;
+        fill: $palette-theme-primary;
         cursor: pointer;
 
         @include animate('1.5s ease-in-out infinite') {
@@ -189,13 +189,13 @@
 
     .inner-circle {
         @include size(16px);
-        border: 2px solid $palette-bright-purple;
+        border: 2px solid $palette-theme-secondary;
         animation-delay: 0.25s;
     }
 
     .outer-circle {
         @include size(20px);
-        border: 2px solid $palette-deep-purple;
+        border: 2px solid $palette-theme-primary;
     }
 
     .introduction {
@@ -222,12 +222,12 @@
             @include size(0);
             margin: auto;
             border: 10px solid transparent;
-            border-bottom-color: $palette-deep-purple;
+            border-bottom-color: $palette-theme-primary;
         }
 
         .header {
             position: relative;
-            background: $palette-deep-purple;
+            background: $palette-theme-primary;
             padding: 0.2em 0.75em;
             color: #fff;
             border-radius: 0.2em 0.2em 0 0;
@@ -248,7 +248,7 @@
                 transform: rotate(30deg);
                 margin: auto;
                 height: 150%;
-                fill: $palette-bright-purple;
+                fill: $palette-theme-secondary;
             }
         }
 
@@ -278,7 +278,7 @@
                     @include font(600, 0.7em);
 
                     &:hover {
-                        background: $palette-deep-purple;
+                        background: $palette-theme-primary;
                         color: white;
                     }
 
@@ -297,7 +297,7 @@
                     transition: all 0.3s;
 
                     &:hover {
-                        color: $palette-deep-purple;
+                        color: $palette-theme-primary;
                     }
                 }
             }

@@ -95,7 +95,7 @@
         transition: all 0.3s;
         border-radius: 50em;
         height: 100%;
-        background: $palette-deep-purple;
+        background: $palette-theme-primary;
 
         left: 0;
         top: 0;

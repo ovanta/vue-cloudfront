@@ -152,10 +152,10 @@
             }
 
             &.update {
-                background: $palette-deep-purple;
+                background: $palette-theme-primary;
 
                 &:hover {
-                    background: darken($palette-deep-purple, 3);
+                    background: darken($palette-theme-primary, 3);
                 }
             }
         }
