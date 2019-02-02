@@ -103,9 +103,14 @@
 
                     // Show introbox
                     this.visible = true;
-                    this.closeEventListenerProps = this.utils.on(window, 'mousedown', () => {
-                        this.visible = false;
-                        this.utils.off(...this.closeEventListenerProps);
+                    this.visible = true;
+                    this.closeEventListenerProps = this.utils.on(window, 'mousedown', e => {
+
+                        // Detect click outside of the intro box
+                        if (!this.utils.eventPath(e).includes(introBox)) {
+                            this.visible = false;
+                            this.utils.off(...this.closeEventListenerProps);
+                        }
                     });
                 }
             },
