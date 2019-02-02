@@ -45,6 +45,7 @@
         circle {
             @include size(100%);
             stroke-width: 2.5;
+            stroke-linecap: round;
             fill: transparent;
 
             &.progress {

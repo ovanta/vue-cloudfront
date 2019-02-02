@@ -183,7 +183,7 @@
         color: white;
 
         span {
-            @include font(600, 0.78em);
+            @include font(600, 0.75em);
             margin-right: auto;
         }
 
@@ -219,7 +219,7 @@
             }
 
             .info-message {
-                font-size: 0.8em;
+                @include font(600, 0.75em);
                 margin-right: 1.5em;
                 line-height: 1.2em;
                 white-space: nowrap;

@@ -42,10 +42,8 @@
 
                             <!-- Fallback if no preview is available -->
                             <button @click="$store.dispatch('data/download', {node})">
-                                Download - {{ node.size | readableByteCount }}
+                                Download ({{ node.size | readableByteCount }})
                             </button>
-
-                            <i>No preview available</i>
                         </embed-file-preview>
 
                         <div class="info">
@@ -129,7 +127,8 @@
     .list {
         height: 0;
         flex-grow: 1;
-        overflow: auto;
+        overflow-y: auto;
+        padding: 0 0.25em;
         padding-bottom: 2.5em;
     }
 
@@ -156,7 +155,6 @@
     .dir {
         @include flex(row, center);
         margin: 0.5em 0.5em 0 0;
-        transition: all 0.3s;
         cursor: pointer;
         border: 1px solid transparent;
         max-width: 15em;
@@ -230,9 +228,9 @@
     .dir,
     .file {
         position: relative;
-        border-radius: 0.15em;
+        border-radius: 0.2em;
         font-size: 0.8em;
-        box-shadow: 0 1px 3px 0 rgba(black, 0.05);
+        box-shadow: 0 1px 3px 0 rgba(black, 0.1);
         background: white;
         border: 1px solid transparent;
         padding: 0.5em 0.9em;
@@ -266,20 +264,19 @@
             color: white;
         }
 
-        &.selected {
-            border-color: rgba($palette-cloud-blue, 0.5);
-            box-shadow: 0 1px 8px 0 rgba($palette-cloud-blue, 0.15);
-
-            .name,
-            .detail {
-                color: $palette-cloud-blue;
-            }
-        }
-
+        &.selected,
         &.droppable {
             border-color: rgba($palette-cloud-blue, 0.75);
-            box-shadow: 0 1px 8px 0 rgba($palette-cloud-blue, 0.5);
-            transform: translateY(-2px);
+            box-shadow: 0 1px 3px 0 rgba($palette-cloud-blue, 0.5),
+            0 0 0 1px rgba($palette-cloud-blue, 0.75);
+
+            &.droppable {
+                box-shadow: 0 1px 8px 0 rgba($palette-cloud-blue, 0.5),
+                0 0 0 1px rgba($palette-cloud-blue, 0.75);
+
+                transform: translateY(-2px);
+                transition: all 0.3s;
+            }
         }
 
         &.cutted {

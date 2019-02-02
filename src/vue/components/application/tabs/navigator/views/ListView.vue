@@ -181,13 +181,14 @@
     .header {
         @include flex(row, center);
         user-select: none;
-        padding: 0.3em 0.3em;
+        padding: 0.3em 0.5em;
         transition: all 0.3s;
         cursor: pointer;
         font-size: 0.8em;
+        border-left: 0.15em solid transparent;
 
         &:nth-child(even) {
-            background: rgba(black, 0.02);
+            background: rgba($palette-deep-blue, 0.02);
         }
 
         i {
@@ -198,9 +199,9 @@
         }
 
         &.selected {
+            border-color: rgba($palette-cloud-blue, 0.75);
 
-            .name,
-            .detail,
+            span,
             i {
                 color: $palette-cloud-blue;
             }

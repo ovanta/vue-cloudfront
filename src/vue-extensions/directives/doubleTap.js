@@ -12,7 +12,8 @@ Vue.directive('doubleTap', (() => {
             map.set(el, binding.value);
 
             let lastTap = 0;
-            on(el, 'mouseup', ({button}) => {
+            on(el, 'mouseup', ev => {
+                const {button} = ev;
                 const value = map.get(el);
 
                 if ((typeof button === 'number' && button) || typeof value !== 'function') {
@@ -20,7 +21,7 @@ Vue.directive('doubleTap', (() => {
                 }
 
                 if (Date.now() - lastTap < 500) {
-                    value();
+                    value(ev);
                 }
 
                 lastTap = Date.now();

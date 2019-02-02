@@ -325,8 +325,8 @@
         transition: opacity 0.3s;
         background: white;
         padding: 0.4em 0.25em;
-        box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
-        border-radius: 0.25em;
+        box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 0.5em;
 
         &:empty {
             display: none;
@@ -351,7 +351,7 @@
             margin: 0.25em 0;
 
             i {
-                font-size: 1.3em;
+                font-size: 1.15em;
             }
 
             .name {

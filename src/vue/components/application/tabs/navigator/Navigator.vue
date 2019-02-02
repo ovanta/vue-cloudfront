@@ -13,7 +13,7 @@
                 <!-- Node-views, grid and list -->
                 <i v-tooltip="'Switch to list view'"
                    v-show="viewType === 'grid'"
-                   class="fas fa-fw fa-th-list"
+                   class="fas fa-fw fa-bars"
                    @click="setViewType('list')"></i>
 
                 <i v-tooltip="'Switch to grid view'"
@@ -22,7 +22,7 @@
                    @click="setViewType('grid')"></i>
 
                 <!-- Show keyboard-shortcuts button -->
-                <i class="fas fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
+                <i class="far fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
 
                 <!-- Introduction -->
                 <intro-box id="2"
