@@ -33,7 +33,10 @@ export default url => {
             // Ping every 5s
             pingTimeout = setInterval(() => {
                 websocket.send('__ping__');
-                discTimeout = setTimeout(websocket.close, 2500);
+                discTimeout = setTimeout(() => {
+                    websocket.close();
+                    clearInterval(pingTimeout);
+                }, 2500);
             }, 5000);
 
             websocket.dispatchEvent(new Event('connected'));

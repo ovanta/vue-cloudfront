@@ -10,8 +10,12 @@ export const auth = {
          * Session-key which can an and should be used to fetch data or perform actions.<
          * Is used in the nodes store module.
          */
-        apikey: null
+        apikey: null,
+
+        // Timestamp of last authentication
+        lastAuthentication: null
     },
+
     actions: {
 
         async logout() {
@@ -33,6 +37,7 @@ export const auth = {
                 // Save apikey to localstorage and update module
                 localStorage.setItem('apikey', apikey);
                 state.apikey = apikey;
+                state.lastAuthentication = Date.now();
 
                 // Register websocket
                 websocket.register(apikey);
@@ -88,6 +93,7 @@ export const auth = {
                 body: {apikey}
             }).then(() => {
                 state.apikey = apikey;
+                state.lastAuthentication = Date.now();
 
                 // Register websocket
                 websocket.register(apikey);

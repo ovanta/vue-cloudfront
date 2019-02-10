@@ -9,6 +9,7 @@ const ws = enhancedWebSocket(`ws://${config.apiEndPoint.match(/(https?:\/\/|^)(.
 let registered = false;
 let apikey = null;
 
+/* eslint-disable no-console */
 ws.on('connected', () => {
 
     // Try to re-register
@@ -16,24 +17,21 @@ ws.on('connected', () => {
         ws.send(JSON.stringify({type: 'register', value: apikey}));
     }
 
-    /* eslint-disable no-console */
-    console.log(`[WS] Websocket successful connected.`);
+    console.log(`[WS] Websocket connected.`);
 });
 
+/* eslint-disable no-console */
 ws.on('disconnected', () => {
     registered = false;
-
-    /* eslint-disable no-console */
     console.log(`[WS] Websocket disconnected.`);
 });
 
+/* eslint-disable no-console */
 ws.on('message', ({data}) => {
 
     try {
         data = JSON.parse(data);
     } catch (e) {
-
-        /* eslint-disable no-console */
         return console.warn(`[WS] Couldn't parse json: `, e);
     }
 
@@ -41,6 +39,12 @@ ws.on('message', ({data}) => {
     switch (type) {
         case 'registration-approval': {
             console.log(`[WS] Websocket successful registered.`);
+
+            // Check if the last change is past the current state, update if so
+            if (store.state.auth.lastAuthentication < value.lastBroadCast) {
+                store.dispatch('nodes/update', {keepLocation: true}).catch(console.warn);
+            }
+
             return registered = true;
         }
         case 'broadcast': {
