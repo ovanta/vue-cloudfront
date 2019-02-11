@@ -5,6 +5,9 @@ is used to define general behaviour of vue-cloudfront.
 **`apiEndPoint`**  
 Usually `/api`, all requests will be made through this specific url.
 
+**`websocketEndPoint`**  
+Usually `/ws`, websocket enpoint to enable real-time synchronization.
+
 **`binaryPrefix`**  
 If you switch to list-view also the file and directory size gets displayed. This property defines
 if vue-cloudfront should use base `1000` or `1024` to calculate these.

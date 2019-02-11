@@ -1,5 +1,6 @@
 {
     "apiEndPoint": "/api",
+    "websocketEndPoint": "/ws",
     "binaryPrefix": true,
     "visibleNodesChunkSize": 25,
     "loadingScreenMessages": [

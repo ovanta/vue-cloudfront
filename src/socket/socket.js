@@ -3,7 +3,7 @@ import store             from '../vue/store/index';
 import enhancedWebSocket from './enhancedWebSocket';
 
 // Create socket client
-const ws = enhancedWebSocket(`ws://${config.apiEndPoint.match(/(https?:\/\/|^)(.*?)(\/|$)/)[2]}`);
+const ws = enhancedWebSocket(config.websocketEndPoint);
 
 // If socket has been registered on the backend
 let registered = false;
@@ -41,7 +41,7 @@ ws.on('message', ({data}) => {
             console.log(`[WS] Websocket successful registered.`);
 
             // Check if the last change is past the current state, update if so
-            if (store.state.auth.lastAuthentication < value.lastBroadCast) {
+            if (store.state.auth.lastAuthentication < value.lastBroadcast) {
                 store.dispatch('nodes/update', {keepLocation: true}).catch(console.warn);
             }
 
