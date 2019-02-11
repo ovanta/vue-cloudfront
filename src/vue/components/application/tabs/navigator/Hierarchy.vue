@@ -26,7 +26,7 @@
 
         <!-- Same as search info, but for marked nodes and nodes which are currently in the bin -->
         <div v-if="simpleCount && !searchResult" class="amount-info">
-            <b v-if="simpleCount.file">{{ simpleCount.file }} file{{ simpleCount.file === 1 ? '' : 's' }}</b>
+            <b v-if="simpleCount.file">{{ simpleCount.file }} file{{ simpleCount.file === 1 ? '' : 's' }} </b>
             <span v-if="simpleCount.file && simpleCount.dir"> and </span>
             <b v-if="simpleCount.dir">{{ simpleCount.dir }} folder{{ simpleCount.dir === 1 ? '' : 's' }} </b>
 

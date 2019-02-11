@@ -198,6 +198,11 @@
                     .map(v => v[0].toUpperCase() + v.substr(1).toLowerCase())
                     .join(' ');
 
+                // Check if a correspondending description is available
+                if (!(name in descriptionMap)) {
+                    return;
+                }
+
                 // Push action
                 this.actions.splice(0, 0, {
                     name,
@@ -213,7 +218,7 @@
                      * Description, here is also a default value
                      * present but it shouldn't be used.
                      */
-                    description: (name in descriptionMap) && descriptionMap[name](payload) || 'No details available',
+                    description: descriptionMap[name](payload) || 'No details available',
 
                     // Timestamp when action was performed
                     timestamp: Date.now(),
