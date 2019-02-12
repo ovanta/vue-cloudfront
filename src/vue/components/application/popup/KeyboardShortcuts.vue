@@ -71,7 +71,7 @@
                             {keys: ['j', 'a'], action: 'Switch to history.'},
                             {keys: ['j', 's'], action: 'Switch to settigs.'},
                             {keys: ['tab'], action: 'Switch tabs.'},
-                            {keys: ['g', 'u'], action: 'Go up in hierarchy.'},
+                            {keys: ['backspace'], action: 'Go up in hierarchy.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'}
                         ]
                     },
@@ -142,7 +142,7 @@
                     }
 
                     // Hierarchy up event
-                    if (keys.KeyG && keys.KeyU) {
+                    if (keys.KeyBackspace) {
                         store.dispatch('location/goUp');
                         return;
                     }
