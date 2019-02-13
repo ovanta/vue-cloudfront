@@ -119,6 +119,7 @@
                 'Put': '#8BC34A',
                 'Create Folders': '#4CAF50',
                 'Restore': '#86ad2c',
+                'Zip': '#dc812e',
                 'Delete': '#EF5350',
                 'Add Mark': '#EC407A',
                 'Remove Mark': '#AB47BC',
@@ -134,6 +135,7 @@
                 'Update': 'fas fa-fw fa-sync-alt',
                 'Restore': 'fas fa-fw fa-redo-alt',
                 'Put': 'fas fa-fw fa-cloud-upload-alt',
+                'Zip': 'fas fa-fw fa-file-archive',
                 'Create Folders': 'fas fa-fw fa-folder-open',
                 'Delete': 'fas fa-fw fa-trash-alt',
                 'Add Mark': 'fas fa-fw fa-bookmark',
@@ -152,6 +154,9 @@
 
                 'Put': payload =>
                     `Uploaded ${pluralify(payload.nodes)}`,
+
+                'Zip': payload =>
+                    `Zip ${pluralify(payload.nodes)}`,
 
                 'Restore': payload =>
                     `Restored ${pluralify(payload)} from bin`,

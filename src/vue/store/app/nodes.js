@@ -407,6 +407,7 @@ export const nodes = {
 
         /**
          * Marks nodes. Can be viewed in the marked menu-section.
+         * @param rootState
          * @param nodes Nodes which get a mark.
          */
         async addMark({rootState}, nodes) {
@@ -430,6 +431,7 @@ export const nodes = {
 
         /**
          * Removes a mark from nodes.
+         * @param rootState
          * @param nodes Nodes from which the mark gets removed.
          */
         async removeMark({rootState}, nodes) {
@@ -543,6 +545,26 @@ export const nodes = {
                 node.staticIds = node.staticIds || [];
                 node.staticIds = node.staticIds.filter(id => !ids.includes(id));
                 websocket.broadcast('nodes', 'change', [pick(node, 'id', 'staticIds')]);
+            });
+        },
+
+        /**
+         * Creates a zip-file out of a bunch of nodes
+         * @param rootState
+         * @param nodes
+         * @returns {Promise<void>}
+         */
+        async zip({state, rootState}, {nodes}) {
+            return this.dispatch('fetch', {
+                route: 'zip',
+                body: {
+                    apikey: rootState.auth.apikey,
+                    nodes: nodes.map(v => v.id)
+                }
+            }).then(({node}) => {
+                state.push(node);
+                websocket.broadcast('nodes', 'put', [node]);
+                return node;
             });
         }
     }

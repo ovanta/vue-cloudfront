@@ -38,7 +38,7 @@
                             {keys: ['s', 'd'], action: 'Select directories.'},
                             {keys: ['s', 'f'], action: 'Select files.'},
                             {keys: ['s', 'i'], action: 'Invert selection.'},
-                            {keys: ['enter'], action: 'Enter first selected direcotry.'},
+                            {keys: ['enter'], action: 'Enter first selected directory.'},
                             {keys: ['arrow-up'], action: 'Select next element.'},
                             {keys: ['arrow-down'], action: 'Select previous element.'}
                         ]
@@ -51,6 +51,7 @@
                             {keys: ['ctrl', 'c'], action: 'Copy folder / files.'},
                             {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
                             {keys: ['n', 's'], action: 'Share.'},
+                            {keys: ['z', 'i'], action: 'Create zip file out of selection.'},
                             {keys: ['n', 'f'], action: 'Create new folder.'},
                             {keys: ['e', 'n'], action: 'Edit the name.'},
                             {keys: ['m', 'a'], action: 'Marks selected files / folders.'},
@@ -118,6 +119,12 @@
                             type: 'copy'
                         });
 
+                        return;
+                    }
+
+                    // Zip nodes
+                    if (selection.length && keys.KeyZ && keys.KeyI) {
+                        store.dispatch('nodes/zip', {nodes: selection});
                         return;
                     }
 

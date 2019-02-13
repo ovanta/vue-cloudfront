@@ -73,6 +73,13 @@
             <span class="name">Paste</span>
         </div>
 
+        <div v-if="nodes.length && activeTab === 'home'"
+             class="option"
+             @click="zip">
+            <i class="fas fa-fw fa-file-archive"></i>
+            <span class="name">Zip it</span>
+        </div>
+
         <div v-if="nodes.length === 1"
              class="option"
              @click="share">
@@ -228,6 +235,11 @@
                     }
                 }
 
+                this.$emit('hide');
+            },
+
+            zip(){
+                this.$store.dispatch('nodes/zip', {nodes: this.nodes});
                 this.$emit('hide');
             },
 
