@@ -95,7 +95,7 @@ cd ../vue-cloudfront-api
 sudo npm i
 
 # Start vue-cloudfront-api 
-npm run launch
+npm run start
 ```
 This will spin up a PM2 cluster. You can always see the status of your running server-instance with `pm2 ls` (run `npm i -g pm2` to install PM2). 
 See [pm2.io](https://pm2.io) for further documentation.
