@@ -10,7 +10,9 @@
             </div>
 
             <!-- Contains content of popovers page -->
-            <slot></slot>
+            <div class="content">
+                <slot></slot>
+            </div>
         </div>
 
     </section>
@@ -69,6 +71,10 @@
         border-radius: 0.25em;
         max-height: 100%;
         max-width: 52em;
+
+        .content {
+            overflow: auto;
+        }
 
         .header {
             @include flex(row);
