@@ -89,7 +89,7 @@
 
         data() {
             return {
-                fileLimit: visibleNodesChunkSize,
+                fileLimit: 0,
                 dirLimit: visibleNodesChunkSize
             };
         },
