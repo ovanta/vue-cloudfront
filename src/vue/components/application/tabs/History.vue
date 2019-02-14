@@ -75,43 +75,7 @@
         },
 
         mounted() {
-
-            /**
-             * Receives a node list and returns a pretty string represention
-             * of it.
-             *
-             * @param nds
-             * @returns {string}
-             */
-            const pluralify = nds => {
-                const maxCount = 3;
-
-                // Strange case, return nothing
-                if (!nds.length) {
-                    return 'nothing';
-                }
-
-                // If theres only one node, return type and the name of it
-                if (nds.length === 1) {
-                    return `${nds[0].type} ${nds[0].name}`;
-                }
-
-                // Create a comma-seperated list of names
-                const end = nds.length > maxCount ? maxCount : nds.length - 1;
-                const nodesStr = nds.slice(0, end).map(v => v.name).join(', ');
-
-                if (nds.length <= maxCount) {
-                    return `${nodesStr} and ${nds[end].name}`;
-                } else {
-
-                    /**
-                     * If there is only one more node, just append it.
-                     * Otherwise append 'x others' because '1 others' sounds odd.
-                     */
-                    const rest = nds.length - maxCount;
-                    return `${nodesStr} and ` + (rest === 1 ? nds[maxCount].name : `${rest} others`);
-                }
-            };
+            const pluralify = nodes => this.utils.createReadableString(nodes.slice(0, 4).map(v => v.name), 3);
 
             // Each action / mutation gets a unique color
             const colorMap = {
