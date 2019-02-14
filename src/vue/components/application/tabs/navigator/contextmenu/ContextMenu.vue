@@ -238,7 +238,7 @@
                 this.$emit('hide');
             },
 
-            zip(){
+            zip() {
                 this.$store.dispatch('nodes/zip', {nodes: this.nodes});
                 this.$emit('hide');
             },
@@ -336,7 +336,7 @@
         pointer-events: none;
         transition: opacity 0.3s;
         background: white;
-        padding: 0.4em 0.25em;
+        padding: 0.4em 0;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.2);
         border-radius: 0.5em;
 
@@ -355,12 +355,11 @@
 
         .option {
             @include flex(row, center);
-            padding: 0.35em 1em;
             font-size: 0.85em;
             cursor: pointer;
             transition: all 0.3s;
             color: $palette-deep-blue;
-            margin: 0.25em 0;
+            padding: 0.6em 1em;
 
             i {
                 font-size: 1.15em;
@@ -372,11 +371,7 @@
             }
 
             &:hover {
-                color: $palette-cloud-blue;
-            }
-
-            &.delete:hover {
-                color: $palette-tomatoe-red;
+                background: rgba($palette-deep-blue, 0.09);
             }
 
             &.sub {
