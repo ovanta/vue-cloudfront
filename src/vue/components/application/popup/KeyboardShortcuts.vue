@@ -69,7 +69,6 @@
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
                             {keys: ['j', 'm'], action: 'Switch to marked folder / files.'},
-                            {keys: ['j', 'a'], action: 'Switch to history.'},
                             {keys: ['j', 's'], action: 'Switch to settigs.'},
                             {keys: ['tab'], action: 'Switch tabs.'},
                             {keys: ['backspace'], action: 'Go up in hierarchy.'},
@@ -319,12 +318,6 @@
                     return;
                 }
 
-                // Switch to history screen
-                if (keys.KeyJ && keys.KeyA) {
-                    this.$store.commit('setActiveTab', 'history');
-                    return;
-                }
-
                 // Switch to settings screen
                 if (keys.KeyJ && keys.KeyS) {
                     this.$store.commit('setActiveTab', 'settings');
@@ -333,7 +326,7 @@
 
                 // Switch tabs
                 if (keys.KeyTab && !keys.ctrlKey) {
-                    const tabs = ['home', 'marked', 'history', 'settings'];
+                    const tabs = ['home', 'marked', 'settings'];
                     let index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
                     // Rotate if end is reached

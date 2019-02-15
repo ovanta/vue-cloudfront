@@ -22,12 +22,6 @@
             <i class="fas fa-fw fa-trash-alt"></i>
         </div>
 
-        <div v-tooltip="'View history'"
-             :class="{'item': 1, active: activeTab === 'history'}"
-             @click="changeTab('history')">
-            <i class="fas fa-fw fa-history"></i>
-        </div>
-
         <div class="eat-space"></div>
 
         <div v-tooltip="'Refresh'"

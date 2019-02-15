@@ -10,7 +10,6 @@
 
             <!-- Tabs, dynamic, getting changed via menu tabs -->
             <navigator v-show="['marked', 'home', 'bin'].includes(activeTab)"/>
-            <history v-show="activeTab === 'history'"/>
             <settings v-show="activeTab === 'settings'"/>
 
             <!-- Upload bar - shows the current upload progress of files -->
@@ -38,7 +37,6 @@
 
     // Components
     import Navigator from './application/tabs/navigator/Navigator';
-    import History   from './application/tabs/History';
     import Settings  from './application/tabs/Settings';
 
     import ToolTip      from '../ui/specific/ToolTip';
@@ -69,7 +67,6 @@
 
             // Tabs
             Navigator,
-            History,
             Settings,
 
             // Popovers and static components
