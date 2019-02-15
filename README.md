@@ -96,3 +96,10 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 * [Mongoose as database API](https://mongoosejs.com/)
 * [MongoDB as database](https://www.mongodb.com/)
 * [PM2 as load balancer](https://pm2.io)
+
+##### Current branches
+* [mobile-support](https://github.com/Simonwep/vue-cloudfront/tree/mobile-support) - (in progress) Mobile and general touch-support.
+* [settings](https://github.com/Simonwep/vue-cloudfront/tree/settings) - (in progress) Additional home-tab with user-settings.
+* [realtime-sync](https://github.com/Simonwep/vue-cloudfront/tree/realtime-sync) - Realtime synchronization between sessions.
+* [history](https://github.com/Simonwep/vue-cloudfront/tree/history) - (aborted) Additional home-tab with a temporary, visual log of all your actions.
+* [terminal](https://github.com/Simonwep/vue-cloudfront/tree/terminal) - (aborted) Additional home-tab with a full functional terminal like bash.
