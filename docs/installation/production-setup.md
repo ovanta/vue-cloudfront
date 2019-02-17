@@ -133,6 +133,7 @@ server {
         proxy_set_header Connection "upgrade";
         proxy_read_timeout 86400;
     }
+}
 EOL
 ```
 

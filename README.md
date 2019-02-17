@@ -17,6 +17,10 @@ Currently the only backend-solution is the official [vue-cloudfront-api](https:/
 
 For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6765`
 
+<h3 align="center">
+   <b><a href="https://vue-cloudfront.com/">Try out the fully featured demo!</b>
+</h3>
+
 ## Features
 
 Vue-cloudfront currently has full desktop and touch support (tablets / notebooks with touch support),
@@ -103,3 +107,15 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 * [realtime-sync](https://github.com/Simonwep/vue-cloudfront/tree/realtime-sync) - Realtime synchronization between sessions.
 * [history](https://github.com/Simonwep/vue-cloudfront/tree/history) - (aborted) Additional home-tab with a temporary, visual log of all your actions.
 * [terminal](https://github.com/Simonwep/vue-cloudfront/tree/terminal) - (aborted) Additional home-tab with a full functional terminal like bash.
+
+
+## Screenshots
+Checkout the [demo](https://vue-cloudfront.com/) the get an extensive view!
+![screenshot 80](https://user-images.githubusercontent.com/30767528/52915771-4a287180-32d8-11e9-9a81-9d3dad00f3e2.png)
+![screenshot 81](https://user-images.githubusercontent.com/30767528/52915772-4a287180-32d8-11e9-9b16-794e927a24c6.png)
+![screenshot 82](https://user-images.githubusercontent.com/30767528/52915773-4a287180-32d8-11e9-9af9-3cc3b586b0d1.png)
+![screenshot 83](https://user-images.githubusercontent.com/30767528/52915774-4a287180-32d8-11e9-8e59-a4a3ab8ba57b.png)
+![screenshot 84](https://user-images.githubusercontent.com/30767528/52915775-4a287180-32d8-11e9-9f33-8099e3c20178.png)
+![screenshot 73](https://user-images.githubusercontent.com/30767528/52915776-4ac10800-32d8-11e9-8f78-f942f878e3f0.png)
+![screenshot 74](https://user-images.githubusercontent.com/30767528/52915777-4ac10800-32d8-11e9-9d01-d99c7e8f1132.png)
+![screenshot 77](https://user-images.githubusercontent.com/30767528/52915778-4ac10800-32d8-11e9-923d-5093d10bcd91.png)
