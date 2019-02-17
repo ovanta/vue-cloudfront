@@ -182,10 +182,10 @@
         @include flex(row, center);
         user-select: none;
         padding: 0.3em 0.5em;
-        transition: all 0.3s;
+        transition: border 0.3s, background 0.3s;
         cursor: pointer;
         font-size: 0.8em;
-        border-left: 0.15em solid transparent;
+        border: 1px solid transparent;
 
         &:nth-child(even) {
             background: rgba($palette-deep-blue, 0.02);
@@ -200,10 +200,11 @@
 
         &.selected {
             border-color: rgba($palette-cloud-blue, 0.75);
+            background: rgba($palette-cloud-blue, 0.1);
 
-            span,
-            i {
-                color: $palette-cloud-blue;
+            &:nth-child(n+2) {
+                margin-top: -1px;
+                padding: calc(0.3em + 1px) 0.5em 0.3em 0.5em;
             }
         }
 
@@ -235,7 +236,7 @@
             }
 
             .bookmark {
-                font-size: 0.9em;
+                font-size: 0.75em;
                 margin-left: 0.5em;
 
                 opacity: 0;

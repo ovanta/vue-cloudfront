@@ -128,8 +128,7 @@
         height: 0;
         flex-grow: 1;
         overflow-y: auto;
-        padding: 0 0.25em;
-        padding-bottom: 2.5em;
+        padding: 0 0.25em 2.5em;
     }
 
     h1 {
