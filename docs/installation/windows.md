@@ -51,7 +51,7 @@ npm install
 Since nginx is not used during development there are two properties which need to be changed in [config.json](https://github.com/Simonwep/vue-cloudfront/blob/master/config/config.json):
 ```json
 "apiEndPoint": "http://localhost:8080/api",
-"websocketEndPoint": "ws://localhost:8080"
+"websocketEndPoint": "ws://localhost:8080/ws"
 ```
 
 5. Run Vue Cloudfront Server:

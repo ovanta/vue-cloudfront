@@ -1,9 +1,9 @@
-import config            from '../../config/config';
-import store             from '../vue/store/index';
-import enhancedWebSocket from './enhancedWebSocket';
+import {websocketEndPoint} from '../../config/config';
+import store               from '../vue/store/index';
+import enhancedWebSocket   from './enhancedWebSocket';
 
 // Create socket client
-const ws = enhancedWebSocket(config.websocketEndPoint);
+const ws = enhancedWebSocket(websocketEndPoint.startsWith('/') ? `wss://${location.host + websocketEndPoint}` : websocketEndPoint);
 
 // If socket has been registered on the backend
 let registered = false;
