@@ -36,7 +36,7 @@
             margin: auto;
             max-height: 100%;
             max-width: 100%;
-            object-fit: cover;
+            object-fit: contain;
             background: $pattern-transparency repeat;
             background-size: 10px;
             border-radius: 0.25em;

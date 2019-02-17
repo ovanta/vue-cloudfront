@@ -69,6 +69,7 @@
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
                             {keys: ['j', 'm'], action: 'Switch to marked folder / files.'},
+                            {keys: ['j', 'b'], action: 'Switch to bin.'},
                             {keys: ['j', 's'], action: 'Switch to settigs.'},
                             {keys: ['tab'], action: 'Switch tabs.'},
                             {keys: ['backspace'], action: 'Go up in hierarchy.'},
@@ -315,6 +316,12 @@
                 // Switch to marked screen
                 if (keys.KeyJ && keys.KeyM) {
                     this.$store.commit('setActiveTab', 'marked');
+                    return;
+                }
+
+                // Switch to bin
+                if (keys.KeyJ && keys.KeyB) {
+                    this.$store.commit('setActiveTab', 'bin');
                     return;
                 }
 
