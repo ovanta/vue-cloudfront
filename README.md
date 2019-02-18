@@ -18,7 +18,7 @@ Currently the only backend-solution is the official [vue-cloudfront-api](https:/
 For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6765`
 
 <h3 align="center">
-   <b><a href="https://vue-cloudfront.com/">Try out the fully featured demo!</b>
+   <b><a href="https://vue-cloudfront.com/">Try out the fully featured demo! (user/pass: admin/admin)</b>
 </h3>
 
 ## Features
