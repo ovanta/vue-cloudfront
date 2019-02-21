@@ -45,8 +45,8 @@
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
-                <span class="detail">{{ node.size | readableByteCount }}</span>
+                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.lastModified | readableTimestamp }}</span>
+                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
 
             <!-- Files -->
@@ -68,8 +68,8 @@
                     <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span class="detail">{{ node.lastModified | readableTimestamp }}</span>
-                <span class="detail">{{ node.size | readableByteCount }}</span>
+                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.lastModified | readableTimestamp }}</span>
+                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
         </div>
 
@@ -280,6 +280,22 @@
             .sort {
                 font-size: 1em;
                 margin-left: 0.25em;
+            }
+        }
+    }
+
+    @include mobile {
+        .dir,
+        .file,
+        .header {
+            font-size: 0.85em;
+
+            .detail {
+                display: none;
+            }
+
+            &.header {
+                display: none;
             }
         }
     }

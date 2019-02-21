@@ -74,6 +74,7 @@
 
                 // Show new tab
                 this.$store.commit('setActiveTab', newTab);
+                this.open = false;
             },
 
             refresh() {
@@ -83,6 +84,7 @@
 
                 // Go to home
                 this.changeTab('home');
+                this.open = false;
             }
         }
     };
@@ -107,7 +109,7 @@
         position: relative;
         margin-bottom: 1em;
         cursor: pointer;
-        transition: all 0.3s;
+        transition: all 0.25s;
 
         i {
             transition: all 0.3s;
@@ -129,6 +131,42 @@
 
     .eat-space {
         flex-grow: 1;
+    }
+
+    @include mobile {
+        .menu {
+            @include flex(row, center);
+            height: auto;
+            padding: 0 0.75em;
+            z-index: 10;
+
+            .item {
+                position: relative;
+                margin: 0.5em 0.5em 0.25em;
+                transform: scale(0.9);
+
+                &.active {
+                    transform: translateY(-0.2em);
+
+                    &::before {
+                        opacity: 1;
+                        transform: translateY(calc(0.25em + 7px)) scale(1);
+                    }
+                }
+
+                &::before {
+                    @include pseudo();
+                    @include position(auto, 0, 0, 0);
+                    @include size(100%, 10px);
+                    background: $palette-theme-primary;
+                    transform: translateY(0.5em) scale(0);
+                    border-radius: 100% 100% 0 0;
+                    z-index: -1;
+                    opacity: 0;
+                    transition: all 0.3s;
+                }
+            }
+        }
     }
 
 </style>

@@ -24,7 +24,7 @@
                    @keyup="updatePalette">
 
             <!-- Used to accept a color -->
-            <button @click="$emit('change', hexColor)">Save!</button>
+            <button @click="save">Save</button>
         </div>
 
     </div>
@@ -98,6 +98,16 @@
 
         methods: {
 
+            transform3digitHexColor(hex) {
+
+                // Transform 3-digit hex to 6 digit
+                if (hex.length === 3) {
+                    hex = [...hex].map(v => v + v).join('');
+                }
+
+                return hex;
+            },
+
             updateColors() {
 
                 // Update palette background
@@ -119,12 +129,7 @@
                 // Check if color is valid
                 if (/^#([\dA-F]{3}|[\dA-F]{6})$/.test(value)) {
                     this.hexColor = value;
-                    value = value.substring(1);
-
-                    // Transform 3-digit hex to 6 digit
-                    if (value.length === 3) {
-                        value = [...value].map(v => v + v).join('');
-                    }
+                    value = this.transform3digitHexColor(value.substring(1));
 
                     // Convert to hsv
                     const {h, s, v} = hexToHsv(value);
@@ -142,8 +147,11 @@
                     this.color = hsvToHsl(h, s, v);
                     this.updateColors();
                 }
-            }
+            },
 
+            save() {
+                this.$emit('change', `#${this.transform3digitHexColor(this.hexColor.slice(1))}`);
+            }
         }
     };
 
@@ -257,6 +265,7 @@
         position: relative;
         cursor: pointer;
         border-radius: 0.15em;
+        width: 100%;
 
         .knob {
             position: absolute;
@@ -267,7 +276,9 @@
 
     .result {
         @include flex(row, stretch);
-        width: 13em;
+        align-self: stretch;
+        justify-self: stretch;
+        width: 100%;
 
         input {
             @include font(600, 0.85em, 0.05em);
@@ -286,7 +297,7 @@
         }
 
         button {
-            @include font(600, 0.8em);
+            @include font(600, 0.75em);
             margin-left: 0.75em;
             background: $palette-cloud-blue;
             transition: all 0.3s;
@@ -294,6 +305,7 @@
             border-radius: 0.15em;
             color: white;
             padding: 0 0.75em;
+            text-transform: uppercase;
 
             &:hover {
                 filter: brightness(1.1);

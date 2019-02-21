@@ -189,4 +189,16 @@
         }
     }
 
+    @include mobile {
+        .audio-preview {
+            position: relative;
+            @include flex(row, center, space-between);
+            color: $palette-deep-blue;
+            margin: 0.5em auto 0.25em;
+            padding-bottom: 1.25em;
+            width: 90%;
+            max-width: 90vw;
+        }
+    }
+
 </style>

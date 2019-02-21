@@ -40,7 +40,6 @@
             customColor(color) {
                 this.$emit('change', color);
             }
-
         }
     };
 
@@ -50,6 +49,10 @@
 
     .color-chooser {
         @include flex(column, center);
+    }
+
+    .color-picker {
+        align-self: stretch;
     }
 
     .pre-defined {

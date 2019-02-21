@@ -333,7 +333,7 @@
 
                 // Switch tabs
                 if (keys.KeyTab && !keys.ctrlKey) {
-                    const tabs = ['home', 'marked', 'settings'];
+                    const tabs = ['home', 'marked', 'bin', 'settings'];
                     let index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
                     // Rotate if end is reached
@@ -404,6 +404,17 @@
                 color: darken($palette-grayish-blue, 15);
                 text-align: right;
             }
+        }
+    }
+
+    @include mobile {
+        .shortcut-sections {
+            flex-direction: column;
+            padding-right: 0.5em;
+        }
+
+        .shortcut-section {
+            width: 100%;
         }
     }
 

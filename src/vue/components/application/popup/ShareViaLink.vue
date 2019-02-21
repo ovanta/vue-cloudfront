@@ -10,7 +10,7 @@
         <div class="exising-links">
 
             <div v-for="id of share.node.staticIds" class="link">
-                <span class="link">{{ apiEndPoint }}/d/{{ id }}</span>
+                <span class="link" @contextmenu.stop="">{{ apiEndPoint }}/d/{{ id }}</span>
                 <span class="delete" @click="removeId(id)">Delete</span>
             </div>
 
@@ -101,6 +101,8 @@
                 user-select: all;
                 cursor: pointer;
                 flex-grow: 1;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .delete {
@@ -154,6 +156,12 @@
             &:hover {
                 background: darken($palette-tomatoe-red, 2);
             }
+        }
+    }
+
+    @include mobile {
+        .exising-links {
+            padding: 0 0.5em;
         }
     }
 
