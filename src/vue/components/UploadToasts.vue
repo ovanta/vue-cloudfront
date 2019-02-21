@@ -229,4 +229,10 @@
         }
     }
 
+    @include mobile {
+        .upload-bar {
+            bottom: 10%;
+        }
+    }
+
 </style>

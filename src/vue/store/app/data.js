@@ -149,7 +149,7 @@ export const data = {
                     fileMap[id] = files;
                 }
             } else {
-                fileMap[parent] = files;
+                fileMap[parent.id] = files;
             }
 
             // Upload files
