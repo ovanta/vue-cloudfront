@@ -30,6 +30,8 @@
         <!-- Tooltip -->
         <tool-tip/>
 
+        <div ref="styleStateIndicator" class="style-state-indicator"></div>
+
     </div>
 </template>
 
@@ -56,6 +58,7 @@
     import Authentication from './authentication/Authentication';
 
     // Vue stuff
+    import Vue        from 'vue';
     import {mapState} from 'vuex';
 
     export default {
@@ -88,8 +91,14 @@
 
         computed: {
             ...mapState(['activeTab'])
-        }
+        },
 
+        mounted() {
+            const {styleStateIndicator} = this.$refs;
+            const checkAppliedStyles = () => Vue.prototype._appliedMediaQueries = getComputedStyle(styleStateIndicator, ':before').content.replace(/"/g, '');
+            window.addEventListener('resize', checkAppliedStyles);
+            checkAppliedStyles();
+        }
     };
 
 </script>
@@ -103,10 +112,11 @@
         overflow: hidden;
 
         .right-side {
-            background: mix($palette-snow-white, white, 75);
             @include flex(column);
-            width: 100%;
+            background: mix($palette-snow-white, white, 75);
             overflow: hidden;
+            width: 100%;
+            height: 100%;
         }
 
         @include animate('0.75s ease-in-out') {
@@ -117,6 +127,28 @@
                 filter: none;
                 transform: none;
             }
+        }
+    }
+
+    .style-state-indicator {
+        display: none;
+
+        &::before {
+            content: 'desktop';
+
+            @include tablet {
+                content: 'tablet';
+            }
+
+            @include mobile {
+                content: 'mobile';
+            }
+        }
+    }
+
+    @include mobile {
+        .index {
+            flex-direction: column-reverse;
         }
     }
 

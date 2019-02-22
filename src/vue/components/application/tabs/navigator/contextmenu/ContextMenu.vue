@@ -45,6 +45,13 @@
             <span class="name">New Folder</span>
         </div>
 
+        <div v-if="!search.active && activeTab === 'home'"
+             class="option"
+             @click="upload">
+            <i class="fas fa-fw fa-plus"></i>
+            <span class="name">Upload</span>
+        </div>
+
         <div v-if="nodes.length === 1"
              class="option"
              @click="edit">
@@ -278,6 +285,24 @@
                 this.$emit('hide');
             },
 
+            upload() {
+                const fileInput = document.createElement('input');
+                fileInput.setAttribute('type', 'file');
+                fileInput.setAttribute('multiple', 'true');
+
+                fileInput.addEventListener('change', () => {
+                    this.$store.dispatch('data/upload', {
+                        parent: this.$store.state.location.node,
+                        dataTransfer: {
+                            files: fileInput.files,
+                            items: []
+                        }
+                    });
+                });
+
+                fileInput.click();
+            },
+
             moveToClipboard(type) {
                 if (this.nodes.length) {
 
@@ -339,6 +364,7 @@
         padding: 0.4em 0;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.2);
         border-radius: 0.5em;
+        z-index: 15;
 
         &:empty {
             display: none;
@@ -362,7 +388,7 @@
             padding: 0.6em 1em;
 
             i {
-                font-size: 1.15em;
+                font-size: 1.1em;
             }
 
             .name {
@@ -400,6 +426,7 @@
                     transition: all 0.3s;
                     cursor: default;
                     border-radius: 0.25em;
+                    width: 14em;
 
                     &.left {
                         left: auto;
@@ -420,6 +447,58 @@
                     opacity: 1;
                     transform: perspective(100px);
                     pointer-events: all;
+                }
+            }
+        }
+    }
+
+    @include mobile {
+        .menu {
+            position: fixed;
+            top: auto !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            border-radius: 0;
+            width: 100%;
+            font-size: 1.05em;
+
+            &.top {
+                transform: none;
+            }
+
+            .option {
+
+                .name {
+                    margin-left: 1.5em;
+                }
+
+                :hover,
+                &.delete:hover {
+                    color: $palette-deep-blue;
+                }
+
+                &.sub {
+                    .sub-menu {
+                        transform: translateY(10px);
+                        @include position(auto, 0, 0, 0);
+                        margin: auto;
+                        width: 75vw;
+
+                        &.left {
+                            @include position(auto, 0, 0, 0);
+                        }
+
+                        &::before {
+                            content: none;
+                        }
+                    }
+
+                    &:hover .sub-menu {
+                        opacity: 1;
+                        transform: none;
+                        pointer-events: all;
+                    }
                 }
             }
         }

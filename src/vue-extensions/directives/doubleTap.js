@@ -28,10 +28,12 @@ Vue.directive('doubleTap', (() => {
             });
         },
 
-        update(el, {value}) {
+        update(el, {value, oldValue}) {
+            if (value !== oldValue) {
 
-            // Update expression
-            map.set(el, value);
+                // Update expression
+                map.set(el, value);
+            }
         }
     };
 })());

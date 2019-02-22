@@ -204,4 +204,12 @@
         }
     }
 
+    @include mobile {
+        .preview {
+            .file {
+                margin: 0 0.25em;
+            }
+        }
+    }
+
 </style>

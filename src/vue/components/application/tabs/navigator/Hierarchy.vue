@@ -111,6 +111,7 @@
                 this.$store.commit('location/update', node);
             }
         }
+
     };
 
 </script>
@@ -118,9 +119,12 @@
 <style lang="scss" scoped>
 
     .hierarchy {
-        @include flex(row, center);
-        flex-wrap: wrap;
         min-height: 2.5em;
+
+        .nodes {
+            @include flex(row, center);
+            flex-wrap: wrap;
+        }
 
         .node {
             @include inline-flex(row, center);
@@ -194,6 +198,12 @@
                 opacity: 1;
                 transform: none;
             }
+        }
+    }
+
+    @include mobile {
+        .hierarchy {
+            min-height: 0;
         }
     }
 

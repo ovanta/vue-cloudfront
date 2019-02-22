@@ -22,7 +22,7 @@
                    @click="setViewType('grid')"></i>
 
                 <!-- Show keyboard-shortcuts button -->
-                <i class="far fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
+                <i class="keyboard far fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
 
                 <!-- Introduction -->
                 <intro-box id="2"
@@ -88,7 +88,8 @@
 
         computed: {
             nodes() {
-                return this.$store.getters['nodes/currentDisplayedNodes'](this.$store.state.viewType === 'list');
+                const calcFolderSize = this._appliedMediaQueries !== 'mobile' && this.$store.state.viewType === 'list';
+                return this.$store.getters['nodes/currentDisplayedNodes'](calcFolderSize);
             },
 
             ...mapState(['activeTab', 'viewType', 'search'])
@@ -244,7 +245,7 @@
 
         .list-view,
         .grid-view {
-            margin: 0 2em 0 2em;
+            margin: 0 2em 0;
             overflow: hidden;
 
             @include animate('1s ease forwards') {
@@ -282,6 +283,23 @@
                     opacity: 1;
                     transform: none;
                 }
+            }
+        }
+    }
+
+    @include mobile {
+        .nav {
+            margin: 1.25em 0.75em 0.75em;
+
+            .controls .keyboard {
+                display: none;
+            }
+        }
+
+        .views {
+            .list-view,
+            .grid-view {
+                margin: 0 0.5em;
             }
         }
     }
