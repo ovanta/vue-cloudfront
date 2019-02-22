@@ -207,6 +207,14 @@
     }
 
     @include mobile {
+        .search-bar {
+            padding: 0.75em;
+        }
+
+        .search-field {
+            font-size: 1.05em;
+        }
+
         .options {
             font-size: 0.85em;
         }

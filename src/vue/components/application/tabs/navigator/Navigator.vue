@@ -22,7 +22,7 @@
                    @click="setViewType('grid')"></i>
 
                 <!-- Show keyboard-shortcuts button -->
-                <i class="far fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
+                <i class="keyboard far fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
 
                 <!-- Introduction -->
                 <intro-box id="2"

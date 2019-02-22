@@ -135,22 +135,29 @@
 
     @include mobile {
         .menu {
-            @include flex(row, center);
+            @include flex(row-reverse, center);
             height: auto;
-            padding: 0 0.75em;
+            padding: 0 0.5em;
             z-index: 10;
+
+            .eat-space {
+                @include size(1px, 50%);
+                background: rgba($palette-deep-blue, 0.05);
+                flex-grow: 0;
+                margin: 0 auto;
+            }
 
             .item {
                 position: relative;
-                margin: 0.5em 0.5em 0.25em;
-                transform: scale(0.9);
+                margin: 0.5em 0.5em 0.45em;
+                transform: scale(1);
 
                 &.active {
                     transform: translateY(-0.2em);
 
                     &::before {
                         opacity: 1;
-                        transform: translateY(calc(0.25em + 7px)) scale(1);
+                        transform: translateY(calc(0.45em + 7px)) scale(1.1);
                     }
                 }
 
@@ -159,7 +166,7 @@
                     @include position(auto, 0, 0, 0);
                     @include size(100%, 10px);
                     background: $palette-theme-primary;
-                    transform: translateY(0.5em) scale(0);
+                    transform: translateY(0.75em) scale(0);
                     border-radius: 100% 100% 0 0;
                     z-index: -1;
                     opacity: 0;
