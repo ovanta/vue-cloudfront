@@ -55,6 +55,7 @@ IE support is and will never be in consideration.
 * File preview (currently only for images, videos, audio files, fonts and PDF).
 * Search in your cloud and get results under '< 500ms'.
 * Specify your search with file-type, size-range and more.
+* Full mobile support, enjoy it everywhere.
 
 ## Benchmarks
 As a comparison, I compared the upload stats with these from google drive.
@@ -111,11 +112,13 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 
 ## Screenshots
 Checkout the [demo](https://vue-cloudfront.com/) the get an extensive view!
-![screenshot 80](https://user-images.githubusercontent.com/30767528/52915771-4a287180-32d8-11e9-9a81-9d3dad00f3e2.png)
-![screenshot 81](https://user-images.githubusercontent.com/30767528/52915772-4a287180-32d8-11e9-9b16-794e927a24c6.png)
-![screenshot 82](https://user-images.githubusercontent.com/30767528/52915773-4a287180-32d8-11e9-9af9-3cc3b586b0d1.png)
-![screenshot 83](https://user-images.githubusercontent.com/30767528/52915774-4a287180-32d8-11e9-8e59-a4a3ab8ba57b.png)
-![screenshot 84](https://user-images.githubusercontent.com/30767528/52915775-4a287180-32d8-11e9-9f33-8099e3c20178.png)
-![screenshot 73](https://user-images.githubusercontent.com/30767528/52915776-4ac10800-32d8-11e9-8f78-f942f878e3f0.png)
-![screenshot 74](https://user-images.githubusercontent.com/30767528/52915777-4ac10800-32d8-11e9-9d01-d99c7e8f1132.png)
-![screenshot 77](https://user-images.githubusercontent.com/30767528/52915778-4ac10800-32d8-11e9-923d-5093d10bcd91.png)
+![screenshot 32](https://user-images.githubusercontent.com/30767528/53260290-66aa1c80-36d1-11e9-8cff-f47130caf7f4.png)
+![screenshot 33](https://user-images.githubusercontent.com/30767528/53260291-66aa1c80-36d1-11e9-9f3b-baa9c5c96a59.png)
+![screenshot 34](https://user-images.githubusercontent.com/30767528/53260292-66aa1c80-36d1-11e9-839d-4e94807ae6e8.png)
+![screenshot 35](https://user-images.githubusercontent.com/30767528/53260293-66aa1c80-36d1-11e9-9e87-bc3bfba01783.png)
+![screenshot 29](https://user-images.githubusercontent.com/30767528/53260294-66aa1c80-36d1-11e9-8cd4-c0d30f5dbb82.png)
+![screenshot 30](https://user-images.githubusercontent.com/30767528/53260296-66aa1c80-36d1-11e9-9ffc-feb30b9c3757.png)
+![screenshot 31](https://user-images.githubusercontent.com/30767528/53260297-6742b300-36d1-11e9-80b4-7e387721ed32.png)
+![mobile screenshot](https://user-images.githubusercontent.com/30767528/53264203-61ea6600-36db-11e9-8c0f-a88185a92697.png)
+
+
