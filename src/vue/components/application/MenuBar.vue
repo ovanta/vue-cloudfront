@@ -2,13 +2,13 @@
     <section class="menu">
 
         <div v-tooltip="'Home'"
-             :class="{'item': 1, active: activeTab === 'home'}"
+             :class="{'item btn-home': 1, active: activeTab === 'home'}"
              @click="changeTab('home')">
             <i class="fas fa-fw fa-home"></i>
         </div>
 
         <div v-tooltip="'View marked folder and files'"
-             :class="{'item': 1, active: activeTab === 'marked'}"
+             :class="{'item btn-bookmarked': 1, active: activeTab === 'marked'}"
              @click="changeTab('marked')">
             <i class="fas fa-fw fa-bookmark"></i>
             <intro-box id="0"
@@ -17,7 +17,7 @@
         </div>
 
         <div v-tooltip="'Removed files / folders'"
-             :class="{'item': 1, active: activeTab === 'bin'}"
+             :class="{'item btn-bin': 1, active: activeTab === 'bin'}"
              @click="changeTab('bin')">
             <i class="fas fa-fw fa-trash-alt"></i>
         </div>
@@ -25,13 +25,13 @@
         <div class="eat-space"></div>
 
         <div v-tooltip="'Refresh'"
-             class="item bottom"
+             class="item bottom btn-refresh"
              @click="refresh">
             <i class="fas fa-fw fa-sync-alt"></i>
         </div>
 
         <div v-tooltip="'Logout'"
-             class="item bottom"
+             class="item bottom btn-logout"
              @click="$store.dispatch('auth/logout')">
             <i class="fas fa-fw fa-sign-out-alt"></i>
         </div>
@@ -129,16 +129,15 @@
 
     @include mobile {
         .menu {
-            @include flex(row-reverse, center);
+            @include flex(row, center);
+            justify-content: space-between; // Edge fallback
+            justify-content: space-evenly;
             height: auto;
             padding: 0 0.5em;
             z-index: 10;
 
             .eat-space {
-                @include size(1px, 50%);
-                background: rgba($palette-deep-blue, 0.05);
                 flex-grow: 0;
-                margin: 0 auto;
             }
 
             .item {
@@ -167,6 +166,8 @@
                     transition: all 0.3s;
                 }
             }
+
+            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-bookmarked', '.btn-refresh'));
         }
     }
 
