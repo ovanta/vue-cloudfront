@@ -30,12 +30,6 @@
             <i class="fas fa-fw fa-sync-alt"></i>
         </div>
 
-        <div v-tooltip="'User settings'"
-             :class="{'item bottom': 1, active: activeTab === 'settings'}"
-             @click="changeTab('settings')">
-            <i class="fas fa-fw fa-cog"></i>
-        </div>
-
         <div v-tooltip="'Logout'"
              class="item bottom"
              @click="$store.dispatch('auth/logout')">

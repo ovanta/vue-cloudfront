@@ -67,13 +67,13 @@
 <script>
 
     // Config stuff
-    import {visibleNodesChunkSize} from '../../../../../../../config/config';
+    import {visibleNodesChunkSize} from '../../../../../../config/config';
 
     // Selectable plugin
     import Selectable from '../plugins/selectable';
 
     // File preview
-    import EmbedFilePreview from '../../../overlay/filepreview/EmbedFilePreview';
+    import EmbedFilePreview from '../../overlay/filepreview/EmbedFilePreview';
 
     import shared from './shared';
 

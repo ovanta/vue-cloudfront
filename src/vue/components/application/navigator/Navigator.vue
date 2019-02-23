@@ -21,8 +21,15 @@
                    class="fas fa-fw fa-th"
                    @click="setViewType('grid')"></i>
 
+                <!-- Show settings -->
+                <i v-tooltip="'Show settings'"
+                   class="settings fas fa-fw fa-cog"
+                   @click="$store.commit('setActivePopup', 'Settings')"></i>
+
                 <!-- Show keyboard-shortcuts button -->
-                <i class="keyboard far fa-fw fa-keyboard" @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
+                <i v-tooltip="'Show keyboard shortcuts'"
+                   class="keyboard far fa-fw fa-keyboard"
+                   @click="$store.commit('setActivePopup', 'KeyboardShortcuts')"></i>
 
                 <!-- Introduction -->
                 <intro-box id="2"
@@ -62,7 +69,7 @@
     import GridView    from './views/GridView';
     import ContextMenu from './contextmenu/ContextMenu';
     import SearchBar   from './SearchBar';
-    import IntroBox    from '../../../../ui/specific/IntroBox';
+    import IntroBox    from '../../../ui/specific/IntroBox';
 
     // Vue stuff
     import {mapState} from 'vuex';
@@ -213,6 +220,7 @@
         margin: 2em 1.5em 0 1.5em;
 
         .controls {
+            @include flex(row, center);
             position: relative;
             margin-left: auto;
             flex-shrink: 0;

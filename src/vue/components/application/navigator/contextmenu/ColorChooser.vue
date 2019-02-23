@@ -18,10 +18,10 @@
 <script>
 
     // Config
-    import config from '../../../../../../../config/config.json';
+    import config from '../../../../../../config/config.json';
 
     // Components
-    import ColorPicker from '../../../../../ui/input/ColorPicker';
+    import ColorPicker from '../../../../ui/input/ColorPicker';
 
     export default {
 

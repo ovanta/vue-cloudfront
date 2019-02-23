@@ -1,8 +1,8 @@
 <template>
-    <tab-container class="settings" title="Settings">
-
-        <div slot="content" class="content">
-
+    <popup store-prop="Settings"
+           title="Settings"
+           class="settings">
+        <div class="content">
             <text-input-field ref="currentPassword"
                               :password="true"
                               placeholder="Current password"/>
@@ -25,21 +25,19 @@
                 <button class="delete-account" @click="deleteAccount">Delete Account</button>
                 <button class="update" @click="update">Update</button>
             </div>
-
         </div>
-
-    </tab-container>
+    </popup>
 </template>
 
 <script>
 
     // Components
     import TextInputField from '../../../ui/input/TextInputField';
-    import TabContainer   from '../TabContainer';
+    import Popup          from './Popup';
 
     export default {
 
-        components: {TextInputField, TabContainer},
+        components: {Popup, TextInputField},
 
         data() {
             return {
@@ -90,14 +88,10 @@
 <style lang="scss" scoped>
 
     .settings {
-        @include flex(column, center, center);
-    }
 
-    .content {
-        @include flex(column, stretch, flex-end);
-        padding: 0 1.75em 1.5em;
-        width: 20em;
-        margin: auto;
+        .content {
+            @include flex(column, stretch, stretch);
+        }
 
         .text-input-field {
             margin-top: 1.5em;
@@ -145,6 +139,7 @@
 
             &.delete-account {
                 background: $palette-tomatoe-red;
+                margin-right: 1em;
 
                 &:hover {
                     background: darken($palette-tomatoe-red, 3);
