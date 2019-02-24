@@ -38,7 +38,6 @@
                                       @submit="submit"/>
                 </div>
 
-
             </div>
 
             <!-- Error box -->
@@ -47,7 +46,7 @@
             <!-- Button bar -->
             <div class="accept">
                 <span @click="switchAuthMode">{{ registerMode ? 'Login' : 'Register' }}</span>
-                <button class="apply" @click="submit">{{ registerMode ? 'Create Account' : 'Login' }}</button>
+                <button @click="submit">{{ registerMode ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>
 
@@ -223,7 +222,7 @@
                 }
             }
 
-            .apply {
+            button {
                 padding: 0.5em 0.8em 0.55em 0.8em;
                 @include font(600, 0.75em);
                 border-radius: 0.15em;
@@ -234,6 +233,22 @@
 
                 &:hover {
                     filter: brightness(1.1);
+                }
+            }
+        }
+    }
+
+    @include mobile {
+        .centered {
+            .accept {
+
+                span {
+                    font-size: 0.9em;
+                }
+
+                button {
+                    padding: 0.7em 1.2em;
+                    font-size: 0.8em;
                 }
             }
         }
