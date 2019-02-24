@@ -153,7 +153,7 @@
 
     .dir {
         @include flex(row, center);
-        margin: 0.5em 0.5em 0 0;
+        margin: 0 0.5em 0.5em 0;
         cursor: pointer;
         border: 1px solid transparent;
         max-width: 15em;
