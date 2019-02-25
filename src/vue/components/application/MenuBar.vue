@@ -146,24 +146,36 @@
                 transform: scale(1);
 
                 &.active {
-                    transform: translateY(-0.2em);
+                    transform: translateY(-0.2em) scale(1.05);
 
                     &::before {
                         opacity: 1;
-                        transform: translateY(calc(0.45em + 7px)) scale(1.1);
+
+                        @include animate('0.45s ease forwards') {
+                            0% {
+                                transform: translateY(0.75em) scale(0);
+                                opacity: 0;
+                            }
+                            50% {
+                                transform: translateY(0.175em) scale(1);
+                            }
+                            100% {
+                                transform: translateY(0.25em) scale(1);
+                                opacity: 1;
+                            }
+                        }
                     }
                 }
 
                 &::before {
                     @include pseudo();
                     @include position(auto, 0, 0, 0);
-                    @include size(100%, 10px);
+                    @include size(100%, 6px);
                     background: $palette-theme-primary;
                     transform: translateY(0.75em) scale(0);
-                    border-radius: 100% 100% 0 0;
+                    border-radius: 100em;
                     z-index: -1;
                     opacity: 0;
-                    transition: all 0.3s;
                 }
             }
 
