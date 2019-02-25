@@ -16,7 +16,7 @@
                      @click.left="select($event, node)"
                      @click.right="select($event, node)">
 
-                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
 
                     <span v-content-editable="node._editable"
@@ -47,7 +47,7 @@
                         </embed-file-preview>
 
                         <div class="info">
-                            <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
+                            <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                             <span v-if="node.extension" class="extension">{{ node.extension }}</span>
 
                             <span v-content-editable="node._editable"
@@ -234,7 +234,7 @@
         border: 1px solid transparent;
         padding: 0.5em 0.9em;
 
-        .bookmark {
+        .star {
             position: absolute;
             @include position(0.35em, 0.1em, auto, auto);
             font-size: 0.75em;

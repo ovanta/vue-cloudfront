@@ -7,12 +7,12 @@
             <i class="fas fa-fw fa-home"></i>
         </div>
 
-        <div v-tooltip="'View marked folder and files'"
-             :class="{'item btn-bookmarked': 1, active: activeTab === 'marked'}"
+        <div v-tooltip="'View starred folder and files'"
+             :class="{'item btn-stared': 1, active: activeTab === 'marked'}"
              @click="changeTab('marked')">
-            <i class="fas fa-fw fa-bookmark"></i>
+            <i class="fas fa-fw fa-star"></i>
             <intro-box id="0"
-                       header="Marked Folders and files"
+                       header="Starred folders and files"
                        text="Mark your important files, folder or just use it as a quick way to access them."/>
         </div>
 
@@ -179,7 +179,7 @@
                 }
             }
 
-            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-bookmarked', '.btn-refresh'));
+            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-stared', '.btn-refresh'));
         }
     }
 

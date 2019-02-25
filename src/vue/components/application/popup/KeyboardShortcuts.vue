@@ -68,7 +68,7 @@
                             {keys: ['v', 'l'], action: 'Change view to list.'},
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
-                            {keys: ['j', 'm'], action: 'Switch to marked folder / files.'},
+                            {keys: ['j', 's'], action: 'Switch to starred folder / files.'},
                             {keys: ['j', 'b'], action: 'Switch to bin.'},
                             {keys: ['tab'], action: 'Switch tabs.'},
                             {keys: ['backspace'], action: 'Go up in hierarchy.'},
@@ -320,7 +320,7 @@
                 }
 
                 // Switch to marked screen
-                if (keys.KeyJ && keys.KeyM) {
+                if (keys.KeyJ && keys.KeyS) {
                     this.$store.commit('setActiveTab', 'marked');
                     return;
                 }
