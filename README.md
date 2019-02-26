@@ -112,13 +112,10 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 
 ## Screenshots
 Checkout the [demo](https://vue-cloudfront.com/) the get an extensive view!
-![screenshot 32](https://user-images.githubusercontent.com/30767528/53260290-66aa1c80-36d1-11e9-8cff-f47130caf7f4.png)
-![screenshot 33](https://user-images.githubusercontent.com/30767528/53260291-66aa1c80-36d1-11e9-9f3b-baa9c5c96a59.png)
-![screenshot 34](https://user-images.githubusercontent.com/30767528/53260292-66aa1c80-36d1-11e9-839d-4e94807ae6e8.png)
-![screenshot 35](https://user-images.githubusercontent.com/30767528/53260293-66aa1c80-36d1-11e9-9e87-bc3bfba01783.png)
-![screenshot 29](https://user-images.githubusercontent.com/30767528/53260294-66aa1c80-36d1-11e9-8cd4-c0d30f5dbb82.png)
-![screenshot 30](https://user-images.githubusercontent.com/30767528/53260296-66aa1c80-36d1-11e9-9ffc-feb30b9c3757.png)
-![screenshot 31](https://user-images.githubusercontent.com/30767528/53260297-6742b300-36d1-11e9-80b4-7e387721ed32.png)
-![mobile screenshot](https://user-images.githubusercontent.com/30767528/53264203-61ea6600-36db-11e9-8c0f-a88185a92697.png)
-
-
+![screenshot mobile](https://user-images.githubusercontent.com/30767528/53444323-22d75000-3a0e-11e9-874f-be79583e365e.png)
+![screenshot 37](https://user-images.githubusercontent.com/30767528/53444096-8dd45700-3a0d-11e9-9b7b-ac2793ee1130.png)
+![screenshot 38](https://user-images.githubusercontent.com/30767528/53444098-8e6ced80-3a0d-11e9-980f-436813cc7539.png)
+![screenshot 39](https://user-images.githubusercontent.com/30767528/53444100-8e6ced80-3a0d-11e9-9179-0508116e985d.png)
+![screenshot 41](https://user-images.githubusercontent.com/30767528/53444101-8e6ced80-3a0d-11e9-82b3-81fec6395010.png)
+![screenshot 42](https://user-images.githubusercontent.com/30767528/53444103-8e6ced80-3a0d-11e9-90b4-540efc622427.png)
+![screenshot 43](https://user-images.githubusercontent.com/30767528/53444104-8e6ced80-3a0d-11e9-8853-de03b222ab72.png)
