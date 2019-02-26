@@ -44,9 +44,9 @@
 <script>
 
     // Components
-    import MultiSwitchButton from '../../../../ui/input/TextSwitchButton';
-    import SimpleButton      from '../../../../ui/input/TextToggleButton';
-    import IntroBox          from '../../../../ui/specific/IntroBox';
+    import MultiSwitchButton from '../../../ui/input/TextSwitchButton';
+    import SimpleButton      from '../../../ui/input/TextToggleButton';
+    import IntroBox          from '../../../ui/specific/IntroBox';
 
     export default {
 

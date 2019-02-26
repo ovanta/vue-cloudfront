@@ -1,5 +1,5 @@
 // Config stuff
-import {visibleNodesChunkSize} from '../../../../../../../config/config';
+import {visibleNodesChunkSize} from '../../../../../../config/config';
 
 export default {
 

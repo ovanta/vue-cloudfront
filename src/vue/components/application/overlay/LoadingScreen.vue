@@ -92,6 +92,8 @@
         font-style: italic;
         color: $palette-theme-primary;
         transform: translateY(-0.5em);
+        text-align: center;
+        line-height: 1.25;
     }
 
 </style>

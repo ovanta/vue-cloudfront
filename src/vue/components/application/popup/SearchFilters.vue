@@ -1,5 +1,7 @@
 <template>
-    <popup store-prop="SearchFilters" title="Search Filters">
+    <popup store-prop="SearchFilters" 
+           title="Search Filters" 
+           class="search-filters">
 
         <div class="header">
             <p>Description</p>
@@ -50,6 +52,12 @@
 
 <style lang="scss" scoped>
 
+    .search-filters {
+        &.open .filter .examples {
+            user-select: text;
+        }
+    }
+
     .header {
         @include flex(row, space-between);
 
@@ -72,7 +80,6 @@
             padding: 0.5em 0.75em;
             border-radius: 0.15em;
             width: 50%;
-            user-select: text;
             line-height: 1.3em;
         }
 

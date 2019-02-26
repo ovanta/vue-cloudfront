@@ -1,5 +1,5 @@
-import Draggable from '../../../../../../js/Draggable';
-import store     from '../../../../../store/index';
+import Draggable from '../../../../../js/Draggable';
+import store     from '../../../../store';
 
 /**
  * Is responsible for everything around dragging

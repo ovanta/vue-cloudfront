@@ -68,9 +68,8 @@
                             {keys: ['v', 'l'], action: 'Change view to list.'},
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
-                            {keys: ['j', 'm'], action: 'Switch to marked folder / files.'},
+                            {keys: ['j', 's'], action: 'Switch to starred folder / files.'},
                             {keys: ['j', 'b'], action: 'Switch to bin.'},
-                            {keys: ['j', 's'], action: 'Switch to settigs.'},
                             {keys: ['tab'], action: 'Switch tabs.'},
                             {keys: ['backspace'], action: 'Go up in hierarchy.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'}
@@ -81,7 +80,8 @@
                         name: 'Help',
                         shortcuts: [
                             {keys: ['h', 'k'], action: 'Show keyboard shortcuts.'},
-                            {keys: ['h', 'f'], action: 'Show search filters.'}
+                            {keys: ['h', 'f'], action: 'Show search filters.'},
+                            {keys: ['h', 's'], action: 'Show settings.'}
                         ]
                     }
                 ]
@@ -307,6 +307,12 @@
                     return;
                 }
 
+                // Switch to settings screen
+                if (keys.KeyH && keys.KeyS) {
+                    this.$store.commit('setActivePopup', 'Settings');
+                    return;
+                }
+
                 // Switch to home screen
                 if (keys.KeyJ && keys.KeyH) {
                     this.$store.commit('setActiveTab', 'home');
@@ -314,7 +320,7 @@
                 }
 
                 // Switch to marked screen
-                if (keys.KeyJ && keys.KeyM) {
+                if (keys.KeyJ && keys.KeyS) {
                     this.$store.commit('setActiveTab', 'marked');
                     return;
                 }
@@ -322,12 +328,6 @@
                 // Switch to bin
                 if (keys.KeyJ && keys.KeyB) {
                     this.$store.commit('setActiveTab', 'bin');
-                    return;
-                }
-
-                // Switch to settings screen
-                if (keys.KeyJ && keys.KeyS) {
-                    this.$store.commit('setActiveTab', 'settings');
                     return;
                 }
 

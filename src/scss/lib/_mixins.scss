@@ -85,3 +85,22 @@
         }
     }
 }
+
+// Order items easier
+@mixin order($list) {
+    @if type_of($list) == map {
+        @each $selector, $order in $list {
+            #{$selector} {
+                order: $order;
+                content: 'lolzzz';
+            }
+        }
+    } @else if type_of($list) == list {
+        @for $i from 1 through length($list) {
+            #{nth($list, $i)} {
+                order: $i;
+                content: 'lolzzz';
+            }
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import Selection from '@simonwep/selection-js';
-import store     from '../../../../../store/index';
+import store     from '../../../../store';
 
 /**
  * Is responsible for the selection area

@@ -42,7 +42,7 @@
                           v-select-all="node._editable"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
 
-                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
                 <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.lastModified | readableTimestamp }}</span>
@@ -65,7 +65,7 @@
                           v-select-all="node._editable"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
 
-                    <i :class="{'fas fa-fw fa-bookmark bookmark': 1, visible: node.marked}" :style="{color: node.color}"></i>
+                    <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
                 <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.lastModified | readableTimestamp }}</span>
@@ -79,7 +79,7 @@
 <script>
 
     // Config stuff
-    import {visibleNodesChunkSize} from '../../../../../../../config/config';
+    import {visibleNodesChunkSize} from '../../../../../../config/config';
 
     // Selectable plugin
     import Selectable from '../plugins/selectable';
@@ -235,17 +235,17 @@
                 outline: none;
             }
 
-            .bookmark {
+            .star {
                 font-size: 0.75em;
                 margin-left: 0.5em;
 
                 opacity: 0;
-                transform: translateY(-0.15em) rotate(10deg);
+                transform: translateY(-0.25em);
                 transition: all 0.3s;
 
                 &.visible {
                     opacity: 1;
-                    transform: none;
+                    transform: translateY(-0.15em);
                 }
             }
         }

@@ -26,6 +26,7 @@
         <search-filters/>
         <keyboard-shortcuts/>
         <share-via-link/>
+        <settings/>
 
         <!-- Tooltip -->
         <tool-tip/>
@@ -38,8 +39,7 @@
 <script>
 
     // Components
-    import Navigator from './application/tabs/navigator/Navigator';
-    import Settings  from './application/tabs/Settings';
+    import Navigator from './application/navigator/Navigator';
 
     import ToolTip      from '../ui/specific/ToolTip';
     import MenuBar      from './application/MenuBar';
@@ -50,6 +50,7 @@
     import KeyboardShortcuts from './application/popup/KeyboardShortcuts';
     import SearchFilters     from './application/popup/SearchFilters';
     import ShareViaLink      from './application/popup/ShareViaLink';
+    import Settings          from './application/popup/Settings';
 
     // Overlays
     import LoadingScreen  from './application/overlay/LoadingScreen';
@@ -70,7 +71,6 @@
 
             // Tabs
             Navigator,
-            Settings,
 
             // Popovers and static components
             KeyboardShortcuts,
@@ -79,6 +79,7 @@
             LoadingScreen,
             UploadArea,
             ToolTip,
+            Settings,
             FilePreview,
 
             // Authentication

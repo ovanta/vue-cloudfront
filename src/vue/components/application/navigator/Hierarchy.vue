@@ -32,12 +32,12 @@
 
             <span v-if="simpleCount.file || simpleCount.dir">
                 <span v-if="activeTab === 'bin'">moved to the bin</span>
-                <span v-else-if="activeTab === 'marked'">marked</span>
+                <span v-else-if="activeTab === 'marked'">starred</span>
             </span>
 
             <span v-if="!simpleCount.file && !simpleCount.dir">
                 <span v-if="activeTab === 'bin'">Nothing deleted yet</span>
-                <span v-else-if="activeTab === 'marked'">Nothing marked</span>
+                <span v-else-if="activeTab === 'marked'">Nothing starred</span>
             </span>
         </div>
 

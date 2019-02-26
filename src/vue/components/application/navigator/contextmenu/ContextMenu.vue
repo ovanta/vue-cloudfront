@@ -13,8 +13,8 @@
         <div v-if="marked || type === 'files' || type === 'dir' || type === 'mixed'"
              class="option star"
              @click="star">
-            <i :class="`fa${ marked === 2 ? 'r' : 's'} fa-fw fa-bookmark`"></i>
-            <span class="name">{{ marked === 2 ? 'Remove mark' : 'Add mark' }}</span>
+            <i :class="`fa${ marked === 2 ? 'r' : 's'} fa-fw fa-star`"></i>
+            <span class="name">{{ marked === 2 ? 'Remove star' : 'Add star' }}</span>
         </div>
 
         <div v-if="type === 'files' || type === 'dir' || type === 'mixed'"

@@ -2,22 +2,22 @@
     <section class="menu">
 
         <div v-tooltip="'Home'"
-             :class="{'item': 1, active: activeTab === 'home'}"
+             :class="{'item btn-home': 1, active: activeTab === 'home'}"
              @click="changeTab('home')">
             <i class="fas fa-fw fa-home"></i>
         </div>
 
-        <div v-tooltip="'View marked folder and files'"
-             :class="{'item': 1, active: activeTab === 'marked'}"
+        <div v-tooltip="'View starred folder and files'"
+             :class="{'item btn-stared': 1, active: activeTab === 'marked'}"
              @click="changeTab('marked')">
-            <i class="fas fa-fw fa-bookmark"></i>
+            <i class="fas fa-fw fa-star"></i>
             <intro-box id="0"
-                       header="Marked Folders and files"
+                       header="Starred folders and files"
                        text="Mark your important files, folder or just use it as a quick way to access them."/>
         </div>
 
         <div v-tooltip="'Removed files / folders'"
-             :class="{'item': 1, active: activeTab === 'bin'}"
+             :class="{'item btn-bin': 1, active: activeTab === 'bin'}"
              @click="changeTab('bin')">
             <i class="fas fa-fw fa-trash-alt"></i>
         </div>
@@ -25,19 +25,13 @@
         <div class="eat-space"></div>
 
         <div v-tooltip="'Refresh'"
-             class="item bottom"
+             class="item bottom btn-refresh"
              @click="refresh">
             <i class="fas fa-fw fa-sync-alt"></i>
         </div>
 
-        <div v-tooltip="'User settings'"
-             :class="{'item bottom': 1, active: activeTab === 'settings'}"
-             @click="changeTab('settings')">
-            <i class="fas fa-fw fa-cog"></i>
-        </div>
-
         <div v-tooltip="'Logout'"
-             class="item bottom"
+             class="item bottom btn-logout"
              @click="$store.dispatch('auth/logout')">
             <i class="fas fa-fw fa-sign-out-alt"></i>
         </div>
@@ -135,16 +129,15 @@
 
     @include mobile {
         .menu {
-            @include flex(row-reverse, center);
+            @include flex(row, center);
+            justify-content: space-between; // Edge fallback
+            justify-content: space-evenly;
             height: auto;
             padding: 0 0.5em;
             z-index: 10;
 
             .eat-space {
-                @include size(1px, 50%);
-                background: rgba($palette-deep-blue, 0.05);
                 flex-grow: 0;
-                margin: 0 auto;
             }
 
             .item {
@@ -153,26 +146,40 @@
                 transform: scale(1);
 
                 &.active {
-                    transform: translateY(-0.2em);
+                    transform: translateY(-0.2em) scale(1.05);
 
                     &::before {
                         opacity: 1;
-                        transform: translateY(calc(0.45em + 7px)) scale(1.1);
+
+                        @include animate('0.45s ease forwards') {
+                            0% {
+                                transform: translateY(0.75em) scale(0);
+                                opacity: 0;
+                            }
+                            50% {
+                                transform: translateY(0.175em) scale(1);
+                            }
+                            100% {
+                                transform: translateY(0.25em) scale(1);
+                                opacity: 1;
+                            }
+                        }
                     }
                 }
 
                 &::before {
                     @include pseudo();
                     @include position(auto, 0, 0, 0);
-                    @include size(100%, 10px);
+                    @include size(100%, 6px);
                     background: $palette-theme-primary;
                     transform: translateY(0.75em) scale(0);
-                    border-radius: 100% 100% 0 0;
+                    border-radius: 100em;
                     z-index: -1;
                     opacity: 0;
-                    transition: all 0.3s;
                 }
             }
+
+            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-stared', '.btn-refresh'));
         }
     }
 
