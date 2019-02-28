@@ -133,6 +133,30 @@ server {
         proxy_set_header Connection "upgrade";
         proxy_read_timeout 86400;
     }
+    
+    # Restrict TLS protocols and some ssl improvements
+    ssl_protocols TLSv1.2;
+    ssl_ecdh_curve secp521r1:secp384r1;
+    
+    # Hide upstream proxy headers
+    proxy_hide_header X-Powered-By;
+    proxy_hide_header X-AspNetMvc-Version;
+    proxy_hide_header X-AspNet-Version;
+    proxy_hide_header X-Drupal-Cache;
+
+    # Custom headers
+    add_header Strict-Transport-Security "max-age=63072000; includeSubdomains" always;
+    add_header Referrer-Policy "no-referrer";
+    add_header Feature-Policy "geolocation none; midi none; notifications none; push none; sync-xhr none; microphone none; camera none; magnetometer none; gyroscope none; speaker none; vibrate none; fullscreen self; payment none; usb none;";
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    
+    # Close slow connections (in case of slow loris attack)
+    client_body_timeout 10s;
+    client_header_timeout 10s;
+    keepalive_timeout 5s 5s;
+    send_timeout 10s;
 }
 EOL
 ```
