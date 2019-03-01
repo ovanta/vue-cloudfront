@@ -2,6 +2,7 @@
     <popup store-prop="Settings"
            title="Settings"
            class="settings">
+
         <div class="content">
             <text-input-field ref="currentPassword"
                               :password="true"
@@ -91,6 +92,7 @@
 
         .content {
             @include flex(column, stretch, stretch);
+            padding: 0.25em;
         }
 
         .text-input-field {
