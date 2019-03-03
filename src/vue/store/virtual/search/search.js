@@ -95,7 +95,8 @@ export const search = {
 
                     // Check is filter
                     if (is && is.length) {
-                        const extension = n.name.replace(/.*\./, '');
+                        const dotIndex = n.name.lastIndexOf('.');
+                        const extension = ~dotIndex ? n.name.substring(dotIndex + 1) : null;
                         if (extension === n.name || !is.includes(extension)) {
                             continue;
                         }

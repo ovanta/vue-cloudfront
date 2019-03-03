@@ -157,8 +157,7 @@
                 text-overflow: ellipsis;
 
                 &:hover {
-                    color: rgba($palette-deep-blue, 0.9);
-                    box-shadow: 0 1px 5px 0 darken(white, 10);
+                    box-shadow: 0 2px 4px 0 rgba($palette-deep-blue, 0.11);
                 }
             }
 
