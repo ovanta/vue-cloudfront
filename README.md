@@ -5,15 +5,15 @@
 <p align="center">
     <a href="https://vuejs.org/"><img alt="VueJS 2" src="https://img.shields.io/badge/Vue-v2-98b23c.svg"/></a>
     <a href="https://nodejs.org/en/"><img alt="NodeJS v10" src="https://img.shields.io/badge/Node-v10.x-43b23c.svg"/></a>
-    <a href="https://github.com/Simonwep/vue-cloudfront/tree/master"><img alt="Stable Branch" src="https://img.shields.io/badge/Stable%20Branch-master-3FB27F.svg"/></a>
-    <a href="https://github.com/Simonwep/vue-cloudfront/tree/dev"><img alt="Development Branch" src="https://img.shields.io/badge/Dev%20Branch-dev-3eacb2.svg"/></a>
+    <a href="https://github.com/vue-cloudfront/vue-cloudfront/tree/master"><img alt="Stable Branch" src="https://img.shields.io/badge/Stable%20Branch-master-3FB27F.svg"/></a>
+    <a href="https://github.com/vue-cloudfront/vue-cloudfront/tree/dev"><img alt="Development Branch" src="https://img.shields.io/badge/Dev%20Branch-dev-3eacb2.svg"/></a>
     <img alt="Product state: Alpha" src="https://img.shields.io/badge/State-pre--alpha-3c71b2.svg"/>
     <a href="https://www.patreon.com/simonwep"><img alt="Support me" src="https://img.shields.io/badge/Patreon-support-553cb2.svg"></a>
 </p>
 
 
 Vue Cloudfront is a blazing fast, standalone PWA cloudfront, basically for self-hosting purposes. 
-Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/Simonwep/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
+Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/vue-cloudfront/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
 
 For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6765`
 
@@ -105,11 +105,11 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 * [PM2 as load balancer](https://pm2.io)
 
 ##### Current branches
-* [mobile-support](https://github.com/Simonwep/vue-cloudfront/tree/mobile-support) - (in progress) Mobile and general touch-support.
-* [settings](https://github.com/Simonwep/vue-cloudfront/tree/settings) - (in progress) Additional home-tab with user-settings.
-* [realtime-sync](https://github.com/Simonwep/vue-cloudfront/tree/realtime-sync) - Realtime synchronization between sessions.
-* [history](https://github.com/Simonwep/vue-cloudfront/tree/history) - (aborted) Additional home-tab with a temporary, visual log of all your actions.
-* [terminal](https://github.com/Simonwep/vue-cloudfront/tree/terminal) - (aborted) Additional home-tab with a full functional terminal like bash.
+* [mobile-support](https://github.com/vue-cloudfront/vue-cloudfront/tree/mobile-support) - (in progress) Mobile and general touch-support.
+* [settings](https://github.com/vue-cloudfront/vue-cloudfront/tree/settings) - (in progress) Additional home-tab with user-settings.
+* [realtime-sync](https://github.com/vue-cloudfront/vue-cloudfront/tree/realtime-sync) - Realtime synchronization between sessions.
+* [history](https://github.com/vue-cloudfront/vue-cloudfront/tree/history) - (aborted) Additional home-tab with a temporary, visual log of all your actions.
+* [terminal](https://github.com/vue-cloudfront/vue-cloudfront/tree/terminal) - (aborted) Additional home-tab with a full functional terminal like bash.
 
 
 ## Screenshots

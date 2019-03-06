@@ -11,10 +11,10 @@ However, I develop the project using Windows machines.
 ## Installation of vue-cloudfront-api
 
 1. Open bash with [Git](https://git-scm.com/download/win) access or use Github desktop
-2. Clone the [vue-cloudfront-api](https://github.com/Simonwep/vue-cloudfront-api) project:
+2. Clone the [vue-cloudfront-api](https://github.com/vue-cloudfront/vue-cloudfront-api) project:
 
 ```bash
-git clone https://github.com/Simonwep/vue-cloudfront-api
+git clone https://github.com/vue-cloudfront/vue-cloudfront-api
 ```
 
 3. Go to `vue-cloudfront-api` and install dependencies:
@@ -33,7 +33,7 @@ npm run dev
 ## Installation of vue-cloudfront
 
 1. Open your cmdline of choice with [Git](https://git-scm.com/download/win) access or use Github desktop
-2. Clone the [vue-cloudfront](https://github.com/Simonwep/vue-cloudfront) project:
+2. Clone the [vue-cloudfront](https://github.com/vue-cloudfront/vue-cloudfront) project:
 
 ```bash
 git clone https://github.com/DivanteLtd/vue-cloudfront.git
@@ -47,7 +47,7 @@ npm install
 ```
 
 4. Configure `vue-cloudfront`  
-Since nginx is not used during development there are two properties which need to be changed in [config.json](https://github.com/Simonwep/vue-cloudfront/blob/master/config/config.json):
+Since nginx is not used during development there are two properties which need to be changed in [config.json](https://github.com/vue-cloudfront/vue-cloudfront/blob/master/config/config.json):
 ```json
 "apiEndPoint": "http://localhost:8080/api",
 "websocketEndPoint": "ws://localhost:8080/ws"

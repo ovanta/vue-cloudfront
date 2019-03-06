@@ -19,8 +19,8 @@ Dependencies
  8. pm2 - _as load balancer_
 
 Repositories
- 1. vue-cloudfront (https://github.com/Simonwep/vue-cloudfront)
- 2. vue-cloudfront-api (https://github.com/Simonwep/vue-cloudfront-api)
+ 1. vue-cloudfront (https://github.com/vue-cloudfront/vue-cloudfront)
+ 2. vue-cloudfront-api (https://github.com/vue-cloudfront/vue-cloudfront-api)
  
  
 ### Installation
@@ -81,8 +81,8 @@ Navigate to the directory where you wish to install `vue-cloudfront` and `vue-cl
 ```bash
 
 # Download both vue-cloudfront and vue-cloudfront-api
-git clone https://github.com/Simonwep/vue-cloudfront
-git clone https://github.com/Simonwep/vue-cloudfront-api
+git clone https://github.com/vue-cloudfront/vue-cloudfront
+git clone https://github.com/vue-cloudfront/vue-cloudfront-api
 
 # Install and build vue-cloudfront
 cd ./vue-cloudfront
