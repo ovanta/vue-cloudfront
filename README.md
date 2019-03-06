@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="/docs/img/logo.png" alt="Logo">
+    <img src="https://user-images.githubusercontent.com/30767528/53899461-87139880-403a-11e9-96da-cc08869eb83c.png" alt="Logo">
 </h1>
 
 <p align="center">
@@ -26,8 +26,7 @@ For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6
 
 ## Features
 
-Vue-cloudfront currently has full desktop and touch support (tablets / notebooks with touch support),
-but no support for mobile devices (but [it's in progress](https://github.com/Simonwep/vue-cloudfront/tree/mobile-support))
+Vue-cloudfront currently has full desktop and mobile support.
 
 All modern browsers like Chrome, Firefox, Opera, Edge and Safari are supported. See [.browserslistrc](/.browserslistrc) for further details.
 IE support is and will never be in consideration.
@@ -39,7 +38,7 @@ IE support is and will never be in consideration.
 * Blazing fast with local caching: Average server response time: '~ 30ms' / Client-side rendering time: '~ 1.5s'.
 * Installable - [Install it on your desktop](https://developers.google.com/web/progressive-web-apps/desktop) (Currently only supported by Chrome 70+ under Linux, Windows and Chrome OS).
 * Modern Vue frontend with material-design - easy to design and customize.
-* Simply structure and just a few dependencies.
+* Simple structure and just a few dependencies.
 
 #### File Management
 * GridView with small file previews and draggable tiles.
