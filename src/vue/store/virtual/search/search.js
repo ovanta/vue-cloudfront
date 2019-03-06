@@ -1,5 +1,5 @@
-import {toBytes} from '../../../../js/utils';
-import squ       from './searchQueryUtils';
+import {toBytes, readableByteCount} from '../../../../js/utils';
+import squ                          from './searchQueryUtils';
 
 export const search = {
 
@@ -21,7 +21,10 @@ export const search = {
             type: 'all',
             ignoreCase: false,
             regex: false
-        }
+        },
+
+        // Current serach filters
+        filter: []
     },
 
     mutations: {
@@ -49,6 +52,7 @@ export const search = {
 
             // If the query is empty, search should be disabled
             state.active = !!rawQuery;
+            state.filters = [];
 
             if (state.active) {
 
@@ -84,6 +88,22 @@ export const search = {
                 size = size && size.length && squ.parseLogicalInstruction(size[0], toBytes);
                 date = date && date.length && squ.parseLogicalInstruction(date[0], v => new Date(v).getTime());
 
+                state.filters.push(
+                    ...(is || []),
+
+                    ...(size ? [({
+                        smaller: `Smaller than ${readableByteCount(size.a)}`,
+                        bigger: `Bigger than ${readableByteCount(size.a)}`,
+                        between: `Between ${readableByteCount(size.a)} and ${readableByteCount(size.b)}`
+                    })[size.type]] : []),
+
+                    ...(date ? [({
+                        smaller: `Before ${new Date(date.a).toDateString()}`,
+                        bigger: `After ${new Date(date.a).toDateString()}`,
+                        between: `Between ${new Date(date.a).toDateString()} and ${new Date(date.b).toDateString()}`
+                    })[date.type]] : [])
+                );
+
                 state.nodes = [];
                 const {nodes} = rootState;
                 for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
@@ -97,7 +117,9 @@ export const search = {
                     if (is && is.length) {
                         const dotIndex = n.name.lastIndexOf('.');
                         const extension = ~dotIndex ? n.name.substring(dotIndex + 1) : null;
-                        if (extension === n.name || !is.includes(extension)) {
+
+                        if (extension === n.name || !is.includes(extension) &&
+                            !(is.includes('starred') && n.marked)) {
                             continue;
                         }
                     }

@@ -16,12 +16,16 @@
         </div>
 
         <!-- Human readable representation of the search result (if a search is currently performed) -->
-        <div v-if="searchResult" class="amount-info">
+        <div v-if="searchResult" class="amount-info search">
             <b v-if="searchResult.file">{{ searchResult.file }} file{{ searchResult.file === 1 ? '' : 's' }}</b>
             <span v-if="searchResult.file && searchResult.dir"> and </span>
             <b v-if="searchResult.dir">{{ searchResult.dir }} folder{{ searchResult.dir === 1 ? '' : 's' }}</b>
             <span v-if="searchResult.file || searchResult.dir"> found</span>
             <span v-if="!searchResult.file && !searchResult.dir">Nothing found</span>
+
+            <div class="filters">
+                <span v-for="filter of search.filters">{{ filter }}</span>
+            </div>
         </div>
 
         <!-- Same as search info, but for marked nodes and nodes which are currently in the bin -->
@@ -56,7 +60,7 @@
         },
 
         computed: {
-            ...mapState(['activeTab']),
+            ...mapState(['activeTab', 'search']),
 
             nodes() {
                 return this.$store.getters['location/getHierarchy'].map(v => {
@@ -196,6 +200,24 @@
             to {
                 opacity: 1;
                 transform: none;
+            }
+        }
+
+        &.search {
+            display: block;
+
+            .filters {
+                margin-top: 1em;
+                @include font(600, 0.75em);
+                color: $palette-snow-white;
+
+                > span {
+                    margin-right: 0.25em;
+                    background: $palette-deep-blue;
+                    padding: 0.15em 0.5em 0.225em;
+                    border-radius: 0.15em;
+                    box-shadow: 0 1px 2px rgba(black, 0.15);
+                }
             }
         }
     }
