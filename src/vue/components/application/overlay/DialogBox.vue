@@ -51,6 +51,11 @@
 
 <style lang="scss" scoped>
 
+    $buttons: (
+        (class: 'accept', color: $palette-cloud-blue),
+        (class: 'cancel', color: $palette-tomatoe-red)
+    );
+
     .dialog-box {
         position: fixed;
         @include position(0, 0, 0, 0);
@@ -88,7 +93,7 @@
             @include flex(row, center);
 
             h1 {
-                @include font(500, 1.075em);
+                @include font(600, 1.05em);
             }
 
             i {
@@ -108,32 +113,32 @@
             font-size: 0.95em;
 
             button {
-                @include font(500, 0.85em);
+                @include font(600, 0.85em);
                 margin-left: 1.25em;
                 text-transform: capitalize;
                 padding: 0.55em 1.25em 0.6em;
                 border-radius: 0.15em;
                 color: white;
-                box-shadow: 0 0.05em 0.15em rgba($palette-deep-blue, 0.1);
                 transition: all 0.3s;
 
-                &.primary {
-                    background: $palette-theme-primary;
-                    border: 2px solid $palette-theme-primary;
+                @each $type in $buttons {
+                    $class-extension: map-get($type, 'class');
+                    $color: map-get($type, 'color');
 
-                    &:hover {
-                        filter: brightness(1.15);
-                    }
-                }
+                    &.#{$class-extension} {
+                        background: $color;
+                        box-shadow: 0 0.05em 0.3em rgba($color, 0.5);
+                        border: 2px solid $color;
 
-                &.secondary {
-                    border: 2px solid $palette-theme-secondary;
-                    color: $palette-theme-secondary;
-                    font-weight: 600;
+                        &:hover {
+                            box-shadow: 0 0.05em 0.75em rgba($color, 0.75);
+                        }
 
-                    &:hover {
-                        background: $palette-theme-secondary;
-                        color: white;
+                        @if (lightness($color) > 75) {
+                            color: $palette-deep-blue;
+                        } @else {
+                            color: $palette-snow-white;
+                        }
                     }
                 }
             }

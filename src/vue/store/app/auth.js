@@ -144,8 +144,8 @@ export const auth = {
                 title: 'Delete account',
                 text: 'With this all perma-links, files and folders will be removed. Are you sure? This action cannot be undone, neither your data restored.',
                 buttons: [
-                    {type: 'secondary', text: 'Cancel'},
-                    {type: 'primary', text: 'Okay'}
+                    {type: 'cancel', text: 'Cancel'},
+                    {type: 'accept', text: 'Okay'}
                 ],
                 onResolve: index => {
                     if (index) {

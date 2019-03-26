@@ -374,8 +374,8 @@ export const nodes = {
                     title: 'Delete forever',
                     text: 'Are you sure? This action cannot be undone.',
                     buttons: [
-                        {type: 'secondary', text: 'Cancel'},
-                        {type: 'primary', text: 'Okay'}
+                        {type: 'cancel', text: 'Cancel'},
+                        {type: 'accept', text: 'Okay'}
                     ],
                     onResolve: index => index && finalize()
                 });

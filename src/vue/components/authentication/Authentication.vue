@@ -223,15 +223,17 @@
             }
 
             button {
-                padding: 0.5em 0.8em 0.55em 0.8em;
+                padding: 0.6em 1em 0.65em;
                 @include font(600, 0.75em);
                 border-radius: 0.15em;
                 transition: all 0.3s;
                 background: $palette-theme-primary;
+                box-shadow: 0 0.05em 0.3em rgba($palette-theme-primary, 0.25);
                 color: $palette-snow-white;
                 margin-left: auto;
 
                 &:hover {
+                    box-shadow: 0 0.05em 0.5em rgba($palette-theme-primary, 0.5);
                     filter: brightness(1.1);
                 }
             }
