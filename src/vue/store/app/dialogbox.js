@@ -21,6 +21,10 @@ export const dialogbox = {
                     onResolve(idx);
                 }
             });
+        },
+
+        close(state) {
+            state.open = false;
         }
     }
 };

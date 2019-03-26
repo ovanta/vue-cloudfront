@@ -256,6 +256,9 @@
                     // Close open popup
                     this.$store.commit('setActivePopup', null);
 
+                    // Close confirmation dialog
+                    this.$store.commit('dialogbox/close');
+
                     // Close editable node
                     this.$store.commit('editable/clear');
 
