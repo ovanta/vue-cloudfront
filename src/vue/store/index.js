@@ -5,10 +5,11 @@ import Vuex from 'vuex';
 import config from '../../../config/config.json';
 
 // Server-related nodes
-import {nodes} from './app/nodes';
-import {auth}  from './app/auth';
-import {stats} from './app/stats';
-import {data}  from './app/data';
+import {nodes}     from './app/nodes';
+import {auth}      from './app/auth';
+import {stats}     from './app/stats';
+import {data}      from './app/data';
+import {dialogbox} from './app/dialogbox';
 
 // Virtual modules act only as visual helpers / representation
 import {location}    from './virtual/location';
@@ -39,6 +40,9 @@ export default new Vuex.Store({
 
         // Holds a single node where you are currently
         location,
+
+        // Contains informations about the current dialog box state
+        dialogbox,
 
         /**
          * Holds an array of nodes which are currently in the clipbord, including a type

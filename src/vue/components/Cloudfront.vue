@@ -21,6 +21,7 @@
         <file-preview/>
         <authentication/>
         <upload-area/>
+        <dialog-box/>
 
         <!-- Popovers -->
         <search-filters/>
@@ -53,6 +54,7 @@
     import Settings          from './application/popup/Settings';
 
     // Overlays
+    import DialogBox      from './application/overlay/DialogBox';
     import LoadingScreen  from './application/overlay/LoadingScreen';
     import UploadArea     from './application/overlay/UploadArea';
     import FilePreview    from './application/overlay/filepreview/FilePreview';
@@ -81,6 +83,7 @@
             ToolTip,
             Settings,
             FilePreview,
+            DialogBox,
 
             // Authentication
             Authentication

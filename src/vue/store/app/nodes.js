@@ -320,49 +320,68 @@ export const nodes = {
         async delete({state, rootState}, {nodes, permanently = false}) {
             const prm = permanently || nodes.every(v => v.bin);
 
-            // Clear clipboard
-            this.commit('clipboard/clear');
+            const finalize = () => {
 
-            return this.dispatch('fetch', {
-                route: prm ? 'delete' : 'moveToBin',
-                body: {
-                    apikey: rootState.auth.apikey,
-                    nodes: nodes.map(v => v.id)
-                }
-            }).then(() => {
+                // Clear clipboard
+                this.commit('clipboard/clear');
 
-                // Update nodes locally to save ressources
-                nodes.forEach(function rm(node) {
-                    if (node.type === 'dir') {
-                        for (let i = 0; i < state.length; i++) {
-                            if (state[i].parent === node.id) {
-                                rm(state[i]);
-                                prm && (i = 0);
+                return this.dispatch('fetch', {
+                    route: prm ? 'delete' : 'moveToBin',
+                    body: {
+                        apikey: rootState.auth.apikey,
+                        nodes: nodes.map(v => v.id)
+                    }
+                }).then(() => {
+
+                    // Update nodes locally to save ressources
+                    nodes.forEach(function rm(node) {
+                        if (node.type === 'dir') {
+                            for (let i = 0; i < state.length; i++) {
+                                if (state[i].parent === node.id) {
+                                    rm(state[i]);
+                                    prm && (i = 0);
+                                }
                             }
                         }
-                    }
 
-                    if (prm) {
-                        const idx = state.indexOf(node);
-                        state.splice(idx, 1);
-                    } else {
-                        node._subBin = true;
-                    }
-                });
-
-                if (!prm) {
-                    nodes.forEach(v => {
-                        v.bin = true;
-                        v.lastModified = Date.now();
+                        if (prm) {
+                            const idx = state.indexOf(node);
+                            state.splice(idx, 1);
+                        } else {
+                            node._subBin = true;
+                        }
                     });
 
-                    websocket.broadcast('nodes', 'change', nodes.map(v => pick(v, 'id', 'bin', 'lastModified')));
-                } else {
-                    websocket.broadcast('nodes', 'delete', nodes.map(v => v.id));
-                }
+                    if (!prm) {
+                        nodes.forEach(v => {
+                            v.bin = true;
+                            v.lastModified = Date.now();
+                        });
 
-                state.splice(0, state.length, ...state);
-            });
+                        websocket.broadcast('nodes', 'change', nodes.map(v => pick(v, 'id', 'bin', 'lastModified')));
+                    } else {
+                        websocket.broadcast('nodes', 'delete', nodes.map(v => v.id));
+                    }
+
+                    state.splice(0, state.length, ...state);
+                });
+            };
+
+            if (prm) {
+
+                // Show warning
+                this.commit('dialogbox/show', {
+                    title: 'Delete forever',
+                    text: 'Are you sure? This action cannot be undone.',
+                    buttons: [
+                        {type: 'secondary', text: 'Cancel'},
+                        {type: 'primary', text: 'Okay'}
+                    ],
+                    onResolve: index => index && finalize()
+                });
+            } else {
+                finalize();
+            }
         },
 
         /**
