@@ -110,7 +110,7 @@ server {
     server_name ${Domain};
     client_max_body_size 500M;
 
-    location /service-worker.js {
+    location ~ (precache-manifest.*|service-worker)\.js {
         add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
         expires off;
         access_log off;

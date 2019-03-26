@@ -31,6 +31,8 @@ Vue-cloudfront currently has full desktop and mobile support.
 All modern browsers like Chrome, Firefox, Opera, Edge and Safari are supported. See [.browserslistrc](/.browserslistrc) for further details.
 IE support is and will never be in consideration.
 
+See [GitHub Projects](https://github.com/vue-cloudfront/vue-cloudfront/projects) for the current roadmap.
+
 #### Vue Cloudfront - unique features
 * 100% Offline support (Navigation and searching) - via [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 * Ultra lightweight, only '~ 60kb' js and '~ 20kb' css! (both gzipped).

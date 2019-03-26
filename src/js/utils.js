@@ -221,8 +221,6 @@ export function toBytes(size) {
  * @returns {string}
  */
 export function readableByteCount(bytes, mapValue = v => v) {
-    bytes = Number(bytes);
-
     const si = config.binaryPrefix;
     const unit = si ? 1000 : 1024;
     const block = bytes / unit;
@@ -233,7 +231,7 @@ export function readableByteCount(bytes, mapValue = v => v) {
 
     for (let i = 1; i <= 6; i++) {
         if (block < Math.pow(unit, i)) {
-            const size = (block / Math.pow(unit, i - 1)).toFixed(2);
+            const size = Number((block / Math.pow(unit, i - 1)).toFixed(2));
             const desc = ' ' + (si ? 'kMGTPEB' : 'kMGTPEiB').charAt(i - 1) + (si ? '' : 'i') + 'B';
             return mapValue(size) + desc;
         }
@@ -247,8 +245,8 @@ export const fileSystemUtils = {
     /**
      * See https://bugs.chromium.org/p/chromium/issues/detail?id=378883
      * Reads all entries from a DirectoryReader, just async
-     * @param dirItemReader
      * @returns {Promise<*>} Null or an Array of entries
+     * @param item
      */
     async readEntries(item) {
         const dirItemReader = item.createReader();

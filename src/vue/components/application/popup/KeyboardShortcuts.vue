@@ -70,7 +70,7 @@
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
                             {keys: ['j', 's'], action: 'Switch to starred folder / files.'},
                             {keys: ['j', 'b'], action: 'Switch to bin.'},
-                            {keys: ['tab'], action: 'Switch tabs.'},
+                            {keys: ['shift', 'tab'], action: 'Switch tabs.'},
                             {keys: ['backspace'], action: 'Go up in hierarchy.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'}
                         ]
@@ -256,6 +256,9 @@
                     // Close open popup
                     this.$store.commit('setActivePopup', null);
 
+                    // Close confirmation dialog
+                    this.$store.commit('dialogbox/close');
+
                     // Close editable node
                     this.$store.commit('editable/clear');
 
@@ -332,15 +335,12 @@
                 }
 
                 // Switch tabs
-                if (keys.KeyTab && !keys.ctrlKey) {
+                if (keys.KeyTab && keys.KeyShift && !keys.ctrlKey) {
                     const tabs = ['home', 'marked', 'bin', 'settings'];
                     let index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
-                    // Rotate if end is reached
-                    index === tabs.length && (index = 0);
-
-                    // Switch tab
-                    this.$store.commit('setActiveTab', tabs[index]);
+                    // Switch tab, rotate if end is reached
+                    this.$store.commit('setActiveTab', tabs[index === tabs.length - 1 ? 0 : index]);
                     event.preventDefault();
                     return;
                 }

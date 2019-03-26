@@ -1,6 +1,6 @@
 <template>
-    <popup store-prop="SearchFilters" 
-           title="Search Filters" 
+    <popup store-prop="SearchFilters"
+           title="Search Filters"
            class="search-filters">
 
         <div class="header">
