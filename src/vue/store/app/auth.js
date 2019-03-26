@@ -138,16 +138,30 @@ export const auth = {
          * @returns {Promise<void>}
          */
         async deleteAccount({state}, {password}) {
-            return this.dispatch('fetch', {
-                route: 'deleteAccount',
-                body: {
-                    apikey: state.apikey,
-                    password
-                }
-            }).then(() => {
 
-                // Logout
-                this.dispatch('auth/logout');
+            // Request user confirmation
+            this.commit('dialogbox/show', {
+                title: 'Delete account',
+                text: 'With this all perma-links, files and folders will be removed. Are you sure? This action cannot be undone, neither your data restored.',
+                buttons: [
+                    {type: 'secondary', text: 'Cancel'},
+                    {type: 'primary', text: 'Okay'}
+                ],
+                onResolve: index => {
+                    if (index) {
+                        this.dispatch('fetch', {
+                            route: 'deleteAccount',
+                            body: {
+                                apikey: state.apikey,
+                                password
+                            }
+                        }).then(() => {
+
+                            // Logout
+                            this.dispatch('auth/logout');
+                        });
+                    }
+                }
             });
         }
     }
