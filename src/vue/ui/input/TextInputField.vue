@@ -9,7 +9,7 @@
                    :id="labelId"
                    :autofocus="autofocus ? 'autofocus' : ''"
                    :class="{empty: !value}"
-                   :type="password ? 'password' : 'text'"
+                   :type="password && !showPwd ? 'password' : 'text'"
                    v-model="value"
                    spellcheck="false"
                    @blur="focused = false"
@@ -17,8 +17,14 @@
                    @input="$emit('update', value)"
                    @keyup.enter="$emit('submit')">
 
+
+            <!-- Show password -->
+            <i v-if="password"
+               :class="`show-pwd fas fa-fw fa-${showPwd ? 'eye' : 'eye-slash'}`"
+               @click="showPwd = !showPwd"></i>
+
             <!-- Clear input -->
-            <i :class="{'fas fa-fw fa-times': 1, visible: value}"
+            <i :class="{'clear fas fa-fw fa-times': 1, visible: value}"
                @click="value = ''"></i>
         </div>
 
@@ -40,6 +46,7 @@
         data() {
             return {
                 value: '',
+                showPwd: false,
                 focused: false,
                 labelId: `label-${(Date.now() + Math.floor(Math.random() * 1e15)).toString(36)}`
             };
@@ -63,7 +70,9 @@
         @include inline-flex(row, center);
         border-radius: 0.15em;
         transition: all 0.3s;
-        padding-top: 0.5em;
+        padding-top: 0.75em;
+        margin: 0 0.25em;
+        font-size: 1.05em;
     }
 
     .border {
@@ -118,19 +127,33 @@
             font-size: 0.8em;
             color: $palette-decent-blue;
             cursor: pointer;
-            pointer-events: none;
-            opacity: 0;
-            transform: rotate(180deg);
             transition: all 0.3s;
 
-            &:hover {
-                color: $palette-tomatoe-red;
+            &.show-pwd {
+                @include fixed-width(1.25em);
+
+                &:hover {
+                    color: $palette-theme-primary;
+                }
             }
 
-            &.visible {
-                opacity: 1;
-                transform: none;
-                pointer-events: all;
+            &.clear {
+                opacity: 0;
+                transform: rotate(90deg);
+                pointer-events: none;
+                max-width: 0;
+
+                &:hover {
+                    color: $palette-theme-primary;
+                }
+
+                &.visible {
+                    opacity: 1;
+                    transform: none;
+                    pointer-events: all;
+                    max-width: 1em;
+                    margin-left: 0.35em;
+                }
             }
         }
     }
