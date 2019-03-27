@@ -57,10 +57,10 @@
     );
 
     .dialog-box {
-        position: fixed;
+        position: absolute;
         @include position(0, 0, 0, 0);
         @include flex(column, center, center);
-        background: rgba($palette-deep-blue, 0.05);
+        background: rgba($palette-deep-blue, 0.125);
         opacity: 0;
         transition: all 0.3s;
         pointer-events: none;
@@ -71,8 +71,20 @@
             pointer-events: all;
 
             .content {
-                opacity: 1;
-                transform: none;
+                @include animate('0.35s ease forwards') {
+                    25% {
+                        transform: translateY(-0.5em) scale(0.95);
+                        opacity: 0.5;
+                    }
+                    50% {
+                        transform: scale(1.025);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: none;
+                        opacity: 1;
+                    }
+                }
             }
         }
     }
