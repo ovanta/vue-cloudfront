@@ -58,7 +58,7 @@
                     return;
                 }
 
-                this.$store.dispatch('auth/applySettings', {
+                this.$store.dispatch('auth/updateCredentials', {
                     currentPassword: currentPassword.value,
                     newUsername: newUsername.value,
                     newPassword: newPassword.value
