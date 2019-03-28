@@ -363,7 +363,7 @@
         background: white;
         padding: 0.4em 0;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.2);
-        border-radius: 0.5em;
+        border-radius: 0.25em;
         z-index: 15;
 
         &:empty {

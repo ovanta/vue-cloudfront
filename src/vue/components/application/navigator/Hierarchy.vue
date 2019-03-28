@@ -131,8 +131,9 @@
         }
 
         .node {
+            position: relative;
             @include inline-flex(row, center);
-            @include font(600, 0.8em);
+            @include font(600, 0.825em);
             color: rgba($palette-deep-blue, 0.8);
             margin-bottom: 0.5em;
 
@@ -151,17 +152,40 @@
                 position: relative;
                 cursor: pointer;
                 transition: all 0.3s;
-                padding: 0.35em 0.75em 0.39em;
-                border-radius: 50em;
-                background: white;
-                box-shadow: 0 1px 5px 0 rgba($palette-deep-blue, 0.075);
+                padding: 0.35em 0.5em 0.5em;
                 max-width: 10em;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                border-radius: 0.25em;
 
                 &:hover {
-                    box-shadow: 0 2px 4px 0 rgba($palette-deep-blue, 0.11);
+                    color: black;
+                }
+
+                &::before,
+                &::after {
+                    @include pseudo();
+                    transition: all 0.3s;
+                    margin: auto;
+                }
+
+                &::after {
+                    @include size(0);
+                    @include position(0, 0, auto, 0);
+                    border: 4px solid transparent;
+                    border-top-color: $palette-cloud-blue;
+                    opacity: 0;
+                    transform: translateY(-0.25em);
+                }
+
+                &::before {
+                    @include position(auto, 0, 0, 0);
+                    @include size(90%, 2px);
+                    background: #{'rgb(var(--color))'};
+                    border-radius: 50em;
+                    opacity: 0;
+                    transform: translateY(0.25em);
                 }
             }
 
@@ -173,15 +197,21 @@
             }
 
             &:last-child .name {
-                background: #{'rgb(var(--color))'};
-                box-shadow: 0 1px 5px 0 #{'rgba(var(--color), 0.5)'};
-                color: white;
+                color: #{'rgb(var(--color))'};
+
+                &::before {
+                    opacity: 1;
+                    transform: none;
+                }
             }
 
             &.droppable .name {
-                color: white;
-                background: $palette-cloud-blue;
-                box-shadow: 0 1px 10px 0 $palette-cloud-blue;
+                color: $palette-cloud-blue;
+
+                &::after {
+                    transform: none;
+                    opacity: 1;
+                }
             }
         }
     }
