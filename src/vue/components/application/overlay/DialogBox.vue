@@ -41,6 +41,7 @@
         },
 
         methods: {
+
             close(index) {
                 this.dialogbox.close(index);
             }

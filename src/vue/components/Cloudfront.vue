@@ -10,7 +10,6 @@
 
             <!-- Tabs, dynamic, getting changed via menu tabs -->
             <navigator v-show="['marked', 'home', 'bin'].includes(activeTab)"/>
-            <settings v-show="activeTab === 'settings'"/>
 
             <!-- Upload bar - shows the current upload progress of files -->
             <upload-toasts/>

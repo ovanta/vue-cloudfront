@@ -40,7 +40,6 @@ export const on = eventListener.bind(null, 'addEventListener');
  */
 export const off = eventListener.bind(null, 'removeEventListener');
 
-const unitify = (val, unit = 'px') => typeof val === 'number' ? val + unit : '' + val;
 
 /**
  * Add css to a DOM-Element or returns the current
@@ -52,6 +51,7 @@ const unitify = (val, unit = 'px') => typeof val === 'number' ? val + unit : '' 
  * @returns {*}
  */
 export function css(el, attr, val) {
+    const unitify = (val, unit = 'px') => typeof val === 'number' ? val + unit : '' + val;
     const style = el && el.style;
     if (!style) return;
 
