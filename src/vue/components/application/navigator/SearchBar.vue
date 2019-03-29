@@ -135,7 +135,7 @@
         position: relative;
         padding: 1em;
         background: white;
-        box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
+        box-shadow: 0 0 3px 0 rgba($palette-asphalt, 0.05);
     }
 
     .search-field {
@@ -151,7 +151,7 @@
 
         input {
             @include font(400, 0.9em);
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             flex-grow: 1;
 
             &::placeholder {

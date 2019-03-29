@@ -96,7 +96,7 @@
         opacity: 0;
         transform: translateY(-1em) rotateX(10deg);
         transition: all 0.3s;
-        background: rgba($palette-deep-blue, 0.05);
+        background: rgba($palette-asphalt, 0.05);
         z-index: 10;
 
         &.open {
@@ -124,7 +124,7 @@
             margin-bottom: 1em;
 
             .title {
-                color: $palette-deep-blue;
+                color: $palette-asphalt;
                 font-weight: 600;
             }
 
@@ -137,7 +137,7 @@
                 font-size: 0.95em;
 
                 &:hover {
-                    color: $palette-deep-blue;
+                    color: $palette-asphalt;
                 }
             }
         }

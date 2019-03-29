@@ -376,7 +376,7 @@
         h2 {
             @include font(400, 0.9em);
             padding: 0.75em 0 0.25em;
-            border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
+            border-bottom: 1px solid rgba($palette-asphalt, 0.05);
             margin-bottom: 0.5em;
         }
 
@@ -391,9 +391,9 @@
 
                 .key {
                     margin-right: 0.5em;
-                    color: $palette-deep-blue;
-                    border: 1px solid rgba($palette-deep-blue, 0.75);
-                    border-bottom: 2px solid rgba($palette-deep-blue, 0.9);
+                    color: $palette-asphalt;
+                    border: 1px solid rgba($palette-asphalt, 0.75);
+                    border-bottom: 2px solid rgba($palette-asphalt, 0.9);
                     border-radius: 2px;
                     padding: 0.05em 0.45em 0.1em 0.45em;
                 }
@@ -401,7 +401,7 @@
 
             p {
                 @include font(400, 0.8em);
-                color: darken($palette-grayish-blue, 15);
+                color: darken($palette-blurry-gray, 15);
                 text-align: right;
             }
         }

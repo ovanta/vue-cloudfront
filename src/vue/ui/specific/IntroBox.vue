@@ -213,7 +213,7 @@
         pointer-events: none;
         transform: translateY(2em) rotateX(-10deg) perspective(100px);
         transition: opacity 0.3s, transform 0.3s;
-        filter: drop-shadow(0 3px 8px rgba($palette-deep-blue, 0.2));
+        filter: drop-shadow(0 3px 8px rgba($palette-asphalt, 0.2));
 
         &.visible {
             opacity: 1;
@@ -265,7 +265,7 @@
             p {
                 @include font(400, 0.8em);
                 line-height: 1.3em;
-                color: rgba($palette-deep-blue, 0.75);
+                color: rgba($palette-asphalt, 0.75);
             }
 
             .actions {
@@ -297,7 +297,7 @@
                 .skip {
                     font-size: 0.8em;
                     text-decoration: underline;
-                    color: rgba($palette-grayish-blue, 0.75);
+                    color: rgba($palette-blurry-gray, 0.75);
                     cursor: pointer;
                     transition: all 0.3s;
 

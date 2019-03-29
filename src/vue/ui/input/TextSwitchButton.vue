@@ -78,7 +78,7 @@
     .option {
         padding: 0 0.75em;
         transition: all 0.3s;
-        color: rgba($palette-grayish-blue, 0.75);
+        color: rgba($palette-blurry-gray, 0.75);
         z-index: 1;
 
         &.active {

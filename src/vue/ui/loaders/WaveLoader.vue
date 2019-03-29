@@ -30,7 +30,7 @@
 
         > div {
             @include size(6px);
-            background: $palette-deep-blue;
+            background: $palette-asphalt;
             margin: 0.2em;
             border-radius: 100%;
             @include sequentialAnimationDelay(3, -0.85s);

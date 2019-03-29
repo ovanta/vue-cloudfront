@@ -80,7 +80,7 @@
 
         h3 {
             @include font(400, 0.85em);
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
         }
     }
 
@@ -89,7 +89,7 @@
         margin: 1.25em 0;
         max-height: 15em;
         overflow: auto;
-        color: $palette-deep-blue;
+        color: $palette-asphalt;
 
         .link {
             @include flex(row, center);
@@ -126,7 +126,7 @@
             text-align: center;
             margin: 1em 0;
             @include font(400, 0.85em);
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
         }
     }
 

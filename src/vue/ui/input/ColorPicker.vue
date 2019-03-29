@@ -283,7 +283,7 @@
         input {
             @include font(600, 0.85em, 0.05em);
             background: $palette-snow-white;
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             border: 1px solid transparent;
             padding: 0.25em 0.75em;
             text-transform: uppercase;

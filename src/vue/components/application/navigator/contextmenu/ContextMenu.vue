@@ -384,7 +384,7 @@
             font-size: 0.85em;
             cursor: pointer;
             transition: all 0.3s;
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             padding: 0.6em 1em;
 
             i {
@@ -397,7 +397,7 @@
             }
 
             &:hover {
-                background: rgba($palette-deep-blue, 0.09);
+                background: rgba($palette-asphalt, 0.09);
             }
 
             &.sub {
@@ -475,7 +475,7 @@
 
                 :hover,
                 &.delete:hover {
-                    color: $palette-deep-blue;
+                    color: $palette-asphalt;
                 }
 
                 &.sub {

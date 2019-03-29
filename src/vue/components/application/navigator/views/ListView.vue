@@ -188,11 +188,11 @@
         border: 1px solid transparent;
 
         &:nth-child(even) {
-            background: rgba($palette-deep-blue, 0.02);
+            background: rgba($palette-asphalt, 0.02);
         }
 
         i {
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             transition: all 0.3s;
             font-size: 1.25em;
             margin-bottom: 0.2em;
@@ -214,7 +214,7 @@
 
         .name,
         .detail {
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             transition: all 0.3s;
         }
 

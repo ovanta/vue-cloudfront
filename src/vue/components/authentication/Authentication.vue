@@ -186,7 +186,7 @@
         h1 {
             @include font(200, 2em);
             margin-bottom: 1em;
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             opacity: 0.9;
             text-align: center;
         }

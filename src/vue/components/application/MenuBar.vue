@@ -1,39 +1,31 @@
 <template>
     <section class="menu">
 
-        <div v-tooltip="'Home'"
-             :class="{'item btn-home': 1, active: activeTab === 'home'}"
-             @click="changeTab('home')">
+        <div :class="{'item btn-home': 1, active: activeTab === 'home'}" @click="changeTab('home')">
             <i class="fas fa-fw fa-home"></i>
+            <span>Home</span>
         </div>
 
-        <div v-tooltip="'View starred folder and files'"
-             :class="{'item btn-stared': 1, active: activeTab === 'marked'}"
-             @click="changeTab('marked')">
+        <div :class="{'item btn-stared': 1, active: activeTab === 'marked'}" @click="changeTab('marked')">
             <i class="fas fa-fw fa-star"></i>
-            <intro-box id="0"
-                       header="Starred folders and files"
-                       text="Mark your important files, folder or just use it as a quick way to access them."/>
+            <span>Bookmarks</span>
         </div>
 
-        <div v-tooltip="'Removed files / folders'"
-             :class="{'item btn-bin': 1, active: activeTab === 'bin'}"
-             @click="changeTab('bin')">
+        <div :class="{'item btn-bin': 1, active: activeTab === 'bin'}" @click="changeTab('bin')">
             <i class="fas fa-fw fa-trash-alt"></i>
+            <span>Trash</span>
         </div>
 
         <div class="eat-space"></div>
 
-        <div v-tooltip="'Refresh'"
-             class="item bottom btn-refresh"
-             @click="refresh">
+        <div class="item bottom btn-refresh" @click="refresh">
             <i class="fas fa-fw fa-sync-alt"></i>
+            <span>Refresh</span>
         </div>
 
-        <div v-tooltip="'Logout'"
-             class="item bottom btn-logout"
-             @click="$store.dispatch('auth/logout')">
+        <div class="item bottom btn-logout" @click="$store.dispatch('auth/logout')">
             <i class="fas fa-fw fa-sign-out-alt"></i>
+            <span>Logout</span>
         </div>
 
     </section>
@@ -89,42 +81,65 @@
 
     .menu {
         background: white;
-        box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
-        border-right: 1px solid rgba($palette-deep-blue, 0.05);
-        @include flex(column, center);
-        padding: 1em 0.75em;
+        box-shadow: 0 0 3px 0 rgba($palette-asphalt, 0.05);
+        border-right: 1px solid rgba($palette-asphalt, 0.05);
+        @include flex(column);
+        padding: 1.75vh 1.15vw;
         height: 100%;
-        color: $palette-decent-blue;
+        color: $palette-blurry-gray;
     }
 
     .item {
-        @include flex(column, center, center);
-        @include size(2.5em);
+        @include flex(row, center);
+        width: 100%;
         position: relative;
-        margin-bottom: 1em;
+        padding: 0.65em 0.9em;
+        border-radius: 0.25em;
+        margin: 0.75vh 0;
         cursor: pointer;
         transition: all 0.25s;
 
         i {
             transition: all 0.3s;
-            font-size: 1em;
+            font-size: 0.8em;
         }
 
-        &.active i {
-            color: $palette-theme-primary;
+        span {
+            @include font(600, 0.75em);
+            margin-left: 0.75em;
+            transition: all 0.3s;
         }
 
-        &:not(.active):hover i {
-            color: $palette-deep-blue;
+        &.active {
+            background: $palette-theme-secondary;
+
+            span, i {
+                color: white;
+            }
         }
 
-        &.bottom {
-            margin: 1em 0 0;
+        &:not(.active):hover {
+            background: rgba($palette-blurry-gray, 0.2);
+
+            span, i {
+                color: darken($palette-blurry-gray, 25);
+            }
         }
     }
 
     .eat-space {
         flex-grow: 1;
+    }
+
+    @include tablet {
+        .menu {
+            padding-right: 0;
+            padding-left: 0;
+
+            .item {
+                border-radius: 0;
+            }
+        }
     }
 
     @include mobile {
@@ -142,11 +157,21 @@
 
             .item {
                 position: relative;
-                margin: 0.5em 0.5em 0.45em;
+                margin: 0.5em 0;
                 transform: scale(1);
+                background: none;
+                justify-content: center;
+
+                span {
+                    display: none;
+                }
 
                 &.active {
-                    transform: translateY(-0.2em) scale(1.05);
+                    transform: translateY(-0.2em) scale(1.075);
+
+                    i {
+                        color: $palette-theme-primary;
+                    }
 
                     &::before {
                         opacity: 1;
@@ -170,7 +195,8 @@
                 &::before {
                     @include pseudo();
                     @include position(auto, 0, 0, 0);
-                    @include size(100%, 6px);
+                    @include size(70%, 6px);
+                    margin: auto;
                     background: $palette-theme-primary;
                     transform: translateY(0.75em) scale(0);
                     border-radius: 100em;

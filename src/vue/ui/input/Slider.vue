@@ -73,14 +73,14 @@
         position: absolute;
         @include position(0, auto, 0, 0);
         @include size(0, 100%);
-        background: $palette-deep-blue;
+        background: $palette-asphalt;
         border-radius: 50em;
     }
 
     .knob {
         position: absolute;
         @include size(1.25em);
-        background: $palette-deep-blue;
+        background: $palette-asphalt;
         top: 50%;
         transform: translate3d(-50%, -50%, 0);
         border-radius: 100%;

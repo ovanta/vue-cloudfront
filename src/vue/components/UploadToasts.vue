@@ -182,7 +182,7 @@
         .upload {
             @include flex(row, center);
             padding: 0.5em 0;
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             flex-shrink: 0;
 
             &:hover .indicator .cancel {
@@ -209,7 +209,7 @@
                     @include flex(row, center, center);
                     @include size(26px);
                     position: absolute;
-                    background: $palette-deep-blue;
+                    background: $palette-asphalt;
                     border-radius: 100%;
                     color: white;
                     font-size: 0.8em;

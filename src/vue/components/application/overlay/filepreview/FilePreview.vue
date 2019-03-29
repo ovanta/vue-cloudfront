@@ -99,7 +99,7 @@
 
         p {
             @include font(400, 0.95em);
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
         }
 
         i {
@@ -119,7 +119,7 @@
         min-height: 0;
 
         > i {
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1.25em;
@@ -160,19 +160,19 @@
                 @include size(30px);
                 cursor: pointer;
                 fill: $palette-snow-white;
-                background: $palette-deep-blue;
+                background: $palette-asphalt;
                 padding: 0.35em;
                 border-radius: 0.15em;
                 transition: all 0.3s;
 
                 &:hover {
-                    background: lighten($palette-deep-blue, 5);
+                    background: lighten($palette-asphalt, 5);
                 }
             }
 
             .no-preview {
                 @include font(400, 0.9em);
-                color: $palette-deep-blue;
+                color: $palette-asphalt;
                 text-align: center;
                 width: 100%;
 
@@ -183,7 +183,7 @@
                 > button {
                     @include flex(row, center, center);
                     margin: 1em auto 0;
-                    background: $palette-deep-blue;
+                    background: $palette-asphalt;
                     color: $palette-snow-white;
                     transition: all 0.3s;
                     padding: 0.5em 1em;
@@ -197,7 +197,7 @@
 
 
                     &:hover {
-                        background: lighten($palette-deep-blue, 5);
+                        background: lighten($palette-asphalt, 5);
                     }
                 }
             }

@@ -134,7 +134,7 @@
             position: relative;
             @include inline-flex(row, center);
             @include font(600, 0.825em);
-            color: rgba($palette-deep-blue, 0.8);
+            color: rgba($palette-asphalt, 0.8);
             margin-bottom: 0.5em;
 
             @include animate('0.3s') {
@@ -190,7 +190,7 @@
             }
 
             i {
-                color: rgba($palette-deep-blue, 0.25);
+                color: rgba($palette-asphalt, 0.25);
                 opacity: 0.5;
                 margin: 0 0.25em;
                 font-size: 1.2em;
@@ -218,7 +218,7 @@
 
     .amount-info {
         @include flex(row, center);
-        color: $palette-deep-blue;
+        color: $palette-asphalt;
         font-size: 0.9em;
         white-space: pre-wrap;
 
@@ -243,7 +243,7 @@
 
                 > span {
                     margin-right: 0.25em;
-                    background: $palette-deep-blue;
+                    background: $palette-asphalt;
                     padding: 0.15em 0.5em 0.225em;
                     border-radius: 0.15em;
                     box-shadow: 0 1px 2px rgba(black, 0.15);
