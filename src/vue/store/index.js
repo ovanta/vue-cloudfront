@@ -9,7 +9,7 @@ import {nodes}     from './app/nodes';
 import {auth}      from './app/auth';
 import {stats}     from './app/stats';
 import {data}      from './app/data';
-import {dialogbox} from './app/dialogbox';
+import {dialogbox} from './virtual/dialogbox';
 
 // Virtual modules act only as visual helpers / representation
 import {location}    from './virtual/location';
