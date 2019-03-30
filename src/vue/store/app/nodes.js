@@ -272,6 +272,19 @@ export const nodes = {
                     nodes: nodes.map(v => v.id),
                     destination: destination.id
                 }
+            }).catch(err => {
+
+                // Show error
+                this.commit('dialogbox/show', {
+                    type: 'error',
+                    title: 'Action failed',
+                    text: 'Cannot put a directory into itself.',
+                    buttons: [
+                        {type: 'accept', text: 'Okay'}
+                    ]
+                });
+
+                throw err;
             }).then(() => {
 
                 // Update nodes locally to save ressources

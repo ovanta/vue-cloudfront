@@ -4,6 +4,7 @@ export const dialogbox = {
 
     state: {
         open: false,
+        type: 'info',
         title: null,
         text: '',
         buttons: [],
@@ -12,9 +13,9 @@ export const dialogbox = {
 
     mutations: {
 
-        show(state, {title, text = '', buttons = [], onResolve = () => 0}) {
+        show(state, {title, type = 'info', text = '', buttons = [], onResolve = () => 0}) {
             Object.assign(state, {
-                title, text, buttons,
+                type, title, text, buttons,
                 open: true,
                 close(idx) {
                     state.open = false;

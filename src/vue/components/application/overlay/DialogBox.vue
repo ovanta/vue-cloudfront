@@ -4,7 +4,7 @@
         <div class="content">
 
             <div class="header">
-                <i class="fas fa-fw fa-question-circle"></i>
+                <i :class="`fas fa-fw fa-${icon}`"></i>
                 <h1> {{ dialogbox.title }}</h1>
             </div>
 
@@ -37,7 +37,21 @@
         },
 
         computed: {
-            ...mapState(['dialogbox'])
+            ...mapState(['dialogbox']),
+
+            icon() {
+                switch (this.dialogbox.type) {
+                    case 'info': {
+                        return 'question-circle';
+                    }
+                    case 'warn': {
+                        return 'exclamation-circle';
+                    }
+                    case 'error': {
+                        return 'times-circle';
+                    }
+                }
+            }
         },
 
         methods: {
@@ -106,7 +120,7 @@
             @include flex(row, center);
 
             h1 {
-                @include font(600, 1.05em);
+                @include font(600, 1em);
             }
 
             i {
