@@ -163,29 +163,16 @@
                     color: black;
                 }
 
-                &::before,
                 &::after {
                     @include pseudo();
-                    transition: all 0.3s;
-                    margin: auto;
-                }
-
-                &::after {
                     @include size(0);
                     @include position(0, 0, auto, 0);
+                    margin: auto;
                     border: 4px solid transparent;
                     border-top-color: $palette-cloud-blue;
                     opacity: 0;
                     transform: translateY(-0.25em);
-                }
-
-                &::before {
-                    @include position(auto, 0, 0, 0);
-                    @include size(90%, 2px);
-                    background: #{'rgb(var(--color))'};
-                    border-radius: 50em;
-                    opacity: 0;
-                    transform: translateY(0.25em);
+                    transition: all 0.3s;
                 }
             }
 

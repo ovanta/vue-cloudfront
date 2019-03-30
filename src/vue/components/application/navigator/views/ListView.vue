@@ -186,6 +186,7 @@
         cursor: pointer;
         font-size: 0.8em;
         border: 1px solid transparent;
+        border-radius: 0.15em;
 
         &:nth-child(even) {
             background: rgba($palette-asphalt, 0.02);

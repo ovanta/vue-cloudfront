@@ -215,7 +215,7 @@
     .nav {
         @include flex(row);
         flex-shrink: 0;
-        border-bottom: 2px solid rgba($palette-asphalt, 0.03);
+        border-bottom: 2px solid rgba($palette-asphalt, 0.05);
         padding-bottom: 1em;
         margin: 2em 1.5em 0 1.5em;
 

@@ -134,11 +134,11 @@
     h1 {
         position: relative;
         display: inline-block;
-        font-size: 0.95em;
+        font-size: 0.85em;
         color: $palette-asphalt;
-        padding: 0.15em 0.5em 0.25em;
+        padding: 0.15em 0 0.5em;
         border-radius: 0.15em;
-        margin: 1.5em 0 0.2em;
+        margin: 1.75em 0 0.35em;
     }
 
     .flex-container {
@@ -236,8 +236,8 @@
 
         .star {
             position: absolute;
-            @include position(0.35em, 0.1em, auto, auto);
-            font-size: 0.75em;
+            @include position(-0.4em, -0.5em, auto, auto);
+            font-size: 0.85em;
             opacity: 0;
             transform: translateY(-0.15em) rotate(10deg);
             transition: all 0.3s;

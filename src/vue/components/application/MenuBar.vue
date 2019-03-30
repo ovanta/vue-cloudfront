@@ -80,13 +80,12 @@
 <style lang="scss" scoped>
 
     .menu {
-        background: white;
-        box-shadow: 0 0 3px 0 rgba($palette-asphalt, 0.05);
-        border-right: 1px solid rgba($palette-asphalt, 0.05);
+        border-right: 2px solid rgba($palette-asphalt, 0.05);
         @include flex(column);
         padding: 1.75vh 1.15vw;
         height: 100%;
         color: $palette-blurry-gray;
+        background: white;
     }
 
     .item {

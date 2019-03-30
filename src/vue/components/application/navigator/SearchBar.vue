@@ -134,8 +134,8 @@
     .search-bar {
         position: relative;
         padding: 1em;
+        border-bottom: 2px solid rgba($palette-asphalt, 0.05);
         background: white;
-        box-shadow: 0 0 3px 0 rgba($palette-asphalt, 0.05);
     }
 
     .search-field {

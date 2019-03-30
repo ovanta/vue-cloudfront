@@ -110,13 +110,13 @@
 
     .index {
         font-family: $font-family;
-        user-select: none;
         @include flex(row);
+        user-select: none;
+        background: mix($palette-asphalt, white, 1);
         overflow: hidden;
 
         .right-side {
             @include flex(column);
-            background: mix($palette-snow-white, white, 75);
             overflow: hidden;
             width: 100%;
             height: 100%;
