@@ -15,6 +15,10 @@
             </div>
         </div>
 
+        <div :class="{'item btn-dashboard': 1, active: activeTab === 'dashboard'}" @click="changeTab('dashboard')">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </div>
 
         <div :class="{'item btn-home': 1, active: activeTab === 'home'}" @click="changeTab('home')">
             <i class="fas fa-fw fa-home"></i>
