@@ -376,7 +376,7 @@
         h2 {
             @include font(400, 0.9em);
             padding: 0.75em 0 0.25em;
-            border-bottom: 1px solid rgba($palette-asphalt, 0.05);
+            border-bottom: 1px solid $palette-sick-white;
             margin-bottom: 0.5em;
         }
 

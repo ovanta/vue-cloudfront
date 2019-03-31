@@ -1,6 +1,21 @@
 <template>
     <section class="menu">
 
+        <div class="header" v-if="auth.status">
+            <h1>Hello {{ auth.status.user.username }}</h1>
+
+            <div class="store-info">
+                <circle-progress-bar :value="$store.getters['nodes/totalSize'] / auth.status.availableSpace" :stroke-width="1.15"/>
+
+                <div class="summary">
+                    <p>{{ $store.getters['nodes/totalSize'] | readableByteCount }}</p>
+                    <span></span>
+                    <p>{{ auth.status.availableSpace | readableByteCount }}</p>
+                </div>
+            </div>
+        </div>
+
+
         <div :class="{'item btn-home': 1, active: activeTab === 'home'}" @click="changeTab('home')">
             <i class="fas fa-fw fa-home"></i>
             <span>Home</span>
@@ -34,21 +49,24 @@
 <script>
 
     // Components
-    import IntroBox from '../../ui/specific/IntroBox';
+    import IntroBox          from '../../ui/specific/IntroBox';
+    import CircleProgressBar from '../../ui/loaders/CircleProgressBar';
 
     // Vue stuff
     import {mapState} from 'vuex';
 
     export default {
 
-        components: {IntroBox},
+        components: {IntroBox, CircleProgressBar},
 
         data() {
-            return {};
+            return {
+                status: {}
+            };
         },
 
         computed: {
-            ...mapState(['activeTab'])
+            ...mapState(['activeTab', 'auth'])
         },
 
         methods: {
@@ -80,12 +98,52 @@
 <style lang="scss" scoped>
 
     .menu {
-        border-right: 2px solid rgba($palette-asphalt, 0.05);
+        border-right: 2px solid $palette-sick-white;
         @include flex(column);
         padding: 1.75vh 1.15vw;
         height: 100%;
         color: $palette-blurry-gray;
         background: white;
+    }
+
+    .header {
+        margin: 0.75em auto 2.5vh;
+        padding-bottom: 2.5vh;
+        border-bottom: 2px solid $palette-sick-white;
+
+        h1 {
+            @include font(600, 0.9em);
+            text-align: center;
+            margin-bottom: 1.5em;
+        }
+
+        .store-info {
+            @include flex(column, center, center);
+            position: relative;
+            width: 100%;
+
+            .circle-progress-bar {
+                @include size(6.5em);
+            }
+
+            .summary {
+                position: absolute;
+                @include position(0, 0, 0, 0);
+                @include flex(column, center, center);
+
+                span {
+                    display: inline-block;
+                    @include size(20%, 1px);
+                    background: $palette-decent-blue;
+                    margin: 0.35em 0;
+                }
+
+                p {
+                    @include font(600, 0.8em);
+                    color: $palette-decent-blue;
+                }
+            }
+        }
     }
 
     .item {
@@ -149,9 +207,14 @@
             height: auto;
             padding: 0 0.5em;
             z-index: 10;
+            background: transparent;
 
             .eat-space {
                 flex-grow: 0;
+            }
+
+            .header {
+                display: none;
             }
 
             .item {
@@ -194,7 +257,7 @@
                 &::before {
                     @include pseudo();
                     @include position(auto, 0, 0, 0);
-                    @include size(70%, 6px);
+                    @include size(60%, 6px);
                     margin: auto;
                     background: $palette-theme-primary;
                     transform: translateY(0.75em) scale(0);

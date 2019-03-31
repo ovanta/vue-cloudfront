@@ -13,7 +13,10 @@ export const auth = {
         apikey: null,
 
         // Timestamp of last authentication
-        lastAuthentication: null
+        lastAuthentication: null,
+
+        // Basic session and server informations
+        status: null
     },
 
     actions: {
@@ -50,7 +53,7 @@ export const auth = {
                     this.dispatch('nodes/update'),
                     this.dispatch('stats/update')
                 ]);
-            });
+            }).then(() => this.dispatch('auth/status'));
         },
 
         /**
@@ -79,7 +82,7 @@ export const auth = {
                     this.dispatch('stats/sync'),
                     this.dispatch('nodes/update')
                 ]);
-            });
+            }).then(() => this.dispatch('auth/status'));
         },
 
         /**
@@ -100,7 +103,7 @@ export const auth = {
 
                 // Update nodes
                 return Promise.all([this.dispatch('nodes/update'), this.dispatch('stats/update')]);
-            }).catch(() => {
+            }).then(() => this.dispatch('auth/status')).catch(() => {
                 this.dispatch('auth/logout');
             });
         },
@@ -162,6 +165,20 @@ export const auth = {
                         });
                     }
                 }
+            });
+        },
+
+        /**
+         * Requests basic session and server informations
+         * @param state
+         * @returns {Promise<*|Promise<any>>}
+         */
+        async status({state}) {
+            return this.dispatch('fetch', {
+                route: 'status',
+                body: {apikey: state.apikey}
+            }).then(res => {
+                state.status = res;
             });
         }
     }

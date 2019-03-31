@@ -102,6 +102,21 @@ export const nodes = {
 
                 return ret;
             };
+        },
+
+        /**
+         * Calculates the current amount of space used
+         * @param state
+         * @returns {number}
+         */
+        totalSize(state) {
+            let size = 0;
+
+            for (let i = 0, l = state.length; i < l; i++) {
+                size += state[i].size || 0;
+            }
+
+            return size;
         }
     },
 

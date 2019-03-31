@@ -134,7 +134,7 @@
     .search-bar {
         position: relative;
         padding: 1em;
-        border-bottom: 2px solid rgba($palette-asphalt, 0.05);
+        border-bottom: 2px solid $palette-sick-white;
         background: white;
     }
 
