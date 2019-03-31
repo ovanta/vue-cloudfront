@@ -22,6 +22,7 @@
             <b v-if="searchResult.dir">{{ searchResult.dir }} folder{{ searchResult.dir === 1 ? '' : 's' }}</b>
             <span v-if="searchResult.file || searchResult.dir"> found</span>
             <span v-if="!searchResult.file && !searchResult.dir">Nothing found</span>
+            <span v-if="search.query"> for <b>{{ search.query }}</b></span>
 
             <div class="filters">
                 <span v-for="filter of search.filters">{{ filter }}</span>
@@ -77,7 +78,7 @@
             },
 
             searchResult() {
-                const search = this.$store.state.search;
+                const search = this.search;
 
                 if (!search.active) {
                     return null;
@@ -231,7 +232,7 @@
                 > span {
                     margin-right: 0.25em;
                     background: $palette-asphalt;
-                    padding: 0.15em 0.5em 0.225em;
+                    padding: 0.15em 0.75em 0.35em;
                     border-radius: 0.15em;
                     box-shadow: 0 1px 2px rgba(black, 0.15);
                 }

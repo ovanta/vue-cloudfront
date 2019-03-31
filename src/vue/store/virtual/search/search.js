@@ -9,6 +9,7 @@ export const search = {
 
         // If the user is currently searching for somenthing
         active: false,
+        query: '',
 
         // Search result
         nodes: [],
@@ -52,6 +53,7 @@ export const search = {
 
             // If the query is empty, search should be disabled
             state.active = !!rawQuery;
+            state.query = '';
             state.filters = [];
 
             if (state.active) {
@@ -68,6 +70,7 @@ export const search = {
                  * Query is the search value without filter strings.
                  */
                 let {filters, query} = squ.parseQuery(rawQuery);
+                state.query = query;
 
                 // Check if regexp and try to parse
                 if (regex) {

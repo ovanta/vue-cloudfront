@@ -1,7 +1,7 @@
 <template>
     <section class="menu">
 
-        <div class="header" v-if="auth.status">
+        <div v-if="auth.status" class="header">
             <h1>Hello {{ auth.status.user.username }}</h1>
 
             <div class="store-info">
