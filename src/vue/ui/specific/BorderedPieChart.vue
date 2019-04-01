@@ -45,7 +45,7 @@
             },
             strokeWidth: {
                 type: Number,
-                default: 2.5
+                default: 2.25
             }
         },
 
@@ -87,7 +87,7 @@
         @include flex(column, center, center);
 
         svg {
-            @include size(7.5vmax);
+            @include size(9vmax);
             overflow: visible;
             transform-origin: center;
             transform: rotateZ(-90deg);
@@ -120,10 +120,9 @@
 
                 span {
                     display: inline-block;
-                    @include size(8px, 5px);
+                    @include size(4px, 14px);
                     border-radius: 10em;
                     margin-right: 0.35em;
-
                 }
 
                 p {
