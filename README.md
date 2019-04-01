@@ -112,14 +112,3 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 * [realtime-sync](https://github.com/vue-cloudfront/vue-cloudfront/tree/realtime-sync) - Realtime synchronization between sessions.
 * [history](https://github.com/vue-cloudfront/vue-cloudfront/tree/history) - (aborted) Additional home-tab with a temporary, visual log of all your actions.
 * [terminal](https://github.com/vue-cloudfront/vue-cloudfront/tree/terminal) - (aborted) Additional home-tab with a full functional terminal like bash.
-
-
-## Screenshots
-Checkout the [demo](https://vue-cloudfront.com/) the get an extensive view!
-![screenshot mobile](https://user-images.githubusercontent.com/30767528/53444323-22d75000-3a0e-11e9-874f-be79583e365e.png)
-![screenshot 37](https://user-images.githubusercontent.com/30767528/53444096-8dd45700-3a0d-11e9-9b7b-ac2793ee1130.png)
-![screenshot 38](https://user-images.githubusercontent.com/30767528/53444098-8e6ced80-3a0d-11e9-980f-436813cc7539.png)
-![screenshot 39](https://user-images.githubusercontent.com/30767528/53444100-8e6ced80-3a0d-11e9-9179-0508116e985d.png)
-![screenshot 41](https://user-images.githubusercontent.com/30767528/53444101-8e6ced80-3a0d-11e9-82b3-81fec6395010.png)
-![screenshot 42](https://user-images.githubusercontent.com/30767528/53444103-8e6ced80-3a0d-11e9-90b4-540efc622427.png)
-![screenshot 43](https://user-images.githubusercontent.com/30767528/53444104-8e6ced80-3a0d-11e9-8853-de03b222ab72.png)
