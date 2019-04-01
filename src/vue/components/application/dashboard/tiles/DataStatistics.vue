@@ -1,6 +1,7 @@
 <template>
-    <bordered-pie-chart :values="fileTypes.values" 
-                        :labels="fileTypes.names" 
+    <bordered-pie-chart :values="fileTypes.values"
+                        :labels="fileTypes.names"
+                        :stroke-width="2.75"
                         class="data-statistics"/>
 </template>
 
@@ -10,7 +11,7 @@
     import config from '../../../../../../config/config.json';
 
     // Components
-    import BorderedPieChart from '../../../../ui/specific/BorderedPieChart';
+    import BorderedPieChart  from '../../../../ui/specific/BorderedPieChart';
 
     // Map each extension to it's name to process it faster later
     const transformedExtensionsMap = (() => {

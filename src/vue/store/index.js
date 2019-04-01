@@ -73,7 +73,7 @@ export default new Vuex.Store({
 
         // UI Props
         viewType: 'grid',
-        activeTab: 'home',
+        activeTab: 'dashboard',
         activePopup: null,
 
         // Amount of how many requests are currently active

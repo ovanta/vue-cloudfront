@@ -2,6 +2,7 @@
     <div class="dashboard">
 
         <data-statistics class="tile"/>
+        <active-sessions class="tile"/>
 
     </div>
 </template>
@@ -10,10 +11,11 @@
 
     // Components
     import DataStatistics from './tiles/DataStatistics';
+    import ActiveSessions from './tiles/ActiveSessions';
 
     export default {
 
-        components: {DataStatistics},
+        components: {DataStatistics, ActiveSessions},
 
         data() {
             return {};
@@ -39,11 +41,14 @@
         border-radius: 0.25em;
         background: white;
         border: 2px solid $palette-sick-white;
-        padding: 1.25em 0.75em;
+        padding: 2.5vh 0.75vw;
 
         &.data-statistics {
-            grid-column: 1 / 1;
-            grid-row: 1 / 1;
+            grid-area: 1 / 1 / 1 / 1;
+        }
+
+        &.active-sessions {
+            grid-area: 2 / 2 / 1 / 4;
         }
     }
 
