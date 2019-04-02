@@ -3,24 +3,21 @@
 
         <h1>Active Sessions</h1>
 
-        <table class="sessions">
-            <thead>
-                <tr>
-                    <th class="country">Country</th>
-                    <th class="city">City</th>
-                    <th class="location">Location</th>
-                    <th class="timestamp">Timestamp</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="session of auth.status.activeSessions">
-                    <td class="country">{{ session.country }}</td>
-                    <td class="city">{{ session.city }}</td>
-                    <td class="location">{{ session.location.latitude | DDToDMS }}N / {{ session.location.longitude | DDToDMS }}E</td>
-                    <td class="timestamp">{{ session.registerTimestamp | prettifyTimestamp }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="sessions-header">
+            <span class="country">Country</span>
+            <span class="city">City</span>
+            <span class="location">Location</span>
+            <span class="timestamp">Timestamp</span>
+        </div>
+
+        <div class="sessions-body">
+            <template v-for="(session, index) of auth.activeSessions">
+                <span :class="{country: 1, even: index % 2}">{{ session.country }}</span>
+                <span :class="{city: 1, even: index % 2}">{{ session.city }}</span>
+                <span :class="{location: 1, even: index % 2}">{{ session.location.latitude | DDToDMS }}N / {{ session.location.longitude | DDToDMS }}E</span>
+                <span :class="{timestamp: 1, even: index % 2}">{{ session.registerTimestamp | prettifyTimestamp }}</span>
+            </template>
+        </div>
 
     </div>
 </template>
@@ -63,19 +60,17 @@
 
         h1 {
             @include font(600, 1em);
-            margin: 0 0 0.75em;
+            margin: 0 0 0.75em 0.5em;
             color: $palette-asphalt;
         }
     }
 
-    .sessions {
-        table-layout: fixed;
-        border-collapse: collapse;
-        width: 100%;
-        color: $palette-asphalt;
+    .sessions-header,
+    .sessions-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr 3fr 2fr;
 
-        th,
-        td {
+        span {
             @include font(600, 0.8em);
             padding: 0.55em 0.5em;
             min-width: 0;
@@ -85,39 +80,14 @@
             text-align: left;
             border: none;
 
-            &.country {
-                width: 18%;
-            }
-
-            &.city {
-                width: 18%;
-            }
-
-            &.location {
-                width: 44%;
-            }
-
-            &.timestamp {
-                width: 20%;
-            }
-        }
-
-        th {
-            font-size: 0.8em;
-            padding-bottom: 0.75em;
-            border-bottom: 2px solid $palette-sick-white;
-        }
-
-        tbody tr {
-
-            &:first-child td {
-                padding-top: 0.75em;
-            }
-
-            &:nth-child(even) {
+            &.even {
                 background: $palette-sick-white;
             }
         }
+    }
+
+    .sessions-body{
+        overflow: auto;
     }
 
 </style>
