@@ -41,7 +41,18 @@
         border-radius: 0.25em;
         background: white;
         border: 2px solid $palette-sick-white;
-        padding: 2.5vh 0.75vw;
+
+        &:not(.no-padding) {
+            padding: 2.5vh 0.75vw;
+        }
+
+        &:not(.no-v-padding) {
+            padding: 0 0.75vw;
+        }
+
+        &:not(.no-h-padding) {
+            padding: 2.5vh 0;
+        }
 
         &.data-statistics {
             grid-area: 1 / 1 / 1 / 1;

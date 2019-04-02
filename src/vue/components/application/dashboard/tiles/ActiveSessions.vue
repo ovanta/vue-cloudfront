@@ -1,8 +1,9 @@
 <template>
-    <div v-if="auth.status" class="active-sessions">
+    <div v-if="auth.status" class="active-sessions no-v-padding">
 
         <h1>Active Sessions</h1>
 
+        <!-- Session table -->
         <div class="sessions-header">
             <span class="country">Country</span>
             <span class="city">City</span>
@@ -18,6 +19,9 @@
                 <span :class="{timestamp: 1, even: index % 2}">{{ session.registerTimestamp | prettifyTimestamp }}</span>
             </template>
         </div>
+
+        <!-- Footer -->
+        <p class="footer-info">People who login with your credentials will appear here</p>
 
     </div>
 </template>
@@ -60,7 +64,7 @@
 
         h1 {
             @include font(600, 1em);
-            margin: 0 0 0.75em 0.5em;
+            margin: 0 0 0.75em 1em;
             color: $palette-asphalt;
         }
     }
@@ -68,7 +72,8 @@
     .sessions-header,
     .sessions-body {
         display: grid;
-        grid-template-columns: 1fr 1fr 3fr 2fr;
+        grid-template-columns: 1.5fr 2fr 3fr 1.5fr;
+        color: $palette-asphalt;
 
         span {
             @include font(600, 0.8em);
@@ -83,11 +88,37 @@
             &.even {
                 background: $palette-sick-white;
             }
+
+            &.country {
+                padding-left: 1.5em;
+            }
+
+            &.timestamp{
+                padding-right: 1.5em;
+            }
+
+            &.city,
+            &.location,
+            &.timestamp {
+                color: rgba($palette-asphalt, 0.85);
+            }
         }
     }
 
-    .sessions-body{
+    .sessions-body {
         overflow: auto;
+    }
+
+    .footer-info {
+        margin-top: auto;
+        text-align: center;
+        color: rgba($palette-asphalt, 0.5);
+        @include font(600, 0.7em);
+        transition: all 0.3s;
+
+        &:hover {
+            color: rgba($palette-asphalt, 0.85);
+        }
     }
 
 </style>
