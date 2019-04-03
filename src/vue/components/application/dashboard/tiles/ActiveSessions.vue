@@ -18,8 +18,8 @@
             <template v-for="(session, index) of auth.activeSessions">
                 <span :class="{country: 1, even: index % 2}">{{ session.country }}</span>
                 <span :class="{city: 1, even: index % 2}">{{ session.city }}</span>
-                <span :class="{location: 1, even: index % 2}">{{ session.location.latitude | DDToDMS }}N / {{ session.location.longitude | DDToDMS }}E</span>
-                <span :class="{timestamp: 1, even: index % 2}">{{ session.registerTimestamp | prettifyTimestamp }}</span>
+                <span :class="{location: 1, even: index % 2}">{{ session.location.latitude }}N / {{ session.location.longitude | DDToDMS }}E</span>
+                <span :class="{timestamp: 1, even: index % 2}">{{ utils.formatDate('HH:mm:ss', session.registerTimestamp) }}</span>
             </template>
         </div>
 
@@ -43,12 +43,6 @@
                 const m = Number((val % 1 * 60).toFixed(2));
                 const s = Number((m % 1 * 60).toFixed(2));
                 return `${d}° ${m}' ${s}"`;
-            },
-
-            prettifyTimestamp(ts) {
-                const d = new Date(ts);
-                const get = str => String(d[str]()).padStart(2, '0');
-                return `${get('getHours')}:${get('getMinutes')}:${get('getSeconds')}`;
             }
         },
 
