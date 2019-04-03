@@ -96,7 +96,7 @@
         opacity: 0;
         transform: translateY(-1em) rotateX(10deg);
         transition: all 0.3s;
-        background: $palette-sick-white;
+        background: rgba($palette-sick-white, 0.5);
         z-index: 10;
 
         &.open {

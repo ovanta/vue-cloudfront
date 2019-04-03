@@ -2,7 +2,10 @@
     <section class="menu">
 
         <div v-if="auth.status" class="header">
-            <h1>Hello {{ auth.status.user.username }}</h1>
+            <h1>
+                <span>Hello {{ auth.status.user.username }}</span>
+                <i class="fas fa-fw fa-hand-peace"></i>
+            </h1>
 
             <div class="store-info">
                 <circle-progress-bar :value="$store.getters['nodes/totalSize'] / auth.status.availableSpace" :stroke-width="1.15"/>
@@ -113,8 +116,13 @@
 
         h1 {
             @include font(600, 0.9em);
-            text-align: center;
+            @include flex(row, center, center);
             margin-bottom: 1.5em;
+
+            i {
+                font-size: 0.75em;
+                margin-left: 0.4em;
+            }
         }
 
         .store-info {
