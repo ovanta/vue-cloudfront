@@ -1,7 +1,10 @@
 <template>
     <div v-if="auth.status" class="active-sessions no-v-padding">
 
-        <h1>Active Sessions</h1>
+        <h1>
+            <i class="fas fa-fw fa-globe-europe"></i>
+            <span>Active Sessions</span>
+        </h1>
 
         <!-- Session table -->
         <div class="sessions-header">
@@ -61,12 +64,10 @@
     .active-sessions {
         @include flex(column);
         width: 100%;
+    }
 
-        h1 {
-            @include font(600, 1em);
-            margin: 0 0 0.75em 1em;
-            color: $palette-asphalt;
-        }
+    .sessions-header{
+        border-bottom: 2px solid $palette-sick-white;
     }
 
     .sessions-header,
@@ -93,7 +94,7 @@
                 padding-left: 1.5em;
             }
 
-            &.timestamp{
+            &.timestamp {
                 padding-right: 1.5em;
             }
 

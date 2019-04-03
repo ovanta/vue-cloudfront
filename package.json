@@ -29,7 +29,7 @@
         "dev": "vue-cli-service serve"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.4.2",
+        "@fortawesome/fontawesome-free": "^5.8.1",
         "@simonwep/selection-js": "^0.2.1",
         "autoprefixer": "^9.5.0",
         "normalize.css": "^8.0.1",

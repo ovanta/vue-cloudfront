@@ -1,6 +1,7 @@
 <template>
     <div class="dashboard">
 
+        <!-- Dashboard tiles -->
         <data-statistics class="tile"/>
         <active-sessions class="tile"/>
 
@@ -35,23 +36,37 @@
         grid-template-columns: repeat(3, 1fr);
         grid-gap: $gap-size;
         padding: $gap-size;
+
     }
 
     .tile {
         border-radius: 0.25em;
         background: white;
         border: 2px solid $palette-sick-white;
+        padding: 2.5vh 0.75vw;
 
-        &:not(.no-padding) {
-            padding: 2.5vh 0.75vw;
+        /deep/ > h1 {
+            @include flex(row, center);
+            @include font(600, 1em);
+            margin: 0 0 1em 1em;
+            color: $palette-asphalt;
+
+            i {
+                font-size: 1em;
+                margin-right: 0.35em;
+            }
         }
 
-        &:not(.no-v-padding) {
-            padding: 0 0.75vw;
+        &.no-padding {
+            padding: 0;
         }
 
-        &:not(.no-h-padding) {
+        &.no-v-padding {
             padding: 2.5vh 0;
+        }
+
+        &.no-h-padding {
+            padding: 0 0.75vw;
         }
 
         &.data-statistics {

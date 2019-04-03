@@ -41,7 +41,7 @@ export default {
 
         updateLocation(node) {
             const update = () => {
-                this.$store.commit('setActiveTab', 'home');
+                this.$store.commit('setActiveTab', 'dashboard');
                 this.$store.commit('location/update', node);
             };
 
