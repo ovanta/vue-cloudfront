@@ -71,8 +71,8 @@ export const auth = {
                 // Register websocket
                 websocket.register(apikey);
 
-                // Jump to home tab
-                this.commit('setActiveTab', 'home');
+                // Jump to dashboard
+                this.commit('setActiveTab', 'dashboard');
 
                 // Update nodes and perform first-time sync of stats
                 return Promise.all([
@@ -101,8 +101,8 @@ export const auth = {
                 // Register websocket
                 websocket.register(apikey);
 
-                // Jump to home tab
-                this.commit('setActiveTab', 'home');
+                // Jump to dashboard
+                this.commit('setActiveTab', 'dashboard');
 
                 // Update nodes and perform first-time sync of stats
                 return Promise.all([
