@@ -376,22 +376,23 @@ export function formatDate(format, date = Date.now(), locales = 'en-us') {
         return 'Invalid date';
     }
 
+    const pad = (v, a = 2) => String(v).padStart(a, '0');
     const getLocal = (name, type) => date.toLocaleString(locales, {[name]: type});
 
     const strMap = {
-        'HH': date.getHours(),
-        'mm': date.getMinutes(),
-        'ss': date.getSeconds(),
+        'HH': pad(date.getHours()),
+        'mm': pad(date.getMinutes()),
+        'ss': pad(date.getSeconds()),
         'x': date.getTime(),
-        'SSS': date.getMilliseconds(),
-        'YYYY': date.getFullYear(),
+        'SSS': pad(date.getMilliseconds(), 4),
+        'YYYY': pad(date.getFullYear(), 4),
         'MMMM': getLocal('month', 'long'),
         'MMM': getLocal('month', 'short'),
-        'MM': date.getMonth(),
+        'MM': pad(date.getMonth()),
         'M': getLocal('month', 'narrow'),
         'DDDD': getLocal('weekday', 'long'),
         'DDD': getLocal('weekday', 'short'),
-        'DD': date.getDate(),
+        'DD': pad(date.getDate()),
         'D': getLocal('weekday', 'narrow')
     };
 
