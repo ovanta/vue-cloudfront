@@ -120,9 +120,10 @@
 
                 span {
                     display: inline-block;
-                    @include size(4px, 14px);
-                    border-radius: 10em;
+                    @include size(8px);
+                    border-radius: 2px;
                     margin-right: 0.35em;
+                    margin-bottom: -2px;
                 }
 
                 p {

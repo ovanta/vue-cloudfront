@@ -10,7 +10,7 @@
         <div class="sessions-header">
             <span class="country">Country</span>
             <span class="city">City</span>
-            <span class="location">Location</span>
+            <span class="browser">Browser</span>
             <span class="timestamp">Timestamp</span>
         </div>
 
@@ -18,7 +18,7 @@
             <template v-for="(session, index) of auth.activeSessions">
                 <span :class="{country: 1, even: index % 2}">{{ session.country }}</span>
                 <span :class="{city: 1, even: index % 2}">{{ session.city }}</span>
-                <span :class="{location: 1, even: index % 2}">{{ session.location.latitude }}N / {{ session.location.longitude | DDToDMS }}E</span>
+                <span :class="{browser: 1, even: index % 2}">{{ session.device.os.name }} {{ session.device.os.version }} / {{ session.device.browser.name }} {{ session.device.browser.version }}</span>
                 <span :class="{timestamp: 1, even: index % 2}">{{ utils.formatDate('HH:mm:ss', session.registerTimestamp) }}</span>
             </template>
         </div>
@@ -35,16 +35,6 @@
     import {mapState} from 'vuex';
 
     export default {
-
-        filters: {
-
-            DDToDMS(val) {
-                const d = Math.floor(val);
-                const m = Number((val % 1 * 60).toFixed(2));
-                const s = Number((m % 1 * 60).toFixed(2));
-                return `${d}° ${m}' ${s}"`;
-            }
-        },
 
         computed: {
             ...mapState(['auth'])
@@ -93,7 +83,7 @@
             }
 
             &.city,
-            &.location,
+            &.browser,
             &.timestamp {
                 color: rgba($palette-asphalt, 0.85);
             }

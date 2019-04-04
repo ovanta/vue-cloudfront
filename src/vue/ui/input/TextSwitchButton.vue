@@ -1,5 +1,5 @@
 <template>
-    <div class="text-switch-button" ref="textSwitchButton">
+    <div ref="textSwitchButton" class="text-switch-button">
 
         <span v-for="(opt, index) of options"
               ref="options"
