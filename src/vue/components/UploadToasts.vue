@@ -229,7 +229,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .upload-bar {
             bottom: 10%;
         }

@@ -1,3 +1,9 @@
-@import 'lib/mixins';
-@import 'lib/variables';
-@import 'lib/breakpoints';
+@import '~@simonwep/sassyfication';
+@import 'variables';
+
+// Overrides
+@mixin MQTablets {
+    @media all and (max-width: 1025px), all and (max-height: 650px) {
+        @content
+    }
+}

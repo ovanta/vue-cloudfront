@@ -144,17 +144,17 @@
         &::before {
             content: 'desktop';
 
-            @include tablet {
+            @include MQTablets {
                 content: 'tablet';
             }
 
-            @include mobile {
+            @include MQPhones {
                 content: 'mobile';
             }
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .index {
             flex-direction: column-reverse;
         }

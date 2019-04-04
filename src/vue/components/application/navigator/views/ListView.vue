@@ -285,7 +285,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .dir,
         .file,
         .header {

@@ -39,6 +39,7 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+        "@simonwep/sassyfication": "0.0.2",
         "@vue/cli-plugin-babel": "^3.0.4",
         "@vue/cli-plugin-eslint": "^3.1.5",
         "@vue/cli-plugin-pwa": "^3.3.0",

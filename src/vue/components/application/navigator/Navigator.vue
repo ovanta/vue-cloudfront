@@ -295,7 +295,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .nav {
             margin: 1.25em 0.75em 0.75em;
 

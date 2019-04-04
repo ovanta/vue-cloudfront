@@ -452,7 +452,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .menu {
             position: fixed;
             top: auto !important;

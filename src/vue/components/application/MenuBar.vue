@@ -192,7 +192,7 @@
         flex-grow: 1;
     }
 
-    @include tablet {
+    @include MQTablets {
         .menu {
             padding-right: 0;
             padding-left: 0;
@@ -203,7 +203,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .menu {
             @include flex(row, center);
             justify-content: space-between; // Edge fallback

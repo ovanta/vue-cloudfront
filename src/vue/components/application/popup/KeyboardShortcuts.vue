@@ -414,7 +414,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .shortcut-sections {
             flex-direction: column;
             padding-right: 0.5em;

@@ -143,13 +143,13 @@
         }
     }
 
-    @include tablet {
+    @include MQTablets {
         .popup {
             padding: 1em;
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .popup {
             padding: 0.25em;
         }

@@ -240,7 +240,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .hierarchy {
             min-height: 0;
         }
