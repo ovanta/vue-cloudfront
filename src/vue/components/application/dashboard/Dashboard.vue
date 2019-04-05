@@ -6,6 +6,7 @@
         <active-sessions class="tile"/>
         <group-statistics class="tile"/>
         <error-log class="tile"/>
+        <digital-clock class="tile "/>
 
     </div>
 </template>
@@ -17,10 +18,11 @@
     import ActiveSessions  from './tiles/ActiveSessions';
     import GroupStatistics from './tiles/GroupStatistics';
     import ErrorLog        from './tiles/ErrorLog';
+    import DigitalClock    from './tiles/DigitalClock';
 
     export default {
 
-        components: {DataStatistics, ActiveSessions, GroupStatistics, ErrorLog},
+        components: {DataStatistics, ActiveSessions, GroupStatistics, ErrorLog, DigitalClock},
 
         data() {
             return {};
@@ -80,16 +82,20 @@
             grid-area: 1 / 1 / 1 / 1;
         }
 
-        &.active-sessions {
-            grid-area: 2 / 2 / 1 / 4;
+        &.digital-clock {
+            grid-area: 2 / 2 / 3 / 4;
         }
 
         &.group-statistics {
-            grid-area: 1 / 1 / 2 / 2;
+            grid-area: 2 / 1 / 3 / 2;
+        }
+
+        &.active-sessions {
+            grid-area: 1 / 2 / 1 / 4;
         }
 
         &.error-log {
-            grid-area: 2 / 2 / 3 / 4;
+            grid-area: 3 / 1 / 5 / 4;
         }
     }
 

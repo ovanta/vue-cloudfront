@@ -1,5 +1,5 @@
 <template>
-    <div class="group-stats">
+    <div class="group-statistics">
 
         <h1>
             <i class="fas fa-fw fa-layer-group"></i>
