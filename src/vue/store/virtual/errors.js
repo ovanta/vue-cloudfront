@@ -41,11 +41,7 @@ export const errors = {
                 };
 
                 const override = fn => {
-                    const original = console[fn];
-                    console[fn] = (...data) => {
-                        handle(fn, data);
-                        original(...data);
-                    };
+                    console[fn] = (...data) => handle(fn, data);
                 };
 
                 state.listening = true;
