@@ -4,6 +4,7 @@
         <!-- Dashboard tiles -->
         <data-statistics class="tile"/>
         <active-sessions class="tile"/>
+        <group-statistics class="tile"/>
 
     </div>
 </template>
@@ -11,12 +12,13 @@
 <script>
 
     // Components
-    import DataStatistics from './tiles/DataStatistics';
-    import ActiveSessions from './tiles/ActiveSessions';
+    import DataStatistics  from './tiles/DataStatistics';
+    import ActiveSessions  from './tiles/ActiveSessions';
+    import GroupStatistics from './tiles/GroupStatistics';
 
     export default {
 
-        components: {DataStatistics, ActiveSessions},
+        components: {DataStatistics, ActiveSessions, GroupStatistics},
 
         data() {
             return {};
@@ -47,7 +49,7 @@
         /deep/ > h1 {
             @include flex(row, center);
             @include font(600, 1em);
-            margin: 0 0 1em 1em;
+            margin: 0 0 1em 0.25em;
             color: $palette-asphalt;
 
             i {
@@ -62,6 +64,10 @@
 
         &.no-v-padding {
             padding: 2.5vh 0;
+
+            /deep/ > h1 {
+                margin-left: calc(0.25em + 0.75vw);
+            }
         }
 
         &.no-h-padding {
