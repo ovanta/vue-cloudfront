@@ -22,33 +22,36 @@ export const errors = {
         /* eslint-disable no-console */
         listen(state) {
 
-            if (state.listening) {
-                console.warn('Vuex error module already listening');
-            }
+            // Disable during development
+            if (process.env.NODE_ENV === 'production') {
 
-            state.listening = true;
-            ['warn', 'error'].forEach(override);
+                // Prevent multiple initialization
+                if (state.listening) {
+                    console.warn('Vuex error module already listening');
+                }
 
-            function handle(type, data) {
-                const obj = {type, data};
+                const handle = (type, data) => {
+                    const obj = {type, data};
 
-                // Broadcast
-                websocket.broadcast('errors', 'put', obj);
+                    // Broadcast
+                    websocket.broadcast('errors', 'put', obj);
 
-                // Update state
-                state.logs.push(obj);
-            }
-
-            function override(fn) {
-                const original = console[fn];
-
-                console[fn] = (...data) => {
-                    handle(fn, data);
-                    original(...data);
+                    // Update state
+                    state.logs.push(obj);
                 };
-            }
 
-            window.onerror = (msg, url, line) => handle('error', {msg, url, line});
+                const override = fn => {
+                    const original = console[fn];
+                    console[fn] = (...data) => {
+                        handle(fn, data);
+                        original(...data);
+                    };
+                };
+
+                state.listening = true;
+                ['warn', 'error'].forEach(override);
+                window.onerror = (msg, url, line) => handle('error', {msg, url, line});
+            }
         }
     }
 };
