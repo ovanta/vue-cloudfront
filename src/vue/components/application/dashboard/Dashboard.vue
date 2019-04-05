@@ -36,7 +36,6 @@
         grid-template-columns: repeat(3, 1fr);
         grid-gap: $gap-size;
         padding: $gap-size;
-
     }
 
     .tile {
@@ -78,5 +77,23 @@
         }
     }
 
+    @include MQPhones {
+        .dashboard {
+            grid-template-rows: repeat(auto-fill, 1fr);
+            grid-template-columns: 1fr;
+            overflow: auto;
+        }
+
+        .tile {
+
+            &.data-statistics {
+                grid-area: 1;
+            }
+
+            &.active-sessions {
+                grid-area: 2;
+            }
+        }
+    }
 
 </style>

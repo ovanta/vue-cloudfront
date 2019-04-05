@@ -135,4 +135,14 @@
         }
     }
 
+    @include MQPhones {
+        .bordered-pie-chart {
+            @include flex(column, center, center);
+
+            svg {
+                @include size(15vmax);
+            }
+        }
+    }
+
 </style>
