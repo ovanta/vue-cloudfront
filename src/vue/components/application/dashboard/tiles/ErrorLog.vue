@@ -6,7 +6,7 @@
             <span>Errors and warnings</span>
         </h1>
 
-        <div class="logs">
+        <div :class="{logs: 1, empty: !errors.logs.length}">
             <div v-for="error of errors.logs"
                  :data-type="error.type"
                  class="log">
@@ -41,11 +41,20 @@
 
 <style lang="scss" scoped>
 
+    .error-log {
+        @include flex(column);
+    }
+
     .logs {
         @include flex(column);
         color: $palette-asphalt;
         overflow: auto;
-        height: 100%;
+        flex-grow: 1;
+
+        &.empty {
+            align-items: center;
+            justify-content: center;
+        }
 
         .log {
             @include flex(row);
@@ -77,7 +86,6 @@
         > p {
             @include font(600, 0.9em);
             text-align: center;
-            padding-top: 1em;
 
             i {
                 font-size: 1em;
