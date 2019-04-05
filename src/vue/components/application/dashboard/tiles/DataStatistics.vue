@@ -11,7 +11,7 @@
     import config from '../../../../../../config/config.json';
 
     // Components
-    import BorderedPieChart  from '../../../../ui/specific/BorderedPieChart';
+    import BorderedPieChart from '../../../../ui/specific/BorderedPieChart';
 
     // Map each extension to it's name to process it faster later
     const transformedExtensionsMap = (() => {

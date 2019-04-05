@@ -20,6 +20,7 @@ import {search}      from './virtual/search/search';
 import {tooltip}     from './virtual/tooltip';
 import {filepreview} from './virtual/filepreview';
 import {share}       from './virtual/share';
+import {errors}      from './virtual/errors';
 
 Vue.use(Vuex);
 
@@ -66,7 +67,10 @@ export default new Vuex.Store({
         filepreview,
 
         // Holds nodes which are currently in the share popup
-        share
+        share,
+
+        // Logs all kind of console logs
+        errors
     },
 
     state: {

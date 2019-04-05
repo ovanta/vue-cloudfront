@@ -50,7 +50,7 @@
         width: 100%;
     }
 
-    .sessions-header{
+    .sessions-header {
         border-bottom: 2px solid $palette-sick-white;
     }
 

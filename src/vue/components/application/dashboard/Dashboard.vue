@@ -5,6 +5,7 @@
         <data-statistics class="tile"/>
         <active-sessions class="tile"/>
         <group-statistics class="tile"/>
+        <error-log class="tile"/>
 
     </div>
 </template>
@@ -15,10 +16,11 @@
     import DataStatistics  from './tiles/DataStatistics';
     import ActiveSessions  from './tiles/ActiveSessions';
     import GroupStatistics from './tiles/GroupStatistics';
+    import ErrorLog        from './tiles/ErrorLog';
 
     export default {
 
-        components: {DataStatistics, ActiveSessions, GroupStatistics},
+        components: {DataStatistics, ActiveSessions, GroupStatistics, ErrorLog},
 
         data() {
             return {};
@@ -81,6 +83,14 @@
         &.active-sessions {
             grid-area: 2 / 2 / 1 / 4;
         }
+
+        &.group-statistics {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+
+        &.error-log {
+            grid-area: 2 / 2 / 3 / 4;
+        }
     }
 
     @include MQPhones {
@@ -98,6 +108,14 @@
 
             &.active-sessions {
                 grid-area: 2;
+            }
+
+            &.group-statistics {
+                grid-area: 3;
+            }
+
+            &.error-log {
+                grid-area: 4;
             }
         }
     }

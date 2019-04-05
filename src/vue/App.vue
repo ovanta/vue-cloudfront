@@ -49,6 +49,9 @@
             if (apikey) {
                 this.$store.dispatch('auth/key', {apikey});
             }
+
+            // Listen for logs
+            this.$store.commit('errors/listen');
         }
     };
 </script>
