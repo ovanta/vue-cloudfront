@@ -21,9 +21,16 @@ export const auth = {
 
     actions: {
 
-        async logout() {
-            localStorage.removeItem('apikey');
-            location.reload(true);
+        async logout({state: {apikey}}) {
+            const done = () => {
+                localStorage.removeItem('apikey');
+                location.reload(true);
+            };
+
+            return this.dispatch('fetch', {
+                route: 'logout',
+                body: {apikey}
+            }).then(done).catch(done);
         },
 
         /**
