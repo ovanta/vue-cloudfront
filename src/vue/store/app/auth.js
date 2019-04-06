@@ -52,6 +52,13 @@ export const auth = {
             location.reload(true);
         },
 
+        async logoutEverywhere({state: {apikey}}) {
+            return this.dispatch('fetch', {
+                route: 'logoutEverywhere',
+                body: {apikey}
+            });
+        },
+
         /**
          * Authenticates a user
          * @param state

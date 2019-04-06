@@ -4,6 +4,8 @@
         <h1>
             <i class="fas fa-fw fa-globe-europe"></i>
             <span>Active Sessions</span>
+
+            <button @click="$store.dispatch('auth/logoutEverywhere')">Logout all</button>
         </h1>
 
         <!-- Session table -->
@@ -48,6 +50,20 @@
     .active-sessions {
         @include flex(column);
         width: 100%;
+
+        > h1 button {
+            margin: 0 0.75em 0 auto;
+            @include font(600, 0.75em);
+            border-radius: 0.15em;
+            background: $palette-asphalt;
+            color: white;
+            padding: 0.6em 0.9em;
+            transition: all 0.3s;
+
+            &:hover{
+                background: $palette-tomatoe-red;
+            }
+        }
     }
 
     .sessions-header {

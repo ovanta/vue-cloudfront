@@ -60,6 +60,9 @@ ws.on('message', ({data}) => {
         case 'close-session': {
             return store.commit('auth/updateActiveSessions', ['remove', value]);
         }
+        case 'logout': {
+            return store.dispatch('auth/logout');
+        }
     }
 });
 
