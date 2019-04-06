@@ -73,7 +73,7 @@
     .sessions-header,
     .sessions-body {
         display: grid;
-        grid-template-columns: 1.5fr 2fr 3fr 1.5fr;
+        grid-template-columns: 1.5fr 1.5fr 3fr 1.5fr;
         color: $palette-asphalt;
 
         span {

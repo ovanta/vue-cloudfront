@@ -49,6 +49,8 @@
         background: white;
         border: 2px solid $palette-sick-white;
         padding: 2.5vh 0.75vw;
+        opacity: 0;
+        transform: translateY(-0.1em);
 
         /deep/ > h1 {
             @include flex(row, center);
@@ -96,6 +98,14 @@
 
         &.error-log {
             grid-area: 3 / 1 / 5 / 4;
+        }
+
+        @include sequentialAnimationDelay(5, 0.05s);
+        @include animate('0.3s ease-in forwards') {
+            to {
+                opacity: 1;
+                transform: none;
+            }
         }
     }
 
