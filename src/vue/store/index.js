@@ -21,6 +21,7 @@ import {tooltip}     from './virtual/tooltip';
 import {filepreview} from './virtual/filepreview';
 import {share}       from './virtual/share';
 import {errors}      from './virtual/errors';
+import {connection}  from './virtual/connection';
 
 Vue.use(Vuex);
 
@@ -70,7 +71,10 @@ export default new Vuex.Store({
         share,
 
         // Logs all kind of console logs
-        errors
+        errors,
+
+        // Everything around ethernet and sockets
+        connection
     },
 
     state: {

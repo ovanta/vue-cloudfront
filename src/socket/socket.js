@@ -23,6 +23,7 @@ ws.on('connected', () => {
 /* eslint-disable no-console */
 ws.on('disconnected', () => {
     registered = false;
+    store.commit('connection/set', {key: 'socketRegistered', val: false});
     console.log(`[WS] Websocket disconnected.`);
 });
 
@@ -48,6 +49,7 @@ ws.on('message', ({data}) => {
             }
 
             store.commit('auth/updateActiveSessions', ['replace', sessions]);
+            store.commit('connection/set', {key: 'socketRegistered', val: true});
             return registered = true;
         }
         case 'broadcast': {
