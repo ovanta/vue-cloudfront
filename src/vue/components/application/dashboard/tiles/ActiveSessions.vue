@@ -78,11 +78,9 @@
 
         span {
             @include font(600, 0.8em);
+            @include whiteSpaceOverflow;
             padding: 0.55em 0.5em;
             min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
             text-align: left;
             border: none;
 

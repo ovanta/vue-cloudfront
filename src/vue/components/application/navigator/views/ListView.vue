@@ -226,9 +226,7 @@
             font-weight: 600;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            @include whiteSpaceOverflow;
 
             span[contenteditable=true] {
                 border-color: $palette-theme-primary;

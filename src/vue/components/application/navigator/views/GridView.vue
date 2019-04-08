@@ -251,13 +251,11 @@
 
         .extension {
             @include font(600, 0.85em);
+            @include whiteSpaceOverflow;
             background: $palette-asphalt;
             max-width: 5em;
-            overflow: hidden;
-            text-overflow: ellipsis;
             flex-shrink: 0;
             padding: 0.25em 0.45em;
-            white-space: nowrap;
             text-transform: uppercase;
             border-radius: 0.15em;
             color: white;

@@ -191,11 +191,9 @@
 
             .info-message {
                 @include font(600, 0.75em);
+                @include whiteSpaceOverflow;
                 margin-right: 1.5em;
                 line-height: 1.2em;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
 
             .indicator {

@@ -122,9 +122,8 @@
 
         .right-side {
             @include flex(column);
+            @include size(100%);
             overflow: hidden;
-            width: 100%;
-            height: 100%;
         }
 
         @include animate('0.75s ease-in-out') {
