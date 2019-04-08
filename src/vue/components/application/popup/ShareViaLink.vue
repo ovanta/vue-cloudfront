@@ -159,7 +159,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .exising-links {
             padding: 0 0.5em;
         }

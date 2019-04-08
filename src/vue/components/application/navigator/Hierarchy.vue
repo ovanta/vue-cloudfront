@@ -150,14 +150,12 @@
             }
 
             .name {
+                @include whiteSpaceOverflow;
                 position: relative;
                 cursor: pointer;
                 transition: all 0.3s;
                 padding: 0.35em 0.5em 0.5em;
                 max-width: 10em;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
                 border-radius: 0.25em;
 
                 &:hover {
@@ -240,7 +238,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .hierarchy {
             min-height: 0;
         }

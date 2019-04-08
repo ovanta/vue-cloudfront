@@ -49,6 +49,9 @@
             if (apikey) {
                 this.$store.dispatch('auth/key', {apikey});
             }
+
+            // Listen for logs
+            this.$store.commit('errors/listen');
         }
     };
 </script>
@@ -156,7 +159,7 @@
     }
 
     // Switch to fullscreen mode if window is too small
-    @include tablet {
+    @include MQTablets {
         .app-content {
             min-width: 100%;
             min-height: 100%;

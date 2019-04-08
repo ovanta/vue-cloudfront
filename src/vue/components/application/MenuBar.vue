@@ -18,6 +18,10 @@
             </div>
         </div>
 
+        <div :class="{'item btn-dashboard': 1, active: activeTab === 'dashboard'}" @click="changeTab('dashboard')">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </div>
 
         <div :class="{'item btn-home': 1, active: activeTab === 'home'}" @click="changeTab('home')">
             <i class="fas fa-fw fa-home"></i>
@@ -196,7 +200,7 @@
         flex-grow: 1;
     }
 
-    @include tablet {
+    @include MQTablets {
         .menu {
             padding-right: 0;
             padding-left: 0;
@@ -207,7 +211,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .menu {
             @include flex(row, center);
             justify-content: space-between; // Edge fallback

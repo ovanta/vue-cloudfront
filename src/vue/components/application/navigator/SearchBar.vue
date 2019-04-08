@@ -206,7 +206,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .search-bar {
             padding: 0.75em;
         }

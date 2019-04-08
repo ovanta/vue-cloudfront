@@ -11,6 +11,9 @@
             <!-- Tabs, dynamic, getting changed via menu tabs -->
             <navigator v-show="['marked', 'home', 'bin'].includes(activeTab)"/>
 
+            <!-- Dashboard -->
+            <dashboard v-show="activeTab === 'dashboard'"/>
+
             <!-- Upload bar - shows the current upload progress of files -->
             <upload-toasts/>
         </div>
@@ -40,6 +43,7 @@
 
     // Components
     import Navigator from './application/navigator/Navigator';
+    import Dashboard from './application/dashboard/Dashboard';
 
     import ToolTip      from '../ui/specific/ToolTip';
     import MenuBar      from './application/MenuBar';
@@ -72,6 +76,7 @@
 
             // Tabs
             Navigator,
+            Dashboard,
 
             // Popovers and static components
             KeyboardShortcuts,
@@ -117,9 +122,8 @@
 
         .right-side {
             @include flex(column);
+            @include size(100%);
             overflow: hidden;
-            width: 100%;
-            height: 100%;
         }
 
         @include animate('0.75s ease-in-out') {
@@ -139,17 +143,17 @@
         &::before {
             content: 'desktop';
 
-            @include tablet {
+            @include MQTablets {
                 content: 'tablet';
             }
 
-            @include mobile {
+            @include MQPhones {
                 content: 'mobile';
             }
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .index {
             flex-direction: column-reverse;
         }

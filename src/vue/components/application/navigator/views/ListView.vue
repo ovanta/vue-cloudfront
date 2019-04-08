@@ -45,7 +45,7 @@
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.lastModified | readableTimestamp }}</span>
+                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
                 <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
 
@@ -68,7 +68,7 @@
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.lastModified | readableTimestamp }}</span>
+                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
                 <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
         </div>
@@ -226,9 +226,7 @@
             font-weight: 600;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            @include whiteSpaceOverflow;
 
             span[contenteditable=true] {
                 border-color: $palette-theme-primary;
@@ -285,7 +283,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .dir,
         .file,
         .header {

@@ -309,7 +309,7 @@
         }
     }
 
-    @include tablet {
+    @include MQTablets {
         .content-wrap {
             position: fixed;
             @include position(0, 0, 0, 0);

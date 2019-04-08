@@ -1,6 +1,6 @@
 <template>
-    <svg :stroke-width="strokeWidth" 
-         class="circle-progress-bar" 
+    <svg :stroke-width="strokeWidth"
+         class="circle-progress-bar"
          viewBox="0 0 20 20">
 
         <!-- Only used as background-color -->
@@ -32,7 +32,7 @@
             },
             strokeWidth: {
                 type: Number,
-                default: 2.5
+                default: 2.25
             }
         }
     };

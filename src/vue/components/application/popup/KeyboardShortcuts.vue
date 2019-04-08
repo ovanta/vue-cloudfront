@@ -70,6 +70,7 @@
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
                             {keys: ['j', 's'], action: 'Switch to starred folder / files.'},
                             {keys: ['j', 'b'], action: 'Switch to bin.'},
+                            {keys: ['j', 'd'], action: 'Switch to dashboard.'},
                             {keys: ['shift', 'tab'], action: 'Switch tabs.'},
                             {keys: ['backspace'], action: 'Go up in hierarchy.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'}
@@ -334,9 +335,15 @@
                     return;
                 }
 
+                // Switch to dashboard
+                if (keys.KeyJ && keys.KeyD) {
+                    this.$store.commit('setActiveTab', 'dashboard');
+                    return;
+                }
+
                 // Switch tabs
                 if (keys.KeyTab && keys.KeyShift && !keys.ctrlKey) {
-                    const tabs = ['home', 'marked', 'bin', 'settings'];
+                    const tabs = ['dashboard', 'home', 'marked', 'bin', 'settings'];
                     let index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
                     // Switch tab, rotate if end is reached
@@ -407,7 +414,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .shortcut-sections {
             flex-direction: column;
             padding-right: 0.5em;

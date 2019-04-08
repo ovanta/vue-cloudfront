@@ -40,7 +40,6 @@ export const on = eventListener.bind(null, 'addEventListener');
  */
 export const off = eventListener.bind(null, 'removeEventListener');
 
-
 /**
  * Add css to a DOM-Element or returns the current
  * value of a property.
@@ -357,4 +356,48 @@ export function createReadableString(strings, maxCount = 3) {
         const rest = strings.length - maxCount;
         return `${nodesStr} and ` + (rest === 1 ? strings[maxCount] : `${rest} others`);
     }
+}
+
+/**
+ * Formats a date
+ * @param format
+ * @param date
+ * @param locales
+ * @returns {*}
+ */
+export function formatDate(format, date = Date.now(), locales = 'en-us') {
+
+    if (typeof date === 'number') {
+        date = new Date(date);
+    }
+
+    // Validate date
+    if (!(date instanceof Date) || isNaN(date)) {
+        return 'Invalid date';
+    }
+
+    const pad = (v, a = 2) => String(v).padStart(a, '0');
+    const getLocal = (name, type) => date.toLocaleString(locales, {[name]: type});
+
+    const strMap = {
+        'HH': pad(date.getHours()),
+        'mm': pad(date.getMinutes()),
+        'ss': pad(date.getSeconds()),
+        'x': date.getTime(),
+        'SSS': pad(date.getMilliseconds(), 4),
+        'YYYY': pad(date.getFullYear(), 4),
+        'MMMM': getLocal('month', 'long'),
+        'MMM': getLocal('month', 'short'),
+        'MM': pad(date.getMonth()),
+        'M': getLocal('month', 'narrow'),
+        'DDDD': getLocal('weekday', 'long'),
+        'DDD': getLocal('weekday', 'short'),
+        'DD': pad(date.getDate()),
+        'D': getLocal('weekday', 'narrow')
+    };
+
+    return format.replace(
+        new RegExp(Object.keys(strMap).join('|'), 'g'),
+        match => strMap[match] || ''
+    );
 }

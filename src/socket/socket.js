@@ -23,6 +23,7 @@ ws.on('connected', () => {
 /* eslint-disable no-console */
 ws.on('disconnected', () => {
     registered = false;
+    store.commit('connection/set', {key: 'socketRegistered', val: false});
     console.log(`[WS] Websocket disconnected.`);
 });
 
@@ -38,38 +39,51 @@ ws.on('message', ({data}) => {
     const {type, value} = data;
     switch (type) {
         case 'registration-approval': {
+            const {lastBroadcast, sessions} = value;
             console.log(`[WS] Websocket successful registered.`);
 
             // Check if the last change is past the current state, update if so
-            if (store.state.auth.lastAuthentication < value.lastBroadcast) {
+            if (store.state.auth.lastAuthentication < lastBroadcast) {
                 store.dispatch('nodes/update', {keepLocation: true}).catch(console.warn);
+                store.dispatch('stats/update').catch(console.warn);
             }
 
+            store.commit('auth/updateActiveSessions', ['replace', sessions]);
+            store.commit('connection/set', {key: 'socketRegistered', val: true});
             return registered = true;
         }
         case 'broadcast': {
             const {module, action, payload} = value;
-            store.commit(`${module}/socketSync`, {action, payload});
+            return store.commit(`${module}/socketSync`, {action, payload});
+        }
+        case 'open-session': {
+            return store.commit('auth/updateActiveSessions', ['add', value]);
+        }
+        case 'close-session': {
+            return store.commit('auth/updateActiveSessions', ['remove', value]);
+        }
+        case 'logout': {
+            return store.dispatch('auth/logout');
         }
     }
 });
 
-// Export public functions
-export default {
-    register(akey) {
-        apikey = akey;
-        if (!registered) {
-            ws.send(JSON.stringify({type: 'register', value: apikey}));
-        }
-    },
-
-    broadcast(module, action, payload) {
-        if (registered) {
-            ws.send(JSON.stringify({type: 'broadcast', value: {module, action, payload}}));
-        } else {
-
-            /* eslint-disable no-console */
-            console.warn('Tried to broadcast message but websockt is currently not approved.');
-        }
+function register(akey) {
+    apikey = akey;
+    if (!registered) {
+        ws.send(JSON.stringify({type: 'register', value: apikey}));
     }
-};
+}
+
+function broadcast(module, action, payload) {
+    if (registered) {
+        ws.send(JSON.stringify({type: 'broadcast', value: {module, action, payload}}));
+    } else {
+
+        /* eslint-disable no-console */
+        console.warn('Tried to broadcast message but websockt is currently not approved.');
+    }
+}
+
+// Export public functions
+export default {register, broadcast};

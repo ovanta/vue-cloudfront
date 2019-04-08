@@ -189,7 +189,7 @@
         }
     }
 
-    @include mobile {
+    @include MQPhones {
         .audio-preview {
             position: relative;
             @include flex(row, center, space-between);

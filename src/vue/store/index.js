@@ -20,6 +20,8 @@ import {search}      from './virtual/search/search';
 import {tooltip}     from './virtual/tooltip';
 import {filepreview} from './virtual/filepreview';
 import {share}       from './virtual/share';
+import {errors}      from './virtual/errors';
+import {connection}  from './virtual/connection';
 
 Vue.use(Vuex);
 
@@ -66,14 +68,20 @@ export default new Vuex.Store({
         filepreview,
 
         // Holds nodes which are currently in the share popup
-        share
+        share,
+
+        // Logs all kind of console logs
+        errors,
+
+        // Everything around ethernet and sockets
+        connection
     },
 
     state: {
 
         // UI Props
         viewType: 'grid',
-        activeTab: 'home',
+        activeTab: 'dashboard',
         activePopup: null,
 
         // Amount of how many requests are currently active

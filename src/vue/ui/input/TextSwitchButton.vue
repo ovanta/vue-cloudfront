@@ -1,5 +1,5 @@
 <template>
-    <div class="text-switch-button">
+    <div ref="textSwitchButton" class="text-switch-button">
 
         <span v-for="(opt, index) of options"
               ref="options"
@@ -35,7 +35,15 @@
         },
 
         mounted() {
-            this.select(this.active);
+            const {textSwitchButton} = this.$refs;
+
+            (function checkVisibilty() {
+                if (!textSwitchButton.offsetWidth) {
+                    return requestAnimationFrame(checkVisibilty.bind(this));
+                } else {
+                    this.select(this.active);
+                }
+            }).bind(this)();
         },
 
         methods: {
