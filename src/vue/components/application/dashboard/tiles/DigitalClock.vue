@@ -109,7 +109,7 @@
         }
 
         .dots {
-            @include size(1em, 1em);
+            @include size( 1em,1em);
             position: relative;
 
             &::before,

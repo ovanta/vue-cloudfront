@@ -150,7 +150,7 @@
             }
 
             .name {
-                @include whiteSpaceOverflow;
+                @include white-space-overflow;
                 position: relative;
                 cursor: pointer;
                 transition: all 0.3s;
@@ -238,7 +238,7 @@
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .hierarchy {
             min-height: 0;
         }

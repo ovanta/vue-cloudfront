@@ -204,7 +204,7 @@
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .preview {
             .file {
                 margin: 0 0.25em;

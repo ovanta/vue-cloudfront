@@ -135,7 +135,7 @@
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .bordered-pie-chart {
             @include flex(column, center, center);
 

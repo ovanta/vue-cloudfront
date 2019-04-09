@@ -2,10 +2,10 @@
     "name": "vue-cloudfront",
     "version": "0.0.1",
     "private": true,
-    "description": "vue-cloudfront - PWA for cloud systems. 100% offline and build with vuejs2 and vuex. Always Open Source, MIT license.",
+    "description": "vue-cloudfront - PWA for cloud storage with focus on design and performance. Made especially for self-hosting purposes. Build with vuejs2 and vuex. Always Open Source, MIT license.",
     "author": "Simon Reinisch",
     "license": "MIT",
-    "main": "/src/main.js",
+    "main": "./src/main.js",
     "keywords": [
         "vue",
         "vuex",
@@ -39,7 +39,7 @@
     },
     "devDependencies": {
         "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
-        "sassyfication": "^0.0.2",
+        "sassyfication": "^0.1.0",
         "@vue/cli-plugin-babel": "^3.5.5",
         "@vue/cli-plugin-eslint": "^3.5.1",
         "@vue/cli-plugin-pwa": "^3.5.1",

@@ -238,7 +238,7 @@
     }
 
     .color {
-        @include size(100%, 8em);
+        @include size( 8em,100%);
         background: red;
 
         .knob {
@@ -249,12 +249,12 @@
     }
 
     .hue {
-        @include size(100%, 8px);
+        @include size( 8px,100%);
         background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(60, 100%, 50%), hsl(120, 100%, 50%), hsl(180, 100%, 50%), hsl(240, 100%, 50%), hsl(300, 100%, 50%), hsl(360, 100%, 50%));
         margin: 0.5em 0 1em;
 
         .knob {
-            @include size(6px, 14px);
+            @include size( 14px,6px);
             margin-top: -3px;
             border-radius: 50em;
         }

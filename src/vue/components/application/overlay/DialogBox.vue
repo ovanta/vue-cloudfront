@@ -172,7 +172,7 @@
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .content {
             max-width: 90vw;
             width: 90vw;

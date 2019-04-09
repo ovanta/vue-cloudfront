@@ -143,13 +143,13 @@
         }
     }
 
-    @include MQTablets {
+    @include mq-tablets {
         .popup {
             padding: 1em;
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .popup {
             padding: 0.25em;
         }

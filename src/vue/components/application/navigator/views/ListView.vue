@@ -226,7 +226,7 @@
             font-weight: 600;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
-            @include whiteSpaceOverflow;
+            @include white-space-overflow;
 
             span[contenteditable=true] {
                 border-color: $palette-theme-primary;
@@ -283,7 +283,7 @@
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .dir,
         .file,
         .header {

@@ -145,7 +145,7 @@
 
                 span {
                     display: inline-block;
-                    @include size(20%, 1px);
+                    @include size( 1px,20%);
                     background: $palette-decent-blue;
                     margin: 0.35em 0;
                 }
@@ -200,7 +200,7 @@
         flex-grow: 1;
     }
 
-    @include MQTablets {
+    @include mq-tablets {
         .menu {
             padding-right: 0;
             padding-left: 0;
@@ -211,7 +211,7 @@
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .menu {
             @include flex(row, center);
             justify-content: space-between; // Edge fallback
@@ -269,7 +269,7 @@
                 &::before {
                     @include pseudo();
                     @include position(auto, 0, 0, 0);
-                    @include size(60%, 6px);
+                    @include size( 6px,60%);
                     margin: auto;
                     background: $palette-theme-primary;
                     transform: translateY(0.75em) scale(0);

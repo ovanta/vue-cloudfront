@@ -251,7 +251,7 @@
 
         .extension {
             @include font(600, 0.85em);
-            @include whiteSpaceOverflow;
+            @include white-space-overflow;
             background: $palette-asphalt;
             max-width: 5em;
             flex-shrink: 0;

@@ -100,7 +100,7 @@
             grid-area: 3 / 1 / 5 / 4;
         }
 
-        @include sequentialAnimationDelay(5, 0.05s);
+        @include sequential-animation-delay(5, 0.05s);
         @include animate('0.3s ease-in forwards') {
             to {
                 opacity: 1;
@@ -109,7 +109,7 @@
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .dashboard {
             grid-template-rows: repeat(auto-fill, 1fr);
             grid-template-columns: 1fr;

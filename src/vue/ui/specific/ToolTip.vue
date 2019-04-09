@@ -71,7 +71,7 @@
         }
     }
 
-    @include MQTablets {
+    @include mq-tablets {
         .tooltip {
             display: none;
         }

@@ -309,7 +309,7 @@
         }
     }
 
-    @include MQTablets {
+    @include mq-tablets {
         .content-wrap {
             position: fixed;
             @include position(0, 0, 0, 0);

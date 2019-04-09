@@ -240,7 +240,7 @@
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .centered {
             .accept {
 

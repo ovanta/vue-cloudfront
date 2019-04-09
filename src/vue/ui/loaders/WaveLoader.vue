@@ -33,7 +33,7 @@
             background: $palette-asphalt;
             margin: 0.2em;
             border-radius: 100%;
-            @include sequentialAnimationDelay(3, -0.85s);
+            @include sequential-animation-delay(3, -0.85s);
             @include animate('1s ease-in-out infinite') {
                 0%, 100% {
                     transform: none;

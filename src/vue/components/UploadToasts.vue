@@ -191,7 +191,7 @@
 
             .info-message {
                 @include font(600, 0.75em);
-                @include whiteSpaceOverflow;
+                @include white-space-overflow;
                 margin-right: 1.5em;
                 line-height: 1.2em;
             }
@@ -227,7 +227,7 @@
         }
     }
 
-    @include MQPhones {
+    @include mq-phones {
         .upload-bar {
             bottom: 10%;
         }

@@ -78,7 +78,7 @@
 
         span {
             @include font(600, 0.8em);
-            @include whiteSpaceOverflow;
+            @include white-space-overflow;
             padding: 0.55em 0.5em;
             min-width: 0;
             text-align: left;
