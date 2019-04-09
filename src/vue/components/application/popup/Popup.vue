@@ -64,15 +64,17 @@
                 }
 
                 if (open) {
+                    requestAnimationFrame(() => {
 
-                    // Detect clicks outside of content container
-                    this.outOfBoundsClickArgs = this.utils.on(window, 'click', e => {
+                        // Detect clicks outside of content container
+                        this.outOfBoundsClickArgs = this.utils.on(window, 'click', e => {
 
-                        // Check if user clicked outside of it
-                        if (!this.utils.eventPath(e).includes(popupContent)) {
-                            this.close();
-                        }
-                    }, {useCapture: false});
+                            // Check if user clicked outside of it
+                            if (!this.utils.eventPath(e).includes(popupContent)) {
+                                this.close();
+                            }
+                        }, {useCapture: false});
+                    });
                 }
             }
         },
