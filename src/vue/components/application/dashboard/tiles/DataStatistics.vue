@@ -4,12 +4,15 @@
                         :labels="fileTypes.names"
                         :stroke-width="2.75"
                         class="data-statistics">
+
+        <!-- Label template -->
         <div :style="{'--color': item.color}"
-             class="label"
-             @click="search(item)">
+             :class="{label: 1, clickable: item.label !== 'other'}"
+             @click="(item.label !== 'other') && search(item)">
             <span></span>
             <p>{{ item.label }}</p>
         </div>
+
     </bordered-pie-chart>
 </template>
 
@@ -97,7 +100,6 @@
         @include flex(row, center);
         padding: 0.25em 0.5em 0.3em;
         margin: 0.05em 0.05em 0 0;
-        cursor: pointer;
         border-radius: 0.15em;
 
         span {
@@ -123,8 +125,10 @@
             }
         }
 
-        &:hover {
-            p::before {
+        &.clickable {
+            cursor: pointer;
+
+            &:hover p::before {
                 width: 100%;
                 background: $palette-asphalt;
             }
