@@ -39,6 +39,7 @@ See [GitHub Projects](https://github.com/vue-cloudfront/vue-cloudfront/projects)
 * Installable - [Install it on your desktop](https://developers.google.com/web/progressive-web-apps/desktop) (Currently only supported by Chrome 70+ under Linux, Windows and Chrome OS).
 * Modern Vue frontend with material-design - easy to design and customize.
 * Simply structure and just a few dependencies.
+* Clean dashboard to keep an overview over active sessions, files and more.
 
 #### File Management
 * GridView with small file previews and draggable tiles.
