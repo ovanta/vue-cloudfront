@@ -4,7 +4,9 @@
                         :labels="fileTypes.names"
                         :stroke-width="2.75"
                         class="data-statistics">
-        <div :style="{'--color': item.color}" class="label">
+        <div :style="{'--color': item.color}" 
+             class="label" 
+             @click="search(item)">
             <span></span>
             <p>{{ item.label }}</p>
         </div>
@@ -77,6 +79,14 @@
 
                 return {values, names};
             }
+        },
+
+        methods: {
+            search({label}) {
+                const query = `is:${config.extensionMap[label].join(',')}`;
+                this.$store.commit('setActiveTab', 'home');
+                this.$store.dispatch('search/update', query);
+            }
         }
     };
 
@@ -105,6 +115,20 @@
             position: relative;
             text-transform: capitalize;
             color: $palette-asphalt;
+
+            &::before {
+                @include pseudo();
+                @include position(auto, 0, -3px, 0);
+                @include size(1px, 0);
+                transition: all 0.3s;
+            }
+        }
+
+        &:hover {
+            p::before {
+                width: 100%;
+                background: $palette-asphalt;
+            }
         }
     }
 

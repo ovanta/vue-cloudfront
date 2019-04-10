@@ -9,6 +9,7 @@ export const search = {
 
         // If the user is currently searching for somenthing
         active: false,
+        rawQuery: '',
         query: '',
 
         // Search result
@@ -55,6 +56,7 @@ export const search = {
             state.active = !!rawQuery;
             state.query = '';
             state.filters = [];
+            state.rawQuery = rawQuery || '';
 
             if (state.active) {
 

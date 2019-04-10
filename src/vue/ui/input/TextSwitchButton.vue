@@ -41,14 +41,14 @@
                 if (!textSwitchButton.offsetWidth) {
                     return requestAnimationFrame(checkVisibilty.bind(this));
                 } else {
-                    this.select(this.active);
+                    this.select(this.active, true);
                 }
             }).bind(this)();
         },
 
         methods: {
 
-            select(index) {
+            select(index, silent = false) {
                 const {button, options} = this.$refs;
 
                 // Calculate offset
@@ -62,7 +62,7 @@
                 button.style.left = `${px}px`;
 
                 // Fire event
-                this.$emit('change', this.options[index]);
+                !silent && this.$emit('change', this.options[index]);
 
                 this.idx = index;
             }
