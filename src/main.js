@@ -5,15 +5,20 @@ import store from './vue/store/index';
 // Import service worker
 import './registerServiceWorker';
 
-// Vue utils
+// Utils and config
 import * as _ from './js/utils';
+import config from '../config/config';
 
 // Import global stuff
 import './vue-extensions/plugins';
 import './vue-extensions/filters';
 import './vue-extensions/directives';
 
-Vue.prototype.utils = _;
+Vue.config.productionTip = false;
+
+// Global props
+Vue.prototype.$utils = _;
+Vue.prototype.$config = config;
 
 // Entry point
 new Vue({

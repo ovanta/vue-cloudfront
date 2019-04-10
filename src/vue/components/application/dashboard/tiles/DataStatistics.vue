@@ -4,8 +4,8 @@
                         :labels="fileTypes.names"
                         :stroke-width="2.75"
                         class="data-statistics">
-        <div :style="{'--color': item.color}" 
-             class="label" 
+        <div :style="{'--color': item.color}"
+             class="label"
              @click="search(item)">
             <span></span>
             <p>{{ item.label }}</p>
@@ -15,36 +15,35 @@
 
 <script>
 
-    // Config
-    import config from '../../../../../../config/config.json';
-
     // Components
     import BorderedPieChart from '../../../../ui/specific/DoughnutChart';
-
-    // Map each extension to it's name to process it faster later
-    const transformedExtensionsMap = (() => {
-        const newMap = {};
-
-        for (const [name, types] of Object.entries(config.extensionMap)) {
-            for (const type of types) {
-                newMap[type] = name;
-            }
-        }
-
-        return newMap;
-    })();
 
     export default {
 
         components: {BorderedPieChart},
 
         data() {
-            return {};
+            return {
+
+                // Map each extension to it's name to process it faster later
+                transformedExtensionsMap: (() => {
+                    const newMap = {};
+
+                    for (const [name, types] of Object.entries(this.$config.extensionMap)) {
+                        for (const type of types) {
+                            newMap[type] = name;
+                        }
+                    }
+
+                    return newMap;
+                })()
+            };
         },
 
         computed: {
 
             fileTypes() {
+                const {transformedExtensionsMap} = this;
                 const {nodes} = this.$store.state;
                 const extensions = {other: 0};
 
@@ -83,7 +82,7 @@
 
         methods: {
             search({label}) {
-                const query = `is:${config.extensionMap[label].join(',')}`;
+                const query = `is:${this.$config.extensionMap[label].join(',')}`;
                 this.$store.commit('setActiveTab', 'home');
                 this.$store.dispatch('search/update', query);
             }

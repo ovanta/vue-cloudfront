@@ -30,9 +30,6 @@
 
 <script>
 
-    // Config
-    import {apiEndPoint} from '../../../../../config/config.json';
-
     // Components
     import Popup          from './Popup';
     import TextInputField from '../../../ui/input/TextInputField';
@@ -45,13 +42,16 @@
         components: {Popup, TextInputField},
 
         data() {
-            return {
-                apiEndPoint: apiEndPoint.startsWith('http') ? apiEndPoint : location.origin + apiEndPoint
-            };
+            return {};
         },
 
         computed: {
-            ...mapState(['share'])
+            ...mapState(['share']),
+
+            apiEndPoint() {
+                const {apiEndPoint} = this.$config;
+                return apiEndPoint.startsWith('http') ? apiEndPoint : location.origin + apiEndPoint;
+            }
         },
 
         methods: {

@@ -10,10 +10,6 @@
 
     // Components
     import Overlay from './Overlay';
-
-    // Config
-    import config from '../../../../../config/config.json';
-
     export default {
         components: {Overlay},
 
@@ -38,7 +34,7 @@
         methods: {
 
             getRandomMessage() {
-                const msgs = config.loadingScreenMessages;
+                const msgs = this.$config.loadingScreenMessages;
 
                 if (Array.isArray(msgs)) {
                     return msgs[Math.floor(Math.random() * msgs.length)];

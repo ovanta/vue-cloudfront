@@ -30,7 +30,7 @@
 
         mounted() {
             const {slider} = this.$refs;
-            const {on, off} = this.utils;
+            const {on, off} = this.$utils;
 
             const grabber = e => {
                 this.setPosition(e);
@@ -47,7 +47,7 @@
         methods: {
             setPosition(e) {
                 e.stopPropagation();
-                const {x} = this.utils.simplifyEvent(e);
+                const {x} = this.$utils.simplifyEvent(e);
                 const bcr = this.$refs.slider.getBoundingClientRect();
                 let value = 1 - (bcr.right - x) / bcr.width;
                 if (value < 0) value = 0;

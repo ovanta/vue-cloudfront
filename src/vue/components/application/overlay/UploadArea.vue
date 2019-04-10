@@ -20,7 +20,7 @@
         },
 
         mounted() {
-            this.utils.on(
+            this.$utils.on(
                 window,
                 ['drag', 'dragend', 'dragenter', 'dragstart', 'dragleave', 'dragover', 'drop'],
                 e => {
@@ -40,7 +40,7 @@
                         }
 
                         // Check if user enters the drag area
-                        const path = this.utils.eventPath(e);
+                        const path = this.$utils.eventPath(e);
                         this.dragOver = path.some(v => v.classList && v.classList.contains('index'));
                     } else if (e.type === 'dragleave' && e.target.classList.contains('upload-area')) {
                         this.dragOver = false;

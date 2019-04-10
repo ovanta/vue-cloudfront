@@ -10,7 +10,7 @@
                 r="8.5"></circle>
 
         <!-- Actual progressbar -->
-        <circle :stroke-dashoffset="53.40707511102649 - (utils.limit(value, 0, 1) * 53.40707511102649)"
+        <circle :stroke-dashoffset="53.40707511102649 - ($utils.limit(value, 0, 1) * 53.40707511102649)"
                 :class="{progress: 1, indeterminate}"
                 cx="10"
                 cy="10"

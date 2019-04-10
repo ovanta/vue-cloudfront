@@ -80,7 +80,7 @@
         methods: {
 
             genStatusMessage(upload) {
-                const pluralify = strings => this.utils.createReadableString(strings, 2);
+                const pluralify = strings => this.$utils.createReadableString(strings, 2);
 
                 // Create a appropriate message
                 switch (upload.state) {
@@ -91,7 +91,7 @@
                     case 'create-dirs':
                         return 'Creating folders...';
                     case 'upload-files': {
-                        const percent = Math.round((this.utils.limit(upload.done / upload.total, 0, 1)) * 100);
+                        const percent = Math.round((this.$utils.limit(upload.done / upload.total, 0, 1)) * 100);
                         return `${percent}% - Uploading ${pluralify(upload.files)}`;
                     }
                     case 'done':

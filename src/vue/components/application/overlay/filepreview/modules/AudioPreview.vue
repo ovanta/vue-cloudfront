@@ -82,7 +82,7 @@
         },
 
         mounted() {
-            const {on} = this.utils;
+            const {on} = this.$utils;
             const audio = new Audio(this.url);
 
             on(audio, 'loadedmetadata', () => {

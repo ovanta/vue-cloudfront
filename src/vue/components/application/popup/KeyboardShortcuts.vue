@@ -91,7 +91,7 @@
 
         mounted() {
             this.$callOnDestroy(
-                this.utils.detectKeyCombinations(
+                this.$utils.detectKeyCombinations(
                     document,
                     this.keyboardEvent,
                     ({target}) => target.getAttribute('contenteditable') !== 'true' && !['TEXT-AREA', 'INPUT'].includes(target.tagName)

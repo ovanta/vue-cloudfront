@@ -60,17 +60,17 @@
 
                 // Unbind previous listener
                 if (this.outOfBoundsClickArgs.length) {
-                    this.utils.off(...this.outOfBoundsClickArgs);
+                    this.$utils.off(...this.outOfBoundsClickArgs);
                 }
 
                 if (open) {
                     requestAnimationFrame(() => {
 
                         // Detect clicks outside of content container
-                        this.outOfBoundsClickArgs = this.utils.on(window, 'click', e => {
+                        this.outOfBoundsClickArgs = this.$utils.on(window, 'click', e => {
 
                             // Check if user clicked outside of it
-                            if (!this.utils.eventPath(e).includes(popupContent)) {
+                            if (!this.$utils.eventPath(e).includes(popupContent)) {
                                 this.close();
                             }
                         }, {useCapture: false});

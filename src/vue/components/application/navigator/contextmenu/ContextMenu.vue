@@ -181,12 +181,12 @@
         mounted() {
 
             // Close on resize and keypress
-            this.utils.on(window, ['resize', 'keydown', 'wheel', 'blur'], () => this.$emit('hide'));
+            this.$utils.on(window, ['resize', 'keydown', 'wheel', 'blur'], () => this.$emit('hide'));
 
             // Function to check, if menu is open, if the user has clicked
             // outside of the menu. Only active is menu is visible.
             const detectOutsideClick = evt => {
-                if (!this.utils.eventPath(evt).includes(this.$refs.menu)) {
+                if (!this.$utils.eventPath(evt).includes(this.$refs.menu)) {
                     this.$emit('hide');
                 }
             };
@@ -213,7 +213,7 @@
                 }
 
                 // Set listener for out-of-bounds clicks
-                this.utils.on(window, ['mousedown', 'touchstart'], detectOutsideClick);
+                this.$utils.on(window, ['mousedown', 'touchstart'], detectOutsideClick);
 
                 // Set postion
                 const tap = (evt.touches && evt.touches[0] || evt);
@@ -224,7 +224,7 @@
 
             // Event to hide the menu
             this.$on('hide', () => {
-                this.utils.off(window, ['mousedown', 'touchstart'], detectOutsideClick);
+                this.$utils.off(window, ['mousedown', 'touchstart'], detectOutsideClick);
                 this.open = false;
             });
         },
