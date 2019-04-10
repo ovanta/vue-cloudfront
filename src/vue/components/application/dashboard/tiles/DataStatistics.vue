@@ -1,8 +1,14 @@
 <template>
-    <bordered-pie-chart :values="fileTypes.values"
+    <bordered-pie-chart v-slot="{item}"
+                        :values="fileTypes.values"
                         :labels="fileTypes.names"
                         :stroke-width="2.75"
-                        class="data-statistics"/>
+                        class="data-statistics">
+        <div :style="{'--color': item.color}" class="label">
+            <span></span>
+            <p>{{ item.label }}</p>
+        </div>
+    </bordered-pie-chart>
 </template>
 
 <script>
@@ -11,7 +17,7 @@
     import config from '../../../../../../config/config.json';
 
     // Components
-    import BorderedPieChart from '../../../../ui/specific/BorderedPieChart';
+    import BorderedPieChart from '../../../../ui/specific/DoughnutChart';
 
     // Map each extension to it's name to process it faster later
     const transformedExtensionsMap = (() => {
@@ -78,5 +84,28 @@
 
 <style lang="scss" scoped>
 
+    .label {
+        @include flex(row, center);
+        padding: 0.25em 0.5em 0.3em;
+        margin: 0.05em 0.05em 0 0;
+        cursor: pointer;
+        border-radius: 0.15em;
+
+        span {
+            display: inline-block;
+            @include size(8px);
+            border-radius: 2px;
+            margin-right: 0.35em;
+            margin-bottom: -2px;
+            background: #{'var(--color)'};
+        }
+
+        p {
+            @include font(600, 0.8em);
+            position: relative;
+            text-transform: capitalize;
+            color: $palette-asphalt;
+        }
+    }
 
 </style>

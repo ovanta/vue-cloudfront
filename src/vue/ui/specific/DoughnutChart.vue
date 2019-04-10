@@ -21,10 +21,7 @@
         </svg>
 
         <div class="labels">
-            <div v-for="val of prepared">
-                <span :style="{background: val.color}"></span>
-                <p>{{ val.label }}</p>
-            </div>
+            <slot v-for="item of prepared" :item="item"></slot>
         </div>
 
     </div>
@@ -113,25 +110,6 @@
             @include flex(row, center, center);
             flex-wrap: wrap;
             margin-top: 10%;
-
-            div {
-                @include flex(row, center);
-                margin: 0.25em 0.5em;
-
-                span {
-                    display: inline-block;
-                    @include size(8px);
-                    border-radius: 2px;
-                    margin-right: 0.35em;
-                    margin-bottom: -2px;
-                }
-
-                p {
-                    @include font(600, 0.8em);
-                    text-transform: capitalize;
-                    color: $palette-asphalt;
-                }
-            }
         }
     }
 
