@@ -118,11 +118,11 @@
 
         .tile {
 
-            &.data-statistics {
+            &.digital-clock {
                 grid-area: 1;
             }
 
-            &.active-sessions {
+            &.data-statistics {
                 grid-area: 2;
             }
 
@@ -130,8 +130,12 @@
                 grid-area: 3;
             }
 
-            &.error-log {
+            &.active-sessions {
                 grid-area: 4;
+            }
+
+            &.error-log {
+                grid-area: 5;
             }
         }
     }

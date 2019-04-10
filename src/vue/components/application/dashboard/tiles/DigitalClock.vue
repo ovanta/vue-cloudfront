@@ -105,7 +105,7 @@
 
     .clock {
         .seven-segment {
-            width: 4vmin;
+            width: 8%;
         }
 
         .dots {

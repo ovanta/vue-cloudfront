@@ -50,6 +50,7 @@
         color: $palette-asphalt;
         overflow: auto;
         flex-grow: 1;
+        min-height: 4em;
 
         &.empty {
             align-items: center;

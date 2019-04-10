@@ -60,7 +60,7 @@
             padding: 0.6em 0.9em;
             transition: all 0.3s;
 
-            &:hover{
+            &:hover {
                 background: $palette-tomatoe-red;
             }
         }
@@ -106,6 +106,7 @@
 
     .sessions-body {
         overflow: auto;
+        padding-bottom: 0.5em;
     }
 
     .footer-info {
@@ -117,6 +118,17 @@
 
         &:hover {
             color: rgba($palette-asphalt, 0.85);
+        }
+    }
+
+    @include mq-phones {
+        .sessions-header,
+        .sessions-body {
+            grid-template-columns: 1fr 2fr 1fr;
+
+            span.city {
+                display: none;
+            }
         }
     }
 
