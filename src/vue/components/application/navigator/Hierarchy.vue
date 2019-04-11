@@ -223,12 +223,14 @@
             display: block;
 
             .filters {
-                margin-top: 1em;
+                @include flex(row, center);
                 @include font(600, 0.75em);
+                flex-wrap: wrap;
+                margin-top: 1em;
                 color: $palette-snow-white;
 
                 > span {
-                    margin-right: 0.25em;
+                    margin: 0.25em 0.25em 0 0;
                     background: $palette-asphalt;
                     padding: 0.15em 0.75em 0.35em;
                     border-radius: 0.15em;

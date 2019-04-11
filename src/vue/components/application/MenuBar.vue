@@ -279,7 +279,7 @@
                 }
             }
 
-            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-stared', '.btn-refresh'));
+            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-dashboard', '.btn-stared', '.btn-refresh'));
         }
     }
 
