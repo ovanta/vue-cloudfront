@@ -1,5 +1,5 @@
 <template>
-    <div class="text-switch-button">
+    <div ref="textSwitchButton" class="text-switch-button">
 
         <span v-for="(opt, index) of options"
               ref="options"
@@ -35,12 +35,20 @@
         },
 
         mounted() {
-            this.select(this.active);
+            const {textSwitchButton} = this.$refs;
+
+            (function checkVisibilty() {
+                if (!textSwitchButton.offsetWidth) {
+                    return requestAnimationFrame(checkVisibilty.bind(this));
+                } else {
+                    this.select(this.active, true);
+                }
+            }).bind(this)();
         },
 
         methods: {
 
-            select(index) {
+            select(index, silent = false) {
                 const {button, options} = this.$refs;
 
                 // Calculate offset
@@ -54,7 +62,7 @@
                 button.style.left = `${px}px`;
 
                 // Fire event
-                this.$emit('change', this.options[index]);
+                !silent && this.$emit('change', this.options[index]);
 
                 this.idx = index;
             }
@@ -78,7 +86,7 @@
     .option {
         padding: 0 0.75em;
         transition: all 0.3s;
-        color: rgba($palette-grayish-blue, 0.75);
+        color: rgba($palette-blurry-gray, 0.75);
         z-index: 1;
 
         &.active {

@@ -22,6 +22,7 @@
             <b v-if="searchResult.dir">{{ searchResult.dir }} folder{{ searchResult.dir === 1 ? '' : 's' }}</b>
             <span v-if="searchResult.file || searchResult.dir"> found</span>
             <span v-if="!searchResult.file && !searchResult.dir">Nothing found</span>
+            <span v-if="search.query"> for <b>{{ search.query }}</b></span>
 
             <div class="filters">
                 <span v-for="filter of search.filters">{{ filter }}</span>
@@ -77,7 +78,7 @@
             },
 
             searchResult() {
-                const search = this.$store.state.search;
+                const search = this.search;
 
                 if (!search.active) {
                     return null;
@@ -131,9 +132,10 @@
         }
 
         .node {
+            position: relative;
             @include inline-flex(row, center);
-            @include font(600, 0.8em);
-            color: rgba($palette-deep-blue, 0.8);
+            @include font(600, 0.825em);
+            color: rgba($palette-asphalt, 0.8);
             margin-bottom: 0.5em;
 
             @include animate('0.3s') {
@@ -148,47 +150,61 @@
             }
 
             .name {
+                @include white-space-overflow;
                 position: relative;
                 cursor: pointer;
                 transition: all 0.3s;
-                padding: 0.35em 0.75em 0.39em;
-                border-radius: 50em;
-                background: white;
-                box-shadow: 0 1px 5px 0 rgba($palette-deep-blue, 0.075);
+                padding: 0.35em 0.5em 0.5em;
                 max-width: 10em;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                border-radius: 0.25em;
 
                 &:hover {
-                    box-shadow: 0 2px 4px 0 rgba($palette-deep-blue, 0.11);
+                    color: black;
+                }
+
+                &::after {
+                    @include pseudo();
+                    @include size(0);
+                    @include position(0, 0, auto, 0);
+                    margin: auto;
+                    border: 4px solid transparent;
+                    border-top-color: $palette-cloud-blue;
+                    opacity: 0;
+                    transform: translateY(-0.25em);
+                    transition: all 0.3s;
                 }
             }
 
             i {
-                color: rgba($palette-deep-blue, 0.25);
+                color: rgba($palette-asphalt, 0.25);
                 opacity: 0.5;
                 margin: 0 0.25em;
                 font-size: 1.2em;
             }
 
             &:last-child .name {
-                background: #{'rgb(var(--color))'};
-                box-shadow: 0 1px 5px 0 #{'rgba(var(--color), 0.5)'};
-                color: white;
+                color: #{'rgb(var(--color))'};
+
+                &::before {
+                    opacity: 1;
+                    transform: none;
+                }
             }
 
             &.droppable .name {
-                color: white;
-                background: $palette-cloud-blue;
-                box-shadow: 0 1px 10px 0 $palette-cloud-blue;
+                color: $palette-cloud-blue;
+
+                &::after {
+                    transform: none;
+                    opacity: 1;
+                }
             }
         }
     }
 
     .amount-info {
         @include flex(row, center);
-        color: $palette-deep-blue;
+        color: $palette-asphalt;
         font-size: 0.9em;
         white-space: pre-wrap;
 
@@ -207,14 +223,16 @@
             display: block;
 
             .filters {
-                margin-top: 1em;
+                @include flex(row, center);
                 @include font(600, 0.75em);
+                flex-wrap: wrap;
+                margin-top: 1em;
                 color: $palette-snow-white;
 
                 > span {
-                    margin-right: 0.25em;
-                    background: $palette-deep-blue;
-                    padding: 0.15em 0.5em 0.225em;
+                    margin: 0.25em 0.25em 0 0;
+                    background: $palette-asphalt;
+                    padding: 0.15em 0.75em 0.35em;
                     border-radius: 0.15em;
                     box-shadow: 0 1px 2px rgba(black, 0.15);
                 }
@@ -222,7 +240,7 @@
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .hierarchy {
             min-height: 0;
         }

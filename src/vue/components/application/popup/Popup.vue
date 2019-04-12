@@ -1,12 +1,12 @@
 <template>
-    <section :class="{popup: 1, open: $store.state.activePopup === storeProp}">
+    <section :class="{popup: 1, open}">
 
-        <div class="container">
+        <div ref="popupContent" class="container">
 
             <!-- Header with title and close button -->
             <div class="header">
                 <span class="title">{{ title }}</span>
-                <i class="fas fa-fw fa-times" @click="$store.commit('setActivePopup', null)"></i>
+                <i class="fas fa-fw fa-times" @click="close"></i>
             </div>
 
             <!-- Contains content of popovers page -->
@@ -38,6 +38,51 @@
                 type: String,
                 required: true
             }
+        },
+
+        data() {
+            return {
+                outOfBoundsClickArgs: []
+            };
+        },
+
+        computed: {
+
+            open() {
+                return this.$store.state.activePopup === this.storeProp;
+            }
+        },
+
+        watch: {
+
+            open(open) {
+                const {popupContent} = this.$refs;
+
+                // Unbind previous listener
+                if (this.outOfBoundsClickArgs.length) {
+                    this.$utils.off(...this.outOfBoundsClickArgs);
+                }
+
+                if (open) {
+                    requestAnimationFrame(() => {
+
+                        // Detect clicks outside of content container
+                        this.outOfBoundsClickArgs = this.$utils.on(window, 'click', e => {
+
+                            // Check if user clicked outside of it
+                            if (!this.$utils.eventPath(e).includes(popupContent)) {
+                                this.close();
+                            }
+                        }, {useCapture: false});
+                    });
+                }
+            }
+        },
+
+        methods: {
+            close() {
+                this.$store.commit('setActivePopup', null);
+            }
         }
     };
 
@@ -53,7 +98,7 @@
         opacity: 0;
         transform: translateY(-1em) rotateX(10deg);
         transition: all 0.3s;
-        background: rgba($palette-deep-blue, 0.05);
+        background: rgba($palette-sick-white, 0.5);
         z-index: 10;
 
         &.open {
@@ -81,7 +126,7 @@
             margin-bottom: 1em;
 
             .title {
-                color: $palette-deep-blue;
+                color: $palette-asphalt;
                 font-weight: 600;
             }
 
@@ -94,19 +139,19 @@
                 font-size: 0.95em;
 
                 &:hover {
-                    color: $palette-deep-blue;
+                    color: $palette-asphalt;
                 }
             }
         }
     }
 
-    @include tablet {
+    @include mq-tablets {
         .popup {
             padding: 1em;
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .popup {
             padding: 0.25em;
         }

@@ -24,7 +24,7 @@
 
         mounted() {
             const {video} = this.$refs;
-            this.utils.on(video, 'play', () => {
+            this.$utils.on(video, 'play', () => {
 
                 // Pause other videoPreviews to prevent video overlap
                 if (activeVideo) {

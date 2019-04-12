@@ -6,10 +6,12 @@
 
             <i class="fas fa-search"></i>
             <input v-strict-focus
+                   :value="search.rawQuery"
                    placeholder="Search..."
                    spellcheck="false"
                    type="text"
                    @input="updateSearchQuery">
+
             <i :class="{delete: 1, 'fas fa-times': 1, visible: searchQuery.length}" @click="clear"></i>
 
             <!-- Show available filters -->
@@ -48,6 +50,9 @@
     import SimpleButton      from '../../../ui/input/TextToggleButton';
     import IntroBox          from '../../../ui/specific/IntroBox';
 
+    // Vuex stuff
+    import {mapState} from 'vuex';
+
     export default {
 
         components: {
@@ -60,6 +65,10 @@
             return {
                 searchQuery: ''
             };
+        },
+
+        computed: {
+            ...mapState(['search'])
         },
 
         mounted() {
@@ -103,6 +112,7 @@
                     key: 'regex',
                     value: state
                 });
+
                 this.updateSearch();
             },
 
@@ -111,6 +121,7 @@
                     key: 'ignoreCase',
                     value: state
                 });
+
                 this.updateSearch();
             },
 
@@ -134,8 +145,8 @@
     .search-bar {
         position: relative;
         padding: 1em;
+        border-bottom: 2px solid $palette-sick-white;
         background: white;
-        box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
     }
 
     .search-field {
@@ -151,7 +162,7 @@
 
         input {
             @include font(400, 0.9em);
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             flex-grow: 1;
 
             &::placeholder {
@@ -206,7 +217,7 @@
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .search-bar {
             padding: 0.75em;
         }

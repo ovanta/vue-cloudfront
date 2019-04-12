@@ -13,14 +13,57 @@ export const auth = {
         apikey: null,
 
         // Timestamp of last authentication
-        lastAuthentication: null
+        lastAuthentication: null,
+
+        // Server and user informations
+        status: null,
+
+        // Currently active sessions
+        activeSessions: []
+    },
+
+    mutations: {
+
+        /**
+         * Replaces, adds or removes a session
+         * @param state
+         * @param action
+         * @param value
+         * @returns {*}
+         */
+        updateActiveSessions(state, [action, value]) {
+            switch (action) {
+                case 'replace':
+                    return state.activeSessions.splice(0, state.activeSessions.length, ...value);
+                case 'add':
+                    return state.activeSessions.push(value);
+                case 'remove': {
+                    const {id} = value;
+                    return state.activeSessions = state.activeSessions.filter(s => s.id !== id);
+                }
+            }
+        }
     },
 
     actions: {
 
-        async logout() {
-            localStorage.removeItem('apikey');
-            location.reload(true);
+        async logout({state: {apikey}}) {
+            const done = () => {
+                localStorage.removeItem('apikey');
+                location.reload(true);
+            };
+
+            return this.dispatch('fetch', {
+                route: 'logout',
+                body: {apikey}
+            }).then(done).catch(done);
+        },
+
+        async logoutEverywhere({state: {apikey}}) {
+            return this.dispatch('fetch', {
+                route: 'logoutEverywhere',
+                body: {apikey}
+            });
         },
 
         /**
@@ -42,13 +85,14 @@ export const auth = {
                 // Register websocket
                 websocket.register(apikey);
 
-                // Jump to home tab
-                this.commit('setActiveTab', 'home');
+                // Jump to dashboard
+                this.commit('setActiveTab', 'dashboard');
 
-                // Update events and nodes
+                // Update nodes and perform first-time sync of stats
                 return Promise.all([
                     this.dispatch('nodes/update'),
-                    this.dispatch('stats/update')
+                    this.dispatch('stats/update'),
+                    this.dispatch('auth/status')
                 ]);
             });
         },
@@ -71,13 +115,14 @@ export const auth = {
                 // Register websocket
                 websocket.register(apikey);
 
-                // Jump to home tab
-                this.commit('setActiveTab', 'home');
+                // Jump to dashboard
+                this.commit('setActiveTab', 'dashboard');
 
                 // Update nodes and perform first-time sync of stats
                 return Promise.all([
-                    this.dispatch('stats/sync'),
-                    this.dispatch('nodes/update')
+                    this.dispatch('nodes/update'),
+                    this.dispatch('auth/status'),
+                    this.dispatch('stats/sync')
                 ]);
             });
         },
@@ -98,8 +143,12 @@ export const auth = {
                 // Register websocket
                 websocket.register(apikey);
 
-                // Update nodes
-                return Promise.all([this.dispatch('nodes/update'), this.dispatch('stats/update')]);
+                // Update everything
+                return Promise.all([
+                    this.dispatch('nodes/update'),
+                    this.dispatch('stats/update'),
+                    this.dispatch('auth/status')
+                ]);
             }).catch(() => {
                 this.dispatch('auth/logout');
             });
@@ -162,6 +211,21 @@ export const auth = {
                         });
                     }
                 }
+            });
+        },
+
+        /**
+         * Requests basic session and server informations
+         * @param state
+         * @returns {Promise<*|Promise<any>>}
+         */
+        async status({state}) {
+            return this.dispatch('fetch', {
+                route: 'status',
+                body: {apikey: state.apikey}
+            }).then(res => {
+                state.status = res;
+                return res;
             });
         }
     }

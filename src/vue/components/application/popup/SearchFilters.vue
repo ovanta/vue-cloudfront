@@ -63,7 +63,7 @@
 
         p {
             @include font(600, 0.85em);
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             width: 50%;
         }
     }
@@ -75,7 +75,7 @@
         .examples {
             @include flex(column);
             background: $palette-snow-white;
-            color: rgba($palette-deep-blue, 0.85);
+            color: rgba($palette-asphalt, 0.85);
             font-family: monospace;
             padding: 0.5em 0.75em;
             border-radius: 0.15em;
@@ -87,7 +87,7 @@
             @include font(400, 0.8em);
             line-height: 1.3em;
             width: 50%;
-            color: darken($palette-grayish-blue, 15);
+            color: darken($palette-blurry-gray, 15);
         }
     }
 

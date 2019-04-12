@@ -58,7 +58,7 @@
                     return;
                 }
 
-                this.$store.dispatch('auth/applySettings', {
+                this.$store.dispatch('auth/updateCredentials', {
                     currentPassword: currentPassword.value,
                     newUsername: newUsername.value,
                     newPassword: newPassword.value
@@ -109,7 +109,7 @@
             @include font(600, 0.75em);
             margin-top: 0.25em;
             color: white;
-            background: $palette-deep-blue;
+            background: $palette-asphalt;
             text-align: center;
             border-radius: 0.15em;
             transition: all 0.3s;

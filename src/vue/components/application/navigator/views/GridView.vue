@@ -66,9 +66,6 @@
 
 <script>
 
-    // Config stuff
-    import {visibleNodesChunkSize} from '../../../../../../config/config';
-
     // Selectable plugin
     import Selectable from '../plugins/selectable';
 
@@ -90,7 +87,7 @@
         data() {
             return {
                 fileLimit: 0,
-                dirLimit: visibleNodesChunkSize
+                dirLimit: this.$config.visibleNodesChunkSize
             };
         },
 
@@ -134,11 +131,11 @@
     h1 {
         position: relative;
         display: inline-block;
-        font-size: 0.95em;
-        color: $palette-deep-blue;
-        padding: 0.15em 0.5em 0.25em;
+        font-size: 0.85em;
+        color: $palette-asphalt;
+        padding: 0.15em 0 0.5em;
         border-radius: 0.15em;
-        margin: 1.5em 0 0.2em;
+        margin: 1.75em 0 0.35em;
     }
 
     .flex-container {
@@ -195,14 +192,14 @@
                     @include font(600, 0.9em);
                     width: 100%;
                     text-align: center;
-                    color: $palette-deep-blue;
+                    color: $palette-asphalt;
                     margin-top: 0.75em;
                 }
 
                 > button {
                     @include font(600, 0.95em);
                     margin: 0 auto;
-                    background: $palette-deep-blue;
+                    background: $palette-asphalt;
                     color: $palette-snow-white;
                     transition: all 0.3s;
                     padding: 0.4em 0.8em;
@@ -210,7 +207,7 @@
                     width: 100%;
 
                     &:hover {
-                        background: lighten($palette-deep-blue, 5);
+                        background: lighten($palette-asphalt, 5);
                     }
                 }
             }
@@ -236,12 +233,12 @@
 
         .star {
             position: absolute;
-            @include position(0.35em, 0.1em, auto, auto);
-            font-size: 0.75em;
+            @include position(-0.4em, -0.5em, auto, auto);
+            font-size: 0.85em;
             opacity: 0;
             transform: translateY(-0.15em) rotate(10deg);
             transition: all 0.3s;
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
 
             &.visible {
                 opacity: 1;
@@ -251,13 +248,11 @@
 
         .extension {
             @include font(600, 0.85em);
-            background: $palette-deep-blue;
+            @include white-space-overflow;
+            background: $palette-asphalt;
             max-width: 5em;
-            overflow: hidden;
-            text-overflow: ellipsis;
             flex-shrink: 0;
             padding: 0.25em 0.45em;
-            white-space: nowrap;
             text-transform: uppercase;
             border-radius: 0.15em;
             color: white;
@@ -284,7 +279,7 @@
 
         .name,
         .detail {
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
         }
 
         .name {

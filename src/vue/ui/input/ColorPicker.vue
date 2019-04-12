@@ -238,7 +238,7 @@
     }
 
     .color {
-        @include size(100%, 8em);
+        @include size( 8em,100%);
         background: red;
 
         .knob {
@@ -249,12 +249,12 @@
     }
 
     .hue {
-        @include size(100%, 8px);
+        @include size( 8px,100%);
         background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(60, 100%, 50%), hsl(120, 100%, 50%), hsl(180, 100%, 50%), hsl(240, 100%, 50%), hsl(300, 100%, 50%), hsl(360, 100%, 50%));
         margin: 0.5em 0 1em;
 
         .knob {
-            @include size(6px, 14px);
+            @include size( 14px,6px);
             margin-top: -3px;
             border-radius: 50em;
         }
@@ -283,7 +283,7 @@
         input {
             @include font(600, 0.85em, 0.05em);
             background: $palette-snow-white;
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             border: 1px solid transparent;
             padding: 0.25em 0.75em;
             text-transform: uppercase;

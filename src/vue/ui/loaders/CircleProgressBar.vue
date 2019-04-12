@@ -1,5 +1,7 @@
 <template>
-    <svg class="circle-progress-bar" viewBox="0 0 20 20">
+    <svg :stroke-width="strokeWidth"
+         class="circle-progress-bar"
+         viewBox="0 0 20 20">
 
         <!-- Only used as background-color -->
         <circle cx="10"
@@ -8,7 +10,7 @@
                 r="8.5"></circle>
 
         <!-- Actual progressbar -->
-        <circle :stroke-dashoffset="53.40707511102649 - (utils.limit(value, 0, 1) * 53.40707511102649)"
+        <circle :stroke-dashoffset="53.40707511102649 - ($utils.limit(value, 0, 1) * 53.40707511102649)"
                 :class="{progress: 1, indeterminate}"
                 cx="10"
                 cy="10"
@@ -27,6 +29,10 @@
             indeterminate: {
                 type: Boolean,
                 default: false
+            },
+            strokeWidth: {
+                type: Number,
+                default: 2.25
             }
         }
     };
@@ -44,12 +50,11 @@
 
         circle {
             @include size(100%);
-            stroke-width: 2.5;
             stroke-linecap: round;
             fill: transparent;
 
             &.progress {
-                stroke: $palette-theme-primary;
+                stroke: $palette-theme-secondary;
                 stroke-dasharray: 53.40707511102649;
                 transform-origin: center;
 
@@ -72,7 +77,7 @@
             }
 
             &.background {
-                stroke: $palette-decent-blue;
+                stroke: rgba($palette-asphalt, 0.1);
             }
         }
     }

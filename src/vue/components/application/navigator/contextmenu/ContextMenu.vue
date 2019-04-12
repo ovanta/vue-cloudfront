@@ -181,12 +181,12 @@
         mounted() {
 
             // Close on resize and keypress
-            this.utils.on(window, ['resize', 'keydown', 'wheel', 'blur'], () => this.$emit('hide'));
+            this.$utils.on(window, ['resize', 'keydown', 'wheel', 'blur'], () => this.$emit('hide'));
 
             // Function to check, if menu is open, if the user has clicked
             // outside of the menu. Only active is menu is visible.
             const detectOutsideClick = evt => {
-                if (!this.utils.eventPath(evt).includes(this.$refs.menu)) {
+                if (!this.$utils.eventPath(evt).includes(this.$refs.menu)) {
                     this.$emit('hide');
                 }
             };
@@ -213,7 +213,7 @@
                 }
 
                 // Set listener for out-of-bounds clicks
-                this.utils.on(window, ['mousedown', 'touchstart'], detectOutsideClick);
+                this.$utils.on(window, ['mousedown', 'touchstart'], detectOutsideClick);
 
                 // Set postion
                 const tap = (evt.touches && evt.touches[0] || evt);
@@ -224,7 +224,7 @@
 
             // Event to hide the menu
             this.$on('hide', () => {
-                this.utils.off(window, ['mousedown', 'touchstart'], detectOutsideClick);
+                this.$utils.off(window, ['mousedown', 'touchstart'], detectOutsideClick);
                 this.open = false;
             });
         },
@@ -363,7 +363,7 @@
         background: white;
         padding: 0.4em 0;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.2);
-        border-radius: 0.5em;
+        border-radius: 0.25em;
         z-index: 15;
 
         &:empty {
@@ -384,7 +384,7 @@
             font-size: 0.85em;
             cursor: pointer;
             transition: all 0.3s;
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             padding: 0.6em 1em;
 
             i {
@@ -397,7 +397,7 @@
             }
 
             &:hover {
-                background: rgba($palette-deep-blue, 0.09);
+                background: rgba($palette-asphalt, 0.09);
             }
 
             &.sub {
@@ -437,7 +437,7 @@
                     &::before {
                         @include pseudo();
                         @include position(-10%, -10%, auto, auto);
-                        @include size(120%, 120%);
+                        @include size( 120%,120%);
                         background: transparent;
                         z-index: -1;
                     }
@@ -452,7 +452,7 @@
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .menu {
             position: fixed;
             top: auto !important;
@@ -475,7 +475,7 @@
 
                 :hover,
                 &.delete:hover {
-                    color: $palette-deep-blue;
+                    color: $palette-asphalt;
                 }
 
                 &.sub {

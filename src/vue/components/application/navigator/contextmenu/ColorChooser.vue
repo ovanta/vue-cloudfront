@@ -17,8 +17,6 @@
 
 <script>
 
-    // Config
-    import config from '../../../../../../config/config.json';
 
     // Components
     import ColorPicker from '../../../../ui/input/ColorPicker';
@@ -31,7 +29,7 @@
 
         data() {
             return {
-                colors: config.predefinedColors
+                colors: this.$config.predefinedColors
             };
         },
 

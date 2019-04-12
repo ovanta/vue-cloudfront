@@ -2,9 +2,15 @@
     <section class="info-box">
 
         <!-- Show if the user is currently offline -->
-        <p v-if="offline" class="info offline">
+        <p v-if="!connection.ethernet" class="info offline">
             <i class="fas fa-fw fa-unlink"></i>
             <span>No ethernet connection available. Read-only mode active.</span>
+        </p>
+
+        <!-- Show if connected via webscket -->
+        <p v-if="!connection.socketRegistered" class="info offline">
+            <i class="fas fa-fw fa-unlink"></i>
+            <span>Socket not connected.</span>
         </p>
 
     </section>
@@ -12,11 +18,17 @@
 
 <script>
 
+    // Vuex stuff
+    import {mapState} from 'vuex';
+
     export default {
+
         data() {
-            return {
-                offline: !window.navigator.onLine
-            };
+            return {};
+        },
+
+        computed: {
+            ...mapState(['connection'])
         },
 
         mounted() {

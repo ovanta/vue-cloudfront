@@ -78,13 +78,13 @@
     .border {
         position: absolute;
         @include position(auto, 0, 0, 0);
-        @include size(100%, 1px);
+        @include size( 1px,100%);
         opacity: 0.75;
 
         &::before,
         &::after {
             @include pseudo();
-            @include size(100%, 1px);
+            @include size( 1px,100%);
             background: $palette-decent-blue;
         }
 

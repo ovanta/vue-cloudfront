@@ -30,9 +30,6 @@
 
 <script>
 
-    // Config
-    import {apiEndPoint} from '../../../../../config/config.json';
-
     // Components
     import Popup          from './Popup';
     import TextInputField from '../../../ui/input/TextInputField';
@@ -45,13 +42,16 @@
         components: {Popup, TextInputField},
 
         data() {
-            return {
-                apiEndPoint: apiEndPoint.startsWith('http') ? apiEndPoint : location.origin + apiEndPoint
-            };
+            return {};
         },
 
         computed: {
-            ...mapState(['share'])
+            ...mapState(['share']),
+
+            apiEndPoint() {
+                const {apiEndPoint} = this.$config;
+                return apiEndPoint.startsWith('http') ? apiEndPoint : location.origin + apiEndPoint;
+            }
         },
 
         methods: {
@@ -80,7 +80,7 @@
 
         h3 {
             @include font(400, 0.85em);
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
         }
     }
 
@@ -89,7 +89,7 @@
         margin: 1.25em 0;
         max-height: 15em;
         overflow: auto;
-        color: $palette-deep-blue;
+        color: $palette-asphalt;
 
         .link {
             @include flex(row, center);
@@ -126,7 +126,7 @@
             text-align: center;
             margin: 1em 0;
             @include font(400, 0.85em);
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
         }
     }
 
@@ -159,7 +159,7 @@
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .exising-links {
             padding: 0 0.5em;
         }

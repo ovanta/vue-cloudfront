@@ -45,7 +45,7 @@
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.lastModified | readableTimestamp }}</span>
+                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
                 <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
 
@@ -68,7 +68,7 @@
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.lastModified | readableTimestamp }}</span>
+                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
                 <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
         </div>
@@ -77,9 +77,6 @@
 </template>
 
 <script>
-
-    // Config stuff
-    import {visibleNodesChunkSize} from '../../../../../../config/config';
 
     // Selectable plugin
     import Selectable from '../plugins/selectable';
@@ -97,7 +94,7 @@
         data() {
             return {
                 fileLimit: 0,
-                dirLimit: visibleNodesChunkSize,
+                dirLimit: this.$config.visibleNodesChunkSize,
 
                 sortProp: null,
                 sortProps: {
@@ -186,13 +183,14 @@
         cursor: pointer;
         font-size: 0.8em;
         border: 1px solid transparent;
+        border-radius: 0.15em;
 
         &:nth-child(even) {
-            background: rgba($palette-deep-blue, 0.02);
+            background: rgba($palette-asphalt, 0.02);
         }
 
         i {
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             transition: all 0.3s;
             font-size: 1.25em;
             margin-bottom: 0.2em;
@@ -214,7 +212,7 @@
 
         .name,
         .detail {
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             transition: all 0.3s;
         }
 
@@ -225,9 +223,7 @@
             font-weight: 600;
             border-bottom: 2px solid transparent;
             transition: all 0.3s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            @include white-space-overflow;
 
             span[contenteditable=true] {
                 border-color: $palette-theme-primary;
@@ -284,7 +280,7 @@
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .dir,
         .file,
         .header {

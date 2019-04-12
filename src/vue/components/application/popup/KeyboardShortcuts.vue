@@ -70,6 +70,7 @@
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
                             {keys: ['j', 's'], action: 'Switch to starred folder / files.'},
                             {keys: ['j', 'b'], action: 'Switch to bin.'},
+                            {keys: ['j', 'd'], action: 'Switch to dashboard.'},
                             {keys: ['shift', 'tab'], action: 'Switch tabs.'},
                             {keys: ['backspace'], action: 'Go up in hierarchy.'},
                             {keys: ['esc'], action: 'Close any popup like menu or this page.'}
@@ -90,7 +91,7 @@
 
         mounted() {
             this.$callOnDestroy(
-                this.utils.detectKeyCombinations(
+                this.$utils.detectKeyCombinations(
                     document,
                     this.keyboardEvent,
                     ({target}) => target.getAttribute('contenteditable') !== 'true' && !['TEXT-AREA', 'INPUT'].includes(target.tagName)
@@ -334,9 +335,15 @@
                     return;
                 }
 
+                // Switch to dashboard
+                if (keys.KeyJ && keys.KeyD) {
+                    this.$store.commit('setActiveTab', 'dashboard');
+                    return;
+                }
+
                 // Switch tabs
                 if (keys.KeyTab && keys.KeyShift && !keys.ctrlKey) {
-                    const tabs = ['home', 'marked', 'bin', 'settings'];
+                    const tabs = ['dashboard', 'home', 'marked', 'bin', 'settings'];
                     let index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
                     // Switch tab, rotate if end is reached
@@ -376,7 +383,7 @@
         h2 {
             @include font(400, 0.9em);
             padding: 0.75em 0 0.25em;
-            border-bottom: 1px solid rgba($palette-deep-blue, 0.05);
+            border-bottom: 1px solid $palette-sick-white;
             margin-bottom: 0.5em;
         }
 
@@ -391,9 +398,9 @@
 
                 .key {
                     margin-right: 0.5em;
-                    color: $palette-deep-blue;
-                    border: 1px solid rgba($palette-deep-blue, 0.75);
-                    border-bottom: 2px solid rgba($palette-deep-blue, 0.9);
+                    color: $palette-asphalt;
+                    border: 1px solid rgba($palette-asphalt, 0.75);
+                    border-bottom: 2px solid rgba($palette-asphalt, 0.9);
                     border-radius: 2px;
                     padding: 0.05em 0.45em 0.1em 0.45em;
                 }
@@ -401,13 +408,13 @@
 
             p {
                 @include font(400, 0.8em);
-                color: darken($palette-grayish-blue, 15);
+                color: darken($palette-blurry-gray, 15);
                 text-align: right;
             }
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .shortcut-sections {
             flex-direction: column;
             padding-right: 0.5em;

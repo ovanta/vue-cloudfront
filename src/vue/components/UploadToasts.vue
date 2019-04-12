@@ -80,7 +80,7 @@
         methods: {
 
             genStatusMessage(upload) {
-                const pluralify = strings => this.utils.createReadableString(strings, 2);
+                const pluralify = strings => this.$utils.createReadableString(strings, 2);
 
                 // Create a appropriate message
                 switch (upload.state) {
@@ -91,7 +91,7 @@
                     case 'create-dirs':
                         return 'Creating folders...';
                     case 'upload-files': {
-                        const percent = Math.round((this.utils.limit(upload.done / upload.total, 0, 1)) * 100);
+                        const percent = Math.round((this.$utils.limit(upload.done / upload.total, 0, 1)) * 100);
                         return `${percent}% - Uploading ${pluralify(upload.files)}`;
                     }
                     case 'done':
@@ -182,7 +182,7 @@
         .upload {
             @include flex(row, center);
             padding: 0.5em 0;
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             flex-shrink: 0;
 
             &:hover .indicator .cancel {
@@ -191,11 +191,9 @@
 
             .info-message {
                 @include font(600, 0.75em);
+                @include white-space-overflow;
                 margin-right: 1.5em;
                 line-height: 1.2em;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
 
             .indicator {
@@ -209,7 +207,7 @@
                     @include flex(row, center, center);
                     @include size(26px);
                     position: absolute;
-                    background: $palette-deep-blue;
+                    background: $palette-asphalt;
                     border-radius: 100%;
                     color: white;
                     font-size: 0.8em;
@@ -229,7 +227,7 @@
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .upload-bar {
             bottom: 10%;
         }

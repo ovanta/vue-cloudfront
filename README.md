@@ -40,7 +40,8 @@ See [GitHub Projects](https://github.com/vue-cloudfront/vue-cloudfront/projects)
 * Blazing fast with local caching: Average server response time: '~ 30ms' / Client-side rendering time: '~ 1.5s'.
 * Installable - [Install it on your desktop](https://developers.google.com/web/progressive-web-apps/desktop) (Currently only supported by Chrome 70+ under Linux, Windows and Chrome OS).
 * Modern Vue frontend with material-design - easy to design and customize.
-* Simple structure and just a few dependencies.
+* Simply structure and just a few dependencies.
+* Clean dashboard to keep an overview over active sessions, files and more.
 
 #### File Management
 * GridView with small file previews and draggable tiles.
@@ -107,8 +108,5 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 * [PM2 as load balancer](https://pm2.io)
 
 ##### Current branches
-* [mobile-support](https://github.com/vue-cloudfront/vue-cloudfront/tree/mobile-support) - (in progress) Mobile and general touch-support.
-* [settings](https://github.com/vue-cloudfront/vue-cloudfront/tree/settings) - (in progress) Additional home-tab with user-settings.
-* [realtime-sync](https://github.com/vue-cloudfront/vue-cloudfront/tree/realtime-sync) - Realtime synchronization between sessions.
-* [history](https://github.com/vue-cloudfront/vue-cloudfront/tree/history) - (aborted) Additional home-tab with a temporary, visual log of all your actions.
-* [terminal](https://github.com/vue-cloudfront/vue-cloudfront/tree/terminal) - (aborted) Additional home-tab with a full functional terminal like bash.
+* [master](https://github.com/vue-cloudfront/vue-cloudfront/tree/master) - Stable branch with latest version tagged.
+* [develop](https://github.com/vue-cloudfront/vue-cloudfront/tree/develop) - Develop brach, kind of nightly build.

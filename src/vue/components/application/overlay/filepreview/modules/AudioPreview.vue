@@ -82,7 +82,7 @@
         },
 
         mounted() {
-            const {on} = this.utils;
+            const {on} = this.$utils;
             const audio = new Audio(this.url);
 
             on(audio, 'loadedmetadata', () => {
@@ -138,7 +138,7 @@
     .audio-preview {
         position: relative;
         @include flex(row, center, space-between);
-        color: $palette-deep-blue;
+        color: $palette-asphalt;
         margin: 0.5em auto 0.25em;
         padding-bottom: 1.25em;
         width: 90%;
@@ -189,11 +189,11 @@
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .audio-preview {
             position: relative;
             @include flex(row, center, space-between);
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
             margin: 0.5em auto 0.25em;
             padding-bottom: 1.25em;
             width: 90%;

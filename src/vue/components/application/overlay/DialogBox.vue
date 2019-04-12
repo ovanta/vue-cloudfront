@@ -4,7 +4,7 @@
         <div class="content">
 
             <div class="header">
-                <i class="fas fa-fw fa-question-circle"></i>
+                <i :class="`fas fa-fw fa-${icon}`"></i>
                 <h1> {{ dialogbox.title }}</h1>
             </div>
 
@@ -37,10 +37,25 @@
         },
 
         computed: {
-            ...mapState(['dialogbox'])
+            ...mapState(['dialogbox']),
+
+            icon() {
+                switch (this.dialogbox.type) {
+                    case 'info': {
+                        return 'question-circle';
+                    }
+                    case 'warn': {
+                        return 'exclamation-circle';
+                    }
+                    case 'error': {
+                        return 'times-circle';
+                    }
+                }
+            }
         },
 
         methods: {
+
             close(index) {
                 this.dialogbox.close(index);
             }
@@ -57,10 +72,10 @@
     );
 
     .dialog-box {
-        position: fixed;
+        position: absolute;
         @include position(0, 0, 0, 0);
         @include flex(column, center, center);
-        background: rgba($palette-deep-blue, 0.05);
+        background: rgba($palette-asphalt, 0.125);
         opacity: 0;
         transition: all 0.3s;
         pointer-events: none;
@@ -71,8 +86,20 @@
             pointer-events: all;
 
             .content {
-                opacity: 1;
-                transform: none;
+                @include animate('0.35s ease forwards') {
+                    25% {
+                        transform: translateY(-0.5em) scale(0.95);
+                        opacity: 0.5;
+                    }
+                    50% {
+                        transform: scale(1.025);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: none;
+                        opacity: 1;
+                    }
+                }
             }
         }
     }
@@ -80,10 +107,10 @@
     .content {
         @include width(50vw, 5em, 25em);
         background: $palette-snow-white;
-        color: $palette-deep-blue;
+        color: $palette-asphalt;
         padding: 0.75em 1.25em;
         border-radius: 0.15em;
-        box-shadow: 0 0.4em 1.5em rgba($palette-deep-blue, 0.075);
+        box-shadow: 0 0.4em 1.5em rgba($palette-asphalt, 0.075);
         opacity: 0;
         transform-origin: top center;
         transform: translateY(-0.5em) scale(0.95);
@@ -93,7 +120,7 @@
             @include flex(row, center);
 
             h1 {
-                @include font(600, 1.05em);
+                @include font(600, 1em);
             }
 
             i {
@@ -135,7 +162,7 @@
                         }
 
                         @if (lightness($color) > 75) {
-                            color: $palette-deep-blue;
+                            color: $palette-asphalt;
                         } @else {
                             color: $palette-snow-white;
                         }
@@ -145,7 +172,7 @@
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .content {
             max-width: 90vw;
             width: 90vw;

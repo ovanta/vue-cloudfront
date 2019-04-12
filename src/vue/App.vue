@@ -49,6 +49,9 @@
             if (apikey) {
                 this.$store.dispatch('auth/key', {apikey});
             }
+
+            // Listen for logs
+            this.$store.commit('errors/listen');
         }
     };
 </script>
@@ -85,7 +88,7 @@
     }
 
     ::-webkit-scrollbar-thumb {
-        background-color: lighten($palette-grayish-blue, 10);
+        background-color: lighten($palette-blurry-gray, 10);
         border-radius: 0;
     }
 
@@ -138,9 +141,9 @@
         @include width(70%, 0, 1400px);
         @include height(90%, 0, 950px);
         @include position(0, 0, 0, 0);
-        border-radius: 0.2em;
+        border-radius: 0.5em;
         margin: auto;
-        box-shadow: 0 0.4em 2.5em 0 rgba($palette-deep-blue, 0.13);
+        box-shadow: 0 0.4em 3em 0 rgba($palette-asphalt, 0.15);
     }
 
     .selection-area {
@@ -156,7 +159,7 @@
     }
 
     // Switch to fullscreen mode if window is too small
-    @include tablet {
+    @include mq-tablets {
         .app-content {
             min-width: 100%;
             min-height: 100%;

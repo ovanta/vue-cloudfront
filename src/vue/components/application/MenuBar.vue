@@ -1,39 +1,53 @@
 <template>
     <section class="menu">
 
-        <div v-tooltip="'Home'"
-             :class="{'item btn-home': 1, active: activeTab === 'home'}"
-             @click="changeTab('home')">
+        <div v-if="auth.status" class="header">
+            <h1>
+                <span>Hello {{ auth.status.user.username }}</span>
+                <i class="fas fa-fw fa-hand-peace"></i>
+            </h1>
+
+            <div class="store-info">
+                <circle-progress-bar :value="$store.getters['nodes/totalSize'] / auth.status.availableSpace" :stroke-width="1.15"/>
+
+                <div class="summary">
+                    <p>{{ $store.getters['nodes/totalSize'] | readableByteCount }}</p>
+                    <span></span>
+                    <p>{{ auth.status.availableSpace | readableByteCount }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div :class="{'item btn-dashboard': 1, active: activeTab === 'dashboard'}" @click="changeTab('dashboard')">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </div>
+
+        <div :class="{'item btn-home': 1, active: activeTab === 'home'}" @click="changeTab('home')">
             <i class="fas fa-fw fa-home"></i>
+            <span>Home</span>
         </div>
 
-        <div v-tooltip="'View starred folder and files'"
-             :class="{'item btn-stared': 1, active: activeTab === 'marked'}"
-             @click="changeTab('marked')">
+        <div :class="{'item btn-stared': 1, active: activeTab === 'marked'}" @click="changeTab('marked')">
             <i class="fas fa-fw fa-star"></i>
-            <intro-box id="0"
-                       header="Starred folders and files"
-                       text="Mark your important files, folder or just use it as a quick way to access them."/>
+            <span>Bookmarks</span>
         </div>
 
-        <div v-tooltip="'Removed files / folders'"
-             :class="{'item btn-bin': 1, active: activeTab === 'bin'}"
-             @click="changeTab('bin')">
+        <div :class="{'item btn-bin': 1, active: activeTab === 'bin'}" @click="changeTab('bin')">
             <i class="fas fa-fw fa-trash-alt"></i>
+            <span>Trash</span>
         </div>
 
         <div class="eat-space"></div>
 
-        <div v-tooltip="'Refresh'"
-             class="item bottom btn-refresh"
-             @click="refresh">
+        <div class="item bottom btn-refresh" @click="refresh">
             <i class="fas fa-fw fa-sync-alt"></i>
+            <span>Refresh</span>
         </div>
 
-        <div v-tooltip="'Logout'"
-             class="item bottom btn-logout"
-             @click="$store.dispatch('auth/logout')">
+        <div class="item bottom btn-logout" @click="$store.dispatch('auth/logout')">
             <i class="fas fa-fw fa-sign-out-alt"></i>
+            <span>Logout</span>
         </div>
 
     </section>
@@ -42,21 +56,24 @@
 <script>
 
     // Components
-    import IntroBox from '../../ui/specific/IntroBox';
+    import IntroBox          from '../../ui/specific/IntroBox';
+    import CircleProgressBar from '../../ui/loaders/CircleProgressBar';
 
     // Vue stuff
     import {mapState} from 'vuex';
 
     export default {
 
-        components: {IntroBox},
+        components: {IntroBox, CircleProgressBar},
 
         data() {
-            return {};
+            return {
+                status: {}
+            };
         },
 
         computed: {
-            ...mapState(['activeTab'])
+            ...mapState(['activeTab', 'auth'])
         },
 
         methods: {
@@ -88,38 +105,94 @@
 <style lang="scss" scoped>
 
     .menu {
-        background: white;
-        box-shadow: 0 0 3px 0 rgba($palette-deep-blue, 0.05);
-        border-right: 1px solid rgba($palette-deep-blue, 0.05);
-        @include flex(column, center);
-        padding: 1em 0.75em;
+        border-right: 2px solid $palette-sick-white;
+        @include flex(column);
+        padding: 1.75vh 1.15vw;
         height: 100%;
-        color: $palette-decent-blue;
+        color: $palette-blurry-gray;
+        background: white;
+    }
+
+    .header {
+        margin: 0.75em auto 2.5vh;
+        padding-bottom: 2.5vh;
+        border-bottom: 2px solid $palette-sick-white;
+
+        h1 {
+            @include font(600, 0.9em);
+            @include flex(row, center, center);
+            margin-bottom: 1.5em;
+
+            i {
+                font-size: 0.75em;
+                margin-left: 0.4em;
+            }
+        }
+
+        .store-info {
+            @include flex(column, center, center);
+            position: relative;
+            width: 100%;
+
+            .circle-progress-bar {
+                @include size(6.5em);
+            }
+
+            .summary {
+                position: absolute;
+                @include position(0, 0, 0, 0);
+                @include flex(column, center, center);
+
+                span {
+                    display: inline-block;
+                    @include size( 1px,20%);
+                    background: $palette-decent-blue;
+                    margin: 0.35em 0;
+                }
+
+                p {
+                    @include font(600, 0.8em);
+                    color: $palette-decent-blue;
+                }
+            }
+        }
     }
 
     .item {
-        @include flex(column, center, center);
-        @include size(2.5em);
+        @include flex(row, center);
+        width: 100%;
         position: relative;
-        margin-bottom: 1em;
+        padding: 0.65em 0.9em;
+        border-radius: 0.25em;
+        margin: 0.75vh 0;
         cursor: pointer;
         transition: all 0.25s;
 
         i {
             transition: all 0.3s;
-            font-size: 1em;
+            font-size: 0.8em;
         }
 
-        &.active i {
-            color: $palette-theme-primary;
+        span {
+            @include font(600, 0.75em);
+            margin-left: 0.75em;
+            transition: all 0.3s;
         }
 
-        &:not(.active):hover i {
-            color: $palette-deep-blue;
+        &.active {
+            background: $palette-theme-secondary;
+
+            span, i {
+                color: white;
+            }
         }
 
-        &.bottom {
-            margin: 1em 0 0;
+        &:not(.active):hover {
+            background: rgba($palette-blurry-gray, 0.2);
+
+            span, i {
+                color: darken($palette-blurry-gray, 25);
+            }
         }
     }
 
@@ -127,7 +200,18 @@
         flex-grow: 1;
     }
 
-    @include mobile {
+    @include mq-tablets {
+        .menu {
+            padding-right: 0;
+            padding-left: 0;
+
+            .item {
+                border-radius: 0;
+            }
+        }
+    }
+
+    @include mq-phones {
         .menu {
             @include flex(row, center);
             justify-content: space-between; // Edge fallback
@@ -135,18 +219,33 @@
             height: auto;
             padding: 0 0.5em;
             z-index: 10;
+            background: transparent;
 
             .eat-space {
                 flex-grow: 0;
             }
 
+            .header {
+                display: none;
+            }
+
             .item {
                 position: relative;
-                margin: 0.5em 0.5em 0.45em;
+                margin: 0.5em 0;
                 transform: scale(1);
+                background: none;
+                justify-content: center;
+
+                span {
+                    display: none;
+                }
 
                 &.active {
-                    transform: translateY(-0.2em) scale(1.05);
+                    transform: translateY(-0.2em) scale(1.075);
+
+                    i {
+                        color: $palette-theme-primary;
+                    }
 
                     &::before {
                         opacity: 1;
@@ -170,7 +269,8 @@
                 &::before {
                     @include pseudo();
                     @include position(auto, 0, 0, 0);
-                    @include size(100%, 6px);
+                    @include size( 6px,60%);
+                    margin: auto;
                     background: $palette-theme-primary;
                     transform: translateY(0.75em) scale(0);
                     border-radius: 100em;
@@ -179,7 +279,7 @@
                 }
             }
 
-            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-stared', '.btn-refresh'));
+            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-dashboard', '.btn-stared', '.btn-refresh'));
         }
     }
 

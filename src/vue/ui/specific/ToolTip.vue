@@ -51,7 +51,7 @@
         padding: 0.4em 0.75em 0.5em;
         border-radius: 0.15em;
         @include font(600, 0.75em);
-        background: $palette-deep-blue;
+        background: $palette-asphalt;
         color: white;
         transform: translateY(5px) translateX(-50%);
         transition: transform 0.3s, opacity 0.3s;
@@ -67,11 +67,11 @@
             @include size(0);
             margin: auto;
             border: 5px solid transparent;
-            border-top-color: $palette-deep-blue;
+            border-top-color: $palette-asphalt;
         }
     }
 
-    @include tablet {
+    @include mq-tablets {
         .tooltip {
             display: none;
         }

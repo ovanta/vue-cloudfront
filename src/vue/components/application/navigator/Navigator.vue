@@ -124,7 +124,7 @@
                     }
                 }),
 
-                this.utils.detectKeyCombinations(
+                this.$utils.detectKeyCombinations(
                     window,
                     this.keyboardEvent,
                     ({target}) => this.$store.state.activeTab === 'home' &&
@@ -215,7 +215,7 @@
     .nav {
         @include flex(row);
         flex-shrink: 0;
-        border-bottom: 2px solid rgba($palette-deep-blue, 0.03);
+        border-bottom: 2px solid $palette-sick-white;
         padding-bottom: 1em;
         margin: 2em 1.5em 0 1.5em;
 
@@ -271,7 +271,7 @@
             width: 100%;
             flex-grow: 1000;
             padding-bottom: 10%;
-            color: $palette-deep-blue;
+            color: $palette-asphalt;
 
             p {
                 @include font(600, 0.9em);
@@ -295,7 +295,7 @@
         }
     }
 
-    @include mobile {
+    @include mq-phones {
         .nav {
             margin: 1.25em 0.75em 0.75em;
 

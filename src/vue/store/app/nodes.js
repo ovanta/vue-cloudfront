@@ -102,6 +102,21 @@ export const nodes = {
 
                 return ret;
             };
+        },
+
+        /**
+         * Calculates the current amount of space used
+         * @param state
+         * @returns {number}
+         */
+        totalSize(state) {
+            let size = 0;
+
+            for (let i = 0, l = state.length; i < l; i++) {
+                size += state[i].size || 0;
+            }
+
+            return size;
         }
     },
 
@@ -272,6 +287,19 @@ export const nodes = {
                     nodes: nodes.map(v => v.id),
                     destination: destination.id
                 }
+            }).catch(err => {
+
+                // Show error
+                this.commit('dialogbox/show', {
+                    type: 'error',
+                    title: 'Action failed',
+                    text: 'Cannot put a directory into itself.',
+                    buttons: [
+                        {type: 'accept', text: 'Okay'}
+                    ]
+                });
+
+                throw err;
             }).then(() => {
 
                 // Update nodes locally to save ressources
