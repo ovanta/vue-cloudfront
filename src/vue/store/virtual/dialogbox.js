@@ -14,11 +14,13 @@ export const dialogbox = {
     mutations: {
 
         show(state, {title, type = 'info', text = '', buttons = [], onResolve = () => 0}) {
+            const {commit} = this;
+
             Object.assign(state, {
                 type, title, text, buttons,
                 open: true,
                 close(idx) {
-                    state.open = false;
+                    commit('dialogbox/close');
                     onResolve(idx);
                 }
             });

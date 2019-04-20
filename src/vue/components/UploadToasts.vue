@@ -70,7 +70,7 @@
 
             uploads() {
                 const sortMap = ['failed', 'aborted', 'done', 'upload-files', 'create-dirs', 'started', 'init'];
-                const {uploads} = this.$store.state.data;
+                const uploads = [...this.$store.state.data.uploads];
 
                 uploads.sort((a, b) => sortMap.indexOf(a.state) - sortMap.indexOf(b.state));
                 return uploads;
