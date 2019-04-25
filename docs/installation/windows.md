@@ -1,13 +1,14 @@
-# Installing on windows
+# Installing on Windows
 The steps below are tested on Windows environments.
 If you're on Linux please check [Linux Installation Tutorial](https://github.com/Simonwep/vue-cloudfront/docs/installation/linux.md),
 if on mac: [Mac Installation Tutorial](https://github.com/Simonwep/vue-cloudfront/docs/installation/mac.md).
 
 ## Requirements
 
-1. Install [LTS version of Node.js for Windows](https://nodejs.org/en/download/)
-2. Install [MongoDB for Windows](https://www.mongodb.com/download-center/community)
-3. You can [download Github Desktop](https://desktop.github.com/) to get access not only for fancy UI but for git toolset itself.
+1. Install [LTS version of Node.js for Windows](https://nodejs.org/en/download/).
+2. Install [MongoDB for Windows](https://www.mongodb.com/download-center/community).
+3. Install [Redis server for Windows](https://github.com/dmajkic/redis/downloads) and start the server.
+4. You can [download Github Desktop](https://desktop.github.com/) to get access not only for fancy UI but for git toolset itself.
 
 ## Installation of vue-cloudfront-api
 

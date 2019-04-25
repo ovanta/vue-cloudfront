@@ -4,24 +4,12 @@ We assume that you're using `Debian 9.5` in the following steps.
 
 Assumptions for the rest of this tutorial:
 * You're having root access to Debian Linux machine.
-* We'll be using the local port 8080 for `vue-cloudfront-api`, this port should not be exposed as they will be hidden behind a nginx proxy;
+* We'll be using the local port 8080 for `vue-cloudfront-api` and 3000 for `vue-cloudfront`, this port should not be exposed as they will be hidden behind a nginx proxy;
 * You have SSL certificate for your domain. SSL encryption is required for PWA + service workers;
 
-### Requirements
-Dependencies
- 1. git - _as vcs_ (Tested with v2.11.0)
- 2. nginx - _as webserver_ (Tested with v11.5.0)
- 3. mongodb - _as database_ (Tested with v4.0.5)
- 4. node - _to install dependencies_ (Tested with v4.0.5)
- 5. certbot - _to get an ssl certificate_ (Tested with 0.28.0)
- 6. tmux - _to split processes_
- 7. dirmngr - _to add the MongoDB public GPG Key_
- 8. pm2 - _as load balancer_
-
-Repositories
- 1. vue-cloudfront (https://github.com/Simonwep/vue-cloudfront)
- 2. vue-cloudfront-api (https://github.com/Simonwep/vue-cloudfront-api)
- 
+Both, the frontend and api, are running in docker containers. So it's required to have [docker](https://www.docker.com/) 
+and [docker-compose](https://docs.docker.com/compose/) on your machine. 
+As proxy we're using [nginx](https://www.nginx.com/) and [certbot](https://certbot.eff.org/) as ssl certificate provider.
  
 ### Installation
 First it's good to run the following commands to update exisiting packages and package repositories. Note: the following commands must be run as root.
@@ -30,21 +18,8 @@ apt update -y
 apt upgrade -y
 ```
 
-Next we need to install the required dependencies, although `tmux` is more a useful terminal multiplexer than a dependency.
+Next we need to install the required packages:
 ```bash
-
-# Git
-apt install -y git
-
-# tmux
-apt install -y tmux
-
-# dirmngr
-apt install dirmngr
-
-# Nodejs
-curl -sL https://deb.nodesource.com/setup_11.x | bash -
-apt install -y nodejs
 
 # Nginx
 apt install -y nginx
@@ -55,50 +30,24 @@ systemctl enable nginx
 echo "deb http://ftp.debian.org/debian stretch-backports main" > /etc/apt/sources.list.d/stretch-backports.list
 apt update -y
 apt install -y python-certbot-nginx -t stretch-backports
-
-# Mongodb
-echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main" > /etc/apt/sources.list.d/mongodb-org-4.0.list
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-apt update -y
-apt install -y mongodb-org
 ```
 
-If you run into difficulties installing Certbot or MongoDB, please refer to their documentation: _[How to install Certbot](https://certbot.eff.org/lets-encrypt/debianstretch-nginx)_ and _[How to install MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/)_
-
-Before we to install the frontend and api, we need to start MongoDB:
-```bash
-# Mongodb db folder
-mkdir /data
-mkdir /data/db
-
-# Start mongodb in a tmux session
-tmux new -d -s mongodb 'mongod'
-```
-We can always access MongoDB via `tmux a -t mongodb`. For more information, see http://man.openbsd.org/OpenBSD-current/man1/tmux.1
-
-Now that all dependecies have been installed and MongoDB is running in the background, it's time to download the actual api and frontend.
-Navigate to the directory where you wish to install `vue-cloudfront` and `vue-cloudfront-api` (`/opt/vue-cloudfront` is recommended):
+Navigate to the directory where you wish to install `vue-cloudfront` and `vue-cloudfront-api`:
 ```bash
 
 # Download both vue-cloudfront and vue-cloudfront-api
-git clone https://github.com/Simonwep/vue-cloudfront
-git clone https://github.com/Simonwep/vue-cloudfront-api
+git clone https://github.com/vue-cloudfront/vue-cloudfront
+git clone https://github.com/vue-cloudfront/vue-cloudfront-api
 
-# Install and build vue-cloudfront
+# Build and run vue-cloudfront
 cd ./vue-cloudfront
-sudo npm i
-npm run build
+docker build -f docker/Dockerfile . -t vue-cloudfront
+docker run -p 3000:3000 vue-cloudfront
 
-# Install and run vue-cloudfront-api
-# If dependencies installation fails run 'rm package-lock.json' and run 'npm i' again
+# Compose and run vue-cloudfront-api
 cd ../vue-cloudfront-api
-sudo npm i
-
-# Start vue-cloudfront-api 
-npm run start
+docker-compose up -d
 ```
-This will spin up a PM2 cluster. You can always see the status of your running server-instance with `pm2 ls` (run `npm i -g pm2` to install PM2). 
-See [pm2.io](https://pm2.io) for further documentation.
 
 After this is done, we need to configure nginx to proxy each request to its correspondending endpoint:
 ```bash
@@ -133,6 +82,30 @@ server {
         proxy_set_header Connection "upgrade";
         proxy_read_timeout 86400;
     }
+    
+    # Restrict TLS protocols and some ssl improvements
+    ssl_protocols TLSv1.2;
+    ssl_ecdh_curve secp521r1:secp384r1;
+    
+    # Hide upstream proxy headers
+    proxy_hide_header X-Powered-By;
+    proxy_hide_header X-AspNetMvc-Version;
+    proxy_hide_header X-AspNet-Version;
+    proxy_hide_header X-Drupal-Cache;
+
+    # Custom headers
+    add_header Strict-Transport-Security "max-age=63072000; includeSubdomains" always;
+    add_header Referrer-Policy "no-referrer";
+    add_header Feature-Policy "geolocation none; midi none; notifications none; push none; sync-xhr none; microphone none; camera none; magnetometer none; gyroscope none; speaker none; vibrate none; fullscreen self; payment none; usb none;";
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    
+    # Close slow connections (in case of slow loris attack)
+    client_body_timeout 10s;
+    client_header_timeout 10s;
+    keepalive_timeout 5s 5s;
+    send_timeout 10s;
 }
 EOL
 ```
