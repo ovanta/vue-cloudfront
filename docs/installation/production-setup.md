@@ -42,7 +42,7 @@ git clone https://github.com/vue-cloudfront/vue-cloudfront-api
 # Build and run vue-cloudfront
 cd ./vue-cloudfront
 docker build -f docker/Dockerfile . -t vue-cloudfront
-docker run -p 3000:3000 vue-cloudfront
+docker run -p 3000:3000 -d vue-cloudfront
 
 # Compose and run vue-cloudfront-api
 cd ../vue-cloudfront-api
@@ -63,12 +63,10 @@ server {
         add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
         expires off;
         access_log off;
-        root ${VueCloudfrontPath}/dist;
     }
 
     location / {
-        autoindex on;
-        root ${VueCloudfrontPath}/dist;
+        proxy_pass http://localhost:3000;
     }
 
     location /api {
