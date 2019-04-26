@@ -80,6 +80,11 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+
+        &::selection {
+            color: white;
+            background: $palette-theme-secondary;
+        }
     }
 
     ::-webkit-scrollbar {
