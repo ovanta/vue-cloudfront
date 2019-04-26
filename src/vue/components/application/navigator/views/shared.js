@@ -63,6 +63,8 @@ export default {
             }).catch(() => {
                 evt.target.innerHTML = node.name;
             });
+
+            evt.stopPropagation();
         },
 
         select(evt, node) {

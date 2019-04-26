@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="/docs/img/logo.png" alt="Logo">
+    <img src="https://user-images.githubusercontent.com/30767528/53899461-87139880-403a-11e9-96da-cc08869eb83c.png" alt="Logo">
 </h1>
 
 <p align="center">
@@ -13,18 +13,20 @@
 
 
 Vue Cloudfront is a blazing fast, standalone PWA cloudfront, basically for self-hosting purposes. 
-Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/Simonwep/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
+Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/vue-cloudfront/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
 
 For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6765`
 
-<h3 align="center">
-   <b><a href="https://vue-cloudfront.com/">Try out the fully featured demo!</b>
-</h3>
+<br>
+<b align="center">
+    <h3><a href="https://vue-cloudfront.com">Try out the fully featured demo!</a></h3>
+    <h4>Please register to get a fresh, untouched experience :)</h4>
+</b>
+<br>
 
 ## Features
 
-Vue-cloudfront currently has full desktop and touch support (tablets / notebooks with touch support),
-but no support for mobile devices (but [it's in progress](https://github.com/Simonwep/vue-cloudfront/tree/mobile-support))
+Vue-cloudfront currently has full desktop and mobile support.
 
 All modern browsers like Chrome, Firefox, Opera, Edge and Safari are supported. See [.browserslistrc](/.browserslistrc) for further details.
 IE support is and will never be in consideration.
@@ -98,27 +100,26 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 * [Selectionjs to provide selection experience like on your desktop](https://github.com/Simonwep/selection)
 * [Service Worker to provive offline experience](https://developers.google.com/web/fundamentals/primers/service-workers/)
 * [PWA](https://developers.google.com/web/progressive-web-apps/)
+* [Docker as container solution](https://www.docker.com/)
 
 #### Vue Cloudfront-api stack
 * [Express as Framework](https://expressjs.com/)
 * [Mongoose as database API](https://mongoosejs.com/)
 * [MongoDB as database](https://www.mongodb.com/)
 * [PM2 as load balancer](https://pm2.io)
+* [Docker Compose as multi-container solution](https://docs.docker.com/compose/)
 
 ##### Current branches
-* [mobile-support](https://github.com/Simonwep/vue-cloudfront/tree/mobile-support) - (in progress) Mobile and general touch-support.
-* [settings](https://github.com/Simonwep/vue-cloudfront/tree/settings) - (in progress) Additional home-tab with user-settings.
-* [realtime-sync](https://github.com/Simonwep/vue-cloudfront/tree/realtime-sync) - Realtime synchronization between sessions.
-* [history](https://github.com/Simonwep/vue-cloudfront/tree/history) - (aborted) Additional home-tab with a temporary, visual log of all your actions.
-* [terminal](https://github.com/Simonwep/vue-cloudfront/tree/terminal) - (aborted) Additional home-tab with a full functional terminal like bash.
+* [master](https://github.com/vue-cloudfront/vue-cloudfront/tree/master) - Stable branch with latest version tagged.
+* [develop](https://github.com/vue-cloudfront/vue-cloudfront/tree/develop) - Develop brach, kind of nightly build.
 
+### Architecture
+A rough overview:
+![architecture](https://user-images.githubusercontent.com/30767528/56807106-23ce0780-682e-11e9-9883-d6dc448e1f4b.png)
 
-## Screenshots
-Checkout the [demo](https://vue-cloudfront.com/) the get an extensive view!
-![screenshot mobile](https://user-images.githubusercontent.com/30767528/53444323-22d75000-3a0e-11e9-874f-be79583e365e.png)
-![screenshot 37](https://user-images.githubusercontent.com/30767528/53444096-8dd45700-3a0d-11e9-9b7b-ac2793ee1130.png)
-![screenshot 38](https://user-images.githubusercontent.com/30767528/53444098-8e6ced80-3a0d-11e9-980f-436813cc7539.png)
-![screenshot 39](https://user-images.githubusercontent.com/30767528/53444100-8e6ced80-3a0d-11e9-9179-0508116e985d.png)
-![screenshot 41](https://user-images.githubusercontent.com/30767528/53444101-8e6ced80-3a0d-11e9-82b3-81fec6395010.png)
-![screenshot 42](https://user-images.githubusercontent.com/30767528/53444103-8e6ced80-3a0d-11e9-90b4-540efc622427.png)
-![screenshot 43](https://user-images.githubusercontent.com/30767528/53444104-8e6ced80-3a0d-11e9-8853-de03b222ab72.png)
+### Screenshots
+![192 168 178 156_3000_ (1)](https://user-images.githubusercontent.com/30767528/56810806-7e1f9600-6837-11e9-8784-ae3c10af9c58.png)
+![192 168 178 156_3000_ (2)](https://user-images.githubusercontent.com/30767528/56810807-7e1f9600-6837-11e9-9b74-52ba16ef4f21.png)
+![192 168 178 156_3000_ (3)](https://user-images.githubusercontent.com/30767528/56810808-7eb82c80-6837-11e9-9e51-0745f37a61c3.png)
+![192 168 178 156_3000_ (4)](https://user-images.githubusercontent.com/30767528/56810809-7eb82c80-6837-11e9-8b86-91cc6eae53f5.png)
+![192 168 178 156_3000_](https://user-images.githubusercontent.com/30767528/56810810-7eb82c80-6837-11e9-98bb-997b9e4ecf3c.png)

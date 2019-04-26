@@ -94,7 +94,7 @@
     }
 
     .date,
-    .clock{
+    .clock {
         @include flex(row, center, center);
 
         .seven-segment {
@@ -109,7 +109,7 @@
         }
 
         .dots {
-            @include size( 1em,1em);
+            @include size(1em, 1em);
             position: relative;
 
             &::before,
@@ -132,7 +132,7 @@
         }
     }
 
-    .date{
+    .date {
 
         .seven-segment {
             width: 1.5vmin;

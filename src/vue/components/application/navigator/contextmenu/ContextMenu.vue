@@ -437,7 +437,7 @@
                     &::before {
                         @include pseudo();
                         @include position(-10%, -10%, auto, auto);
-                        @include size( 120%,120%);
+                        @include size(120%, 120%);
                         background: transparent;
                         z-index: -1;
                     }
