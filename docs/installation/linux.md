@@ -4,9 +4,10 @@ However, I develop the project using Windows machines.
 
 ## Requirements
 
-1. Install [LTS version of Node.js for Linux](https://nodejs.org/en/download/package-manager/)
-2. Install [MongoDB for Linux](https://docs.mongodb.com/manual/administration/install-on-linux/)
-3. You can [download Github Desktop](https://desktop.github.com/) to get access not only for fancy UI but for git toolset itself.
+1. Install [LTS version of Node.js for Linux](https://nodejs.org/en/download/package-manager/).
+2. Install [MongoDB for Linux](https://docs.mongodb.com/manual/administration/install-on-linux/).
+3. Install [Redis server for Linux](https://packages.debian.org/search?keywords=redis-server) and start the server.
+4. You can [download Github Desktop](https://desktop.github.com/) to get access not only for fancy UI but for git toolset itself.
 
 ## Installation of vue-cloudfront-api
 

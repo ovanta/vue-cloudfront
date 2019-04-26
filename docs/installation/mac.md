@@ -1,12 +1,13 @@
-# Installing on Linux
+# Installing on Mac
 Vue Cloudfront is based on open source technologies which **should** in theory work perfectly well on most of the leading operating systems.
 However, I develop the project using Windows machines.
 
 ## Requirements
 
-1. Install [LTS version of Node.js for Mac](https://nodejs.org/en/download/)
-2. Install [MongoDB for Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
-3. You can [download Github Desktop](https://desktop.github.com/) to get access not only for fancy UI but for git toolset itself.
+1. Install [LTS version of Node.js for Mac](https://nodejs.org/en/download/).
+2. Install [MongoDB for Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/).
+3. Install [Redis server for Mac](https://formulae.brew.sh/formula/redis) and start the server.
+4. You can [download Github Desktop](https://desktop.github.com/) to get access not only for fancy UI but for git toolset itself.
 
 ## Installation of vue-cloudfront-api
 

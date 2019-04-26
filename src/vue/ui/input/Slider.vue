@@ -63,7 +63,7 @@
 
     .slider {
         position: relative;
-        @include size( 0.5em,5em);
+        @include size(0.5em, 5em);
         background: $palette-decent-blue;
         border-radius: 50em;
         overflow: visible;
@@ -72,7 +72,7 @@
     .bar {
         position: absolute;
         @include position(0, auto, 0, 0);
-        @include size( 100%,0);
+        @include size(100%, 0);
         background: $palette-asphalt;
         border-radius: 50em;
     }
