@@ -13,7 +13,7 @@
 
 
 Vue Cloudfront is a blazing fast, standalone PWA cloudfront, basically for self-hosting purposes. 
-Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/vue-cloudfront/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
+Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/Simonwep/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
 
 For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6765`
 
@@ -118,8 +118,11 @@ A rough overview:
 ![architecture](https://user-images.githubusercontent.com/30767528/56807106-23ce0780-682e-11e9-9883-d6dc448e1f4b.png)
 
 ### Screenshots
-![192 168 178 156_3000_ (1)](https://user-images.githubusercontent.com/30767528/56810806-7e1f9600-6837-11e9-8784-ae3c10af9c58.png)
-![192 168 178 156_3000_ (2)](https://user-images.githubusercontent.com/30767528/56810807-7e1f9600-6837-11e9-9b74-52ba16ef4f21.png)
-![192 168 178 156_3000_ (3)](https://user-images.githubusercontent.com/30767528/56810808-7eb82c80-6837-11e9-9e51-0745f37a61c3.png)
-![192 168 178 156_3000_ (4)](https://user-images.githubusercontent.com/30767528/56810809-7eb82c80-6837-11e9-8b86-91cc6eae53f5.png)
-![192 168 178 156_3000_](https://user-images.githubusercontent.com/30767528/56810810-7eb82c80-6837-11e9-98bb-997b9e4ecf3c.png)
+![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810806-7e1f9600-6837-11e9-8784-ae3c10af9c58.png)
+![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810807-7e1f9600-6837-11e9-9b74-52ba16ef4f21.png)
+![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810808-7eb82c80-6837-11e9-9e51-0745f37a61c3.png)
+![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810809-7eb82c80-6837-11e9-8b86-91cc6eae53f5.png)
+![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810810-7eb82c80-6837-11e9-98bb-997b9e4ecf3c.png)
+
+
+GridView icons provided by [icons8](https://icons8.com)
