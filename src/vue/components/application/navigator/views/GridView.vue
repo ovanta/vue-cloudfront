@@ -38,13 +38,7 @@
                          @click.left="select($event, node)"
                          @click.right="select($event, node)">
 
-                        <embed-file-preview :node="node">
-
-                            <!-- Fallback if no preview is available -->
-                            <button @click="$store.dispatch('data/download', {node})">
-                                Download ({{ node.size | readableByteCount }})
-                            </button>
-                        </embed-file-preview>
+                        <file-type-preview :node="node"/>
 
                         <div class="info">
                             <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
@@ -70,12 +64,12 @@
     import Selectable from '../plugins/selectable';
 
     // File preview
-    import EmbedFilePreview from '../../overlay/filepreview/EmbedFilePreview';
+    import FileTypePreview from './FileTypePreview';
 
     import shared from './shared';
 
     export default {
-        components: {EmbedFilePreview},
+        components: {FileTypePreview},
 
         props: {
             nodes: {
@@ -164,54 +158,6 @@
         @include flex(column);
         margin: 0 1em 1em 0;
         cursor: pointer;
-
-        .embed-file-preview {
-            align-items: flex-start;
-            justify-content: flex-start;
-            position: relative;
-            max-width: 100%;
-            max-height: 12.5em;
-            flex-grow: 1;
-            overflow: hidden;
-
-            &:not(.empty) {
-                margin-bottom: 1em;
-            }
-
-            &::before {
-                @include pseudo();
-                @include position(auto, 0, -0.25em, 0);
-                background: linear-gradient(to bottom, transparent, white 50%);
-                height: 5%;
-            }
-
-            &.empty {
-                margin: 0.5em 0;
-
-                > i {
-                    @include font(600, 0.9em);
-                    width: 100%;
-                    text-align: center;
-                    color: $palette-asphalt;
-                    margin-top: 0.75em;
-                }
-
-                > button {
-                    @include font(600, 0.95em);
-                    margin: 0 auto;
-                    background: $palette-asphalt;
-                    color: $palette-snow-white;
-                    transition: all 0.3s;
-                    padding: 0.4em 0.8em;
-                    border-radius: 0.15em;
-                    width: 100%;
-
-                    &:hover {
-                        background: lighten($palette-asphalt, 5);
-                    }
-                }
-            }
-        }
 
         .info {
             @include flex(row, center, flex-start);
