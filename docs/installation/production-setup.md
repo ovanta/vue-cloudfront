@@ -131,8 +131,8 @@ Navigate to `/etc/nginx/conf.d/[YOUR DOMAIN].conf` and add `http2` after `ssl`:
     }
 
     listen 443 ssl http2; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/simonwep.com/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/simonwep.com/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/[YOUR-DOMAIN]/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/[YOUR-DOMAIN]/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
     ...
