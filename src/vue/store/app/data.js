@@ -47,6 +47,7 @@ export const data = {
                  * 'failed' = Upload is failed (connection error etc.)
                  */
                 state: 'init',
+                error: null,
                 total: 0, // Total upload bytes
                 done: 0,  // Bytes uploaded so far
                 dirs: [], // List of directory names
@@ -155,8 +156,9 @@ export const data = {
             // Upload files
             return this.dispatch('data/uploadFiles', {fileMap, stats}).then(() => {
                 stats.state = 'done';
-            }).catch(() => {
+            }).catch(e => {
                 stats.state = 'failed';
+                stats.error = e;
             });
         },
 
@@ -216,7 +218,7 @@ export const data = {
                             const {error, data} = JSON.parse(xhr.responseText);
 
                             if (error) {
-                                reject();
+                                reject(error);
                             } else {
 
                                 // Append folder & file nodes
