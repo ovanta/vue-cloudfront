@@ -119,7 +119,7 @@ A rough overview:
 
 ### Screenshots
 ![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810806-7e1f9600-6837-11e9-8784-ae3c10af9c58.png)
-![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810807-7e1f9600-6837-11e9-9b74-52ba16ef4f21.png)
+![localhost_3000](https://user-images.githubusercontent.com/30767528/56865846-d5a63900-69d2-11e9-8b7b-6ba3bf4581f2.png)
 ![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810808-7eb82c80-6837-11e9-9e51-0745f37a61c3.png)
 ![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810809-7eb82c80-6837-11e9-8b86-91cc6eae53f5.png)
 ![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810810-7eb82c80-6837-11e9-98bb-997b9e4ecf3c.png)

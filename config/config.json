@@ -54,7 +54,7 @@
         "executables": ["apk", "bat", "bin", "cgi", "pl", "com", "exe", "gadget", "jar", "py", "wsf"],
         "fonts": ["fnt", "fon", "otf", "ttf"],
         "pictures": ["ai", "bmp", "gif", "ico", "jpeg", "jpg", "png", "ps", "psd", "svg", "tif", "tiff"],
-        "presentaion": ["key", "odp", "pps", "ppt", "pptx"],
+        "presentation": ["key", "odp", "pps", "ppt", "pptx"],
         "spreadsheet": ["ods", "xlr", "xls", "xlsx"],
         "system": ["bak", "cab", "cfg", "cpl", "cur", "dll", "dmp", "drv", "icns", "ico", "ini", "lnk", "msi", "sys", "tmp"],
         "documents": ["doc", "docx", "odt", "pdf", "rtf", "tex", "txt", "wks", "wps", "wpd"]

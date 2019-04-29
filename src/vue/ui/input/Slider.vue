@@ -81,9 +81,10 @@
         position: absolute;
         @include size(1.25em);
         background: $palette-asphalt;
-        top: 50%;
-        transform: translate3d(-50%, -50%, 0);
+        margin: -0.3em 0 0 -0.3em;
         border-radius: 100%;
+        cursor: grab;
+        cursor: -webkit-grab;
     }
 
 </style>
