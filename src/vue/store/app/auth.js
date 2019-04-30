@@ -42,6 +42,15 @@ export const auth = {
                     return state.activeSessions = state.activeSessions.filter(s => s.id !== id);
                 }
             }
+        },
+
+        socketSync(_, {action}) {
+            switch (action) {
+                case 'logout': {
+                    localStorage.removeItem('apikey');
+                    location.reload(true);
+                }
+            }
         }
     },
 
@@ -74,7 +83,11 @@ export const auth = {
                     onResolve: index => {
                         if (index) {
 
-                            // Broadcast
+                            // Logout live-sessions
+                            // TODO: Consider additional logging out on invalid apikey
+                            websocket.broadcast('auth', 'logout');
+
+                            // Remove all apikeys
                             this.dispatch('fetch', {
                                 route: 'logoutEverywhere',
                                 body: {apikey}
