@@ -60,9 +60,32 @@ export const auth = {
         },
 
         async logoutEverywhere({state: {apikey}}) {
-            return this.dispatch('fetch', {
-                route: 'logoutEverywhere',
-                body: {apikey}
+            return new Promise((resolve, reject) => {
+
+                // Warn user
+                this.commit('dialogbox/show', {
+                    type: 'info',
+                    title: 'Are you sure?',
+                    text: 'This will close all active sessions, everywhere.',
+                    buttons: [
+                        {type: 'cancel', text: 'Cancel'},
+                        {type: 'accept', text: 'Okay'}
+                    ],
+                    onResolve: index => {
+                        if (index) {
+
+                            // Broadcast
+                            this.dispatch('fetch', {
+                                route: 'logoutEverywhere',
+                                body: {apikey}
+                            }).then(() => {
+                                localStorage.removeItem('apikey');
+                                location.reload(true);
+                                resolve();
+                            }).catch(reject);
+                        }
+                    }
+                });
             });
         },
 
