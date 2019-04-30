@@ -8,7 +8,7 @@
 
         <div class="groups">
             <p v-for="{name, value} of stats">
-                <span>{{ name }}: </span> <b>{{ value }}</b>
+                <span>{{ name }}: </span> <b>{{ value || 'None' }}</b>
             </p>
         </div>
 

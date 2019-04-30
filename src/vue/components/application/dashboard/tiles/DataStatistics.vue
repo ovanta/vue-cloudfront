@@ -63,14 +63,6 @@
                     }
                 }
 
-                // Move elements with to small percentual amount to other
-                for (const key in extensions) {
-                    if ((extensions[key] / nodes.length) < 0.01) {
-                        extensions.other += extensions[key];
-                        delete extensions[key];
-                    }
-                }
-
                 // Convert to percent
                 const values = [];
                 const names = [];
