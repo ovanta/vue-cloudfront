@@ -140,11 +140,17 @@
         }
 
         .dot {
-            @include size(4px);
+            @include size(0.5vmin);
             border-radius: 100%;
             background: $palette-asphalt;
             margin: 0 0.25em 0.6em;
             align-self: flex-end;
+        }
+    }
+
+    @include mq-phones {
+        .date .seven-segment {
+            width: 3vmin;
         }
     }
 
