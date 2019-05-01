@@ -20,7 +20,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Simonwep/vue-cloudfront.git"
+        "url": "git+https://github.com/ovanta/vue-cloudfront.git"
     },
     "scripts": {
         "build": "vue-cli-service build",

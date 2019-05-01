@@ -13,7 +13,7 @@
 
 
 Vue Cloudfront is a blazing fast, standalone PWA cloudfront, basically for self-hosting purposes. 
-Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/Simonwep/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
+Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/ovanta/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
 
 For anyone who wants some guidance, feel free to contact me on Discord: `Simon#6765`
 

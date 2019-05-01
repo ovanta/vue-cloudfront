@@ -1,5 +1,5 @@
 # Configuration file
-Below is a description of each property in [config.json](https://github.com/Simonwep/vue-cloudfront/blob/master/config/config.json) which
+Below is a description of each property in [config.json](https://github.com/ovanta/vue-cloudfront/blob/master/config/config.json) which
 is used to define general behaviour of vue-cloudfront.
 
 **`apiEndPoint`**  
@@ -23,5 +23,5 @@ This prop can be either `null` to disable it, a string to set a fixed message or
 Thanks to [NateSeymour](https://github.com/NateSeymour), who provided the messages that are currently in use.
 
 **`predefinedColors`**  
-Pre-defined colors for [ColorChooser.vue](https://github.com/Simonwep/vue-cloudfront/blob/master/src/vue/components/application/tabs/navigator/contextmenu/ColorChooser.vue).
-Currently only used in the [ContextMenu](https://github.com/Simonwep/vue-cloudfront/tree/master/src/vue/components/application/tabs/navigator/contextmenu)
+Pre-defined colors for [ColorChooser.vue](https://github.com/ovanta/vue-cloudfront/blob/master/src/vue/components/application/tabs/navigator/contextmenu/ColorChooser.vue).
+Currently only used in the [ContextMenu](https://github.com/ovanta/vue-cloudfront/tree/master/src/vue/components/application/tabs/navigator/contextmenu)
