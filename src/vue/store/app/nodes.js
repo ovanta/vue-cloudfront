@@ -344,8 +344,9 @@ export const nodes = {
          * @param rootState
          * @param nodes Nodes which should be deleted
          * @param permanently Force permanently remove
+         * @param silent No user-approving will be required
          */
-        async delete({state, rootState}, {nodes, permanently = false}) {
+        async delete({state, rootState}, {nodes, permanently = false, silent = false}) {
             const prm = permanently || nodes.every(v => v.bin);
 
             const finalize = () => {
@@ -395,7 +396,7 @@ export const nodes = {
                 });
             };
 
-            if (prm) {
+            if (prm && !silent) {
 
                 // Show warning
                 this.commit('dialogbox/show', {

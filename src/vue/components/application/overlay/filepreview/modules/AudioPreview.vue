@@ -158,7 +158,7 @@
 
             > i {
                 flex-shrink: 0;
-                font-size: 0.85em;
+                font-size: 0.75em;
                 margin-right: 0.5em;
                 cursor: pointer;
             }

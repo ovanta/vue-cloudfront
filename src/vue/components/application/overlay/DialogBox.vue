@@ -110,7 +110,7 @@
         color: $palette-asphalt;
         padding: 0.75em 1.25em;
         border-radius: 0.15em;
-        box-shadow: 0 0.4em 1.5em rgba($palette-asphalt, 0.075);
+        box-shadow: 0 0.4em 1.5em rgba($palette-asphalt, 0.125);
         opacity: 0;
         transform-origin: top center;
         transform: translateY(-0.5em) scale(0.95);
@@ -154,11 +154,10 @@
 
                     &.#{$class-extension} {
                         background: $color;
-                        box-shadow: 0 0.05em 0.3em rgba($color, 0.5);
                         border: 2px solid $color;
 
                         &:hover {
-                            box-shadow: 0 0.05em 0.75em rgba($color, 0.75);
+                            filter: brightness(0.925);
                         }
 
                         @if (lightness($color) > 75) {

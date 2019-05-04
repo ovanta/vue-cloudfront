@@ -108,6 +108,9 @@ export default new Vuex.Store({
         },
 
         setActiveTab(state, tab) {
+
+            // Clear / cancel search
+            this.dispatch('search/update', null);
             state.activeTab = tab;
         },
 

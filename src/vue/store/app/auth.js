@@ -42,6 +42,15 @@ export const auth = {
                     return state.activeSessions = state.activeSessions.filter(s => s.id !== id);
                 }
             }
+        },
+
+        socketSync(_, {action}) {
+            switch (action) {
+                case 'logout': {
+                    localStorage.removeItem('apikey');
+                    location.reload(true);
+                }
+            }
         }
     },
 
@@ -60,9 +69,36 @@ export const auth = {
         },
 
         async logoutEverywhere({state: {apikey}}) {
-            return this.dispatch('fetch', {
-                route: 'logoutEverywhere',
-                body: {apikey}
+            return new Promise((resolve, reject) => {
+
+                // Warn user
+                this.commit('dialogbox/show', {
+                    type: 'info',
+                    title: 'Are you sure?',
+                    text: 'This will close all active sessions, everywhere.',
+                    buttons: [
+                        {type: 'cancel', text: 'Cancel'},
+                        {type: 'accept', text: 'Okay'}
+                    ],
+                    onResolve: index => {
+                        if (index) {
+
+                            // Logout live-sessions
+                            // TODO: Consider additional logging out on invalid apikey
+                            websocket.broadcast('auth', 'logout');
+
+                            // Remove all apikeys
+                            this.dispatch('fetch', {
+                                route: 'logoutEverywhere',
+                                body: {apikey}
+                            }).then(() => {
+                                localStorage.removeItem('apikey');
+                                location.reload(true);
+                                resolve();
+                            }).catch(reject);
+                        }
+                    }
+                });
             });
         },
 

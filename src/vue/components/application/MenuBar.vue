@@ -1,5 +1,5 @@
 <template>
-    <section class="menu">
+    <section class="menu-bar">
 
         <div v-if="auth.status" class="header">
             <h1>
@@ -18,37 +18,37 @@
             </div>
         </div>
 
-        <div :class="{'item btn-dashboard': 1, active: activeTab === 'dashboard'}" @click="changeTab('dashboard')">
+        <button :class="{'item btn-dashboard': 1, active: activeTab === 'dashboard'}" @click="changeTab('dashboard')">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
-        </div>
+        </button>
 
-        <div :class="{'item btn-home': 1, active: activeTab === 'home'}" @click="changeTab('home')">
+        <button :class="{'item btn-home': 1, active: activeTab === 'home'}" @click="changeTab('home')">
             <i class="fas fa-fw fa-home"></i>
             <span>Home</span>
-        </div>
+        </button>
 
-        <div :class="{'item btn-stared': 1, active: activeTab === 'marked'}" @click="changeTab('marked')">
+        <button :class="{'item btn-stared': 1, active: activeTab === 'marked'}" @click="changeTab('marked')">
             <i class="fas fa-fw fa-star"></i>
             <span>Bookmarks</span>
-        </div>
+        </button>
 
-        <div :class="{'item btn-bin': 1, active: activeTab === 'bin'}" @click="changeTab('bin')">
+        <button :class="{'item btn-bin': 1, active: activeTab === 'bin'}" @click="changeTab('bin')">
             <i class="fas fa-fw fa-trash-alt"></i>
             <span>Trash</span>
-        </div>
+        </button>
 
         <div class="eat-space"></div>
 
-        <div class="item bottom btn-refresh" @click="refresh">
+        <button class="item bottom btn-refresh" @click="refresh">
             <i class="fas fa-fw fa-sync-alt"></i>
             <span>Refresh</span>
-        </div>
+        </button>
 
-        <div class="item bottom btn-logout" @click="$store.dispatch('auth/logout')">
+        <button class="item bottom btn-logout" @click="$store.dispatch('auth/logout')">
             <i class="fas fa-fw fa-sign-out-alt"></i>
             <span>Logout</span>
-        </div>
+        </button>
 
     </section>
 </template>
@@ -104,12 +104,11 @@
 
 <style lang="scss" scoped>
 
-    .menu {
+    .menu-bar {
         border-right: 2px solid $palette-sick-white;
         @include flex(column);
         padding: 1.75vh 1.15vw;
         height: 100%;
-        color: $palette-blurry-gray;
         background: white;
     }
 
@@ -117,6 +116,7 @@
         margin: 0.75em auto 2.5vh;
         padding-bottom: 2.5vh;
         border-bottom: 2px solid $palette-sick-white;
+        color: $palette-blurry-gray;
 
         h1 {
             @include font(600, 0.9em);
@@ -167,6 +167,7 @@
         margin: 0.75vh 0;
         cursor: pointer;
         transition: all 0.25s;
+        color: $palette-blurry-gray;
 
         i {
             transition: all 0.3s;
@@ -201,7 +202,7 @@
     }
 
     @include mq-tablets {
-        .menu {
+        .menu-bar {
             padding-right: 0;
             padding-left: 0;
 
@@ -212,14 +213,15 @@
     }
 
     @include mq-phones {
-        .menu {
+        .menu-bar {
             @include flex(row, center);
             justify-content: space-between; // Edge fallback
             justify-content: space-evenly;
             height: auto;
             padding: 0 0.5em;
-            z-index: 10;
-            background: transparent;
+            z-index: 3;
+            background: white;
+            border-top: 2px solid $palette-snow-white;
 
             .eat-space {
                 flex-grow: 0;
@@ -235,6 +237,7 @@
                 transform: scale(1);
                 background: none;
                 justify-content: center;
+                font-size: 1.05em;
 
                 span {
                     display: none;

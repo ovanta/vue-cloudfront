@@ -57,47 +57,6 @@
 </script>
 
 <style lang="scss">
-
-    // Some resets
-    button,
-    textarea,
-    input {
-        font-family: $font-family;
-        outline: none;
-        border: none;
-        background: transparent;
-    }
-
-    a {
-        color: inherit;
-    }
-
-    button {
-        cursor: pointer;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-
-        &::selection {
-            color: white;
-            background: $palette-theme-secondary;
-        }
-    }
-
-    ::-webkit-scrollbar {
-        width: 0.3em;
-        background: transparent;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: lighten($palette-blurry-gray, 10);
-        border-radius: 0;
-    }
-
-    // Actual app layout
     html,
     body,
     #app {

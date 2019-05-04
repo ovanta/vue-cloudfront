@@ -52,7 +52,6 @@ docker-compose up -d
 After this is done, we need to configure nginx to proxy each request to its correspondending endpoint:
 ```bash
 Domain=example.com
-VueCloudfrontPath=/home/me/vue-cloudfront
 cat > /etc/nginx/conf.d/${Domain}.conf <<EOL
 server {
     listen 80;
@@ -82,7 +81,6 @@ server {
     }
     
     # Restrict TLS protocols and some ssl improvements
-    ssl_protocols TLSv1.2;
     ssl_ecdh_curve secp521r1:secp384r1;
     
     # Hide upstream proxy headers

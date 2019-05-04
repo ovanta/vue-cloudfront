@@ -45,6 +45,9 @@
     // Components
     import CircleProgressBar from '../ui/loaders/CircleProgressBar';
 
+    // Vuex stuff
+    import {mapState} from 'vuex';
+
     export default {
         components: {CircleProgressBar},
 
@@ -56,6 +59,7 @@
         },
 
         computed: {
+            ...mapState(['auth']),
 
             activeUploadCount() {
 
@@ -98,8 +102,18 @@
                         return `Uploaded ${pluralify(upload.files)}!`;
                     case 'aborted':
                         return 'Upload canceled';
-                    case 'failed':
-                        return 'Something went wrong...';
+                    case 'failed': {
+
+                        // Try to resolve error code
+                        switch ((upload.error || {}).code) {
+                            case -1:
+                                return 'User not logged in. Please reload the page.';
+                            case 2:
+                                return `Upload limit of ${this.$utils.readableByteCount(this.auth.status.availableSpace)} exceed.`;
+                            default:
+                                return 'Something went wrong...';
+                        }
+                    }
                     default:
                         return 'Here should be a message...';
                 }

@@ -361,7 +361,7 @@
 
                 // Refresh
                 if (keys.KeyR) {
-                    store.dispatch('nodes/update');
+                    store.dispatch('nodes/update', {keepLocation: true});
                 }
             }
         }

@@ -20,13 +20,15 @@
         },
 
         mounted() {
+            const {state} = this.$store;
+
             this.$utils.on(
                 window,
                 ['drag', 'dragend', 'dragenter', 'dragstart', 'dragleave', 'dragover', 'drop'],
                 e => {
 
                     // Prevent upload during action
-                    if (this.$store.state.requestsActive) {
+                    if (state.requestsActive || state.activeTab !== 'home') {
                         return e.preventDefault();
                     }
 
