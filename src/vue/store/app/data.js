@@ -200,7 +200,11 @@ export const data = {
                 stats.cancel = () => {
                     stats.state = 'aborted';
                     xhr.abort();
-                    return this.dispatch('nodes/delete', {nodes: stats.dirNodes, permanently: true});
+                    return this.dispatch('nodes/delete', {
+                        nodes: stats.dirNodes,
+                        permanently: true,
+                        silent: true
+                    });
                 };
 
                 let lastDone = 0;
