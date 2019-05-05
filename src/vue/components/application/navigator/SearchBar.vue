@@ -29,14 +29,14 @@
 
             <div class="option">
                 <text-toggle-button :state="search.options.regex"
-                               text="Regex"
-                               @change="setRegexOption"/>
+                                    text="Regex"
+                                    @change="setRegexOption"/>
             </div>
 
             <div class="option">
                 <text-toggle-button :state="search.options.ignoreCase"
-                               text="Case insensitive"
-                               @change="setCaseInsensitivOption"/>
+                                    text="Case insensitive"
+                                    @change="setCaseInsensitivOption"/>
             </div>
 
             <!-- Introduction -->

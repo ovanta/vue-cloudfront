@@ -8,7 +8,8 @@ export const data = {
     state: {
 
         // Uploads
-        uploads: []
+        uploads: [],
+        activeUploads: 0
     },
 
     mutations: {
@@ -166,7 +167,13 @@ export const data = {
          * Responsible to upload single files
          * @returns {Promise<void>}
          */
-        async uploadFiles({rootState}, {fileMap, stats}) {
+        async uploadFiles({state, rootState}, {fileMap, stats}) {
+            state.activeUploads++;
+
+            // Warn user on unload
+            if (state.activeUploads === 1) {
+                window.onbeforeunload = () => 'Closing this page will cancel all downloads. Are you sure?';
+            }
 
             // Build form
             const formData = new FormData();
@@ -216,6 +223,12 @@ export const data = {
 
                 xhr.onreadystatechange = () => {
                     if (xhr.readyState === 4) {
+                        if (!--state.activeUploads) {
+
+                            // Remove event listener
+                            window.onbeforeunload = null;
+                        }
+
                         if (xhr.status === 200) {
 
                             // Parse and validate response
@@ -229,7 +242,6 @@ export const data = {
                                 this.commit('nodes/put', {nodes: data.concat(stats.dirNodes)});
                                 resolve();
                             }
-
                         } else if (stats.state !== 'aborted') {
                             reject('Request failed');
                         }
