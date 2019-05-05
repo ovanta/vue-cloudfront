@@ -28,11 +28,15 @@
             </div>
 
             <div class="option">
-                <simple-button text="Regex" @change="setRegexOption"/>
+                <text-toggle-button :state="search.options.regex"
+                               text="Regex"
+                               @change="setRegexOption"/>
             </div>
 
             <div class="option">
-                <simple-button text="Case insensitive" @change="setCaseInsensitivOption"/>
+                <text-toggle-button :state="search.options.ignoreCase"
+                               text="Case insensitive"
+                               @change="setCaseInsensitivOption"/>
             </div>
 
             <!-- Introduction -->
@@ -47,7 +51,7 @@
 
     // Components
     import MultiSwitchButton from '../../../ui/input/TextSwitchButton';
-    import SimpleButton      from '../../../ui/input/TextToggleButton';
+    import TextToggleButton      from '../../../ui/input/TextToggleButton';
     import IntroBox          from '../../../ui/specific/IntroBox';
 
     // Vuex stuff
@@ -56,7 +60,7 @@
     export default {
 
         components: {
-            SimpleButton,
+            TextToggleButton,
             MultiSwitchButton,
             IntroBox
         },

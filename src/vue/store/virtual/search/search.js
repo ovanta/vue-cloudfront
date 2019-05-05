@@ -21,7 +21,7 @@ export const search = {
          */
         options: {
             type: 'all',
-            ignoreCase: false,
+            ignoreCase: true,
             regex: false
         },
 
