@@ -179,7 +179,6 @@
         @include flex(row, center);
         user-select: none;
         padding: 0.3em 0.5em;
-        transition: border 0.3s, background 0.3s;
         cursor: pointer;
         font-size: 0.8em;
         border: 1px solid transparent;

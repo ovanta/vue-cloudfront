@@ -29,6 +29,8 @@ export const data = {
          * Uploads files
          *
          * @param parent Target directory
+         * @param files
+         * @param items
          * @param dataTransfer drop dataTrasnsfer object
          */
         async upload({state}, {parent, dataTransfer: {files, items}}) {

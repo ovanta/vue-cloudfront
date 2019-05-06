@@ -51,7 +51,7 @@
 
     // Components
     import MultiSwitchButton from '../../../ui/input/TextSwitchButton';
-    import TextToggleButton      from '../../../ui/input/TextToggleButton';
+    import TextToggleButton  from '../../../ui/input/TextToggleButton';
     import IntroBox          from '../../../ui/specific/IntroBox';
 
     // Vuex stuff

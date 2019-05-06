@@ -8,7 +8,7 @@
 
     export default {
         props: {
-            state: {type:Boolean, required: true},
+            state: {type: Boolean, required: true},
             text: {type: String, required: true}
         },
 
