@@ -50,6 +50,7 @@
                             {keys: ['ctrl', 'x'], action: 'Cut folder / files.'},
                             {keys: ['ctrl', 'c'], action: 'Copy folder / files.'},
                             {keys: ['ctrl', 'v'], action: 'Paste folder / files.'},
+                            {keys: ['strg', 'f'], action: 'Search.'},
                             {keys: ['n', 's'], action: 'Share.'},
                             {keys: ['z', 'i'], action: 'Create zip file out of selection.'},
                             {keys: ['n', 'f'], action: 'Create new folder.'},
@@ -362,6 +363,22 @@
                 // Refresh
                 if (keys.KeyR) {
                     store.dispatch('nodes/update', {keepLocation: true});
+                    return;
+                }
+
+                // Search
+                if (keys.ctrlKey && keys.KeyF) {
+                    this.$store.commit('setActivePopup', null);
+                    this.$store.commit('setActiveTab', 'home');
+
+                    // Focus & select input field
+                    requestAnimationFrame(() => {
+                        const element = this.$store.state.elements['searchBarInputField'];
+                        element.focus();
+                        element.select();
+                    });
+
+                    event.preventDefault();
                 }
             }
         }

@@ -22,6 +22,7 @@ import {filepreview} from './virtual/filepreview';
 import {share}       from './virtual/share';
 import {errors}      from './virtual/errors';
 import {connection}  from './virtual/connection';
+import {elements}    from './virtual/elements';
 
 Vue.use(Vuex);
 
@@ -74,7 +75,10 @@ export default new Vuex.Store({
         errors,
 
         // Everything around ethernet and sockets
-        connection
+        connection,
+
+        // Global available elements
+        elements
     },
 
     state: {

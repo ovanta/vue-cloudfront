@@ -7,6 +7,7 @@
             <i class="fas fa-search"></i>
             <input v-strict-focus
                    :value="search.rawQuery"
+                   ref="input"
                    placeholder="Search..."
                    spellcheck="false"
                    type="text"
@@ -76,6 +77,7 @@
         },
 
         mounted() {
+            this.$store.commit('elements/set', {key: 'searchBarInputField', element: this.$refs.input});
             this.$callOnDestroy(
                 // If nodes getting deleted / added update search.
                 this.$store.watch(state => state.nodes, () => this.updateSearch()),
