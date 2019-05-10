@@ -256,16 +256,16 @@
                     store.commit('selection/clear');
 
                     // Close open popup
-                    this.$store.commit('setActivePopup', null);
+                    store.commit('setActivePopup', null);
 
                     // Close confirmation dialog
-                    this.$store.commit('dialogbox/close');
+                    store.commit('dialogbox/close');
 
                     // Close editable node
-                    this.$store.commit('editable/clear');
+                    store.commit('editable/clear');
 
                     // Close filepreview
-                    this.$store.commit('filepreview/clear');
+                    store.commit('filepreview/clear');
                     return;
                 }
 
@@ -284,13 +284,13 @@
 
                 // Add mark
                 if (keys.KeyM && keys.KeyA) {
-                    this.$store.dispatch('nodes/addMark', selection);
+                    store.dispatch('nodes/addMark', selection);
                     return;
                 }
 
                 // Remove mark
                 if (keys.KeyM && keys.KeyR) {
-                    this.$store.dispatch('nodes/removeMark', selection);
+                    store.dispatch('nodes/removeMark', selection);
                     return;
                 }
 
@@ -302,43 +302,43 @@
 
                 // Show keyboard shortcuts
                 if (keys.KeyH && keys.KeyK) {
-                    this.$store.commit('setActivePopup', 'KeyboardShortcuts');
+                    store.commit('setActivePopup', 'KeyboardShortcuts');
                     return;
                 }
 
                 // Show search filters
                 if (keys.KeyH && keys.KeyF) {
-                    this.$store.commit('setActivePopup', 'SearchFilters');
+                    store.commit('setActivePopup', 'SearchFilters');
                     return;
                 }
 
                 // Switch to settings screen
                 if (keys.KeyH && keys.KeyS) {
-                    this.$store.commit('setActivePopup', 'Settings');
+                    store.commit('setActivePopup', 'Settings');
                     return;
                 }
 
                 // Switch to home screen
                 if (keys.KeyJ && keys.KeyH) {
-                    this.$store.commit('setActiveTab', 'home');
+                    store.commit('setActiveTab', 'home');
                     return;
                 }
 
                 // Switch to marked screen
                 if (keys.KeyJ && keys.KeyS) {
-                    this.$store.commit('setActiveTab', 'marked');
+                    store.commit('setActiveTab', 'marked');
                     return;
                 }
 
                 // Switch to bin
                 if (keys.KeyJ && keys.KeyB) {
-                    this.$store.commit('setActiveTab', 'bin');
+                    store.commit('setActiveTab', 'bin');
                     return;
                 }
 
                 // Switch to dashboard
                 if (keys.KeyJ && keys.KeyD) {
-                    this.$store.commit('setActiveTab', 'dashboard');
+                    store.commit('setActiveTab', 'dashboard');
                     return;
                 }
 
@@ -348,15 +348,15 @@
                     let index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
                     // Switch tab, rotate if end is reached
-                    this.$store.commit('setActiveTab', tabs[index === tabs.length - 1 ? 0 : index]);
+                    store.commit('setActiveTab', tabs[index === tabs.length - 1 ? 0 : index]);
                     event.preventDefault();
                     return;
                 }
 
                 // Share
                 if (keys.KeyN && keys.KeyS && selection.length === 1 && selection[0].type === 'file') {
-                    this.$store.commit('setActivePopup', 'ShareViaLink');
-                    this.$store.commit('share/set', selection[0]);
+                    store.commit('setActivePopup', 'ShareViaLink');
+                    store.commit('share/set', selection[0]);
                     return;
                 }
 
@@ -368,8 +368,8 @@
 
                 // Search
                 if (keys.ctrlKey && keys.KeyF) {
-                    this.$store.commit('setActivePopup', null);
-                    this.$store.commit('setActiveTab', 'home');
+                    store.commit('setActivePopup', null);
+                    store.commit('setActiveTab', 'home');
 
                     // Focus & select input field
                     requestAnimationFrame(() => {
