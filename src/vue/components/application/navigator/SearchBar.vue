@@ -6,11 +6,12 @@
 
             <i class="fas fa-search"></i>
             <input v-strict-focus
-                   :value="search.rawQuery"
                    ref="input"
+                   :value="search.rawQuery"
                    placeholder="Search..."
                    spellcheck="false"
                    type="text"
+                   @keyup.esc="e => e.target.blur()"
                    @input="updateSearchQuery">
 
             <i :class="{delete: 1, 'fas fa-times': 1, visible: searchQuery.length}" @click="clear"></i>
