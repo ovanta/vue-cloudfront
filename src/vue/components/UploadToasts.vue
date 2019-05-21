@@ -84,7 +84,7 @@
         methods: {
 
             genStatusMessage(upload) {
-                const pluralify = strings => this.$utils.createReadableString(strings, 2);
+                const pluralify = strings => this.$utils.readableStringSequence(strings, 2);
 
                 // Create a appropriate message
                 switch (upload.state) {

@@ -1,5 +1,5 @@
-import config            from '../../../../config/config';
-import {fileSystemUtils} from '../../../js/utils';
+import config       from '../../../../config/config';
+import {fileSystem} from '../../../js/utils';
 
 export const data = {
 
@@ -101,7 +101,7 @@ export const data = {
 
                         // Resolve childs
                         const newFolder = {parent, name: item.name, id: folderIndex++};
-                        const entries = await fileSystemUtils.readEntries(item);
+                        const entries = await fileSystem.readEntries(item);
                         const promises = [];
                         for (let i = 0, n = entries.length; i < n; i++) {
                             promises.push(traverseFileTree(newFolder.id, entries[i]));
@@ -191,7 +191,7 @@ export const data = {
                     const file = files[i];
 
                     // Check if file is REALLY a file
-                    if (await fileSystemUtils.isFile(file)) {
+                    if (await fileSystem.isFile(file)) {
                         stats.files.push(file.name);
                         appendToForm(`${parent}-${i}`, file);
                     }
