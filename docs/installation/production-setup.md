@@ -35,10 +35,22 @@ apt install -y python-certbot-nginx -t stretch-backports
 Navigate to the directory where you wish to install `vue-cloudfront` and `vue-cloudfront-api`:
 ```bash
 
+# Install git
+apt install git -y
+
 # Download both vue-cloudfront and vue-cloudfront-api
 git clone https://github.com/vue-cloudfront/vue-cloudfront
 git clone https://github.com/vue-cloudfront/vue-cloudfront-api
+```
 
+Be sure to make the docker entry-scripts of both the frontend and backend executable:
+```bash
+sudo chmod +x ./vue-cloudfront/docker/vue-cloudfront.sh
+sudo chmod +x ./vue-cloudfront-api/docker/vue-cloudfront-api.sh
+```
+
+Run containers:
+```bash
 # Build and run vue-cloudfront
 cd ./vue-cloudfront
 docker build -f docker/Dockerfile . -t vue-cloudfront
@@ -129,8 +141,8 @@ Navigate to `/etc/nginx/conf.d/[YOUR DOMAIN].conf` and add `http2` after `ssl`:
     }
 
     listen 443 ssl http2; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/[YOUR-DOMAIN]/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/[YOUR-DOMAIN]/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/[YOUR DOMAIN]/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/[YOUR DOMAIN]/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
     ...
