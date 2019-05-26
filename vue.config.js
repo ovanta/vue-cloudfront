@@ -1,5 +1,6 @@
 const manifestJSON = require('./public/manifest');
 const args = process.argv;
+const vueThreadLoader = require('vue-thread-loader');
 
 module.exports = {
 
@@ -12,6 +13,8 @@ module.exports = {
             }
         }
     },
+
+    configureWebpack: vueThreadLoader(),
 
     devServer: {
         host: '0.0.0.0',

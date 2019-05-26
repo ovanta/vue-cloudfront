@@ -9,9 +9,9 @@ function eventListener(method, elements, events, fn, options = {}) {
 
     if (!Array.isArray(events)) events = [events];
 
-    for (const element of elements) {
-        for (const event of events) {
-            element[method](event, fn, {capture: false, ...options});
+    for (const el of elements) {
+        for (const ev of events) {
+            el[method](ev, fn, {capture: false, ...options});
         }
     }
 
