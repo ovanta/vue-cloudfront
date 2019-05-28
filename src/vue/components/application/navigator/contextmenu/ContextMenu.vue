@@ -287,10 +287,14 @@
 
             upload() {
                 const fileInput = document.createElement('input');
+                document.body.appendChild(fileInput);
                 fileInput.setAttribute('type', 'file');
                 fileInput.setAttribute('multiple', 'true');
 
                 fileInput.addEventListener('change', () => {
+
+                    // Remove input field
+                    fileInput.remove();
                     this.$store.dispatch('data/upload', {
                         parent: this.$store.state.location.node,
                         dataTransfer: {
@@ -300,6 +304,7 @@
                     });
                 });
 
+                // Trigger popup
                 fileInput.click();
             },
 

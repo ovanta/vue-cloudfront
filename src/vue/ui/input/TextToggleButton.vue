@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'text-toggle-button': 1, active}" @click="toggle">
+    <div :class="{'text-toggle-button': 1, active: state}" @click="toggle">
         <span>{{ text }}</span>
     </div>
 </template>
@@ -8,25 +8,20 @@
 
     export default {
         props: {
-            text: {
-                type: String,
-                required: true
-            }
+            state: {type: Boolean, required: true},
+            text: {type: String, required: true}
         },
 
         data() {
-            return {
-                active: false
-            };
+            return {};
         },
 
         methods: {
 
             toggle() {
-                this.active = !this.active;
 
                 // Fire event
-                this.$emit('change', this.active);
+                this.$emit('change', !this.state);
             }
         }
     };

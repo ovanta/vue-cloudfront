@@ -1,5 +1,5 @@
-import {toBytes, readableByteCount} from '../../../../js/utils';
-import squ                          from './searchQueryUtils';
+import {parseSizeUnitString, readableByteCount} from '../../../../js/utils';
+import squ                                      from './searchQueryUtils';
 
 export const search = {
 
@@ -21,7 +21,7 @@ export const search = {
          */
         options: {
             type: 'all',
-            ignoreCase: false,
+            ignoreCase: true,
             regex: false
         },
 
@@ -90,23 +90,27 @@ export const search = {
 
                 // Extract and prepare filters
                 let {is, size, date} = filters;
-                size = size && size.length && squ.parseLogicalInstruction(size[0], toBytes);
+                size = size && size.length && squ.parseLogicalInstruction(size[0], parseSizeUnitString);
                 date = date && date.length && squ.parseLogicalInstruction(date[0], v => new Date(v).getTime());
 
                 state.filters.push(
                     ...(is || []),
 
-                    ...(size ? [({
-                        smaller: `Smaller than ${readableByteCount(size.a)}`,
-                        bigger: `Bigger than ${readableByteCount(size.a)}`,
-                        between: `Between ${readableByteCount(size.a)} and ${readableByteCount(size.b)}`
-                    })[size.type]] : []),
+                    ...(size ? [
+                        ({
+                            smaller: `Smaller than ${readableByteCount(size.a)}`,
+                            bigger: `Bigger than ${readableByteCount(size.a)}`,
+                            between: `Between ${readableByteCount(size.a)} and ${readableByteCount(size.b)}`
+                        })[size.type]
+                    ] : []),
 
-                    ...(date ? [({
-                        smaller: `Before ${new Date(date.a).toDateString()}`,
-                        bigger: `After ${new Date(date.a).toDateString()}`,
-                        between: `Between ${new Date(date.a).toDateString()} and ${new Date(date.b).toDateString()}`
-                    })[date.type]] : [])
+                    ...(date ? [
+                        ({
+                            smaller: `Before ${new Date(date.a).toDateString()}`,
+                            bigger: `After ${new Date(date.a).toDateString()}`,
+                            between: `Between ${new Date(date.a).toDateString()} and ${new Date(date.b).toDateString()}`
+                        })[date.type]
+                    ] : [])
                 );
 
                 state.nodes = [];

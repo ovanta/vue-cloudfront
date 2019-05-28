@@ -124,7 +124,7 @@
                     }
                 }),
 
-                this.$utils.detectKeyCombinations(
+                this.$utils.detectKeypressCombinations(
                     window,
                     this.keyboardEvent,
                     ({target}) => this.$store.state.activeTab === 'home' &&

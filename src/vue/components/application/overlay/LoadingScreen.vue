@@ -10,6 +10,7 @@
 
     // Components
     import Overlay from './Overlay';
+
     export default {
         components: {Overlay},
 

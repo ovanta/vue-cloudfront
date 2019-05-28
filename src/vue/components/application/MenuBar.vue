@@ -30,7 +30,7 @@
 
         <button :class="{'item btn-stared': 1, active: activeTab === 'marked'}" @click="changeTab('marked')">
             <i class="fas fa-fw fa-star"></i>
-            <span>Bookmarks</span>
+            <span>Starred</span>
         </button>
 
         <button :class="{'item btn-bin': 1, active: activeTab === 'bin'}" @click="changeTab('bin')">
@@ -237,7 +237,7 @@
                 transform: scale(1);
                 background: none;
                 justify-content: center;
-                font-size: 1.05em;
+                font-size: 1.075em;
 
                 span {
                     display: none;

@@ -6,10 +6,12 @@
 
             <i class="fas fa-search"></i>
             <input v-strict-focus
+                   ref="input"
                    :value="search.rawQuery"
                    placeholder="Search..."
                    spellcheck="false"
                    type="text"
+                   @keyup.esc="e => e.target.blur()"
                    @input="updateSearchQuery">
 
             <i :class="{delete: 1, 'fas fa-times': 1, visible: searchQuery.length}" @click="clear"></i>
@@ -28,11 +30,15 @@
             </div>
 
             <div class="option">
-                <simple-button text="Regex" @change="setRegexOption"/>
+                <text-toggle-button :state="search.options.regex"
+                                    text="Regex"
+                                    @change="setRegexOption"/>
             </div>
 
             <div class="option">
-                <simple-button text="Case insensitive" @change="setCaseInsensitivOption"/>
+                <text-toggle-button :state="search.options.ignoreCase"
+                                    text="Case insensitive"
+                                    @change="setCaseInsensitivOption"/>
             </div>
 
             <!-- Introduction -->
@@ -47,7 +53,7 @@
 
     // Components
     import MultiSwitchButton from '../../../ui/input/TextSwitchButton';
-    import SimpleButton      from '../../../ui/input/TextToggleButton';
+    import TextToggleButton  from '../../../ui/input/TextToggleButton';
     import IntroBox          from '../../../ui/specific/IntroBox';
 
     // Vuex stuff
@@ -56,7 +62,7 @@
     export default {
 
         components: {
-            SimpleButton,
+            TextToggleButton,
             MultiSwitchButton,
             IntroBox
         },
@@ -72,6 +78,7 @@
         },
 
         mounted() {
+            this.$store.commit('elements/set', {key: 'searchBarInputField', element: this.$refs.input});
             this.$callOnDestroy(
                 // If nodes getting deleted / added update search.
                 this.$store.watch(state => state.nodes, () => this.updateSearch()),
