@@ -103,7 +103,11 @@
 
         mounted() {
             const {styleStateIndicator} = this.$refs;
-            const checkAppliedStyles = () => Vue.prototype._appliedMediaQueries = getComputedStyle(styleStateIndicator, ':before').content.replace(/"/g, '');
+
+            const checkAppliedStyles = () => {
+                Vue.prototype._appliedMediaQueries = getComputedStyle(styleStateIndicator, ':before').content.replace(/"/g, '');
+            };
+
             window.addEventListener('resize', checkAppliedStyles);
             checkAppliedStyles();
         }

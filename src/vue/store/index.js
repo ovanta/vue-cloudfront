@@ -161,6 +161,7 @@ export default new Vuex.Store({
 
                     /* eslint-disable no-console */
                     console.warn(response);
+                    !silent && state.requestsActive--;
                     throw 'Fetch failed';
                 }
 

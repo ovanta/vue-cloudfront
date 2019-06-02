@@ -233,7 +233,7 @@
         .header {
             position: relative;
             background: $palette-theme-primary;
-            padding: 0.2em 0.75em;
+            padding: 0.75em 0.75em;
             color: #fff;
             border-radius: 0.2em 0.2em 0 0;
             overflow: hidden;
@@ -310,29 +310,8 @@
     }
 
     @include mq-tablets {
-        .content-wrap {
-            position: fixed;
-            @include position(0, 0, 0, 0);
-            @include flex(column, center, center);
-            z-index: 100;
-            background: rgba(black, 0.1);
-            transition: all 0.3s;
-            opacity: 0;
-            pointer-events: none;
-
-            &.visible {
-                pointer-events: all;
-                opacity: 1;
-            }
-
-            .introduction {
-                position: static;
-                margin: 0 !important;
-
-                &::before {
-                    content: none;
-                }
-            }
+        .intro-box {
+            display: none;
         }
     }
 

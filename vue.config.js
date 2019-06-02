@@ -7,9 +7,7 @@ module.exports = {
     css: {
         loaderOptions: {
             sass: {
-                data: `
-                    @import "@/scss/_main.scss";
-                `
+                data: '@import "@/scss/_main.scss";'
             }
         }
     },
@@ -33,6 +31,7 @@ module.exports = {
     pwa: {
         themeColor: manifestJSON.theme_color,
         msTileColor: '#F5F6FA',
-        manifestPath: 'manifest.json'
+        manifestPath: 'manifest.json',
+        workboxPluginMode: 'GenerateSW'
     }
 };
