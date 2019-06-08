@@ -54,6 +54,7 @@
             this.$store.commit('errors/listen');
         }
     };
+
 </script>
 
 <style lang="scss">
