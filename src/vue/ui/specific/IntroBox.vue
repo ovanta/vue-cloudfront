@@ -1,5 +1,5 @@
 <template>
-    <div v-if="settings._static.introBoxes.includes(id)"
+    <div v-if="settings.static.introBoxes.includes(id)"
          ref="introBox"
          class="intro-box"
          @click="toggle">
@@ -117,14 +117,14 @@
 
             close() {
                 this.$store.dispatch('settings/change', stats => {
-                    stats._static.introBoxes = stats._static.introBoxes.filter(v => v !== this.id);
+                    stats.static.introBoxes = stats.static.introBoxes.filter(v => v !== this.id);
                     return stats;
                 });
             },
 
             closeAll() {
                 this.$store.dispatch('settings/change', stats => {
-                    stats._static.introBoxes = [];
+                    stats.static.introBoxes = [];
                     return stats;
                 });
             }

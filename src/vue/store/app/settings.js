@@ -7,11 +7,13 @@ export const settings = {
     state: {
 
         // Cannot be changed by the user
-        _static: {
+        static: {
             introBoxes: ['0', '1', '2']
         },
 
-        siPrefix: true
+        user: {
+            siPrefix: true
+        }
     },
 
     mutations: {

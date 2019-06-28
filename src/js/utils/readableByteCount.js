@@ -1,4 +1,5 @@
 import {binaryPrefix} from '../../../config/config';
+import store          from '../../vue/store/index';
 
 /**
  * Convert a byte size to an human readable size.
@@ -8,7 +9,7 @@ import {binaryPrefix} from '../../../config/config';
  * @returns {string}
  */
 export default (bytes, mapValue = v => v) => {
-    const si = binaryPrefix;
+    const si = (store.state && store.state.settings) ? store.state.settings.user.siPrefix : binaryPrefix;
     const unit = si ? 1000 : 1024;
     const block = bytes / unit;
 

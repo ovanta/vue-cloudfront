@@ -149,20 +149,16 @@
             &.delete-account {
                 margin-right: 1em;
                 background: $palette-tomatoe-red;
-                box-shadow: 0 0.05em 0.3em rgba($palette-tomatoe-red, 0.25);
 
                 &:hover {
-                    box-shadow: 0 0.05em 0.5em rgba($palette-tomatoe-red, 0.5);
                     background: darken($palette-tomatoe-red, 3);
                 }
             }
 
             &.update {
                 background: $palette-theme-primary;
-                box-shadow: 0 0.05em 0.3em rgba($palette-theme-primary, 0.25);
 
                 &:hover {
-                    box-shadow: 0 0.05em 0.5em rgba($palette-theme-primary, 0.5);
                     background: darken($palette-theme-primary, 3);
                 }
             }

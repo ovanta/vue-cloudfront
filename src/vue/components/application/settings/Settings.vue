@@ -4,6 +4,7 @@
 
         <div class="parts">
             <credentials/>
+            <global/>
         </div>
 
     </div>
@@ -11,11 +12,13 @@
 
 <script>
 
+    // Setting parts
     import Credentials from './Credentials';
+    import Global      from './Global';
 
     export default {
 
-        components: {Credentials},
+        components: {Credentials, Global},
 
         data() {
             return {};
@@ -28,6 +31,7 @@
 
     .settings {
         @include flex(column);
+        flex-grow: 1;
         margin: 1em;
 
         > h1 {
@@ -37,11 +41,13 @@
     }
 
     .parts {
-        @include flex(row, center);
-        padding: 5em;
+        @include flex(row, center, center);
+        flex-grow: 1;
+        padding: 2.5em;
 
-        .credentials {
-            width: 50%;
+        .credentials,
+        .global {
+            margin: 2em;
         }
     }
 
