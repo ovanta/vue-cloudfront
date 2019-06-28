@@ -6,6 +6,16 @@
             <switch-button :value="settings.user.siPrefix" @input="props.siPrefix = $event"/>
         </div>
 
+        <div class="setting">
+            <p>Delete everything forever</p>
+            <switch-button :value="settings.user.immediateDeletion" @input="props.immediateDeletion = $event"/>
+        </div>
+
+        <div class="setting">
+            <p>Hide tooltips</p>
+            <switch-button :value="settings.user.hideTooltips" @input="props.hideTooltips = $event"/>
+        </div>
+
     </div>
 </template>
 
@@ -29,6 +39,7 @@
             };
         },
 
+        // TODO: Fix strange sync behaviours
         computed: {
             ...mapState(['settings'])
         },
@@ -54,6 +65,7 @@
 
         .setting {
             @include flex(row, center, space-between);
+            margin: 0.75em 0;
 
             p {
                 @include font(600, 0.85em);

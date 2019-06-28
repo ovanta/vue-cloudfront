@@ -12,7 +12,9 @@ export const settings = {
         },
 
         user: {
-            siPrefix: true
+            siPrefix: true,
+            hideTooltips: false,
+            immediateDeletion: false
         }
     },
 

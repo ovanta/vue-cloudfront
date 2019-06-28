@@ -29,11 +29,12 @@
                 // Recalculate position
                 const bcr = el.getBoundingClientRect();
                 return {
+                    text,
+                    visible: visible && !this.$store.state.settings.user.hideTooltips,
                     style: {
                         top: `${bcr.top - 30}px`,
                         left: `${bcr.left + bcr.width / 2}px`
-                    },
-                    visible, text
+                    }
                 };
             }
         }
