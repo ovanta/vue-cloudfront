@@ -7,8 +7,8 @@ import config from '../../../config/config.json';
 // Server-related nodes
 import {nodes}     from './app/nodes';
 import {auth}      from './app/auth';
-import {stats}     from './app/stats';
 import {data}      from './app/data';
+import {settings}      from './app/settings';
 import {dialogbox} from './virtual/dialogbox';
 
 // Virtual modules act only as visual helpers / representation
@@ -35,11 +35,11 @@ export default new Vuex.Store({
         // Holds a session key
         auth,
 
-        // Holds user related content
-        stats,
-
         // Responsible for uploading / downloading data
         data,
+
+        // User settings
+        settings,
 
         // Holds a single node where you are currently
         location,

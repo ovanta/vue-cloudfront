@@ -126,8 +126,8 @@ export const auth = {
 
                 // Update nodes and perform first-time sync of stats
                 return Promise.all([
+                    this.dispatch('settings/update'),
                     this.dispatch('nodes/update'),
-                    this.dispatch('stats/update'),
                     this.dispatch('auth/status')
                 ]);
             });
@@ -154,11 +154,10 @@ export const auth = {
                 // Jump to dashboard
                 this.commit('setActiveTab', 'dashboard');
 
-                // Update nodes and perform first-time sync of stats
+                // Update nodes
                 return Promise.all([
                     this.dispatch('nodes/update'),
-                    this.dispatch('auth/status'),
-                    this.dispatch('stats/sync')
+                    this.dispatch('auth/status')
                 ]);
             });
         },
@@ -181,8 +180,8 @@ export const auth = {
 
                 // Update everything
                 return Promise.all([
+                    this.dispatch('settings/update'),
                     this.dispatch('nodes/update'),
-                    this.dispatch('stats/update'),
                     this.dispatch('auth/status')
                 ]);
             }).catch(() => {

@@ -1,11 +1,17 @@
 import websocket from '../../../socket/socket';
 
-export const stats = {
+export const settings = {
 
     namespaced: true,
 
     state: {
-        introBoxes: ['0', '1', '2']
+
+        // Cannot be changed by the user
+        _static: {
+            introBoxes: ['0', '1', '2']
+        },
+
+        siPrefix: true
     },
 
     mutations: {
@@ -19,33 +25,17 @@ export const stats = {
     actions: {
 
         /**
-         * Synchronizes the current state with the server
-         * @param state
-         * @param rootState
-         * @returns {Promise<T | never>}
-         */
-        async sync({state, rootState}) {
-            return this.dispatch('fetch', {
-                route: 'updateStats',
-                body: {
-                    apikey: rootState.auth.apikey,
-                    stats: state
-                }
-            });
-        },
-
-        /**
          * Loads all events
          * @param state
          * @param rootState
          */
         async update({state, rootState}) {
             return this.dispatch('fetch', {
-                route: 'getStats',
+                route: 'settings',
                 body: {
                     apikey: rootState.auth.apikey
                 }
-            }).then(stats => Object.assign(state, stats));
+            }).then(settings => Object.assign(state, settings));
         },
 
         /**
@@ -60,22 +50,22 @@ export const stats = {
         async change({state, rootState}, cb) {
 
             // Sync with server
-            await this.dispatch('stats/update');
+            await this.dispatch('settings/update');
 
             // Call callback
             const newState = cb(JSON.parse(JSON.stringify(state)));
 
             // Push to server
             return this.dispatch('fetch', {
-                route: 'updateStats',
+                route: 'updateSettings',
                 body: {
                     apikey: rootState.auth.apikey,
-                    stats: newState
+                    settings: newState
                 }
             }).then(() => {
 
                 // Sync with other instances
-                websocket.broadcast('stats', 'change', newState);
+                websocket.broadcast('settings', 'change', newState);
 
                 // Apply changes
                 Object.assign(state, newState);

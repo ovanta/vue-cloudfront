@@ -1,5 +1,5 @@
 <template>
-    <div v-if="stats.introBoxes.includes(id)"
+    <div v-if="settings._static.introBoxes.includes(id)"
          ref="introBox"
          class="intro-box"
          @click="toggle">
@@ -85,7 +85,7 @@
         },
 
         computed: {
-            ...mapState(['stats'])
+            ...mapState(['settings'])
         },
 
         methods: {
@@ -116,15 +116,15 @@
             },
 
             close() {
-                this.$store.dispatch('stats/change', stats => {
-                    stats.introBoxes = stats.introBoxes.filter(v => v !== this.id);
+                this.$store.dispatch('settings/change', stats => {
+                    stats._static.introBoxes = stats._static.introBoxes.filter(v => v !== this.id);
                     return stats;
                 });
             },
 
             closeAll() {
-                this.$store.dispatch('stats/change', stats => {
-                    stats.introBoxes = [];
+                this.$store.dispatch('settings/change', stats => {
+                    stats._static.introBoxes = [];
                     return stats;
                 });
             }
