@@ -70,6 +70,7 @@
                             {keys: ['v', 'g'], action: 'Change view to grid.'},
                             {keys: ['j', 'h'], action: 'Switch to home tab.'},
                             {keys: ['j', 's'], action: 'Switch to starred folder / files.'},
+                            {keys: ['j', 'c'], action: 'Switch to settings'},
                             {keys: ['j', 'b'], action: 'Switch to bin.'},
                             {keys: ['j', 'd'], action: 'Switch to dashboard.'},
                             {keys: ['shift', 'tab'], action: 'Switch tabs.'},
@@ -339,6 +340,12 @@
                 // Switch to dashboard
                 if (keys.KeyJ && keys.KeyD) {
                     store.commit('setActiveTab', 'dashboard');
+                    return;
+                }
+
+                // Switch to settings
+                if (keys.KeyJ && keys.KeyC) {
+                    store.commit('setActiveTab', 'settings');
                     return;
                 }
 

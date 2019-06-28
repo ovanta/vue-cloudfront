@@ -14,6 +14,9 @@
             <!-- Dashboard -->
             <dashboard v-show="activeTab === 'dashboard'"/>
 
+            <!-- Settings -->
+            <settings v-show="activeTab === 'settings'"/>
+
             <!-- Upload bar - shows the current upload progress of files -->
             <upload-toasts/>
         </div>
@@ -29,7 +32,6 @@
         <search-filters/>
         <keyboard-shortcuts/>
         <share-via-link/>
-        <settings/>
 
         <!-- Tooltip -->
         <tool-tip/>
@@ -44,6 +46,7 @@
     // Components
     import Navigator from './application/navigator/Navigator';
     import Dashboard from './application/dashboard/Dashboard';
+    import Settings  from './application/settings/Settings';
 
     import ToolTip      from '../ui/specific/ToolTip';
     import MenuBar      from './application/MenuBar';
@@ -54,7 +57,6 @@
     import KeyboardShortcuts from './application/popup/KeyboardShortcuts';
     import SearchFilters     from './application/popup/SearchFilters';
     import ShareViaLink      from './application/popup/ShareViaLink';
-    import Settings          from './application/popup/Settings';
 
     // Overlays
     import DialogBox      from './application/overlay/DialogBox';

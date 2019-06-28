@@ -10,11 +10,11 @@
                    :autofocus="autofocus ? 'autofocus' : ''"
                    :class="{empty: !value}"
                    :type="password && !showPwd ? 'password' : 'text'"
-                   v-model="value"
+                   :value="value"
                    spellcheck="false"
                    @blur="focused = false"
                    @focus="focused = true"
-                   @input="$emit('update', value)"
+                   @input="$emit('input', $event.target.value)"
                    @keyup.enter="$emit('submit')">
 
 
@@ -25,7 +25,7 @@
 
             <!-- Clear input -->
             <i :class="{'clear fas fa-fw fa-times': 1, visible: value}"
-               @click="value = ''"></i>
+               @click="clear"></i>
         </div>
 
         <!-- Colored border to show focus -->
@@ -40,12 +40,12 @@
         props: {
             placeholder: {type: String, required: true},
             password: {type: Boolean, default: false},
-            autofocus: {type: Boolean, default: false}
+            autofocus: {type: Boolean, default: false},
+            value: {type: String, default: ''}
         },
 
         data() {
             return {
-                value: '',
                 showPwd: false,
                 focused: false,
                 labelId: `label-${(Date.now() + Math.floor(Math.random() * 1e15)).toString(36)}`
@@ -53,9 +53,8 @@
         },
 
         methods: {
-
             clear() {
-                this.value = '';
+                this.$emit('input', '');
             }
         }
     };

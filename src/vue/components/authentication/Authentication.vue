@@ -10,12 +10,12 @@
             <div class="input">
 
                 <div v-if="!registerMode" class="field">
-                    <text-input-field ref="loginUsername"
+                    <text-input-field v-model="username"
                                       :autofocus="!!auth.apikey"
                                       placeholder="Username"
                                       @submit="submit"/>
 
-                    <text-input-field ref="loginPassword"
+                    <text-input-field v-model="password"
                                       :password="true"
                                       placeholder="Password"
                                       @submit="submit"/>
@@ -23,16 +23,16 @@
 
 
                 <div v-if="registerMode" class="field">
-                    <text-input-field ref="registerUsername"
+                    <text-input-field v-model="username"
                                       placeholder="Username"
                                       @submit="submit"/>
 
-                    <text-input-field ref="registerPassword"
+                    <text-input-field v-model="password"
                                       :password="true"
                                       placeholder="Password"
                                       @submit="submit"/>
 
-                    <text-input-field ref="registerPasswordRepeat"
+                    <text-input-field v-model="passwordRepeat"
                                       :password="true"
                                       placeholder="Repeat Password"
                                       @submit="submit"/>
@@ -69,6 +69,10 @@
                 registerMode: false,
                 errorMsg: '',
 
+                username: '',
+                password: '',
+                passwordRepeat: '',
+
                 fadeAnimationActive: false,
                 shakeAnimationActive: false
             };
@@ -85,14 +89,13 @@
             },
 
             login() {
-                const {loginUsername, loginPassword} = this.$refs;
-                this.errorMsg = '';
+                const {username, password} = this;
 
                 this.$store.dispatch('auth/login', {
-                    username: loginUsername.value,
-                    password: loginPassword.value
+                    username, password
                 }).then(() => {
-                    [loginUsername, loginPassword].forEach(v => v.clear());
+                    this.password = '';
+                    this.passwordRepeat = '';
                 }).catch(msg => {
                     this.errorMsg = msg;
                     this.shakeAnimationActive = true;
@@ -100,20 +103,18 @@
             },
 
             register() {
-                const {registerUsername, registerPassword, registerPasswordRepeat} = this.$refs;
-                this.errorMsg = '';
+                const {username, password, passwordRepeat} = this;
 
                 // Validate
-                if (registerPassword.value !== registerPasswordRepeat.value) {
-                    this.errorMsg = 'Passwords are not indentical';
+                if (password !== passwordRepeat) {
                     return;
                 }
 
                 this.$store.dispatch('auth/register', {
-                    username: registerUsername.value,
-                    password: registerPassword.value
+                    username, password
                 }).then(() => {
-                    [registerUsername, registerPassword, registerPasswordRepeat].forEach(v => v.clear());
+                    this.password = '';
+                    this.passwordRepeat = '';
                 }).catch(msg => {
                     this.errorMsg = msg;
                     this.shakeAnimationActive = true;
@@ -121,7 +122,6 @@
             },
 
             switchAuthMode() {
-                this.errorMsg = '';
                 this.fadeAnimationActive = true;
                 this.registerMode = !this.registerMode;
             }

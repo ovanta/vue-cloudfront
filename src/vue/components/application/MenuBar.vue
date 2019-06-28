@@ -28,7 +28,7 @@
             <span>Home</span>
         </button>
 
-        <button :class="{'item btn-stared': 1, active: activeTab === 'marked'}" @click="changeTab('marked')">
+        <button :class="{'item btn-starred': 1, active: activeTab === 'marked'}" @click="changeTab('marked')">
             <i class="fas fa-fw fa-star"></i>
             <span>Starred</span>
         </button>
@@ -43,6 +43,11 @@
         <button class="item bottom btn-refresh" @click="refresh">
             <i class="fas fa-fw fa-sync-alt"></i>
             <span>Refresh</span>
+        </button>
+
+        <button :class="{'item btn-settings': 1, active: activeTab === 'settings'}" @click="changeTab('settings')">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Settings</span>
         </button>
 
         <button class="item bottom btn-logout" @click="$store.dispatch('auth/logout')">
@@ -282,7 +287,7 @@
                 }
             }
 
-            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-dashboard', '.btn-stared', '.btn-refresh'));
+            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-dashboard', '.btn-starred', '.btn-refresh'));
         }
     }
 

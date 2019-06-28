@@ -1,0 +1,173 @@
+<template>
+    <section class="credentials">
+        <text-input-field v-model="currentPassword"
+                          :password="true"
+                          placeholder="Current password"/>
+
+        <text-input-field v-model="username"
+                          placeholder="Change Username"/>
+
+        <text-input-field v-model="password"
+                          :password="true"
+                          placeholder="Change Password"/>
+
+        <text-input-field v-model="passwordRepeat"
+                          :password="true"
+                          placeholder="Repeat New Password"/>
+
+
+        <div class="actions">
+            <button class="delete-account" @click="deleteAccount">Delete Account</button>
+            <button class="update" @click="update">Update</button>
+        </div>
+    </section>
+</template>
+
+<script>
+    // Components
+    import TextInputField from '../../../ui/input/TextInputField';
+
+    export default {
+
+        components: {TextInputField},
+
+        data() {
+            return {
+                currentPassword: '',
+                username: '',
+                password: '',
+                passwordRepeat: ''
+            };
+        },
+
+        methods: {
+
+            update() {
+                const {currentPassword, username, password, passwordRepeat} = this;
+
+                // Validate
+                if (password !== passwordRepeat || !password) {
+
+                    // Show error
+                    return this.$store.commit('dialogbox/show', {
+                        type: 'error',
+                        title: 'Passwords are no indentical or empty.',
+                        buttons: [
+                            {type: 'accept', text: 'Okay'}
+                        ]
+                    });
+                }
+
+                this.$store.dispatch('auth/updateCredentials', {
+                    currentPassword,
+                    newUsername: username,
+                    newPassword: password
+                }).then(() => {
+                    this.currentPassword = this.username = this.password = this.passwordRepeat = '';
+                }).catch(error => {
+
+                    // Show error
+                    this.$store.commit('dialogbox/show', {
+                        type: 'error',
+                        title: 'Failed to update settings',
+                        text: error,
+                        buttons: [
+                            {type: 'accept', text: 'Okay'}
+                        ]
+                    });
+                });
+            },
+
+            deleteAccount() {
+                const {currentPassword} = this;
+
+                this.$store.dispatch('auth/deleteAccount', {
+                    password: currentPassword
+                }).then(() => {
+                    this.currentPassword = '';
+                }).catch(error => {
+
+                    // Show error
+                    this.$store.commit('dialogbox/show', {
+                        type: 'error',
+                        title: 'Failed to delete accound',
+                        text: error,
+                        buttons: [
+                            {type: 'accept', text: 'Okay'}
+                        ]
+                    });
+                });
+            }
+        }
+    };
+
+</script>
+
+<style lang="scss" scoped>
+
+    .credentials {
+        @include flex(column);
+
+        .text-input-field {
+            margin-top: 1.5em;
+        }
+
+        .info {
+            @include font(600, 0.75em);
+            margin-top: 0.25em;
+            color: white;
+            background: $palette-asphalt;
+            text-align: center;
+            border-radius: 0.15em;
+            transition: all 0.3s;
+
+            &:empty {
+                opacity: 0;
+                padding: 0;
+                max-height: 0;
+            }
+
+            &:not(:empty) {
+                padding: 0.25em 0;
+                opacity: 1;
+                max-height: 2em;
+            }
+        }
+    }
+
+    .actions {
+        @include flex(row, center, space-between);
+
+        button {
+            @include font(400, 0.85em);
+            margin-top: 1.5em;
+            border-radius: 0.15em;
+            padding: 0.55em 1.3em 0.6em;
+            color: white;
+            transition: all 0.3s;
+
+            &.delete-account {
+                margin-right: 1em;
+                background: $palette-tomatoe-red;
+                box-shadow: 0 0.05em 0.3em rgba($palette-tomatoe-red, 0.25);
+
+                &:hover {
+                    box-shadow: 0 0.05em 0.5em rgba($palette-tomatoe-red, 0.5);
+                    background: darken($palette-tomatoe-red, 3);
+                }
+            }
+
+            &.update {
+                background: $palette-theme-primary;
+                box-shadow: 0 0.05em 0.3em rgba($palette-theme-primary, 0.25);
+
+                &:hover {
+                    box-shadow: 0 0.05em 0.5em rgba($palette-theme-primary, 0.5);
+                    background: darken($palette-theme-primary, 3);
+                }
+            }
+        }
+    }
+
+
+</style>
