@@ -1,11 +1,15 @@
 <template>
     <div class="settings">
-        <h1>Settings</h1>
 
-        <div class="parts">
+        <section>
+            <h1>Credentials</h1>
             <credentials/>
+        </section>
+
+        <section>
+            <h1>Look and feel</h1>
             <global/>
-        </div>
+        </section>
 
     </div>
 </template>
@@ -30,24 +34,17 @@
 <style lang="scss" scoped>
 
     .settings {
-        @include flex(column);
+        @include flex(row, stretch, center);
         flex-grow: 1;
         margin: 1em;
 
-        > h1 {
-            @include font(600, 1.25em);
-            color: $palette-asphalt;
-        }
-    }
+        > section {
 
-    .parts {
-        @include flex(row, center, center);
-        flex-grow: 1;
-        padding: 2.5em;
-
-        .credentials,
-        .global {
-            margin: 2em;
+            > h1 {
+                @include font(600, 1.15em);
+                color: $palette-asphalt;
+                margin-bottom: 2em;
+            }
         }
     }
 

@@ -61,6 +61,7 @@ export const settings = {
 
             // Push to server
             return this.dispatch('fetch', {
+                silent: true,
                 route: 'updateSettings',
                 body: {
                     apikey: rootState.auth.apikey,

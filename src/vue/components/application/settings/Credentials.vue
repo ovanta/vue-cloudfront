@@ -108,7 +108,7 @@
     .credentials {
         @include flex(column);
 
-        .text-input-field {
+        .text-input-field:not(:first-child) {
             margin-top: 1.5em;
         }
 

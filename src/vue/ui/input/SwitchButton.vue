@@ -18,31 +18,39 @@
 
 <style lang="scss" scoped>
 
+    $width: 38px;
+    $height: 20px;
+    $kpadding: 3px;
+
     .switch-button {
-        @include size(24px, 42px);
+        @include size($height, $width);
         position: relative;
         border-radius: 50em;
         background: $palette-blurry-gray;
         transition: all 0.3s;
         cursor: pointer;
 
+        $ksize: $height - 2 * $kpadding;
+        $ktpadding: 2 * $kpadding;
+
         &::before {
+
             @include pseudo();
-            @include size(18px);
+            @include size($ksize);
             border-radius: 50em;
             background: white;
-            margin: 3px;
+            margin: $kpadding;
 
             @include animate('0.25s ease-in-out reverse forwards') {
                 0% {
-                    width: 18px;
+                    width: $ksize;
                 }
                 50% {
-                    width: calc(100% - 6px);
+                    width: calc(100% - #{$ktpadding});
                 }
                 100% {
                     right: 0;
-                    width: 18px;
+                    width: $ksize;
                 }
             }
         }
@@ -53,14 +61,14 @@
             &::before {
                 @include animate('0.25s ease-in-out forwards') {
                     0% {
-                        width: 18px;
+                        width: $ksize;
                     }
                     50% {
-                        width: calc(100% - 6px);
+                        width: calc(100% - #{$ktpadding});
                     }
                     100% {
                         right: 0;
-                        width: 18px;
+                        width: $ksize;
                     }
                 }
             }
