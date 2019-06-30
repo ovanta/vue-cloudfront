@@ -109,35 +109,4 @@
         }
     }
 
-    @include mq-phones {
-        .dashboard {
-            grid-template-rows: repeat(auto-fill, 1fr);
-            grid-template-columns: 1fr;
-            overflow: auto;
-        }
-
-        .tile {
-
-            &.digital-clock {
-                grid-area: 1;
-            }
-
-            &.data-statistics {
-                grid-area: 2;
-            }
-
-            &.group-statistics {
-                grid-area: 3;
-            }
-
-            &.active-sessions {
-                grid-area: 4;
-            }
-
-            &.error-log {
-                grid-area: 5;
-            }
-        }
-    }
-
 </style>

@@ -18,7 +18,9 @@
             </div>
         </div>
 
-        <button :class="{'item btn-dashboard': 1, active: activeTab === 'dashboard'}" @click="changeTab('dashboard')">
+        <button v-if="$mediaDevice !== 'mobile'" 
+                :class="{'item btn-dashboard': 1, active: activeTab === 'dashboard'}" 
+                @click="changeTab('dashboard')">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </button>

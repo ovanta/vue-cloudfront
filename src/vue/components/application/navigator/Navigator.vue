@@ -95,7 +95,7 @@
 
         computed: {
             nodes() {
-                const calcFolderSize = this._appliedMediaQueries !== 'mobile' && this.$store.state.viewType === 'list';
+                const calcFolderSize = this.$mediaDevice !== 'mobile' && this.$store.state.viewType === 'list';
                 return this.$store.getters['nodes/currentDisplayedNodes'](calcFolderSize);
             },
 

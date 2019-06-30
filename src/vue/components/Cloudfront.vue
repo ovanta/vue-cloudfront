@@ -103,15 +103,23 @@
             ...mapState(['activeTab'])
         },
 
+        beforeCreate() {
+            Vue.prototype.$mediaDevice = null;
+        },
+
         mounted() {
             const {styleStateIndicator} = this.$refs;
 
             const checkAppliedStyles = () => {
-                Vue.prototype._appliedMediaQueries = getComputedStyle(styleStateIndicator, ':before').content.replace(/"/g, '');
+                Vue.prototype.$mediaDevice = getComputedStyle(styleStateIndicator, ':before').content.replace(/"/g, '');
             };
 
             window.addEventListener('resize', checkAppliedStyles);
             checkAppliedStyles();
+
+            if (this.$mediaDevice === 'mobile') {
+                this.$store.commit('setActiveTab', 'home');
+            }
         }
     };
 

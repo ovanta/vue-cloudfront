@@ -338,7 +338,7 @@
                 }
 
                 // Switch to dashboard
-                if (keys.KeyJ && keys.KeyD) {
+                if (keys.KeyJ && keys.KeyD && this.$mediaDevice !== 'mobile') {
                     store.commit('setActiveTab', 'dashboard');
                     return;
                 }

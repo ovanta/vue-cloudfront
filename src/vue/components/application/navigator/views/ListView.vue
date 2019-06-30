@@ -45,8 +45,8 @@
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
 
             <!-- Files -->
@@ -68,8 +68,8 @@
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
         </div>
 
