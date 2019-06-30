@@ -22,8 +22,8 @@ button {
     box-sizing: border-box;
 
     &::selection {
-        color: white;
-        background: $palette-theme-secondary;
+        color: #{'rgb(var(--palette-pure-white))'};
+        background: #{'rgb(var(--palette-theme-secondary))'};
     }
 }
 
@@ -33,7 +33,7 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: lighten($palette-blurry-gray, 10);
+    background-color: #{'rgb(var(--palette-blurry-gray))'};
     border-radius: 0;
 }
 

@@ -77,7 +77,7 @@
         position: relative;
         @include flex(row, center);
         @include font(600, 0.7em);
-        background: $palette-snow-white;
+        background: #{'rgb(var(--palette-snow-white))'};
         border-radius: 50em;
         height: 21px;
         cursor: pointer;
@@ -86,14 +86,14 @@
     .option {
         padding: 0 0.75em;
         transition: all 0.3s;
-        color: rgba($palette-blurry-gray, 0.75);
+        color: #{'rgba(var(--palette-blurry-gray), 0.75)'};
         z-index: 1;
 
         &.active {
-            color: $palette-snow-white;
+            color: #{'rgb(var(--palette-snow-white))'};
 
             &:hover {
-                color: $palette-snow-white;
+                color: #{'rgb(var(--palette-snow-white))'};
             }
         }
     }
@@ -103,7 +103,7 @@
         transition: all 0.3s;
         border-radius: 50em;
         height: 100%;
-        background: $palette-theme-primary;
+        background: #{'rgb(var(--palette-theme-primary))'};
 
         left: 0;
         top: 0;

@@ -46,8 +46,8 @@
 
     .tile {
         border-radius: 0.25em;
-        background: white;
-        border: 2px solid $palette-sick-white;
+        background: #{'rgb(var(--palette-pure-white))'};
+        border: 2px solid #{'rgb(var(--palette-snow-white))'};
         padding: 2.5vh 0.75vw;
         opacity: 0;
         transform: translateY(-0.1em);
@@ -56,7 +56,7 @@
             @include flex(row, center);
             @include font(600, 1em);
             margin: 0 0 1em 0.25em;
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
 
             i {
                 font-size: 1em;

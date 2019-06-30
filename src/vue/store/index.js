@@ -8,7 +8,7 @@ import config from '../../../config/config.json';
 import {nodes}     from './app/nodes';
 import {auth}      from './app/auth';
 import {data}      from './app/data';
-import {settings}      from './app/settings';
+import {settings}  from './app/settings';
 import {dialogbox} from './virtual/dialogbox';
 
 // Virtual modules act only as visual helpers / representation

@@ -52,8 +52,8 @@
         padding: 0.4em 0.75em 0.5em;
         border-radius: 0.15em;
         @include font(600, 0.75em);
-        background: $palette-asphalt;
-        color: white;
+        background: #{'rgb(var(--palette-asphalt))'};
+        color: #{'rgb(var(--palette-pure-white))'};
         transform: translateY(5px) translateX(-50%);
         transition: transform 0.3s, opacity 0.3s;
 
@@ -68,7 +68,7 @@
             @include size(0);
             margin: auto;
             border: 5px solid transparent;
-            border-top-color: $palette-asphalt;
+            border-top-color: #{'rgb(var(--palette-asphalt))'};
         }
     }
 

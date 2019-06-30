@@ -126,7 +126,7 @@
         position: relative;
         display: inline-block;
         font-size: 0.85em;
-        color: $palette-asphalt;
+        color: #{'rgb(var(--palette-asphalt))'};
         padding: 0.15em 0 0.5em;
         border-radius: 0.15em;
         margin: 1.75em 0 0.35em;
@@ -173,7 +173,7 @@
         border-radius: 0.2em;
         font-size: 0.8em;
         box-shadow: 0 1px 3px 0 rgba(black, 0.1);
-        background: white;
+        background: #{'rgb(var(--palette-pure-white))'};
         border: 1px solid transparent;
         padding: 0.5em 0.9em;
 
@@ -184,7 +184,7 @@
             opacity: 0;
             transform: translateY(-0.15em) rotate(10deg);
             transition: all 0.3s;
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
 
             &.visible {
                 opacity: 1;
@@ -195,13 +195,13 @@
         .extension {
             @include font(600, 0.85em);
             @include white-space-overflow;
-            background: $palette-asphalt;
+            background: #{'rgb(var(--palette-asphalt))'};
             max-width: 5em;
             flex-shrink: 0;
             padding: 0.25em 0.45em;
             text-transform: uppercase;
             border-radius: 0.15em;
-            color: white;
+            color: #{'rgb(var(--palette-pure-white))'};
         }
 
         &.selected,
@@ -225,7 +225,7 @@
 
         .name,
         .detail {
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
         }
 
         .name {
@@ -239,7 +239,7 @@
             width: 100%;
 
             &[contenteditable=true] {
-                border-color: $palette-theme-primary;
+                border-color: #{'rgb(var(--palette-theme-primary))'};
                 cursor: text;
                 outline: none;
             }

@@ -64,7 +64,7 @@
     .slider {
         position: relative;
         @include size(0.5em, 5em);
-        background: $palette-decent-blue;
+        background: #{'rgb(var(--palette-blurry-gray))'};
         border-radius: 50em;
         overflow: visible;
     }
@@ -73,14 +73,14 @@
         position: absolute;
         @include position(0, auto, 0, 0);
         @include size(100%, 0);
-        background: $palette-asphalt;
+        background: #{'rgb(var(--palette-asphalt))'};
         border-radius: 50em;
     }
 
     .knob {
         position: absolute;
         @include size(1.25em);
-        background: $palette-asphalt;
+        background: #{'rgb(var(--palette-asphalt))'};
         margin: -0.3em 0 0 -0.3em;
         border-radius: 100%;
         cursor: grab;

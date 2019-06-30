@@ -66,7 +66,7 @@
     }
 
     body {
-        background: $palette-snow-white;
+        background: #{'rgb(var(--palette-snow-white))'};
         font-family: $font-family;
     }
 
@@ -77,7 +77,7 @@
 
         svg {
             position: fixed;
-            fill: $palette-theme-secondary;
+            fill: #{'rgb(var(--palette-theme-secondary))'};
             @include size(100vmax);
 
             @include animate('1s ease') {
@@ -108,7 +108,7 @@
         @include position(0, 0, 0, 0);
         border-radius: 0.5em;
         margin: auto;
-        box-shadow: 0 0.4em 3em 0 rgba($palette-asphalt, 0.15);
+        box-shadow: 0 0.4em 3em 0 #{'rgba(var(--palette-asphalt), 0.15)'};
     }
 
     .selection-area {

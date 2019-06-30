@@ -234,7 +234,7 @@
 
     .color-picker {
         @include flex(column);
-        background: white;
+        background: #{'rgb(var(--palette-pure-white))'};
     }
 
     .color {
@@ -243,7 +243,7 @@
 
         .knob {
             @include size(12px);
-            border: 2px solid white;
+            border: 2px solid #{'rgb(var(--palette-pure-white))'};
             border-radius: 100%;
         }
     }
@@ -269,7 +269,7 @@
 
         .knob {
             position: absolute;
-            background: white;
+            background: #{'rgb(var(--palette-pure-white))'};
             box-shadow: 0 1px 3px rgba(black, 0.2);
         }
     }
@@ -282,8 +282,8 @@
 
         input {
             @include font(600, 0.85em, 0.05em);
-            background: $palette-snow-white;
-            color: $palette-asphalt;
+            background: #{'rgb(var(--palette-snow-white))'};
+            color: #{'rgb(var(--palette-asphalt))'};
             border: 1px solid transparent;
             padding: 0.25em 0.75em;
             text-transform: uppercase;
@@ -292,7 +292,7 @@
             flex-grow: 1;
 
             &:focus {
-                border-color: darken($palette-snow-white, 5);
+                border-color: #{'rgb(var(--palette-blurry-gray))'};
             }
         }
 
@@ -303,7 +303,7 @@
             transition: all 0.3s;
             cursor: pointer;
             border-radius: 0.15em;
-            color: white;
+            color: #{'rgb(var(--palette-pure-white))'};
             padding: 0 0.75em;
             text-transform: uppercase;
 

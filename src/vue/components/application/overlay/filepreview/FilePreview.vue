@@ -99,11 +99,11 @@
 
         p {
             @include font(400, 0.95em);
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
         }
 
         i {
-            color: $palette-decent-blue;
+            color: #{'rgb(var(--palette-blurry-gray))'};
             transition: all 0.3s;
             cursor: pointer;
 
@@ -119,7 +119,7 @@
         min-height: 0;
 
         > i {
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1.25em;
@@ -128,7 +128,7 @@
             margin: auto 0;
 
             &:hover {
-                color: $palette-theme-secondary;
+                color: #{'rgb(var(--palette-theme-secondary))'};
                 opacity: 1;
             }
 
@@ -159,20 +159,16 @@
                 @include position(auto, 0, -0.5em, auto);
                 @include size(30px);
                 cursor: pointer;
-                fill: $palette-snow-white;
-                background: $palette-asphalt;
+                fill: #{'rgb(var(--palette-snow-white))'};
+                background: #{'rgb(var(--palette-asphalt))'};
                 padding: 0.35em;
                 border-radius: 0.15em;
                 transition: all 0.3s;
-
-                &:hover {
-                    background: lighten($palette-asphalt, 5);
-                }
             }
 
             .no-preview {
                 @include font(400, 0.9em);
-                color: $palette-asphalt;
+                color: #{'rgb(var(--palette-asphalt))'};
                 text-align: center;
                 width: 100%;
 
@@ -183,8 +179,8 @@
                 > button {
                     @include flex(row, center, center);
                     margin: 1em auto 0;
-                    background: $palette-asphalt;
-                    color: $palette-snow-white;
+                    background: #{'rgb(var(--palette-asphalt))'};
+                    color: #{'rgb(var(--palette-snow-white))'};
                     transition: all 0.3s;
                     padding: 0.5em 1em;
                     border-radius: 0.15em;
@@ -192,12 +188,7 @@
                     i {
                         font-size: 1em;
                         margin-right: 0.55em;
-                        color: $palette-snow-white;
-                    }
-
-
-                    &:hover {
-                        background: lighten($palette-asphalt, 5);
+                        color: #{'rgb(var(--palette-snow-white))'};
                     }
                 }
             }

@@ -47,7 +47,7 @@
 
     .logs {
         @include flex(column);
-        color: $palette-asphalt;
+        color: #{'rgb(var(--palette-asphalt))'};
         overflow: auto;
         flex-grow: 1;
         min-height: 4em;
@@ -59,8 +59,8 @@
 
         .log {
             @include flex(row);
-            border: 1px solid rgba($palette-asphalt, 0.5);
-            background: rgba($palette-asphalt, 0.025);
+            border: 1px solid #{'rgba(var(--palette-asphalt), 0.5)'};
+            background: #{'rgba(var(--palette-asphalt), 0.025)'};
             font-family: monospace;
             font-size: 0.9em;
             padding: 0.25em 0.5em;

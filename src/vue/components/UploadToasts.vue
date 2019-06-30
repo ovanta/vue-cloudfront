@@ -139,7 +139,7 @@
         @include position(auto, 0.75em, 0.75em, auto);
         box-shadow: 0 0.15em 0.75em rgba(black, 0.1);
         border-radius: 0.15em;
-        background: $palette-snow-white;
+        background: #{'rgb(var(--palette-snow-white))'};
         overflow: hidden;
         transition: all 0.5s;
 
@@ -163,9 +163,9 @@
 
     .header {
         @include flex(row, center);
-        background: linear-gradient(to bottom right, $palette-theme-secondary, $palette-theme-primary);
+        background: linear-gradient(to bottom right, #{'rgb(var(--palette-theme-secondary))'}, #{'rgb(var(--palette-theme-primary))'});
         padding: 0.75em 1em;
-        color: white;
+        color: #{'rgb(var(--palette-pure-white))'};
 
         span {
             @include font(600, 0.75em);
@@ -196,7 +196,7 @@
         .upload {
             @include flex(row, center);
             padding: 0.5em 0;
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
             flex-shrink: 0;
 
             &:hover .indicator .cancel {
@@ -221,9 +221,9 @@
                     @include flex(row, center, center);
                     @include size(26px);
                     position: absolute;
-                    background: $palette-asphalt;
+                    background: #{'rgb(var(--palette-asphalt))'};
                     border-radius: 100%;
-                    color: white;
+                    color: #{'rgb(var(--palette-pure-white))'};
                     font-size: 0.8em;
                     opacity: 0;
                     transition: all 0.3s;

@@ -185,11 +185,11 @@
         border-radius: 0.15em;
 
         &:nth-child(even) {
-            background: rgba($palette-asphalt, 0.02);
+            background: #{'rgba(var(--palette-asphalt), 0.02)'};
         }
 
         i {
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
             transition: all 0.3s;
             font-size: 1.25em;
             margin-bottom: 0.2em;
@@ -211,7 +211,7 @@
 
         .name,
         .detail {
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
             transition: all 0.3s;
         }
 
@@ -225,7 +225,7 @@
             @include white-space-overflow;
 
             span[contenteditable=true] {
-                border-color: $palette-theme-primary;
+                border-color: #{'rgb(var(--palette-theme-primary))'};
                 cursor: text;
                 outline: none;
             }
@@ -265,10 +265,10 @@
             }
 
             &:hover {
-                color: $palette-theme-primary;
+                color: #{'rgb(var(--palette-theme-primary))'};
 
                 .sort {
-                    color: $palette-theme-primary;
+                    color: #{'rgb(var(--palette-theme-primary))'};
                 }
             }
 

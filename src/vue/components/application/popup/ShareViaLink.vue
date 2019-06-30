@@ -80,7 +80,7 @@
 
         h3 {
             @include font(400, 0.85em);
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
         }
     }
 
@@ -89,7 +89,7 @@
         margin: 1.25em 0;
         max-height: 15em;
         overflow: auto;
-        color: $palette-asphalt;
+        color: #{'rgb(var(--palette-asphalt))'};
 
         .link {
             @include flex(row, center);
@@ -109,7 +109,7 @@
                 background: $palette-tomatoe-red;
                 @include font(600, 0.75em);
                 padding: 0.35em 0.5em;
-                color: white;
+                color: #{'rgb(var(--palette-pure-white))'};
                 border-radius: 0.15em;
                 margin-left: 0.75em;
                 transition: all 0.3s;
@@ -117,7 +117,7 @@
                 text-transform: uppercase;
 
                 &:hover {
-                    background: darken($palette-tomatoe-red, 2);
+                    filter: brightness(0.95);
                 }
             }
         }
@@ -126,7 +126,7 @@
             text-align: center;
             margin: 1em 0;
             @include font(400, 0.85em);
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
         }
     }
 
@@ -135,7 +135,7 @@
 
         button {
             @include font(400, 0.85em);
-            color: white;
+            color: #{'rgb(var(--palette-pure-white))'};
             padding: 0.5em 1em;
             border-radius: 0.15em;
             transition: all 0.3s;
@@ -143,10 +143,10 @@
         }
 
         .add {
-            background: $palette-theme-primary;
+            background: #{'rgb(var(--palette-theme-primary))'};
 
             &:hover {
-                background: darken($palette-theme-primary, 2);
+                filter: brightness(0.9);
             }
         }
 
@@ -154,7 +154,7 @@
             background: $palette-tomatoe-red;
 
             &:hover {
-                background: darken($palette-tomatoe-red, 2);
+                filter: brightness(0.9);
             }
         }
     }

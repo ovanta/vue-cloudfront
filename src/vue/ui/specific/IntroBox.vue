@@ -148,7 +148,7 @@
         margin: auto;
         overflow: visible;
         opacity: 0.9;
-        fill: $palette-theme-primary;
+        fill: #{'rgb(var(--palette-theme-primary))'};
         cursor: pointer;
 
         @include animate('1.5s ease-in-out infinite') {
@@ -194,18 +194,18 @@
 
     .inner-circle {
         @include size(16px);
-        border: 2px solid $palette-theme-secondary;
+        border: 2px solid #{'rgb(var(--palette-theme-secondary))'};
         animation-delay: 0.25s;
     }
 
     .outer-circle {
         @include size(20px);
-        border: 2px solid $palette-theme-primary;
+        border: 2px solid #{'rgb(var(--palette-theme-primary))'};
     }
 
     .introduction {
         position: fixed;
-        background: white;
+        background: #{'rgb(var(--palette-pure-white))'};
         border-radius: 0.2em;
         width: 15em;
         z-index: 1;
@@ -213,7 +213,7 @@
         pointer-events: none;
         transform: translateY(2em) rotateX(-10deg) perspective(100px);
         transition: opacity 0.3s, transform 0.3s;
-        filter: drop-shadow(0 3px 8px rgba($palette-asphalt, 0.2));
+        filter: drop-shadow(0 3px 8px #{'rgba(var(--palette-asphalt), 0.2)'});
 
         &.visible {
             opacity: 1;
@@ -227,12 +227,12 @@
             @include size(0);
             margin: auto;
             border: 10px solid transparent;
-            border-bottom-color: $palette-theme-primary;
+            border-bottom-color: #{'rgb(var(--palette-theme-primary))'};
         }
 
         .header {
             position: relative;
-            background: $palette-theme-primary;
+            background: #{'rgb(var(--palette-theme-primary))'};
             padding: 0.75em 0.75em;
             color: #fff;
             border-radius: 0.2em 0.2em 0 0;
@@ -253,7 +253,7 @@
                 transform: rotate(30deg);
                 margin: auto;
                 height: 150%;
-                fill: $palette-theme-secondary;
+                fill: #{'rgb(var(--palette-theme-secondary))'};
             }
         }
 
@@ -265,7 +265,7 @@
             p {
                 @include font(400, 0.8em);
                 line-height: 1.3em;
-                color: rgba($palette-asphalt, 0.75);
+                color: #{'rgba(var(--palette-asphalt), 0.75)'};
             }
 
             .actions {
@@ -283,8 +283,8 @@
                     @include font(600, 0.7em);
 
                     &:hover {
-                        background: $palette-theme-primary;
-                        color: white;
+                        background: #{'rgb(var(--palette-theme-primary))'};
+                        color: #{'rgb(var(--palette-pure-white))'};
                     }
 
                     i {
@@ -297,12 +297,12 @@
                 .skip {
                     font-size: 0.8em;
                     text-decoration: underline;
-                    color: rgba($palette-blurry-gray, 0.75);
+                    color: #{'rgba(var(--palette-blurry-gray), 0.75)'};
                     cursor: pointer;
                     transition: all 0.3s;
 
                     &:hover {
-                        color: $palette-theme-primary;
+                        color: #{'rgb(var(--palette-theme-primary))'};
                     }
                 }
             }

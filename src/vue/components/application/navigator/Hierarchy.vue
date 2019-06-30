@@ -135,7 +135,7 @@
             position: relative;
             @include inline-flex(row, center);
             @include font(600, 0.825em);
-            color: rgba($palette-asphalt, 0.8);
+            color: #{'rgba(var(--palette-asphalt), 0.8)'};
             margin-bottom: 0.5em;
 
             @include animate('0.3s') {
@@ -176,7 +176,7 @@
             }
 
             i {
-                color: rgba($palette-asphalt, 0.25);
+                color: #{'rgba(var(--palette-asphalt), 0.25)'};
                 opacity: 0.5;
                 margin: 0 0.25em;
                 font-size: 1.2em;
@@ -204,7 +204,7 @@
 
     .amount-info {
         @include flex(row, center);
-        color: $palette-asphalt;
+        color: #{'rgb(var(--palette-asphalt))'};
         font-size: 0.9em;
         white-space: pre-wrap;
 
@@ -227,11 +227,11 @@
                 @include font(600, 0.75em);
                 flex-wrap: wrap;
                 margin-top: 1em;
-                color: $palette-snow-white;
+                color: #{'rgb(var(--palette-snow-white))'};
 
                 > span {
                     margin: 0.25em 0.25em 0 0;
-                    background: $palette-asphalt;
+                    background: #{'rgb(var(--palette-asphalt))'};
                     padding: 0.15em 0.75em 0.35em;
                     border-radius: 0.15em;
                     box-shadow: 0 1px 2px rgba(black, 0.15);

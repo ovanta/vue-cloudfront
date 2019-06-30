@@ -115,7 +115,7 @@
             @include font(600, 0.8em);
             position: relative;
             text-transform: capitalize;
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
 
             &::before {
                 @include pseudo();
@@ -130,7 +130,7 @@
 
             &:hover p::before {
                 width: 100%;
-                background: $palette-asphalt;
+                background: #{'rgb(var(--palette-asphalt))'};
             }
         }
     }

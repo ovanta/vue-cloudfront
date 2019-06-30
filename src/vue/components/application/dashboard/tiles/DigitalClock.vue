@@ -119,7 +119,7 @@
                 @include position(auto, 0, auto, 0);
                 margin: auto;
                 border-radius: 100%;
-                background: $palette-asphalt;
+                background: #{'rgb(var(--palette-asphalt))'};
             }
 
             &::before {
@@ -142,7 +142,7 @@
         .dot {
             @include size(0.5vmin);
             border-radius: 100%;
-            background: $palette-asphalt;
+            background: #{'rgb(var(--palette-asphalt))'};
             margin: 0 0.25em 0.6em;
             align-self: flex-end;
         }

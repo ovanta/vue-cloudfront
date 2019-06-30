@@ -82,7 +82,7 @@
 
         p {
             @include font(600, 0.8em);
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
             margin-right: 2em;
         }
     }

@@ -57,7 +57,7 @@
 
             &.offline {
                 background: $palette-tomatoe-red;
-                color: white;
+                color: #{'rgb(var(--palette-pure-white))'};
             }
         }
     }

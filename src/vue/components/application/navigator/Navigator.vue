@@ -215,7 +215,7 @@
     .nav {
         @include flex(row);
         flex-shrink: 0;
-        border-bottom: 2px solid $palette-sick-white;
+        border-bottom: 2px solid #{'rgb(var(--palette-snow-white))'};
         padding-bottom: 1em;
         margin: 2em 1.5em 0 1.5em;
 
@@ -226,7 +226,7 @@
             flex-shrink: 0;
 
             i {
-                color: $palette-decent-blue;
+                color: #{'rgb(var(--palette-blurry-gray))'};
                 cursor: pointer;
                 margin-left: 0.5em;
                 transition: all 0.3s;
@@ -241,7 +241,7 @@
                 }
 
                 &:hover {
-                    color: $palette-theme-primary;
+                    color: #{'rgb(var(--palette-theme-primary))'};
                 }
             }
         }
@@ -271,7 +271,7 @@
             width: 100%;
             flex-grow: 1000;
             padding-bottom: 10%;
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
 
             p {
                 @include font(600, 0.9em);

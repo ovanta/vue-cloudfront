@@ -137,7 +137,7 @@
         @include flex(column, center, center);
         @include position(0, 0, 0, 0);
         z-index: 100;
-        background: white;
+        background: #{'rgb(var(--palette-pure-white))'};
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -186,7 +186,7 @@
         h1 {
             @include font(200, 2em);
             margin-bottom: 1em;
-            color: $palette-asphalt;
+            color: #{'rgb(var(--palette-asphalt))'};
             opacity: 0.9;
             text-align: center;
         }
@@ -213,12 +213,12 @@
             span {
                 font-size: 0.85em;
                 text-decoration: underline;
-                color: $palette-decent-blue;
+                color: #{'rgb(var(--palette-blurry-gray))'};
                 cursor: pointer;
                 transition: all 0.3s;
 
                 &:hover {
-                    color: $palette-theme-primary;
+                    color: #{'rgb(var(--palette-theme-primary))'};
                 }
             }
 
@@ -227,13 +227,11 @@
                 @include font(600, 0.75em);
                 border-radius: 0.15em;
                 transition: all 0.3s;
-                background: $palette-theme-primary;
-                box-shadow: 0 0.05em 0.3em rgba($palette-theme-primary, 0.25);
-                color: $palette-snow-white;
+                background: #{'rgb(var(--palette-theme-primary))'};
+                color: #{'rgb(var(--palette-snow-white))'};
                 margin-left: auto;
 
                 &:hover {
-                    box-shadow: 0 0.05em 0.5em rgba($palette-theme-primary, 0.5);
                     filter: brightness(1.1);
                 }
             }

@@ -33,18 +33,18 @@
     .text-toggle-button {
         @include flex(row, center);
         @include font(600, 0.7em);
-        background: $palette-snow-white;
+        background: #{'rgb(var(--palette-snow-white))'};
         border-radius: 50em;
         height: 21px;
         cursor: pointer;
         transition: all 0.3s;
 
         &.active {
-            background: $palette-theme-primary;
+            background: #{'rgb(var(--palette-theme-primary))'};
             box-shadow: none;
 
             span {
-                color: $palette-snow-white;
+                color: #{'rgb(var(--palette-snow-white))'};
             }
         }
     }
@@ -52,7 +52,7 @@
     span {
         padding: 0 0.75em;
         transition: all 0.3s;
-        color: rgba($palette-blurry-gray, 0.75);
+        color: #{'rgba(var(--palette-blurry-gray), 0.75)'};
     }
 
 </style>

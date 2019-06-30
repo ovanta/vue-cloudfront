@@ -40,9 +40,9 @@
         @include flex(column);
         margin: 1em 0;
         padding: 0.75em;
-        background: white;
+        background: #{'rgb(var(--palette-pure-white))'};
         border-radius: 0.15em;
-        border: 2px solid $palette-sick-white;
+        border: 2px solid #{'rgb(var(--palette-snow-white))'};
 
         > article {
             @include font(600, 0.8em);
@@ -50,8 +50,8 @@
 
             code {
                 font-size: 0.8em;
-                background: $palette-asphalt;
-                color: $palette-snow-white;
+                background: #{'rgb(var(--palette-asphalt))'};
+                color: #{'rgb(var(--palette-snow-white))'};
                 padding: 0.2em 0.5em 0.15em;
                 border-radius: 0.15em;
             }
@@ -60,7 +60,7 @@
         .input {
             padding-top: 0.75em;
             margin-top: 0.75em;
-            border-top: 2px solid $palette-snow-white;
+            border-top: 2px solid #{'rgb(var(--palette-snow-white))'};
         }
     }
 
@@ -74,12 +74,12 @@
         margin: auto;
         padding: 5vh 0;
         flex-grow: 1;
-        color: $palette-asphalt;
+        color: #{'rgb(var(--palette-asphalt))'};
 
         .menu {
             height: 100%;
             padding: 0.75em 2em;
-            border-right: 2px solid $palette-sick-white;
+            border-right: 2px solid #{'rgb(var(--palette-snow-white))'};
 
             > p {
                 @include font(600, 0.9em);
@@ -96,8 +96,8 @@
                 transition: all 0.3s;
 
                 &.active {
-                    background: $palette-theme-secondary;
-                    color: white;
+                    background: #{'rgb(var(--palette-theme-secondary))'};
+                    color: #{'rgb(var(--palette-pure-white))'};
                 }
 
                 &:hover:not(.active) {

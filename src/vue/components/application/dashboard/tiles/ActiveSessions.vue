@@ -55,8 +55,8 @@
             margin: 0 0.75em 0 auto;
             @include font(600, 0.75em);
             border-radius: 0.15em;
-            background: $palette-asphalt;
-            color: white;
+            background: #{'rgb(var(--palette-asphalt))'};
+            color: #{'rgb(var(--palette-pure-white))'};
             padding: 0.6em 0.9em;
             transition: all 0.3s;
 
@@ -67,14 +67,14 @@
     }
 
     .sessions-header {
-        border-bottom: 2px solid $palette-sick-white;
+        border-bottom: 2px solid #{'rgb(var(--palette-snow-white))'};
     }
 
     .sessions-header,
     .sessions-body {
         display: grid;
         grid-template-columns: 1.5fr 1.5fr 3fr 1.5fr;
-        color: $palette-asphalt;
+        color: #{'rgb(var(--palette-asphalt))'};
 
         span {
             @include font(600, 0.8em);
@@ -85,7 +85,7 @@
             border: none;
 
             &.even {
-                background: $palette-sick-white;
+                background: #{'rgb(var(--palette-snow-white))'};
             }
 
             &.country {
@@ -99,7 +99,7 @@
             &.city,
             &.browser,
             &.timestamp {
-                color: rgba($palette-asphalt, 0.85);
+                color: #{'rgba(var(--palette-asphalt), 0.85)'};
             }
         }
     }
@@ -112,12 +112,12 @@
     .footer-info {
         margin-top: auto;
         text-align: center;
-        color: rgba($palette-asphalt, 0.5);
+        color: #{'rgba(var(--palette-asphalt), 0.5)'};
         @include font(600, 0.7em);
         transition: all 0.3s;
 
         &:hover {
-            color: rgba($palette-asphalt, 0.85);
+            color: #{'rgba(var(--palette-asphalt), 0.85)'};
         }
     }
 

@@ -67,7 +67,7 @@
 <style lang="scss" scoped>
 
     .groups {
-        color: $palette-asphalt;
+        color: #{'rgb(var(--palette-asphalt))'};
         margin-left: 0.5em;
         font-size: 0.9em;
 

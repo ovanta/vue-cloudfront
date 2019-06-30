@@ -131,7 +131,7 @@
         font-family: $font-family;
         @include flex(row);
         user-select: none;
-        background: mix($palette-asphalt, white, 1);
+        background: #{'rgb(var(--palette-pure-white))'};
         overflow: hidden;
 
         .right-side {

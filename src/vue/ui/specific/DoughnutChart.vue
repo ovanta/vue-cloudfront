@@ -95,7 +95,7 @@
                 fill: transparent;
 
                 &.background {
-                    stroke: rgba($palette-asphalt, 0.1);
+                    stroke: #{'rgba(var(--palette-asphalt), 0.1)'};
                 }
 
                 &.tile {

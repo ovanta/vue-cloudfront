@@ -84,7 +84,7 @@
         &::after {
             @include pseudo();
             @include size(1px, 100%);
-            background: $palette-decent-blue;
+            background: #{'rgb(var(--palette-blurry-gray))'};
         }
 
         &::after {
@@ -94,13 +94,13 @@
 
         &.active::after {
             width: 100%;
-            background: $palette-theme-primary;
+            background: #{'rgb(var(--palette-theme-primary))'};
         }
     }
 
     .placeholder {
         position: absolute;
-        color: $palette-decent-blue;
+        color: #{'rgb(var(--palette-blurry-gray))'};
         transition: all 0.3s;
         @include font(400, 0.8em);
 
@@ -124,7 +124,7 @@
 
         i {
             font-size: 0.8em;
-            color: $palette-decent-blue;
+            color: #{'rgb(var(--palette-blurry-gray))'};
             cursor: pointer;
             transition: all 0.3s;
 
@@ -132,7 +132,7 @@
                 @include fixed-width(1.25em);
 
                 &:hover {
-                    color: $palette-theme-primary;
+                    color: #{'rgb(var(--palette-theme-primary))'};
                 }
             }
 
@@ -143,7 +143,7 @@
                 max-width: 0;
 
                 &:hover {
-                    color: $palette-theme-primary;
+                    color: #{'rgb(var(--palette-theme-primary))'};
                 }
 
                 &.visible {

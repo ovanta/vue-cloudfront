@@ -60,7 +60,7 @@
     .box {
         position: relative;
         @include size(2.5em);
-        background: $palette-theme-primary;
+        background: #{'rgb(var(--palette-theme-primary))'};
         animation-play-state: paused;
 
         $perspective: 5em;
@@ -87,7 +87,7 @@
         @include font(600, 0.85em);
         margin-top: 3em;
         font-style: italic;
-        color: $palette-theme-primary;
+        color: #{'rgb(var(--palette-theme-primary))'};
         transform: translateY(-0.5em);
         text-align: center;
         line-height: 1.25;
