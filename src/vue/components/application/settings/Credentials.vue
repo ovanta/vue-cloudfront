@@ -1,24 +1,33 @@
 <template>
     <section class="credentials">
-        <text-input-field v-model="currentPassword"
-                          :password="true"
-                          placeholder="Current password"/>
+        <div class="setting">
+            <article>
+                To change your username and/or password please enter your current one
+                to verify it's you.
+            </article>
 
-        <text-input-field v-model="username"
-                          placeholder="Change Username"/>
+            <div class="input">
+                <text-input-field v-model="currentPassword"
+                                  :password="true"
+                                  placeholder="Current password"/>
 
-        <text-input-field v-model="password"
-                          :password="true"
-                          placeholder="Change Password"/>
+                <text-input-field v-model="username"
+                                  placeholder="Change Username"/>
 
-        <text-input-field v-model="passwordRepeat"
-                          :password="true"
-                          placeholder="Repeat New Password"/>
+                <text-input-field v-model="password"
+                                  :password="true"
+                                  placeholder="Change Password"/>
 
+                <text-input-field v-show="password"
+                                  v-model="passwordRepeat"
+                                  :password="true"
+                                  placeholder="Repeat New Password"/>
 
-        <div class="actions">
-            <button class="delete-account" @click="deleteAccount">Delete Account</button>
-            <button class="update" @click="update">Update</button>
+                <div class="actions">
+                    <button class="delete-account" @click="deleteAccount">Delete Account</button>
+                    <button class="update" @click="update">Update</button>
+                </div>
+            </div>
         </div>
     </section>
 </template>
@@ -107,9 +116,16 @@
 
     .credentials {
         @include flex(column);
+    }
 
-        .text-input-field:not(:first-child) {
-            margin-top: 1.5em;
+    .input {
+
+        .text-input-field {
+            width: 100%;
+
+            &:not(:first-child) {
+                margin-top: 1.5em;
+            }
         }
 
         .info {
@@ -133,37 +149,36 @@
                 max-height: 2em;
             }
         }
-    }
 
-    .actions {
-        @include flex(row, center, space-between);
+        .actions {
+            @include flex(row, center, space-between);
 
-        button {
-            @include font(400, 0.85em);
-            margin-top: 1.5em;
-            border-radius: 0.15em;
-            padding: 0.55em 1.3em 0.6em;
-            color: white;
-            transition: all 0.3s;
+            button {
+                @include font(400, 0.85em);
+                margin-top: 1.5em;
+                border-radius: 0.15em;
+                padding: 0.55em 1.3em 0.6em;
+                color: white;
+                transition: all 0.3s;
 
-            &.delete-account {
-                margin-right: 1em;
-                background: $palette-tomatoe-red;
+                &.delete-account {
+                    margin-right: 1em;
+                    background: $palette-tomatoe-red;
 
-                &:hover {
-                    background: darken($palette-tomatoe-red, 3);
+                    &:hover {
+                        background: darken($palette-tomatoe-red, 3);
+                    }
                 }
-            }
 
-            &.update {
-                background: $palette-theme-primary;
+                &.update {
+                    background: $palette-theme-primary;
 
-                &:hover {
-                    background: darken($palette-theme-primary, 3);
+                    &:hover {
+                        background: darken($palette-theme-primary, 3);
+                    }
                 }
             }
         }
     }
-
 
 </style>
