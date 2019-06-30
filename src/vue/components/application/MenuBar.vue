@@ -18,8 +18,8 @@
             </div>
         </div>
 
-        <button v-if="$mediaDevice !== 'mobile'" 
-                :class="{'item btn-dashboard': 1, active: activeTab === 'dashboard'}" 
+        <button v-if="$mediaDevice !== 'mobile'"
+                :class="{'item btn-dashboard': 1, active: activeTab === 'dashboard'}"
                 @click="changeTab('dashboard')">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
@@ -112,8 +112,8 @@
 <style lang="scss" scoped>
 
     .menu-bar {
-        border-right: 2px solid $palette-sick-white;
         @include flex(column);
+        border-right: 2px solid $palette-sick-white;
         padding: 1.75vh 1.15vw;
         height: 100%;
         background: white;
@@ -289,7 +289,7 @@
                 }
             }
 
-            @include order(('.btn-logout', '.btn-bin', '.btn-home', '.btn-dashboard', '.btn-starred', '.btn-refresh'));
+            @include order(('.btn-logout', '.btn-settings', '.btn-bin', '.btn-home', '.btn-starred', '.btn-refresh'));
         }
     }
 

@@ -144,16 +144,16 @@ export default new Vuex.Store({
             !silent && state.requestsActive++;
             return fetch(`${config.apiEndPoint}/${route}`, {
                 method: 'POST',
+                body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                },
-                body: JSON.stringify(body)
+                }
             }).then(async response => {
 
                 if (raw) {
                     return {
-                        response, done: () => state.requestsActive--
+                        response, done: () => !silent && state.requestsActive--
                     };
                 }
 

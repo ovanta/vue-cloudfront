@@ -40,8 +40,9 @@
         @include flex(column);
         margin: 1em 0;
         padding: 0.75em;
-        background: $palette-snow-white;
+        background: white;
         border-radius: 0.15em;
+        border: 2px solid $palette-sick-white;
 
         > article {
             @include font(600, 0.8em);
@@ -59,7 +60,7 @@
         .input {
             padding-top: 0.75em;
             margin-top: 0.75em;
-            border-top: 2px solid $palette-blurry-gray;
+            border-top: 2px solid $palette-snow-white;
         }
     }
 
@@ -78,7 +79,7 @@
         .menu {
             height: 100%;
             padding: 0.75em 2em;
-            border-right: 2px solid rgba(black, 0.075);
+            border-right: 2px solid $palette-sick-white;
 
             > p {
                 @include font(600, 0.9em);
@@ -110,6 +111,22 @@
             @include size(100%);
             padding: 0 2em;
             overflow: auto;
+        }
+    }
+
+    @include mq-phones {
+        .settings {
+            flex-direction: column;
+            padding: 0;
+            min-width: 100vw;
+
+            .menu {
+                height: auto;
+
+                > p {
+                    display: none;
+                }
+            }
         }
     }
 

@@ -36,6 +36,7 @@ export const settings = {
         async update({state, rootState}) {
             return this.dispatch('fetch', {
                 route: 'settings',
+                silent: true,
                 body: {
                     apikey: rootState.auth.apikey
                 }
@@ -61,8 +62,8 @@ export const settings = {
 
             // Push to server
             return this.dispatch('fetch', {
-                silent: true,
                 route: 'updateSettings',
+                silent: true,
                 body: {
                     apikey: rootState.auth.apikey,
                     settings: newState
