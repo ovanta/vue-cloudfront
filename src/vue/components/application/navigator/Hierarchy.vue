@@ -135,7 +135,7 @@
             position: relative;
             @include inline-flex(row, center);
             @include font(600, 0.825em);
-            color: #{'rgba(var(--palette-asphalt), 0.8)'};
+            color: RGBA(var(--primary-text-color), 0.8);
             margin-bottom: 0.5em;
 
             @include animate('0.3s') {
@@ -168,7 +168,7 @@
                     @include position(0, 0, auto, 0);
                     margin: auto;
                     border: 4px solid transparent;
-                    border-top-color: $palette-cloud-blue;
+                    border-top-color: RGB(var(--cloud-blue));
                     opacity: 0;
                     transform: translateY(-0.25em);
                     transition: all 0.3s;
@@ -176,14 +176,14 @@
             }
 
             i {
-                color: #{'rgba(var(--palette-asphalt), 0.25)'};
+                color: RGBA(var(--primary-text-color), 0.25);
                 opacity: 0.5;
                 margin: 0 0.25em;
                 font-size: 1.2em;
             }
 
             &:last-child .name {
-                color: #{'rgb(var(--color))'};
+                color: RGB(var(--color));
 
                 &::before {
                     opacity: 1;
@@ -192,7 +192,7 @@
             }
 
             &.droppable .name {
-                color: $palette-cloud-blue;
+                color: RGB(var(--cloud-blue));
 
                 &::after {
                     transform: none;
@@ -204,7 +204,7 @@
 
     .amount-info {
         @include flex(row, center);
-        color: #{'rgb(var(--palette-asphalt))'};
+        color: RGB(var(--primary-text-color));
         font-size: 0.9em;
         white-space: pre-wrap;
 
@@ -227,14 +227,14 @@
                 @include font(600, 0.75em);
                 flex-wrap: wrap;
                 margin-top: 1em;
-                color: #{'rgb(var(--palette-snow-white))'};
+                color: RGB(var(--secondary-background-color));
 
                 > span {
                     margin: 0.25em 0.25em 0 0;
-                    background: #{'rgb(var(--palette-asphalt))'};
+                    background: RGB(var(--primary-text-color));
                     padding: 0.15em 0.75em 0.35em;
                     border-radius: 0.15em;
-                    box-shadow: 0 1px 2px rgba(black, 0.15);
+                    box-shadow: 0 1px 2px RGBA(var(--primary-text-color), 0.15);
                 }
             }
         }

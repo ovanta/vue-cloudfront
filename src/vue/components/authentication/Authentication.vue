@@ -137,7 +137,7 @@
         @include flex(column, center, center);
         @include position(0, 0, 0, 0);
         z-index: 100;
-        background: #{'rgb(var(--palette-pure-white))'};
+        background: RGB(var(--primary-background-color));
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -186,14 +186,14 @@
         h1 {
             @include font(200, 2em);
             margin-bottom: 1em;
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
             opacity: 0.9;
             text-align: center;
         }
 
         .error {
             @include font(600, 0.75em);
-            color: $palette-tomatoe-red;
+            color: RGB(var(--tomato-red));
             margin-top: 1em;
             height: 1em;
         }
@@ -213,12 +213,12 @@
             span {
                 font-size: 0.85em;
                 text-decoration: underline;
-                color: #{'rgb(var(--palette-blurry-gray))'};
+                color: RGB(var(--secondary-text-color));
                 cursor: pointer;
                 transition: all 0.3s;
 
                 &:hover {
-                    color: #{'rgb(var(--palette-theme-primary))'};
+                    color: RGB(var(--palette-theme-primary));
                 }
             }
 
@@ -227,8 +227,8 @@
                 @include font(600, 0.75em);
                 border-radius: 0.15em;
                 transition: all 0.3s;
-                background: #{'rgb(var(--palette-theme-primary))'};
-                color: #{'rgb(var(--palette-snow-white))'};
+                background: RGB(var(--palette-theme-primary));
+                color: RGB(var(--secondary-background-color));
                 margin-left: auto;
 
                 &:hover {

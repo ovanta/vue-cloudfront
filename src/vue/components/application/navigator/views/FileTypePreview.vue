@@ -140,13 +140,13 @@
             @include size(3.5em);
             margin: 1.5em auto;
             align-self: flex-start;
-            fill: #{'rgb(var(--palette-asphalt))'};
+            fill: RGB(var(--primary-text-color));
         }
 
         > button {
             @include font(600, 0.95em);
-            border: 2px solid #{'rgb(var(--palette-asphalt))'};
-            color: #{'rgb(var(--palette-asphalt))'};
+            border: 2px solid RGB(var(--primary-text-color));
+            color: RGB(var(--primary-text-color));
             transition: all 0.3s;
             padding: 0.35em 0.6em;
             border-radius: 0.15em;

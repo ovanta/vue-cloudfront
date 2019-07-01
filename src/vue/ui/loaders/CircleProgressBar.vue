@@ -54,7 +54,7 @@
             fill: transparent;
 
             &.progress {
-                stroke: #{'rgb(var(--palette-theme-secondary))'};
+                stroke: RGB(var(--palette-theme-secondary));
                 stroke-dasharray: 53.40707511102649;
                 transform-origin: center;
 
@@ -77,7 +77,7 @@
             }
 
             &.background {
-                stroke: #{'rgba(var(--palette-asphalt), 0.1)'};
+                stroke: RGBA(var(--primary-text-color), 0.1);
             }
         }
     }

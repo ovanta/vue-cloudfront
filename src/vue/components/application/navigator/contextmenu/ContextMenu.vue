@@ -365,7 +365,7 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s;
-        background: #{'rgb(var(--palette-pure-white))'};
+        background: RGB(var(--primary-background-color));
         padding: 0.4em 0;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.2);
         border-radius: 0.25em;
@@ -389,7 +389,7 @@
             font-size: 0.85em;
             cursor: pointer;
             transition: all 0.3s;
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
             padding: 0.6em 1em;
 
             i {
@@ -402,7 +402,7 @@
             }
 
             &:hover {
-                background: #{'rgba(var(--palette-asphalt), 0.09)'};
+                background: RGB(var(--secondary-background-color));
             }
 
             &.sub {
@@ -424,7 +424,7 @@
                     left: 105%;
                     bottom: -200%;
                     box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
-                    background: #{'rgb(var(--palette-pure-white))'};
+                    background: RGB(var(--primary-background-color));
                     padding: 1em;
                     pointer-events: none;
                     opacity: 0;
@@ -480,7 +480,7 @@
 
                 :hover,
                 &.delete:hover {
-                    color: #{'rgb(var(--palette-asphalt))'};
+                    color: RGB(var(--primary-text-color));
                 }
 
                 &.sub {

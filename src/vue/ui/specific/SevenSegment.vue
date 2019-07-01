@@ -57,12 +57,12 @@
         shape-rendering: geometricPrecision;
 
         path {
-            fill: #{'rgb(var(--palette-snow-white))'};
+            fill: RGB(var(--secondary-background-color));
             stroke: transparent;
             transition: all 0.3s;
 
             &.visible {
-                fill: #{'rgb(var(--palette-asphalt))'};
+                fill: RGB(var(--primary-text-color));
             }
         }
     }

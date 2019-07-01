@@ -126,7 +126,7 @@
         position: relative;
         display: inline-block;
         font-size: 0.85em;
-        color: #{'rgb(var(--palette-asphalt))'};
+        color: RGB(var(--primary-text-color));
         padding: 0.15em 0 0.5em;
         border-radius: 0.15em;
         margin: 1.75em 0 0.35em;
@@ -172,8 +172,8 @@
         position: relative;
         border-radius: 0.2em;
         font-size: 0.8em;
-        box-shadow: 0 1px 3px 0 rgba(black, 0.1);
-        background: #{'rgb(var(--palette-pure-white))'};
+        box-shadow: var(--shadow-node-grid-item);
+        background: RGB(var(--primary-background-color));
         border: 1px solid transparent;
         padding: 0.5em 0.9em;
 
@@ -184,7 +184,7 @@
             opacity: 0;
             transform: translateY(-0.15em) rotate(10deg);
             transition: all 0.3s;
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
 
             &.visible {
                 opacity: 1;
@@ -195,24 +195,23 @@
         .extension {
             @include font(600, 0.85em);
             @include white-space-overflow;
-            background: #{'rgb(var(--palette-asphalt))'};
+            background: RGB(var(--primary-text-color));
             max-width: 5em;
             flex-shrink: 0;
             padding: 0.25em 0.45em;
             text-transform: uppercase;
             border-radius: 0.15em;
-            color: #{'rgb(var(--palette-pure-white))'};
+            color: RGB(var(--primary-background-color));
         }
 
         &.selected,
         &.droppable {
-            border-color: rgba($palette-cloud-blue, 0.75);
-            box-shadow: 0 1px 3px 0 rgba($palette-cloud-blue, 0.5),
-            0 0 0 1px rgba($palette-cloud-blue, 0.75);
+            border-color: RGBA(var(--cloud-blue), 0.75);
+            box-shadow: var(--shadow-droppable-node-grid-item);
 
             &.droppable {
-                box-shadow: 0 1px 8px 0 rgba($palette-cloud-blue, 0.5),
-                0 0 0 1px rgba($palette-cloud-blue, 0.75);
+                box-shadow: 0 1px 8px 0 RGBA(var(--cloud-blue), 0.5),
+                0 0 0 1px RGBA(var(--cloud-blue), 0.75);
 
                 transform: translateY(-2px);
                 transition: all 0.3s;
@@ -225,7 +224,7 @@
 
         .name,
         .detail {
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
         }
 
         .name {
@@ -239,7 +238,7 @@
             width: 100%;
 
             &[contenteditable=true] {
-                border-color: #{'rgb(var(--palette-theme-primary))'};
+                border-color: RGB(var(--palette-theme-primary));
                 cursor: text;
                 outline: none;
             }

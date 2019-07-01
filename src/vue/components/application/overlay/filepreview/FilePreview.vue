@@ -99,16 +99,16 @@
 
         p {
             @include font(400, 0.95em);
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
         }
 
         i {
-            color: #{'rgb(var(--palette-blurry-gray))'};
+            color: RGB(var(--secondary-text-color));
             transition: all 0.3s;
             cursor: pointer;
 
             &:hover {
-                color: $palette-tomatoe-red;
+                color: RGB(var(--tomato-red));
             }
         }
     }
@@ -119,7 +119,7 @@
         min-height: 0;
 
         > i {
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
             cursor: pointer;
             transition: all 0.3s;
             font-size: 1.25em;
@@ -128,7 +128,7 @@
             margin: auto 0;
 
             &:hover {
-                color: #{'rgb(var(--palette-theme-secondary))'};
+                color: RGB(var(--palette-theme-secondary));
                 opacity: 1;
             }
 
@@ -159,8 +159,8 @@
                 @include position(auto, 0, -0.5em, auto);
                 @include size(30px);
                 cursor: pointer;
-                fill: #{'rgb(var(--palette-snow-white))'};
-                background: #{'rgb(var(--palette-asphalt))'};
+                fill: RGB(var(--secondary-background-color));
+                background: RGB(var(--primary-text-color));
                 padding: 0.35em;
                 border-radius: 0.15em;
                 transition: all 0.3s;
@@ -168,7 +168,7 @@
 
             .no-preview {
                 @include font(400, 0.9em);
-                color: #{'rgb(var(--palette-asphalt))'};
+                color: RGB(var(--primary-text-color));
                 text-align: center;
                 width: 100%;
 
@@ -179,8 +179,8 @@
                 > button {
                     @include flex(row, center, center);
                     margin: 1em auto 0;
-                    background: #{'rgb(var(--palette-asphalt))'};
-                    color: #{'rgb(var(--palette-snow-white))'};
+                    background: RGB(var(--primary-text-color));
+                    color: RGB(var(--secondary-background-color));
                     transition: all 0.3s;
                     padding: 0.5em 1em;
                     border-radius: 0.15em;
@@ -188,7 +188,7 @@
                     i {
                         font-size: 1em;
                         margin-right: 0.55em;
-                        color: #{'rgb(var(--palette-snow-white))'};
+                        color: RGB(var(--secondary-background-color));
                     }
                 }
             }

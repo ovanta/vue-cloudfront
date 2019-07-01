@@ -185,19 +185,19 @@
         border-radius: 0.15em;
 
         &:nth-child(even) {
-            background: #{'rgba(var(--palette-asphalt), 0.02)'};
+            background: RGBA(var(--secondary-background-color), 0.85);
         }
 
         i {
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
             transition: all 0.3s;
             font-size: 1.25em;
             margin-bottom: 0.2em;
         }
 
         &.selected {
-            border-color: rgba($palette-cloud-blue, 0.75);
-            background: rgba($palette-cloud-blue, 0.1);
+            border-color: RGBA(var(--cloud-blue), 0.75);
+            background: RGBA(var(--cloud-blue), 0.1);
 
             &:nth-child(n+2) {
                 margin-top: -1px;
@@ -211,7 +211,7 @@
 
         .name,
         .detail {
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
             transition: all 0.3s;
         }
 
@@ -225,7 +225,7 @@
             @include white-space-overflow;
 
             span[contenteditable=true] {
-                border-color: #{'rgb(var(--palette-theme-primary))'};
+                border-color: RGB(var(--palette-theme-primary));
                 cursor: text;
                 outline: none;
             }
@@ -265,10 +265,10 @@
             }
 
             &:hover {
-                color: #{'rgb(var(--palette-theme-primary))'};
+                color: RGB(var(--palette-theme-primary));
 
                 .sort {
-                    color: #{'rgb(var(--palette-theme-primary))'};
+                    color: RGB(var(--palette-theme-primary));
                 }
             }
 

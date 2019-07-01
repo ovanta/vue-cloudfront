@@ -30,7 +30,7 @@
 
         > div {
             @include size(6px);
-            background: #{'rgb(var(--palette-asphalt))'};
+            background: RGB(var(--primary-text-color));
             margin: 0.2em;
             border-radius: 100%;
             @include sequential-animation-delay(3, -0.85s);

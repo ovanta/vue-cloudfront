@@ -63,7 +63,7 @@
 
         p {
             @include font(600, 0.85em);
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
             width: 50%;
         }
     }
@@ -74,8 +74,8 @@
 
         .examples {
             @include flex(column);
-            background: #{'rgb(var(--palette-snow-white))'};
-            color: #{'rgba(var(--palette-asphalt), 0.85)'};
+            background: RGB(var(--secondary-background-color));
+            color: RGBA(var(--primary-text-color), 0.85);
             font-family: monospace;
             padding: 0.5em 0.75em;
             border-radius: 0.15em;
@@ -87,7 +87,7 @@
             @include font(400, 0.8em);
             line-height: 1.3em;
             width: 50%;
-            color: #{'rgb(var(--palette-blurry-gray))'};
+            color: RGB(var(--secondary-text-color));
         }
     }
 

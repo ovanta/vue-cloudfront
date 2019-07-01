@@ -40,9 +40,9 @@
         @include flex(column);
         margin: 1em 0;
         padding: 0.75em;
-        background: #{'rgb(var(--palette-pure-white))'};
+        background: RGB(var(--primary-background-color));
         border-radius: 0.15em;
-        border: 2px solid #{'rgb(var(--palette-snow-white))'};
+        border: 2px solid RGB(var(--secondary-background-color));
 
         > article {
             @include font(600, 0.8em);
@@ -50,8 +50,8 @@
 
             code {
                 font-size: 0.8em;
-                background: #{'rgb(var(--palette-asphalt))'};
-                color: #{'rgb(var(--palette-snow-white))'};
+                background: RGB(var(--primary-text-color));
+                color: RGB(var(--secondary-background-color));
                 padding: 0.2em 0.5em 0.15em;
                 border-radius: 0.15em;
             }
@@ -60,7 +60,7 @@
         .input {
             padding-top: 0.75em;
             margin-top: 0.75em;
-            border-top: 2px solid #{'rgb(var(--palette-snow-white))'};
+            border-top: 2px solid RGB(var(--secondary-background-color));
         }
     }
 
@@ -74,12 +74,12 @@
         margin: auto;
         padding: 5vh 0;
         flex-grow: 1;
-        color: #{'rgb(var(--palette-asphalt))'};
+        color: RGB(var(--primary-text-color));
 
         .menu {
             height: 100%;
             padding: 0.75em 2em;
-            border-right: 2px solid #{'rgb(var(--palette-snow-white))'};
+            border-right: 2px solid RGB(var(--secondary-background-color));
 
             > p {
                 @include font(600, 0.9em);
@@ -88,7 +88,7 @@
 
             button {
                 @include font(600, 0.75em);
-                color: rgba(black, 0.4);
+                color: RGBA(var(--primary-text-color), 0.4);
                 width: 100%;
                 padding: 0.75em 0.25em;
                 margin: 0.35em 0;
@@ -96,12 +96,12 @@
                 transition: all 0.3s;
 
                 &.active {
-                    background: #{'rgb(var(--palette-theme-secondary))'};
-                    color: #{'rgb(var(--palette-pure-white))'};
+                    background: RGB(var(--palette-theme-secondary));
+                    color: RGB(var(--primary-background-color));
                 }
 
                 &:hover:not(.active) {
-                    background: rgba(black, 0.02);
+                    background: RGB(var(--secondary-background-color));
                 }
             }
         }

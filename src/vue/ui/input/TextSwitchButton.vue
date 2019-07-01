@@ -77,7 +77,7 @@
         position: relative;
         @include flex(row, center);
         @include font(600, 0.7em);
-        background: #{'rgb(var(--palette-snow-white))'};
+        background: RGB(var(--secondary-background-color));
         border-radius: 50em;
         height: 21px;
         cursor: pointer;
@@ -86,14 +86,14 @@
     .option {
         padding: 0 0.75em;
         transition: all 0.3s;
-        color: #{'rgba(var(--palette-blurry-gray), 0.75)'};
+        color: RGBA(var(--secondary-text-color), 0.75);
         z-index: 1;
 
         &.active {
-            color: #{'rgb(var(--palette-snow-white))'};
+            color: RGB(var(--secondary-background-color));
 
             &:hover {
-                color: #{'rgb(var(--palette-snow-white))'};
+                color: RGB(var(--secondary-background-color));
             }
         }
     }
@@ -103,7 +103,7 @@
         transition: all 0.3s;
         border-radius: 50em;
         height: 100%;
-        background: #{'rgb(var(--palette-theme-primary))'};
+        background: RGB(var(--palette-theme-primary));
 
         left: 0;
         top: 0;

@@ -135,11 +135,11 @@
 <style lang="scss" scoped>
 
     .upload-bar {
-        position: absolute;
         @include position(auto, 0.75em, 0.75em, auto);
-        box-shadow: 0 0.15em 0.75em rgba(black, 0.1);
+        position: absolute;
+        box-shadow: 0 0.15em 0.75em RGBA(var(--primary-text-color), 0.1);
         border-radius: 0.15em;
-        background: #{'rgb(var(--palette-snow-white))'};
+        background: RGB(var(--secondary-background-color));
         overflow: hidden;
         transition: all 0.5s;
 
@@ -163,9 +163,9 @@
 
     .header {
         @include flex(row, center);
-        background: linear-gradient(to bottom right, #{'rgb(var(--palette-theme-secondary))'}, #{'rgb(var(--palette-theme-primary))'});
+        background: linear-gradient(to bottom right, RGB(var(--palette-theme-secondary)), RGB(var(--palette-theme-primary)));
         padding: 0.75em 1em;
-        color: #{'rgb(var(--palette-pure-white))'};
+        color: RGB(var(--primary-background-color));
 
         span {
             @include font(600, 0.75em);
@@ -196,7 +196,7 @@
         .upload {
             @include flex(row, center);
             padding: 0.5em 0;
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
             flex-shrink: 0;
 
             &:hover .indicator .cancel {
@@ -221,9 +221,9 @@
                     @include flex(row, center, center);
                     @include size(26px);
                     position: absolute;
-                    background: #{'rgb(var(--palette-asphalt))'};
+                    background: RGB(var(--primary-text-color));
                     border-radius: 100%;
-                    color: #{'rgb(var(--palette-pure-white))'};
+                    color: RGB(var(--primary-background-color));
                     font-size: 0.8em;
                     opacity: 0;
                     transition: all 0.3s;

@@ -138,7 +138,7 @@
     .audio-preview {
         position: relative;
         @include flex(row, center, space-between);
-        color: #{'rgb(var(--palette-asphalt))'};
+        color: RGB(var(--primary-text-color));
         margin: 0.5em auto 0.25em;
         padding-bottom: 1.25em;
         width: 90%;
@@ -193,7 +193,7 @@
         .audio-preview {
             position: relative;
             @include flex(row, center, space-between);
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
             margin: 0.5em auto 0.25em;
             padding-bottom: 1.25em;
             width: 90%;

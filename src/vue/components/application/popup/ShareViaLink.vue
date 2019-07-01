@@ -80,7 +80,7 @@
 
         h3 {
             @include font(400, 0.85em);
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
         }
     }
 
@@ -89,7 +89,7 @@
         margin: 1.25em 0;
         max-height: 15em;
         overflow: auto;
-        color: #{'rgb(var(--palette-asphalt))'};
+        color: RGB(var(--primary-text-color));
 
         .link {
             @include flex(row, center);
@@ -106,10 +106,10 @@
             }
 
             .delete {
-                background: $palette-tomatoe-red;
+                background: RGB(var(--tomato-red));
                 @include font(600, 0.75em);
                 padding: 0.35em 0.5em;
-                color: #{'rgb(var(--palette-pure-white))'};
+                color: RGB(var(--primary-background-color));
                 border-radius: 0.15em;
                 margin-left: 0.75em;
                 transition: all 0.3s;
@@ -126,7 +126,7 @@
             text-align: center;
             margin: 1em 0;
             @include font(400, 0.85em);
-            color: #{'rgb(var(--palette-asphalt))'};
+            color: RGB(var(--primary-text-color));
         }
     }
 
@@ -135,7 +135,7 @@
 
         button {
             @include font(400, 0.85em);
-            color: #{'rgb(var(--palette-pure-white))'};
+            color: RGB(var(--primary-background-color));
             padding: 0.5em 1em;
             border-radius: 0.15em;
             transition: all 0.3s;
@@ -143,7 +143,7 @@
         }
 
         .add {
-            background: #{'rgb(var(--palette-theme-primary))'};
+            background: RGB(var(--palette-theme-primary));
 
             &:hover {
                 filter: brightness(0.9);
@@ -151,7 +151,7 @@
         }
 
         .remove-all {
-            background: $palette-tomatoe-red;
+            background: RGB(var(--tomato-red));
 
             &:hover {
                 filter: brightness(0.9);

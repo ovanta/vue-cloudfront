@@ -148,7 +148,7 @@
         margin: auto;
         overflow: visible;
         opacity: 0.9;
-        fill: #{'rgb(var(--palette-theme-primary))'};
+        fill: RGB(var(--palette-theme-primary));
         cursor: pointer;
 
         @include animate('1.5s ease-in-out infinite') {
@@ -194,18 +194,18 @@
 
     .inner-circle {
         @include size(16px);
-        border: 2px solid #{'rgb(var(--palette-theme-secondary))'};
+        border: 2px solid RGB(var(--palette-theme-secondary));
         animation-delay: 0.25s;
     }
 
     .outer-circle {
         @include size(20px);
-        border: 2px solid #{'rgb(var(--palette-theme-primary))'};
+        border: 2px solid RGB(var(--palette-theme-primary));
     }
 
     .introduction {
         position: fixed;
-        background: #{'rgb(var(--palette-pure-white))'};
+        background: RGB(var(--primary-background-color));
         border-radius: 0.2em;
         width: 15em;
         z-index: 1;
@@ -213,7 +213,7 @@
         pointer-events: none;
         transform: translateY(2em) rotateX(-10deg) perspective(100px);
         transition: opacity 0.3s, transform 0.3s;
-        filter: drop-shadow(0 3px 8px #{'rgba(var(--palette-asphalt), 0.2)'});
+        filter: drop-shadow(0 3px 8px RGBA(var(--primary-text-color), 0.2));
 
         &.visible {
             opacity: 1;
@@ -227,12 +227,12 @@
             @include size(0);
             margin: auto;
             border: 10px solid transparent;
-            border-bottom-color: #{'rgb(var(--palette-theme-primary))'};
+            border-bottom-color: RGB(var(--palette-theme-primary));
         }
 
         .header {
             position: relative;
-            background: #{'rgb(var(--palette-theme-primary))'};
+            background: RGB(var(--palette-theme-primary));
             padding: 0.75em 0.75em;
             color: #fff;
             border-radius: 0.2em 0.2em 0 0;
@@ -253,7 +253,7 @@
                 transform: rotate(30deg);
                 margin: auto;
                 height: 150%;
-                fill: #{'rgb(var(--palette-theme-secondary))'};
+                fill: RGB(var(--palette-theme-secondary));
             }
         }
 
@@ -265,7 +265,7 @@
             p {
                 @include font(400, 0.8em);
                 line-height: 1.3em;
-                color: #{'rgba(var(--palette-asphalt), 0.75)'};
+                color: RGBA(var(--primary-text-color), 0.75);
             }
 
             .actions {
@@ -273,18 +273,18 @@
 
                 button {
                     @include flex(row, center);
-                    background: rgba(black, 0.1);
+                    background: RGBA(var(--primary-text-color), 0.1);
                     padding: 0.5em 0.85em;
                     margin-top: 1em;
                     margin-left: 1em;
-                    color: rgba(black, 0.5);
+                    color: RGBA(var(--primary-text-color), 0.5);
                     border-radius: 0.15em;
                     transition: all 0.3s;
                     @include font(600, 0.7em);
 
                     &:hover {
-                        background: #{'rgb(var(--palette-theme-primary))'};
-                        color: #{'rgb(var(--palette-pure-white))'};
+                        background: RGB(var(--palette-theme-primary));
+                        color: RGB(var(--primary-background-color));
                     }
 
                     i {
@@ -297,12 +297,12 @@
                 .skip {
                     font-size: 0.8em;
                     text-decoration: underline;
-                    color: #{'rgba(var(--palette-blurry-gray), 0.75)'};
+                    color: RGBA(var(--secondary-text-color), 0.75);
                     cursor: pointer;
                     transition: all 0.3s;
 
                     &:hover {
-                        color: #{'rgb(var(--palette-theme-primary))'};
+                        color: RGB(var(--palette-theme-primary));
                     }
                 }
             }

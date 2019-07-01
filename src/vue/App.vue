@@ -66,7 +66,7 @@
     }
 
     body {
-        background: #{'rgb(var(--palette-snow-white))'};
+        background: RGB(var(--secondary-background-color));
         font-family: $font-family;
     }
 
@@ -77,7 +77,7 @@
 
         svg {
             position: fixed;
-            fill: #{'rgb(var(--palette-theme-secondary))'};
+            fill: RGB(var(--palette-theme-secondary));
             @include size(100vmax);
 
             @include animate('1s ease') {
@@ -108,12 +108,12 @@
         @include position(0, 0, 0, 0);
         border-radius: 0.5em;
         margin: auto;
-        box-shadow: 0 0.4em 3em 0 #{'rgba(var(--palette-asphalt), 0.15)'};
+        box-shadow: 0 0.4em 3em 0 rgba(black, 0.15);
     }
 
     .selection-area {
-        background: rgba($palette-cloud-blue, 0.02);
-        border: 1px solid rgba($palette-cloud-blue, 0.6);
+        background: RGBA(var(--cloud-blue), 0.02);
+        border: 1px solid RGBA(var(--cloud-blue), 0.6);
     }
 
     // Font awesome default size

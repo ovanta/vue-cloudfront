@@ -28,7 +28,7 @@
     .overlay {
         position: absolute;
         @include position(0, 0, 0, 0);
-        background: #{'rgb(var(--palette-snow-white))'};
+        background: RGB(var(--secondary-background-color));
         z-index: 5;
         opacity: 0;
         pointer-events: none;

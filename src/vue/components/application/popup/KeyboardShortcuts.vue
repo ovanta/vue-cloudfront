@@ -407,8 +407,9 @@
         h2 {
             @include font(400, 0.9em);
             padding: 0.75em 0 0.25em;
-            border-bottom: 1px solid #{'rgb(var(--palette-snow-white))'};
+            border-bottom: 1px solid RGB(var(--secondary-background-color));
             margin-bottom: 0.5em;
+            color: RGB(var(--primary-text-color));
         }
 
         .shortcut {
@@ -422,9 +423,9 @@
 
                 .key {
                     margin-right: 0.5em;
-                    color: #{'rgb(var(--palette-asphalt))'};
-                    border: 1px solid #{'rgba(var(--palette-asphalt), 0.75)'};
-                    border-bottom: 2px solid #{'rgba(var(--palette-asphalt), 0.9)'};
+                    color: RGB(var(--primary-text-color));
+                    border: 1px solid RGBA(var(--primary-text-color), 0.75);
+                    border-bottom: 2px solid RGBA(var(--primary-text-color), 0.9);
                     border-radius: 2px;
                     padding: 0.05em 0.45em 0.1em 0.45em;
                 }
@@ -432,7 +433,7 @@
 
             p {
                 @include font(400, 0.8em);
-                color: #{'rgb(var(--palette-asphalt))'};
+                color: RGB(var(--primary-text-color));
                 text-align: right;
             }
         }
