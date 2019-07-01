@@ -179,6 +179,7 @@
         i {
             transition: all 0.3s;
             font-size: 0.8em;
+            margin-bottom: -2px;
         }
 
         span {
