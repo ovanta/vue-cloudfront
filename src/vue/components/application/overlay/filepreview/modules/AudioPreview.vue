@@ -68,9 +68,9 @@
                     return 'off';
                 } else if (this.volume < 0.66) {
                     return 'down';
-                } else {
+                } 
                     return 'up';
-                }
+                
             }
         },
 

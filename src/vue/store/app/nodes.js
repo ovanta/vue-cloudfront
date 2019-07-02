@@ -67,9 +67,9 @@ export const nodes = {
                         return state.filter(v => v.marked && !v.bin);
                     } else if (activeTab === 'bin') {
                         return state.filter(v => v.bin);
-                    } else {
+                    } 
                         return state.filter(v => !v.bin);
-                    }
+                    
                 })();
 
                 const nodesAmount = nodes.length;

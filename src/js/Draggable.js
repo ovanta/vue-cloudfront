@@ -66,7 +66,7 @@ export default function (opt) {
         },
 
         _onTapStart(evt) {
-            let {x, y} = _.simplifyEvent(evt);
+            const {x, y} = _.simplifyEvent(evt);
 
             // Resolve query selectors
             const draggable = selectAll(that.options.draggable);

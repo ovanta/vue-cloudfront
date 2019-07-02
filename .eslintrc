@@ -1,7 +1,10 @@
 {
     "env": {
-        "node": true,
+        "es6": true,
         "commonjs": true
+    },
+    "globals": {
+        "process": true
     },
     "extends": [
         "eslint:recommended",

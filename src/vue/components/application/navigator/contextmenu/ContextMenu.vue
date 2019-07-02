@@ -136,9 +136,9 @@
                     return 2;
                 } else if (amount) {
                     return 1;
-                } else {
+                } 
                     return 0;
-                }
+                
             },
 
             deleted() {

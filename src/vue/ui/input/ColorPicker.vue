@@ -156,7 +156,7 @@
     };
 
     function hsvToHsl(h, s, v) {
-        let l = (2 - s) * v / 2;
+        const l = (2 - s) * v / 2;
 
         if (l !== 0) {
             if (l === 1) {

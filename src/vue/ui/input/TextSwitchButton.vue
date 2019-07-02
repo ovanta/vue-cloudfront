@@ -40,9 +40,9 @@
             (function checkVisibilty() {
                 if (!textSwitchButton.offsetWidth) {
                     return requestAnimationFrame(checkVisibilty.bind(this));
-                } else {
+                } 
                     this.select(this.active, true);
-                }
+                
             }).bind(this)();
         },
 

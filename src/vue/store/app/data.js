@@ -62,7 +62,7 @@ export const data = {
             state.uploads.push(stats);
 
             // Check if browser supports folder drag 'n drop
-            let fileMap = {};
+            const fileMap = {};
             if (items.length && (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry)) {
                 const getAsEntryFuncName = (DataTransferItem.prototype.webkitGetAsEntry || DataTransferItem.prototype.getAsEntry).name;
                 const prequelFileMap = [];
@@ -112,7 +112,7 @@ export const data = {
                     }
                 };
 
-                let promises = [];
+                const promises = [];
                 for (let i = 0; i < items.length; i++) {
                     const entry = items[i][getAsEntryFuncName]();
                     entry && (promises.push(traverseFileTree(-1, entry)));

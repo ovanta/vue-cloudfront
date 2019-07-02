@@ -41,9 +41,9 @@
                     return msgs[Math.floor(Math.random() * msgs.length)];
                 } else if (typeof msgs === 'string') {
                     return msgs;
-                } else {
+                } 
                     return null;
-                }
+                
             }
         }
     };

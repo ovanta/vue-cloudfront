@@ -27,7 +27,7 @@
 
             stats() {
                 const {nodes} = this.$store.state;
-                let totalNodes = nodes.length;
+                const totalNodes = nodes.length;
                 let starredFiles = 0;
                 let starredFolders = 0;
                 let binFiles = 0;

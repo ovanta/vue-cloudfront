@@ -8,8 +8,6 @@
     "main": "./src/main.js",
     "keywords": [
         "vue",
-        "vuex",
-        "vue-router",
         "webpack",
         "starter",
         "server-side",
@@ -18,10 +16,7 @@
         "progressive-webapp",
         "pwa"
     ],
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/ovanta/vue-cloudfront.git"
-    },
+    "repository": "https://github.com/ovanta/vue-cloudfront",
     "scripts": {
         "build": "vue-cli-service build",
         "build:docker": "docker build -f docker/Dockerfile . -t vue-cloudfront",

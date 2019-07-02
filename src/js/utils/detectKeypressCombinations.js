@@ -40,10 +40,10 @@ export default (el, cb, val = () => true) => {
             return;
         }
 
-        keys['ctrlKey'] = e.ctrlKey;
-        keys['shiftKey'] = e.shiftKey;
-        keys['altKey'] = e.altKey;
-        keys['metaKey'] = e.metaKey;
+        keys.ctrlKey = e.ctrlKey;
+        keys.shiftKey = e.shiftKey;
+        keys.altKey = e.altKey;
+        keys.metaKey = e.metaKey;
 
         keys[toKeyCode(e)] = true;
         cb(keys, e);

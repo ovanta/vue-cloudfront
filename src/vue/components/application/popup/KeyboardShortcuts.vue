@@ -352,7 +352,7 @@
                 // Switch tabs
                 if (keys.KeyTab && keys.KeyShift && !keys.ctrlKey) {
                     const tabs = ['dashboard', 'home', 'marked', 'bin', 'settings'];
-                    let index = tabs.indexOf(this.$store.state.activeTab) + 1;
+                    const index = tabs.indexOf(this.$store.state.activeTab) + 1;
 
                     // Switch tab, rotate if end is reached
                     store.commit('setActiveTab', tabs[index === tabs.length - 1 ? 0 : index]);
@@ -380,7 +380,7 @@
 
                     // Focus & select input field
                     requestAnimationFrame(() => {
-                        const element = this.$store.state.elements['searchBarInputField'];
+                        const element = this.$store.state.elements.searchBarInputField;
                         element.focus();
                         element.select();
                     });
