@@ -54,6 +54,7 @@
                 color: RGB(var(--secondary-background-color));
                 padding: 0.2em 0.5em 0.15em;
                 border-radius: 0.15em;
+                margin: 0 0.25em;
             }
         }
 

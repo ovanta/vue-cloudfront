@@ -168,8 +168,8 @@
 
     .inner-circle,
     .outer-circle {
-        position: absolute;
         @include position(0, 0, 0, 0);
+        position: absolute;
         margin: auto;
         display: inline-block;
         border-radius: 100%;
@@ -213,7 +213,7 @@
         pointer-events: none;
         transform: translateY(2em) rotateX(-10deg) perspective(100px);
         transition: opacity 0.3s, transform 0.3s;
-        filter: drop-shadow(0 3px 8px RGBA(var(--primary-text-color), 0.2));
+        filter: var(--drop-shadow-big);
 
         &.visible {
             opacity: 1;
@@ -274,7 +274,7 @@
                 button {
                     @include flex(row, center);
                     background: RGBA(var(--primary-text-color), 0.1);
-                    padding: 0.5em 0.85em;
+                    padding: 0.5em 0.85em 0.55em;
                     margin-top: 1em;
                     margin-left: 1em;
                     color: RGBA(var(--primary-text-color), 0.5);

@@ -98,7 +98,7 @@
         opacity: 0;
         transform: translateY(-1em) rotateX(10deg);
         transition: all 0.3s;
-        background: RGB(var(--secondary-background-color));
+        background: RGBA(var(--secondary-background-color), 0.6);
         z-index: 10;
 
         &.open {

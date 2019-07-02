@@ -192,7 +192,7 @@
             background: RGB(var(--palette-theme-secondary));
 
             span, i {
-                color: RGB(var(--primary-background-color));
+                color: RGB(var(--teritary-text-color));
             }
         }
 
@@ -200,7 +200,7 @@
             background: RGB(var(--secondary-background-color));
 
             span, i {
-                color: RGBA(var(--primary-text-color), 0.75);
+                color: RGBA(var(--primary-text-color), 0.85);
             }
         }
     }

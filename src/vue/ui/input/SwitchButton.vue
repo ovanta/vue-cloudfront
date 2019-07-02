@@ -34,7 +34,6 @@
         $ktpadding: 2 * $kpadding;
 
         &::before {
-
             @include pseudo();
             @include size($ksize);
             border-radius: 50em;

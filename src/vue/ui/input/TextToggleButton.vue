@@ -44,7 +44,7 @@
             box-shadow: none;
 
             span {
-                color: RGB(var(--secondary-background-color));
+                color: RGB(var(--teritary-text-color));
             }
         }
     }
@@ -52,7 +52,7 @@
     span {
         padding: 0 0.75em;
         transition: all 0.3s;
-        color: RGBA(var(--secondary-text-color), 0.75);
+        color: RGB(var(--secondary-text-color));
     }
 
 </style>

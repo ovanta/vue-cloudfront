@@ -30,6 +30,9 @@
     // Normalize css to look (almost) equal on all browsers
     import 'normalize.css';
 
+    // Themes
+    import '../scss/themes.scss';
+
     // Components
     import Cloudfront from './components/Cloudfront';
 

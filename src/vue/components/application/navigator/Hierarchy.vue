@@ -7,10 +7,7 @@
                  :data-hash="node.id"
                  class="node">
 
-                <span :style="{'--color': index === nodes.length - 1 ? node.colorVariable : 'inherit'}"
-                      class="name"
-                      @click="updateLocation(node)">{{ node.name }}</span>
-
+                <span class="name" @click="updateLocation(node)">{{ node.name }}</span>
                 <i v-if="index < nodes.length - 1" class="fas fa-fw fa-angle-right"></i>
             </div>
         </div>
@@ -159,7 +156,7 @@
                 border-radius: 0.25em;
 
                 &:hover {
-                    color: black;
+                    color: RGB(var(--primary-text-color));
                 }
 
                 &::after {

@@ -172,7 +172,7 @@
         position: relative;
         border-radius: 0.2em;
         font-size: 0.8em;
-        box-shadow: var(--shadow-node-grid-item);
+        box-shadow: var(--shadow-mini);
         background: RGB(var(--primary-background-color));
         border: 1px solid transparent;
         padding: 0.5em 0.9em;
