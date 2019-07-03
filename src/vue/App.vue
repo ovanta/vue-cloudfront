@@ -71,6 +71,12 @@
     body {
         background: RGB(var(--secondary-background-color));
         font-family: $font-family;
+
+        &.disable-transitions {
+            * {
+                transition: none !important;
+            }
+        }
     }
 
     .app-background {

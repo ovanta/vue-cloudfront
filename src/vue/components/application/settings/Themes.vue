@@ -7,6 +7,7 @@
 
             <div v-for="color of theme.colors"
                  :style="{background: color}"
+                 :title="color"
                  class="color"></div>
         </div>
 
@@ -48,7 +49,10 @@
             select(theme) {
                 const {body} = document;
                 body.classList.remove(this.currentTheme);
-                body.classList.add(theme);
+                body.classList.add(theme, 'disable-transitions');
+
+                // Disable transition during repaint
+                requestAnimationFrame(() => body.classList.remove('disable-transitions'));
                 this.currentTheme = theme;
             }
         }
