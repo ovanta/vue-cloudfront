@@ -54,7 +54,7 @@
             fill: transparent;
 
             &.progress {
-                stroke: RGB(var(--palette-theme-secondary));
+                stroke: RGB(var(--theme-secondary));
                 stroke-dasharray: 53.40707511102649;
                 transform-origin: center;
 

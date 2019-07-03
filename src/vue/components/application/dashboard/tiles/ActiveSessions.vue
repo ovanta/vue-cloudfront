@@ -61,7 +61,7 @@
             transition: all 0.3s;
 
             &:hover {
-                background: RGB(var(--tomato-red));
+                background: RGB(var(--static-tomato-red));
             }
         }
     }

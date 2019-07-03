@@ -55,7 +55,7 @@
         }
 
         &.active {
-            background: RGB(var(--palette-theme-secondary));
+            background: RGB(var(--theme-secondary));
 
             &::before {
                 @include animate('0.25s ease-in-out forwards') {

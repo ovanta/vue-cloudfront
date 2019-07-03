@@ -236,7 +236,7 @@
                 }
 
                 &:hover {
-                    color: RGB(var(--palette-theme-primary));
+                    color: RGB(var(--theme-primary));
                 }
             }
         }

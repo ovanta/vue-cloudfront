@@ -99,7 +99,7 @@
         transition: all 0.3s;
         border-radius: 50em;
         height: 100%;
-        background: RGB(var(--palette-theme-primary));
+        background: RGB(var(--theme-primary));
 
         left: 0;
         top: 0;

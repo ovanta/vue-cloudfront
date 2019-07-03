@@ -94,7 +94,7 @@
 
         &.active::after {
             width: 100%;
-            background: RGB(var(--palette-theme-primary));
+            background: RGB(var(--theme-primary));
         }
     }
 
@@ -132,7 +132,7 @@
                 @include fixed-width(1.25em);
 
                 &:hover {
-                    color: RGB(var(--palette-theme-primary));
+                    color: RGB(var(--theme-primary));
                 }
             }
 
@@ -143,7 +143,7 @@
                 max-width: 0;
 
                 &:hover {
-                    color: RGB(var(--palette-theme-primary));
+                    color: RGB(var(--theme-primary));
                 }
 
                 &.visible {

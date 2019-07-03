@@ -196,8 +196,8 @@
         }
 
         &.selected {
-            border-color: RGBA(var(--cloud-blue), 0.75);
-            background: RGBA(var(--cloud-blue), 0.1);
+            border-color: RGBA(var(--static-cloud-blue), 0.75);
+            background: RGBA(var(--static-cloud-blue), 0.1);
 
             &:nth-child(n+2) {
                 margin-top: -1px;
@@ -225,7 +225,7 @@
             @include white-space-overflow;
 
             span[contenteditable=true] {
-                border-color: RGB(var(--palette-theme-primary));
+                border-color: RGB(var(--theme-primary));
                 cursor: text;
                 outline: none;
             }
@@ -265,10 +265,10 @@
             }
 
             &:hover {
-                color: RGB(var(--palette-theme-primary));
+                color: RGB(var(--theme-primary));
 
                 .sort {
-                    color: RGB(var(--palette-theme-primary));
+                    color: RGB(var(--theme-primary));
                 }
             }
 

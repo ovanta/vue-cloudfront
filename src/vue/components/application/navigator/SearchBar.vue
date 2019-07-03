@@ -163,7 +163,7 @@
 
         &:focus-within {
             i {
-                color: RGB(var(--palette-theme-primary));
+                color: RGB(var(--theme-primary));
             }
         }
 
@@ -197,7 +197,7 @@
                 }
 
                 &:hover {
-                    color: RGB(var(--tomato-red));
+                    color: RGB(var(--static-tomato-red));
                 }
             }
         }
@@ -208,7 +208,7 @@
             transition: all 0.5s;
 
             &:hover {
-                color: RGB(var(--palette-theme-primary));
+                color: RGB(var(--theme-primary));
             }
         }
     }

@@ -193,7 +193,7 @@
 
         .error {
             @include font(600, 0.75em);
-            color: RGB(var(--tomato-red));
+            color: RGB(var(--static-tomato-red));
             margin-top: 1em;
             height: 1em;
         }
@@ -218,7 +218,7 @@
                 transition: all 0.3s;
 
                 &:hover {
-                    color: RGB(var(--palette-theme-primary));
+                    color: RGB(var(--theme-primary));
                 }
             }
 
@@ -227,7 +227,7 @@
                 @include font(600, 0.75em);
                 border-radius: 0.15em;
                 transition: all 0.3s;
-                background: RGB(var(--palette-theme-primary));
+                background: RGB(var(--theme-primary));
                 color: RGB(var(--secondary-background-color));
                 margin-left: auto;
 

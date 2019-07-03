@@ -40,7 +40,7 @@
         transition: all 0.3s;
 
         &.active {
-            background: RGB(var(--palette-theme-primary));
+            background: RGB(var(--theme-primary));
             box-shadow: none;
 
             span {

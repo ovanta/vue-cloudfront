@@ -108,7 +108,7 @@
             cursor: pointer;
 
             &:hover {
-                color: RGB(var(--tomato-red));
+                color: RGB(var(--static-tomato-red));
             }
         }
     }
@@ -128,7 +128,7 @@
             margin: auto 0;
 
             &:hover {
-                color: RGB(var(--palette-theme-secondary));
+                color: RGB(var(--theme-secondary));
                 opacity: 1;
             }
 

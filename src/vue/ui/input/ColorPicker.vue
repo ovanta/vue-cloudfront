@@ -299,7 +299,7 @@
         button {
             @include font(600, 0.75em);
             margin-left: 0.75em;
-            background: RGB(var(--cloud-blue));
+            background: RGB(var(--static-cloud-blue));
             transition: all 0.3s;
             cursor: pointer;
             border-radius: 0.15em;

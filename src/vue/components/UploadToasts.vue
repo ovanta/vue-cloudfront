@@ -163,7 +163,7 @@
 
     .header {
         @include flex(row, center);
-        background: linear-gradient(to bottom right, RGB(var(--palette-theme-secondary)), RGB(var(--palette-theme-primary)));
+        background: linear-gradient(to bottom right, RGB(var(--theme-secondary)), RGB(var(--theme-primary)));
         padding: 0.75em 1em;
         color: RGB(var(--primary-background-color));
 

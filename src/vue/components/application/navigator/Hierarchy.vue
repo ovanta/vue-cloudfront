@@ -165,7 +165,7 @@
                     @include position(0, 0, auto, 0);
                     margin: auto;
                     border: 4px solid transparent;
-                    border-top-color: RGB(var(--cloud-blue));
+                    border-top-color: RGB(var(--static-cloud-blue));
                     opacity: 0;
                     transform: translateY(-0.25em);
                     transition: all 0.3s;
@@ -189,7 +189,7 @@
             }
 
             &.droppable .name {
-                color: RGB(var(--cloud-blue));
+                color: RGB(var(--static-cloud-blue));
 
                 &::after {
                     transform: none;

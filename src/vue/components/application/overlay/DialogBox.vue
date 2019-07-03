@@ -67,8 +67,8 @@
 <style lang="scss" scoped>
 
     $buttons: (
-        (class: 'accept', color: RGB(var(--cloud-blue))),
-        (class: 'cancel', color: RGB(var(--tomato-red)))
+        (class: 'accept', color: RGB(var(--static-cloud-blue))),
+        (class: 'cancel', color: RGB(var(--static-tomato-red)))
     );
 
     .dialog-box {

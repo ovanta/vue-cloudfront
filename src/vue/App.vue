@@ -80,7 +80,7 @@
 
         svg {
             position: fixed;
-            fill: RGB(var(--palette-theme-secondary));
+            fill: RGB(var(--theme-secondary));
             @include size(100vmax);
 
             @include animate('1s ease') {
@@ -115,8 +115,8 @@
     }
 
     .selection-area {
-        background: RGBA(var(--cloud-blue), 0.02);
-        border: 1px solid RGBA(var(--cloud-blue), 0.6);
+        background: RGBA(var(--static-cloud-blue), 0.02);
+        border: 1px solid RGBA(var(--static-cloud-blue), 0.6);
     }
 
     // Font awesome default size

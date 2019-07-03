@@ -23,7 +23,7 @@ button {
 
     &::selection {
         color: RGB(var(--primary-background-color));
-        background: RGB(var(--palette-theme-secondary));
+        background: RGB(var(--theme-secondary));
     }
 }
 

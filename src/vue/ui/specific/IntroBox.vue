@@ -148,7 +148,7 @@
         margin: auto;
         overflow: visible;
         opacity: 0.9;
-        fill: RGB(var(--palette-theme-primary));
+        fill: RGB(var(--theme-primary));
         cursor: pointer;
 
         @include animate('1.5s ease-in-out infinite') {
@@ -194,13 +194,13 @@
 
     .inner-circle {
         @include size(16px);
-        border: 2px solid RGB(var(--palette-theme-secondary));
+        border: 2px solid RGB(var(--theme-secondary));
         animation-delay: 0.25s;
     }
 
     .outer-circle {
         @include size(20px);
-        border: 2px solid RGB(var(--palette-theme-primary));
+        border: 2px solid RGB(var(--theme-primary));
     }
 
     .introduction {
@@ -227,12 +227,12 @@
             @include size(0);
             margin: auto;
             border: 10px solid transparent;
-            border-bottom-color: RGB(var(--palette-theme-primary));
+            border-bottom-color: RGB(var(--theme-primary));
         }
 
         .header {
             position: relative;
-            background: RGB(var(--palette-theme-primary));
+            background: RGB(var(--theme-primary));
             padding: 0.75em 0.75em;
             color: #fff;
             border-radius: 0.2em 0.2em 0 0;
@@ -253,7 +253,7 @@
                 transform: rotate(30deg);
                 margin: auto;
                 height: 150%;
-                fill: RGB(var(--palette-theme-secondary));
+                fill: RGB(var(--theme-secondary));
             }
         }
 
@@ -283,7 +283,7 @@
                     @include font(600, 0.7em);
 
                     &:hover {
-                        background: RGB(var(--palette-theme-primary));
+                        background: RGB(var(--theme-primary));
                         color: RGB(var(--primary-background-color));
                     }
 
@@ -302,7 +302,7 @@
                     transition: all 0.3s;
 
                     &:hover {
-                        color: RGB(var(--palette-theme-primary));
+                        color: RGB(var(--theme-primary));
                     }
                 }
             }

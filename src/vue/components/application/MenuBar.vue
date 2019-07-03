@@ -189,7 +189,7 @@
         }
 
         &.active {
-            background: RGB(var(--palette-theme-secondary));
+            background: RGB(var(--theme-secondary));
 
             span, i {
                 color: RGB(var(--teritary-text-color));
@@ -255,7 +255,7 @@
                     transform: translateY(-0.2em) scale(1.075);
 
                     i {
-                        color: RGB(var(--palette-theme-primary));
+                        color: RGB(var(--theme-primary));
                     }
 
                     &::before {
@@ -282,7 +282,7 @@
                     @include position(auto, 0, 0, 0);
                     @include size(6px, 60%);
                     margin: auto;
-                    background: RGB(var(--palette-theme-primary));
+                    background: RGB(var(--theme-primary));
                     transform: translateY(0.75em) scale(0);
                     border-radius: 100em;
                     z-index: -1;

@@ -1,15 +1,18 @@
 <template>
     <div class="settings">
 
+        <!-- TODO: Generate that dynamic -->
         <div class="menu">
             <p>Settings</p>
             <button :class="{active: menu === 'credentials'}" @click="menu = 'credentials'">Credentials</button>
             <button :class="{active: menu === 'appereance'}" @click="menu = 'appereance'">Appereance</button>
+            <button :class="{active: menu === 'themes'}" @click="menu = 'themes'">Themes</button>
         </div>
 
         <div class="content">
             <credentials v-show="menu === 'credentials'"/>
             <appereance v-show="menu === 'appereance'"/>
+            <themes v-show="menu === 'themes'"/>
         </div>
 
     </div>
@@ -20,10 +23,11 @@
     // Setting parts
     import Credentials from './Credentials';
     import Appereance  from './Appereance';
+    import Themes      from './Themes';
 
     export default {
 
-        components: {Appereance, Credentials},
+        components: {Appereance, Credentials, Themes},
 
         data() {
             return {
@@ -89,7 +93,7 @@
 
             button {
                 @include font(600, 0.75em);
-                color: RGBA(var(--primary-text-color), 0.4);
+                color: RGB(var(--secondary-text-color));
                 width: 100%;
                 padding: 0.75em 0.25em;
                 margin: 0.35em 0;
@@ -97,8 +101,8 @@
                 transition: all 0.3s;
 
                 &.active {
-                    background: RGB(var(--palette-theme-secondary));
-                    color: RGB(var(--primary-background-color));
+                    background: RGB(var(--theme-secondary));
+                    color: RGB(var(--teritary-text-color));
                 }
 
                 &:hover:not(.active) {
