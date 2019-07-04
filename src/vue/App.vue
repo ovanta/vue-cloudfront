@@ -30,6 +30,9 @@
     // Normalize css to look (almost) equal on all browsers
     import 'normalize.css';
 
+    // Themes
+    import '../scss/themes.scss';
+
     // Components
     import Cloudfront from './components/Cloudfront';
 
@@ -66,8 +69,14 @@
     }
 
     body {
-        background: $palette-snow-white;
+        background: RGB(var(--secondary-background-color));
         font-family: $font-family;
+
+        &.disable-transitions {
+            * {
+                transition: none !important;
+            }
+        }
     }
 
     .app-background {
@@ -77,7 +86,7 @@
 
         svg {
             position: fixed;
-            fill: $palette-theme-secondary;
+            fill: RGB(var(--theme-secondary));
             @include size(100vmax);
 
             @include animate('1s ease') {
@@ -108,12 +117,12 @@
         @include position(0, 0, 0, 0);
         border-radius: 0.5em;
         margin: auto;
-        box-shadow: 0 0.4em 3em 0 rgba($palette-asphalt, 0.15);
+        box-shadow: 0 0.4em 3em 0 rgba(black, 0.15);
     }
 
     .selection-area {
-        background: rgba($palette-cloud-blue, 0.02);
-        border: 1px solid rgba($palette-cloud-blue, 0.6);
+        background: RGBA(var(--static-cloud-blue), 0.02);
+        border: 1px solid RGBA(var(--static-cloud-blue), 0.6);
     }
 
     // Font awesome default size

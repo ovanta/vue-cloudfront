@@ -131,8 +131,8 @@
         .info {
             @include font(600, 0.75em);
             margin-top: 0.25em;
-            color: white;
-            background: $palette-asphalt;
+            color: RGB(var(--primary-background-color));
+            background: RGB(var(--primary-text-color));
             text-align: center;
             border-radius: 0.15em;
             transition: all 0.3s;
@@ -158,23 +158,23 @@
                 margin-top: 1.5em;
                 border-radius: 0.15em;
                 padding: 0.55em 1.3em 0.6em;
-                color: white;
+                color: RGB(var(--primary-background-color));
                 transition: all 0.3s;
 
                 &.delete-account {
                     margin-right: 1em;
-                    background: $palette-tomatoe-red;
+                    background: RGB(var(--static-tomato-red));
 
                     &:hover {
-                        background: darken($palette-tomatoe-red, 3);
+                        filter: brightness(0.9);
                     }
                 }
 
                 &.update {
-                    background: $palette-theme-primary;
+                    background: RGB(var(--theme-primary));
 
                     &:hover {
-                        background: darken($palette-theme-primary, 3);
+                        filter: brightness(0.9);
                     }
                 }
             }

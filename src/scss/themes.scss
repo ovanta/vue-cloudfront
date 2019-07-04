@@ -1,0 +1,36 @@
+body {
+    // Color palette
+    --primary-background-color: 254, 253, 255;
+    --secondary-background-color: 243, 239, 243;
+    --primary-text-color: 50, 55, 77;
+    --secondary-text-color: 198, 201, 204;
+    --teritary-text-color: 245, 242, 246;
+    --theme-primary: 112, 98, 222;
+    --theme-secondary: 124, 109, 237;
+
+    // Misc
+    --shadow-mini: 0 1px 3px 0 RGBA(var(--primary-text-color), 0.15);
+    --drop-shadow-big: drop-shadow(0 3px 8px RGBA(var(--primary-text-color), 0.2));
+    --shadow-droppable-node-grid-item: 0 1px 3px 0 rgba(var(--static-cloud-blue), 0.5), 0 0 0 1px rgba(var(--static-cloud-blue), 0.75);
+
+    // Static colors
+    --static-cloud-blue: 83, 138, 252;
+    --static-tomato-red: 230, 59, 65;
+    --static-sunshine-yellow: 245, 189, 0;
+}
+
+// Dark theme
+body.dark {
+
+    // Color palette
+    --primary-background-color: 54, 57, 63;
+    --secondary-background-color: 44, 47, 51;
+    --primary-text-color: 246, 246, 247;
+    --secondary-text-color: 177, 175, 176;
+    --teritary-text-color: 245, 242, 246;
+    --theme-primary: 90, 188, 242;
+    --theme-secondary: 77, 100, 172;
+
+    --drop-shadow-big: drop-shadow(0 3px 8px RGB(var(--secondary-background-color)));
+    --shadow-mini: 0 0 0 2px RGB(var(--secondary-background-color));
+}

@@ -47,7 +47,7 @@
 
     .logs {
         @include flex(column);
-        color: $palette-asphalt;
+        color: RGB(var(--primary-text-color));
         overflow: auto;
         flex-grow: 1;
         min-height: 4em;
@@ -59,8 +59,8 @@
 
         .log {
             @include flex(row);
-            border: 1px solid rgba($palette-asphalt, 0.5);
-            background: rgba($palette-asphalt, 0.025);
+            border: 1px solid RGBA(var(--primary-text-color), 0.5);
+            background: RGBA(var(--primary-text-color), 0.025);
             font-family: monospace;
             font-size: 0.9em;
             padding: 0.25em 0.5em;
@@ -68,15 +68,15 @@
             border-radius: 0.15em;
 
             &[data-type='error'] {
-                background: rgba($palette-tomatoe-red, 0.04);
-                border-color: rgba($palette-tomatoe-red, 0.35);
-                color: $palette-tomatoe-red;
+                background: RGBA(var(--static-tomato-red), 0.04);
+                border-color: RGBA(var(--static-tomato-red), 0.35);
+                color: RGB(var(--static-tomato-red));
             }
 
             &[data-type='warn'] {
-                background: rgba($palette-sunshine-yellow, 0.05);
-                border-color: rgba($palette-sunshine-yellow, 0.5);
-                color: darken($palette-sunshine-yellow, 20);
+                background: RGBA(var(--static-sunshine-yellow), 0.05);
+                border-color: RGBA(var(--static-sunshine-yellow), 0.5);
+                color: RGB(var(--static-sunshine-yellow));
             }
 
             > span {

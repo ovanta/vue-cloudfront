@@ -140,22 +140,17 @@
             @include size(3.5em);
             margin: 1.5em auto;
             align-self: flex-start;
-            fill: $palette-asphalt;
+            fill: RGB(var(--primary-text-color));
         }
 
         > button {
             @include font(600, 0.95em);
-            border: 2px solid $palette-asphalt;
-            color: $palette-asphalt;
+            border: 2px solid RGB(var(--primary-text-color));
+            color: RGB(var(--primary-text-color));
             transition: all 0.3s;
             padding: 0.35em 0.6em;
             border-radius: 0.15em;
             width: 100%;
-
-            &:hover {
-                background: lighten($palette-asphalt, 5);
-                color: $palette-snow-white;
-            }
         }
     }
 

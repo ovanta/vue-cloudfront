@@ -1,15 +1,18 @@
 <template>
     <div class="settings">
 
+        <!-- TODO: Generate that dynamic -->
         <div class="menu">
             <p>Settings</p>
             <button :class="{active: menu === 'credentials'}" @click="menu = 'credentials'">Credentials</button>
             <button :class="{active: menu === 'appereance'}" @click="menu = 'appereance'">Appereance</button>
+            <button :class="{active: menu === 'themes'}" @click="menu = 'themes'">Themes</button>
         </div>
 
         <div class="content">
             <credentials v-show="menu === 'credentials'"/>
             <appereance v-show="menu === 'appereance'"/>
+            <themes v-show="menu === 'themes'"/>
         </div>
 
     </div>
@@ -20,10 +23,11 @@
     // Setting parts
     import Credentials from './Credentials';
     import Appereance  from './Appereance';
+    import Themes      from './Themes';
 
     export default {
 
-        components: {Appereance, Credentials},
+        components: {Appereance, Credentials, Themes},
 
         data() {
             return {
@@ -40,9 +44,9 @@
         @include flex(column);
         margin: 1em 0;
         padding: 0.75em;
-        background: white;
+        background: RGB(var(--primary-background-color));
         border-radius: 0.15em;
-        border: 2px solid $palette-sick-white;
+        border: 2px solid RGB(var(--secondary-background-color));
 
         > article {
             @include font(600, 0.8em);
@@ -50,17 +54,18 @@
 
             code {
                 font-size: 0.8em;
-                background: $palette-asphalt;
-                color: $palette-snow-white;
+                background: RGB(var(--primary-text-color));
+                color: RGB(var(--secondary-background-color));
                 padding: 0.2em 0.5em 0.15em;
                 border-radius: 0.15em;
+                margin: 0 0.25em;
             }
         }
 
         .input {
             padding-top: 0.75em;
             margin-top: 0.75em;
-            border-top: 2px solid $palette-snow-white;
+            border-top: 2px solid RGB(var(--secondary-background-color));
         }
     }
 
@@ -74,12 +79,12 @@
         margin: auto;
         padding: 5vh 0;
         flex-grow: 1;
-        color: $palette-asphalt;
+        color: RGB(var(--primary-text-color));
 
         .menu {
             height: 100%;
             padding: 0.75em 2em;
-            border-right: 2px solid $palette-sick-white;
+            border-right: 2px solid RGB(var(--secondary-background-color));
 
             > p {
                 @include font(600, 0.9em);
@@ -88,7 +93,7 @@
 
             button {
                 @include font(600, 0.75em);
-                color: rgba(black, 0.4);
+                color: RGB(var(--secondary-text-color));
                 width: 100%;
                 padding: 0.75em 0.25em;
                 margin: 0.35em 0;
@@ -96,12 +101,12 @@
                 transition: all 0.3s;
 
                 &.active {
-                    background: $palette-theme-secondary;
-                    color: white;
+                    background: RGB(var(--theme-secondary));
+                    color: RGB(var(--teritary-text-color));
                 }
 
                 &:hover:not(.active) {
-                    background: rgba(black, 0.02);
+                    background: RGB(var(--secondary-background-color));
                 }
             }
         }

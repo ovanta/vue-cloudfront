@@ -137,7 +137,7 @@
         @include flex(column, center, center);
         @include position(0, 0, 0, 0);
         z-index: 100;
-        background: white;
+        background: RGB(var(--primary-background-color));
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -186,14 +186,14 @@
         h1 {
             @include font(200, 2em);
             margin-bottom: 1em;
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
             opacity: 0.9;
             text-align: center;
         }
 
         .error {
             @include font(600, 0.75em);
-            color: $palette-tomatoe-red;
+            color: RGB(var(--static-tomato-red));
             margin-top: 1em;
             height: 1em;
         }
@@ -213,12 +213,12 @@
             span {
                 font-size: 0.85em;
                 text-decoration: underline;
-                color: $palette-decent-blue;
+                color: RGB(var(--secondary-text-color));
                 cursor: pointer;
                 transition: all 0.3s;
 
                 &:hover {
-                    color: $palette-theme-primary;
+                    color: RGB(var(--theme-primary));
                 }
             }
 
@@ -227,13 +227,11 @@
                 @include font(600, 0.75em);
                 border-radius: 0.15em;
                 transition: all 0.3s;
-                background: $palette-theme-primary;
-                box-shadow: 0 0.05em 0.3em rgba($palette-theme-primary, 0.25);
-                color: $palette-snow-white;
+                background: RGB(var(--theme-primary));
+                color: RGB(var(--secondary-background-color));
                 margin-left: auto;
 
                 &:hover {
-                    box-shadow: 0 0.05em 0.5em rgba($palette-theme-primary, 0.5);
                     filter: brightness(1.1);
                 }
             }

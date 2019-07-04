@@ -55,26 +55,26 @@
             margin: 0 0.75em 0 auto;
             @include font(600, 0.75em);
             border-radius: 0.15em;
-            background: $palette-asphalt;
-            color: white;
+            background: RGB(var(--primary-text-color));
+            color: RGB(var(--primary-background-color));
             padding: 0.6em 0.9em;
             transition: all 0.3s;
 
             &:hover {
-                background: $palette-tomatoe-red;
+                background: RGB(var(--static-tomato-red));
             }
         }
     }
 
     .sessions-header {
-        border-bottom: 2px solid $palette-sick-white;
+        border-bottom: 2px solid RGB(var(--secondary-background-color));
     }
 
     .sessions-header,
     .sessions-body {
         display: grid;
         grid-template-columns: 1.5fr 1.5fr 3fr 1.5fr;
-        color: $palette-asphalt;
+        color: RGB(var(--primary-text-color));
 
         span {
             @include font(600, 0.8em);
@@ -85,7 +85,7 @@
             border: none;
 
             &.even {
-                background: $palette-sick-white;
+                background: RGB(var(--secondary-background-color));
             }
 
             &.country {
@@ -99,7 +99,7 @@
             &.city,
             &.browser,
             &.timestamp {
-                color: rgba($palette-asphalt, 0.85);
+                color: RGBA(var(--primary-text-color), 0.85);
             }
         }
     }
@@ -112,12 +112,12 @@
     .footer-info {
         margin-top: auto;
         text-align: center;
-        color: rgba($palette-asphalt, 0.5);
+        color: RGBA(var(--primary-text-color), 0.5);
         @include font(600, 0.7em);
         transition: all 0.3s;
 
         &:hover {
-            color: rgba($palette-asphalt, 0.85);
+            color: RGBA(var(--primary-text-color), 0.85);
         }
     }
 

@@ -26,7 +26,7 @@
         @include size($height, $width);
         position: relative;
         border-radius: 50em;
-        background: $palette-blurry-gray;
+        background: RGB(var(--secondary-text-color));
         transition: all 0.3s;
         cursor: pointer;
 
@@ -34,11 +34,10 @@
         $ktpadding: 2 * $kpadding;
 
         &::before {
-
             @include pseudo();
             @include size($ksize);
             border-radius: 50em;
-            background: white;
+            background: RGB(var(--primary-background-color));
             margin: $kpadding;
 
             @include animate('0.25s ease-in-out reverse forwards') {
@@ -56,7 +55,7 @@
         }
 
         &.active {
-            background: $palette-theme-secondary;
+            background: RGB(var(--theme-secondary));
 
             &::before {
                 @include animate('0.25s ease-in-out forwards') {

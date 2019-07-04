@@ -128,10 +128,10 @@
 <style lang="scss" scoped>
 
     .index {
-        font-family: $font-family;
         @include flex(row);
+        font-family: $font-family;
         user-select: none;
-        background: mix($palette-asphalt, white, 1);
+        background: RGB(var(--primary-background-color));
         overflow: hidden;
 
         .right-side {

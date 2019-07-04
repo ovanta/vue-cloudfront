@@ -60,7 +60,7 @@
 
         .color {
             @include size(20px);
-            border: 1px solid rgba(black, 0.1);
+            border: 1px solid RGBA(var(--primary-text-color), 0.1);
             border-radius: 100%;
             cursor: pointer;
             margin: 3px;

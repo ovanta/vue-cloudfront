@@ -234,7 +234,7 @@
 
     .color-picker {
         @include flex(column);
-        background: white;
+        background: RGB(var(--primary-background-color));
     }
 
     .color {
@@ -243,7 +243,7 @@
 
         .knob {
             @include size(12px);
-            border: 2px solid white;
+            border: 2px solid RGB(var(--primary-background-color));
             border-radius: 100%;
         }
     }
@@ -269,8 +269,8 @@
 
         .knob {
             position: absolute;
-            background: white;
-            box-shadow: 0 1px 3px rgba(black, 0.2);
+            background: RGB(var(--primary-background-color));
+            box-shadow: 0 1px 3px RGBA(var(--primary-text-color), 0.2);
         }
     }
 
@@ -282,8 +282,8 @@
 
         input {
             @include font(600, 0.85em, 0.05em);
-            background: $palette-snow-white;
-            color: $palette-asphalt;
+            background: RGB(var(--secondary-background-color));
+            color: RGB(var(--primary-text-color));
             border: 1px solid transparent;
             padding: 0.25em 0.75em;
             text-transform: uppercase;
@@ -292,18 +292,18 @@
             flex-grow: 1;
 
             &:focus {
-                border-color: darken($palette-snow-white, 5);
+                border-color: RGB(var(--secondary-text-color));
             }
         }
 
         button {
             @include font(600, 0.75em);
             margin-left: 0.75em;
-            background: $palette-cloud-blue;
+            background: RGB(var(--static-cloud-blue));
             transition: all 0.3s;
             cursor: pointer;
             border-radius: 0.15em;
-            color: white;
+            color: RGB(var(--primary-background-color));
             padding: 0 0.75em;
             text-transform: uppercase;
 
