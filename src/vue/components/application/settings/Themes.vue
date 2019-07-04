@@ -3,6 +3,7 @@
 
         <div v-for="theme of themes"
              :class="{theme: 1, active: theme.name === currentTheme}"
+             :data-name="`Choose ${theme.name} theme`"
              @click="select(theme.name)">
 
             <div v-for="color of theme.colors"
@@ -83,10 +84,10 @@
             &:not(.active)::before {
                 @include pseudo();
                 @include position(0, 0, 0, 0);
-                @include font(600, 0.95em);
+                @include font(600, 0.8em);
                 text-align: center;
-                line-height: 2.2em;
-                content: 'Choose';
+                line-height: 2.8em;
+                content: attr(data-name);
                 background: RGBA(var(--primary-background-color), 0.5);
                 color: RGB(var(--primary-text-color));
                 opacity: 0;

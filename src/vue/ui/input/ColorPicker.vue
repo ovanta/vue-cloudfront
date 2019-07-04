@@ -270,7 +270,7 @@
         .knob {
             position: absolute;
             background: RGB(var(--primary-background-color));
-            box-shadow: 0 1px 3px RGBA(var(--primary-text-color), 0.2);
+            box-shadow: var(--shadow-mini);
         }
     }
 
