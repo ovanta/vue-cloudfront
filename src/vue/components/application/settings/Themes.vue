@@ -1,15 +1,25 @@
 <template>
     <div class="themes">
 
-        <div v-for="theme of themes"
-             :class="{theme: 1, active: theme.name === currentTheme}"
-             :data-name="`Choose ${theme.name} theme`"
-             @click="select(theme.name)">
+        <div class="setting">
+            <article>
+                Choose a palette which you want to use.
+                Your selected theme will be synchronized with other sessions.
+            </article>
 
-            <div v-for="color of theme.colors"
-                 :style="{background: color}"
-                 :title="color"
-                 class="color"></div>
+
+            <div class="input">
+                <div v-for="theme of themes"
+                     :class="{theme: 1, active: theme.name === settings.user.theme}"
+                     :data-name="`Choose ${theme.name} theme`"
+                     @click="select(theme.name)">
+
+                    <div v-for="color of theme.colors"
+                         :style="{background: color}"
+                         :title="color"
+                         class="color"></div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -20,15 +30,17 @@
     // Theme stylesheet
     import themeStyleSheet from '!raw-loader!../../../../scss/themes.scss';
 
+    // Vuex stuff
+    import {mapState} from 'vuex';
+
     export default {
 
         data() {
             const {matchAll} = this.$utils;
 
             return {
-                currentTheme: 'default',
                 themes: (() => {
-                    const sections = matchAll(themeStyleSheet, /^[\w]+\.?([\w]+)? {([\n\r\W\S]+?)}/gm);
+                    const sections = matchAll(themeStyleSheet, /^[\w#]+\.?([\w]+)? {([\n\r\W\S]+?)}/gm);
                     const themes = [];
 
                     for (const [, variant, styles] of sections) {
@@ -45,16 +57,17 @@
             };
         },
 
+        computed: {
+            ...mapState(['settings'])
+        },
+
         methods: {
 
             select(theme) {
-                const {body} = document;
-                body.classList.remove(this.currentTheme);
-                body.classList.add(theme, 'disable-transitions');
-
-                // Disable transition during repaint
-                requestAnimationFrame(() => body.classList.remove('disable-transitions'));
-                this.currentTheme = theme;
+                this.$store.dispatch('settings/change', state => {
+                    state.user.theme = theme;
+                    return state;
+                });
             }
         }
     };
@@ -65,6 +78,7 @@
 
     .themes {
         width: 100%;
+        max-width: 25em;
 
         .theme {
             @include size(2.5em, 100%);

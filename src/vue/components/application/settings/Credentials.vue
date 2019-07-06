@@ -158,7 +158,7 @@
                 margin-top: 1.5em;
                 border-radius: 0.15em;
                 padding: 0.55em 1.3em 0.6em;
-                color: RGB(var(--primary-background-color));
+                color: RGB(var(--teritary-text-color));
                 transition: all 0.3s;
 
                 &.delete-account {

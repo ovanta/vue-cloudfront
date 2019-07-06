@@ -1,4 +1,4 @@
-body {
+#app {
     // Color palette
     --primary-background-color: 254, 253, 255;
     --secondary-background-color: 243, 239, 243;
@@ -20,7 +20,7 @@ body {
 }
 
 // Dark theme
-body.dark {
+#app.dark {
 
     // Color palette
     --primary-background-color: 54, 57, 63;

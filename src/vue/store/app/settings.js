@@ -14,7 +14,8 @@ export const settings = {
         user: {
             siPrefix: true,
             hideTooltips: false,
-            immediateDeletion: false
+            immediateDeletion: false,
+            theme: 'default'
         }
     },
 

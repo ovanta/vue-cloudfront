@@ -1,5 +1,7 @@
 <template>
-    <div id="app" @contextmenu.prevent="">
+    <div id="app"
+         :class="{[theme]: 1, 'disable-transitions': disableTransitions}"
+         @contextmenu.prevent="">
 
         <!-- Background shapes -->
         <div class="app-background">
@@ -41,7 +43,24 @@
         components: {Cloudfront},
 
         data() {
-            return {};
+            return {
+                disableTransitions: false
+            };
+        },
+
+        computed: {
+            theme() {
+                return this.$store.state.settings.user.theme;
+            }
+        },
+
+        watch: {
+            theme() {
+
+                // Disable transition during repaint
+                this.disableTransitions = true;
+                requestAnimationFrame(() => this.disableTransitions = false);
+            }
         },
 
         beforeCreate() {
@@ -68,7 +87,7 @@
         width: 100%;
     }
 
-    body {
+    #app {
         background: RGB(var(--secondary-background-color));
         font-family: $font-family;
 
@@ -81,7 +100,6 @@
 
     .app-background {
         position: fixed;
-        z-index: -1;
         @include position(0, 0, 0, 0);
 
         svg {
