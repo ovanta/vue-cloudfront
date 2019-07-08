@@ -196,8 +196,8 @@
         }
 
         &.selected {
-            border-color: RGBA(var(--static-cloud-blue), 0.75);
-            background: RGBA(var(--static-cloud-blue), 0.1);
+            border-color: RGBA(var(--focus-color), 0.75);
+            background: RGBA(var(--focus-color), 0.1);
 
             &:nth-child(n+2) {
                 margin-top: -1px;

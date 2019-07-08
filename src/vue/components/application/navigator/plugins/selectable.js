@@ -13,8 +13,8 @@ export default new Selection({
     singleClick: false,
 
     startThreshold: 10,
-
     disableTouch: true,
+    selectionAreaContainer: '#app',
 
     selectables: ['.file', '.dir'],
     startareas: ['.views'],

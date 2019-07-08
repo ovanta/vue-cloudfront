@@ -108,7 +108,7 @@
             cursor: pointer;
 
             &:hover {
-                color: RGB(var(--static-tomato-red));
+                color: RGB(var(--static-error-color));
             }
         }
     }

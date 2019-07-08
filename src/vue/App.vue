@@ -139,8 +139,8 @@
     }
 
     .selection-area {
-        background: RGBA(var(--static-cloud-blue), 0.02);
-        border: 1px solid RGBA(var(--static-cloud-blue), 0.6);
+        background: RGBA(var(--focus-color), 0.02);
+        border: 1px solid RGBA(var(--focus-color), 0.6);
     }
 
     // Font awesome default size

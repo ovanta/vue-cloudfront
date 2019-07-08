@@ -68,15 +68,15 @@
             border-radius: 0.15em;
 
             &[data-type='error'] {
-                background: RGBA(var(--static-tomato-red), 0.04);
-                border-color: RGBA(var(--static-tomato-red), 0.35);
-                color: RGB(var(--static-tomato-red));
+                background: RGBA(var(--static-error-color), 0.04);
+                border-color: RGBA(var(--static-error-color), 0.35);
+                color: RGB(var(--static-error-color));
             }
 
             &[data-type='warn'] {
-                background: RGBA(var(--static-sunshine-yellow), 0.05);
-                border-color: RGBA(var(--static-sunshine-yellow), 0.5);
-                color: RGB(var(--static-sunshine-yellow));
+                background: RGBA(var(--static-warning-color), 0.05);
+                border-color: RGBA(var(--static-warning-color), 0.5);
+                color: RGB(var(--static-warning-color));
             }
 
             > span {

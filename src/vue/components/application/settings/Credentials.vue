@@ -163,7 +163,7 @@
 
                 &.delete-account {
                     margin-right: 1em;
-                    background: RGB(var(--static-tomato-red));
+                    background: RGB(var(--static-error-color));
 
                     &:hover {
                         filter: brightness(0.9);

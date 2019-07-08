@@ -193,7 +193,7 @@
 
         .error {
             @include font(600, 0.75em);
-            color: RGB(var(--static-tomato-red));
+            color: RGB(var(--static-error-color));
             margin-top: 1em;
             height: 1em;
         }

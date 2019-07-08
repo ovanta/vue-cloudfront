@@ -106,7 +106,7 @@
             }
 
             .delete {
-                background: RGB(var(--static-tomato-red));
+                background: RGB(var(--static-error-color));
                 @include font(600, 0.75em);
                 padding: 0.35em 0.5em;
                 color: RGB(var(--primary-background-color));
@@ -151,7 +151,7 @@
         }
 
         .remove-all {
-            background: RGB(var(--static-tomato-red));
+            background: RGB(var(--static-error-color));
 
             &:hover {
                 filter: brightness(0.9);

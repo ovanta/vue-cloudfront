@@ -56,7 +56,7 @@
             }
 
             &.offline {
-                background: RGB(var(--static-tomato-red));
+                background: RGB(var(--static-error-color));
                 color: RGB(var(--teritary-text-color));
             }
         }

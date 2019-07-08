@@ -11,12 +11,11 @@
     // Misc
     --shadow-mini: 0 1px 3px 0 RGBA(var(--primary-text-color), 0.15);
     --drop-shadow-big: drop-shadow(0 3px 8px RGBA(var(--primary-text-color), 0.2));
-    --shadow-droppable-node-grid-item: 0 1px 3px 0 rgba(var(--static-cloud-blue), 0.5), 0 0 0 1px rgba(var(--static-cloud-blue), 0.75);
+    --shadow-droppable-node-grid-item: 0 1px 3px 0 rgba(var(--focus-color), 0.5), 0 0 0 1px rgba(var(--focus-color), 0.75);
 
-    // Static colors
-    --static-cloud-blue: 83, 138, 252;
-    --static-tomato-red: 230, 59, 65;
-    --static-sunshine-yellow: 245, 189, 0;
+    --focus-color: 83, 138, 252;
+    --static-error-color: 230, 59, 65;
+    --static-warning-color: 245, 189, 0;
 }
 
 // Dark theme
@@ -33,4 +32,6 @@
 
     --drop-shadow-big: drop-shadow(0 3px 8px RGB(var(--secondary-background-color)));
     --shadow-mini: 0 0 0 2px RGB(var(--secondary-background-color));
+
+    --focus-color: 83, 138, 252;
 }

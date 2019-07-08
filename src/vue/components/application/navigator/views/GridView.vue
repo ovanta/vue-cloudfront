@@ -206,12 +206,12 @@
 
         &.selected,
         &.droppable {
-            border-color: RGBA(var(--static-cloud-blue), 0.75);
+            border-color: RGBA(var(--focus-color), 0.75);
             box-shadow: var(--shadow-droppable-node-grid-item);
 
             &.droppable {
-                box-shadow: 0 1px 8px 0 RGBA(var(--static-cloud-blue), 0.5),
-                0 0 0 1px RGBA(var(--static-cloud-blue), 0.75);
+                box-shadow: 0 1px 8px 0 RGBA(var(--focus-color), 0.5),
+                0 0 0 1px RGBA(var(--focus-color), 0.75);
 
                 transform: translateY(-2px);
                 transition: all 0.3s;

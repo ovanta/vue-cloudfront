@@ -23,8 +23,8 @@ import * as _ from './utils';
  * @returns {{options: *, _init()}} A Draggable instance
  */
 export default function (opt) {
-
     const selectAll = (query, element = document) => Array.from(element.querySelectorAll(query));
+    const container = document.querySelector(opt.container || 'body');
 
     const that = {
 
@@ -114,7 +114,7 @@ export default function (opt) {
                     });
 
                     // Append to body
-                    document.body.appendChild(cloned);
+                    container.appendChild(cloned);
 
                     // Map ghost and return it
                     return mapGhost(cloned) || cloned;
