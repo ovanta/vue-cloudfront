@@ -10,7 +10,7 @@
 
             <div class="input">
                 <div v-for="theme of themes"
-                     :class="{theme: 1, active: theme.name === settings.user.theme}"
+                     :class="{theme: 1, active: theme.name === activeTheme}"
                      :data-name="`Choose ${theme.name} theme`"
                      @click="select(theme.name)">
 
@@ -18,6 +18,16 @@
                          :style="{background: color}"
                          :title="color"
                          class="color"></div>
+
+                    <div v-if="theme.name === activeTheme" class="overlay">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                             width="24" 
+                             height="24" 
+                             viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
@@ -29,9 +39,6 @@
 
     // Theme stylesheet
     import themeStyleSheet from '!raw-loader!../../../../scss/themes.scss';
-
-    // Vuex stuff
-    import {mapState} from 'vuex';
 
     export default {
 
@@ -58,7 +65,10 @@
         },
 
         computed: {
-            ...mapState(['settings'])
+
+            activeTheme() {
+                return this.$store.state.settings.user.theme;
+            }
         },
 
         methods: {
@@ -93,6 +103,17 @@
 
             .color {
                 @include size(100%);
+            }
+
+            .overlay {
+                @include flex(row, center, center);
+                @include size(100%);
+                position: absolute;
+                background: RGBA(var(--secondary-background-color), 0.35);
+
+                svg {
+                    fill: RGB(var(--primary-text-color))
+                }
             }
 
             &:not(.active)::before {
