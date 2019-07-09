@@ -94,11 +94,16 @@
             <span class="name">Share</span>
         </div>
 
-        <div v-if="type === 'dir'" class="option sub">
-            <i class="fas fa-fw fa-palette"></i>
-            <span class="name">Change color</span>
-            <color-chooser class="sub-menu" @change="setColor"/>
-        </div>
+        <pickr ref="pickr"
+               :color="nodes.length ? nodes[0].color : undefined"
+               @save="setColor">
+
+            <!-- Activator -->
+            <div v-if="type === 'dir'" class="option sub">
+                <i class="fas fa-fw fa-palette"></i>
+                <span class="name">Change color</span>
+            </div>
+        </pickr>
 
     </div>
 </template>
@@ -106,14 +111,14 @@
 <script>
 
     // Components
-    import ColorChooser from './ColorChooser';
+    import Pickr from '../../../../ui/input/Pickr';
 
     // Vue stuff
     import {mapState} from 'vuex';
 
     export default {
 
-        components: {ColorChooser},
+        components: {Pickr},
 
         data() {
             return {
@@ -136,9 +141,9 @@
                     return 2;
                 } else if (amount) {
                     return 1;
-                } 
-                    return 0;
-                
+                }
+
+                return 0;
             },
 
             deleted() {
@@ -225,6 +230,7 @@
             // Event to hide the menu
             this.$on('hide', () => {
                 this.$utils.off(window, ['mousedown', 'touchstart'], detectOutsideClick);
+                this.$refs.pickr.hide();
                 this.open = false;
             });
         },
@@ -343,6 +349,7 @@
 
             setColor(color) {
                 this.$store.dispatch('nodes/changeColor', {nodes: this.nodes, color});
+                this.$emit('hide');
             },
 
             share() {
