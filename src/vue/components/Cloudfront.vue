@@ -54,7 +54,7 @@
     import UploadToasts from './UploadToasts';
 
     // Popovers
-    import KeyboardShortcuts from './application/popup/KeyboardShortcuts';
+    import KeyboardShortcuts from './application/popup/keyboard-shortcuts/KeyboardShortcuts';
     import SearchFilters     from './application/popup/SearchFilters';
     import ShareViaLink      from './application/popup/ShareViaLink';
 
