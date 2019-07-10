@@ -1,7 +1,6 @@
 import store from '../../../../../store';
 
 const {state} = store;
-const {activeTab} = state;
 
 export default {
     name: 'General',
@@ -66,7 +65,7 @@ export default {
             keys: ['Backspace'],
             action: 'Go up in hierarchy.',
             fn() {
-                if (activeTab === 'home') {
+                if (state.activeTab === 'home') {
                     store.dispatch('location/goUp');
                 }
             }

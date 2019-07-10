@@ -1,7 +1,7 @@
 import store from '../../../../../store';
 
 const {state} = store;
-const {selection, activeTab, clipboard} = state;
+const {selection, clipboard} = state;
 
 export default {
     name: 'Actions',
@@ -25,7 +25,7 @@ export default {
             keys: ['Control', 'c'],
             action: 'Copy folder / files.',
             fn() {
-                if (activeTab === 'home' && selection.length) {
+                if (state.activeTab === 'home' && selection.length) {
 
                     // Save to clipboard
                     store.commit('clipboard/clear');
