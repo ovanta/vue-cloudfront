@@ -23,7 +23,6 @@
     },
     "rules": {
         "no-cond-assign": "off",
-        "vue/require-v-for-key": "off",
         "vue/html-indent": [
             "error",
             4,

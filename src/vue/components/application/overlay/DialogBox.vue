@@ -13,6 +13,7 @@
             <div class="actions">
                 <button v-for="(btn, index) of dialogbox.buttons"
                         :class="btn.type"
+                        :key="btn.text"
                         @click="close(index)">{{ btn.text }}
                 </button>
             </div>

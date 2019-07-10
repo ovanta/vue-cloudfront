@@ -14,7 +14,9 @@
 
         <!-- List of active uploads -->
         <div ref="uploads" class="uploads">
-            <div v-for="upload of uploads" class="upload">
+            <div v-for="upload of uploads"
+                 :key="upload.total"
+                 class="upload">
 
                 <span class="info-message">{{ genStatusMessage(upload) }}</span>
 

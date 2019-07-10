@@ -28,6 +28,7 @@
             <!-- Folders -->
             <div v-double-tap="() => updateLocation(node)"
                  v-for="node of sortedNodes.dir"
+                 :key="node.id"
                  :class="{selected: node._selected, dir: 1, cutted: node._cutted}"
                  :data-hash="node.id">
 
@@ -49,6 +50,7 @@
             <!-- Files -->
             <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
                  v-for="(node, index) of sortedNodes.file"
+                 :key="node.id"
                  :class="{selected: node._selected, file: 1, cutted: node._cutted}"
                  :data-hash="node.id">
 

@@ -9,7 +9,9 @@
         <!-- List of exising links -->
         <div class="exising-links">
 
-            <div v-for="id of share.node.staticIds" class="link">
+            <div v-for="id of share.node.staticIds"
+                 :key="id"
+                 class="link">
                 <span class="link" @contextmenu.stop="">{{ apiEndPoint }}/d/{{ id }}</span>
                 <span class="delete" @click="removeId(id)">Delete</span>
             </div>

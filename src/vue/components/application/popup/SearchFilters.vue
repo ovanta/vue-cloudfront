@@ -8,11 +8,15 @@
             <p>Examples</p>
         </div>
 
-        <div v-for="filter of filters" class="filter">
+        <div v-for="filter of filters"
+             :key="filter.description"
+             class="filter">
+
             <span class="description">{{ filter.description }}</span>
 
             <div class="examples">
-                <p v-for="example of filter.examples">{{ example }}</p>
+                <p v-for="example of filter.examples"
+                   :key="example">{{ example }}</p>
             </div>
         </div>
 

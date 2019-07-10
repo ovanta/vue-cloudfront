@@ -18,10 +18,11 @@
 
         <div class="sessions-body">
             <template v-for="(session, index) of auth.activeSessions">
-                <span :class="{country: 1, even: index % 2}">{{ session.country }}</span>
-                <span :class="{city: 1, even: index % 2}">{{ session.city }}</span>
-                <span :class="{browser: 1, even: index % 2}">{{ session.device.os.name }} {{ session.device.os.version }} / {{ session.device.browser.name }} {{ session.device.browser.version }}</span>
-                <span :class="{timestamp: 1, even: index % 2}">{{ $utils.formatDate('HH:mm:ss', session.registerTimestamp) }}</span>
+                <span :key="session.registerTimestamp" :class="{country: 1, even: index % 2}">{{ session.country }}</span>
+                <span :key="session.registerTimestamp" :class="{city: 1, even: index % 2}">{{ session.city }}</span>
+                <span :key="session.registerTimestamp" :class="{browser: 1, even: index % 2}">{{ session.device.os.name }} {{ session.device.os.version }} / {{ session.device.browser.name }} {{ session.device.browser.version }}</span>
+                <span :key="session.registerTimestamp"
+                      :class="{timestamp: 1, even: index % 2}">{{ $utils.formatDate('HH:mm:ss', session.registerTimestamp) }}</span>
             </template>
         </div>
 

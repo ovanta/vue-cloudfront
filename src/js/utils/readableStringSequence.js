@@ -22,13 +22,13 @@ export default (strings, maxCount = 3) => {
 
     if (strings.length <= maxCount) {
         return `${nodesStr} and ${strings[end]}`;
-    } 
+    }
 
-        /**
-         * If there is only one more node, just append it.
-         * Otherwise append 'x others' because '1 others' sounds odd.
-         */
-        const rest = strings.length - maxCount;
-        return `${nodesStr} and ${  rest === 1 ? strings[maxCount] : `${rest} others`}`;
-    
+    /**
+     * If there is only one more node, just append it.
+     * Otherwise append 'x others' because '1 others' sounds odd.
+     */
+    const rest = strings.length - maxCount;
+    return `${nodesStr} and ${rest === 1 ? strings[maxCount] : `${rest} others`}`;
+
 }

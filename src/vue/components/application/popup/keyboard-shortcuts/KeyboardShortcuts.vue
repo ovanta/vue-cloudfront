@@ -1,13 +1,20 @@
 <template>
     <popup store-prop="KeyboardShortcuts" title="Keyboard Shortcuts">
         <div class="shortcut-sections">
-            <section v-for="sec of sections" class="shortcut-section">
+            <section v-for="sec of sections"
+                     :key="sec.name"
+                     class="shortcut-section">
 
                 <h2>{{ sec.name }}</h2>
 
-                <div v-for="shortcut of sec.shortcuts" class="shortcut">
+                <div v-for="shortcut of sec.shortcuts"
+                     :key="shortcut.action"
+                     class="shortcut">
+
                     <div class="keys">
-                        <span v-for="key of shortcut.keys" class="key">{{ key }}</span>
+                        <span v-for="key of shortcut.keys"
+                              :key="key"
+                              class="key">{{ key }}</span>
                     </div>
 
                     <p>{{ shortcut.action }}</p>

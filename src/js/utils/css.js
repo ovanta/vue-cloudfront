@@ -8,7 +8,7 @@
  * @returns {*}
  */
 export default (el, attr, val) => {
-    const unitify = (val, unit = 'px') => typeof val === 'number' ? val + unit : `${  val}`;
+    const unitify = (val, unit = 'px') => typeof val === 'number' ? val + unit : `${val}`;
     const style = el && el.style;
     if (!style) return;
 

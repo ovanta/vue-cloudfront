@@ -9,6 +9,7 @@
         <div :class="{logs: 1, empty: !errors.logs.length}">
             <div v-for="error of errors.logs"
                  :data-type="error.type"
+                 :key="error.data"
                  class="log">
                 <span v-if="error.type === 'error'">🗙</span>
                 <span v-else-if="error.type === 'warn'">⚠</span>

@@ -4,6 +4,7 @@
         <!-- Default display of the current folder hierarchy -->
         <div v-if="!searchResult && !simpleCount" class="nodes">
             <div v-for="(node, index) of nodes"
+                 :key="node.id"
                  :data-hash="node.id"
                  class="node">
 
@@ -22,7 +23,8 @@
             <span v-if="search.query"> for <b>{{ search.query }}</b></span>
 
             <div class="filters">
-                <span v-for="filter of search.filters">{{ filter }}</span>
+                <span v-for="filter of search.filters"
+                      :key="filter">{{ filter }}</span>
             </div>
         </div>
 

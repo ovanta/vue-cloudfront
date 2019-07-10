@@ -3,6 +3,7 @@
 
         <span v-for="(opt, index) of options"
               ref="options"
+              :key="opt"
               :class="{option: 1, active: idx === index}"
               @click="select(index)">
             {{ opt }}
@@ -40,9 +41,9 @@
             (function checkVisibilty() {
                 if (!textSwitchButton.offsetWidth) {
                     return requestAnimationFrame(checkVisibilty.bind(this));
-                } 
-                    this.select(this.active, true);
-                
+                }
+                this.select(this.active, true);
+
             }).bind(this)();
         },
 

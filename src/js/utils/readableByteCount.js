@@ -20,7 +20,7 @@ export default (bytes, mapValue = v => v) => {
     for (let i = 1; i <= 6; i++) {
         if (block < (unit ** i)) {
             const size = Number((block / (unit ** (i - 1))).toFixed(2));
-            const desc = `${  (si ? 'kMGTPEB' : 'kMGTPEiB').charAt(i - 1)  }${si ? '' : 'i'  }B`;
+            const desc = `${(si ? 'kMGTPEB' : 'kMGTPEiB').charAt(i - 1)}${si ? '' : 'i'}B`;
             return mapValue(size) + desc;
         }
     }

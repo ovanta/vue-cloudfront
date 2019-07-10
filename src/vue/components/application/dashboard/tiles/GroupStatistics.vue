@@ -7,7 +7,8 @@
         </h1>
 
         <div class="groups">
-            <p v-for="{name, value} of stats">
+            <p v-for="{name, value} of stats"
+               :key="name">
                 <span>{{ name }}: </span> <b>{{ value || 'None' }}</b>
             </p>
         </div>

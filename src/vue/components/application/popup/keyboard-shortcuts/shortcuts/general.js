@@ -67,7 +67,7 @@ export default {
             action: 'Go up in hierarchy.',
             fn() {
                 if (activeTab === 'home') {
-                    store.dispatch('location/goUp'); // TODO: Change to mutation?
+                    store.dispatch('location/goUp');
                 }
             }
         },

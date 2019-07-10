@@ -12,6 +12,7 @@
 
             <!-- Actual progressbar -->
             <circle v-for="val of prepared"
+                    :key="val.value"
                     :stroke-dashoffset="53.40707511102649 - val.value * 53.40707511102649"
                     :style="{stroke: val.color, transform: `rotate(${val.sumVal * 360}deg)`}"
                     class="tile"
