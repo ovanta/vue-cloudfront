@@ -22,6 +22,33 @@ export default new Selection({
         // Every non-ctrlKey causes a selection reset
         if (!evt.originalEvent.ctrlKey) {
             store.commit('selection/clear');
+            this.clearSelection();
+        }
+    },
+
+    onSelect({selectedElements, originalEvent, target}) {
+        const selected = target.classList.contains('selected');
+        const targetHash = target.getAttribute('data-hash');
+
+        if (!originalEvent.ctrlKey && !originalEvent.metaKey) {
+            store.commit('selection/clear');
+
+            for (const el of selectedElements) {
+                el.classList.remove('selected');
+            }
+
+            this.clearSelection();
+        }
+
+        if (selected) {
+            this.removeFromSelection(target);
+        } else {
+            const selectedNode = store.state.nodes.find(v => v.id === targetHash);
+
+            if (selectedNode) {
+                store.commit('selection/append', [selectedNode]);
+                this.keepSelection();
+            }
         }
     },
 
@@ -35,11 +62,7 @@ export default new Selection({
         changedElements.removed.forEach(v => v.classList.remove('selected'));
     },
 
-    onStop(evt) {
-        const {selectedElements} = evt;
-
-        // Remove selected class, this is getting handled by vue
-        selectedElements.forEach(v => v.classList.remove('selected'));
+    onStop({selectedElements}) {
 
         /**
          * Every element has a data-hash property wich is used
