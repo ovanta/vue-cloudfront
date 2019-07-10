@@ -172,13 +172,13 @@
                 };
 
                 // Check for navigation keys
-                if (keys.KeyArrowup || keys.KeyArrowleft) {
+                if (keys.get('ArrowUp') || keys.get('ArrowLeft')) {
                     this.keyboardSelectionIndex = (idx - 1) < 0 ? all.length - 1 : idx - 1;
                     update();
-                } else if (keys.KeyArrowdown || keys.KeyArrowright) {
+                } else if (keys.get('ArrowDown') || keys.get('ArrowRight')) {
                     this.keyboardSelectionIndex = (idx + 2) > all.length ? 0 : idx + 1;
                     update();
-                } else if (keys.KeyEnter) {
+                } else if (keys.get('Enter')) {
 
                     // Get last node
                     const {selection} = this.$store.state;

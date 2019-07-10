@@ -9,9 +9,6 @@ export default new Selection({
 
     class: 'selection-area',
 
-    // Single click is handled by GridView and ListView
-    singleClick: false,
-
     startThreshold: 10,
     disableTouch: true,
     selectionAreaContainer: '#app',

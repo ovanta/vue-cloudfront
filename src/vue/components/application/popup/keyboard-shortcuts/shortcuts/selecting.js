@@ -66,7 +66,7 @@ export default {
                 const firstFolder = selection.find(v => v.type === 'dir');
 
                 if (firstFolder) {
-                    this.$store.commit('location/update', firstFolder);
+                    store.commit('location/update', firstFolder);
                 }
             }
         },

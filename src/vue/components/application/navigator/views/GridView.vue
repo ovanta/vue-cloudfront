@@ -11,10 +11,7 @@
                 <div v-double-tap="() => updateLocation(node)"
                      v-for="node of croppedNodes.dir"
                      :class="{selected: node._selected, dir: 1, cutted: node._cutted}"
-                     :data-hash="node.id"
-                     @touchend="select($event, node)"
-                     @click.left="select($event, node)"
-                     @click.right="select($event, node)">
+                     :data-hash="node.id">
 
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
@@ -33,10 +30,7 @@
                 <div v-for="(node, index) of croppedNodes.file" class="wrapper">
                     <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
                          :class="{selected: node._selected, file: 1, cutted: node._cutted}"
-                         :data-hash="node.id"
-                         @touchend="select($event, node)"
-                         @click.left="select($event, node)"
-                         @click.right="select($event, node)">
+                         :data-hash="node.id">
 
                         <file-type-preview :node="node"/>
 

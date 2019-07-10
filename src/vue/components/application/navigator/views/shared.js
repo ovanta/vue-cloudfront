@@ -65,39 +65,6 @@ export default {
             });
 
             evt.stopPropagation();
-        },
-
-        select(evt, node) {
-            const state = this.$store.state;
-
-            /**
-             * Clear selection if
-             *  - User hasn't pressed the ctrlKey and used NOT right click (which would open the menu)
-             *  - User used right click AND the node isn't already selected
-             */
-            if ((!evt.ctrlKey && evt.button !== 2) ||
-                (evt.button === 2 && !state.selection.includes(node))) {
-                this.$store.commit('selection/clear');
-            } else if (evt.ctrlKey && evt.shiftKey) {
-
-                // Select all nodes from 0 or an already selected to the target node
-                const selection = state.selection;
-                const nodes = this.nodes.dir.concat(this.nodes.file);
-
-                // Find start and end point
-                const [start, end] = [
-                    selection.length ? nodes.indexOf(selection[0]) : 0,
-                    nodes.indexOf(node)
-                ].sort((a, b) => a - b);
-
-                // Append rage-nodes to selection
-                this.$store.commit('selection/append', nodes.slice(start, end + 1));
-                return;
-            }
-
-            // Toggle
-            const action = evt.button !== 2 && state.selection.includes(node) ? 'remove' : 'append';
-            this.$store.commit(`selection/${action}`, [node]);
         }
     },
 
