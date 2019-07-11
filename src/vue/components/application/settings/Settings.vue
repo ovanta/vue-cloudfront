@@ -3,9 +3,12 @@
 
         <div class="menu">
             <p>Settings</p>
-            <button :class="{active: menu === 'credentials'}" @click="menu = 'credentials'">Credentials</button>
-            <button :class="{active: menu === 'appereance'}" @click="menu = 'appereance'">Appereance</button>
-            <button :class="{active: menu === 'themes'}" @click="menu = 'themes'">Themes</button>
+
+            <div class="btns">
+                <button :class="{active: menu === 'credentials'}" @click="menu = 'credentials'">Credentials</button>
+                <button :class="{active: menu === 'appereance'}" @click="menu = 'appereance'">Appereance</button>
+                <button :class="{active: menu === 'themes'}" @click="menu = 'themes'">Themes</button>
+            </div>
         </div>
 
         <div class="content">
@@ -88,6 +91,17 @@
             > p {
                 @include font(600, 0.9em);
                 margin-bottom: 0.75em;
+
+                @include animate('0.5s ease-out') {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-0.5em);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: none;
+                    }
+                }
             }
 
             button {
@@ -98,6 +112,8 @@
                 margin: 0.35em 0;
                 border-radius: 0.15em;
                 transition: all 0.3s;
+                opacity: 0;
+                transform: translateX(-2em);
 
                 &.active {
                     background: RGB(var(--theme-secondary));
@@ -107,6 +123,14 @@
                 &:hover:not(.active) {
                     background: RGB(var(--secondary-background-color));
                 }
+
+                @include sequential-animation-delay(3, 0.1s);
+                @include animate('0.5s ease-out forwards') {
+                    to {
+                        opacity: 1;
+                        transform: none;
+                    }
+                }
             }
         }
 
@@ -115,6 +139,17 @@
             @include size(100%);
             padding: 0 2em;
             overflow: auto;
+
+            @include animate('0.5s ease-out forwards') {
+                from {
+                    opacity: 0;
+                    transform: translateY(-0.5em);
+                }
+                to {
+                    opacity: 1;
+                    transform: none;
+                }
+            }
         }
     }
 

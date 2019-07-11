@@ -99,9 +99,6 @@
 
                 // Update nodes
                 this.$store.dispatch('nodes/update', {keepLocation: true});
-
-                // Go to home
-                this.changeTab('home');
                 this.open = false;
             }
         }
