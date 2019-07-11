@@ -27,16 +27,16 @@ export default {
         },
         {
             keys: ['j', 'm'],
-            action: 'Switch to marked folder / files.',
+            action: 'Switch to starred folder / files.',
             fn: () => store.commit('setActiveTab', 'marked')
         },
         {
-            keys: ['j', 'c'],
+            keys: ['j', 's'],
             action: 'Switch to settings',
             fn: () => store.commit('setActiveTab', 'settings')
         },
         {
-            keys: ['j', 'b'],
+            keys: ['j', 't'],
             action: 'Switch to bin.',
             fn: () => store.commit('setActiveTab', 'bin')
         },

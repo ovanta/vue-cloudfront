@@ -83,8 +83,7 @@ export const auth = {
                     onResolve: index => {
                         if (index) {
 
-                            // Logout live-sessions
-                            // TODO: Consider additional logging out on invalid apikey
+                            // Logout live-sessions+
                             websocket.broadcast('auth', 'logout');
 
                             // Remove all apikeys
@@ -93,7 +92,7 @@ export const auth = {
                                 body: {apikey}
                             }).then(() => {
                                 localStorage.removeItem('apikey');
-                                location.reload(true);
+                                location.reload();
                                 resolve();
                             }).catch(reject);
                         }

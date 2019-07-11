@@ -17,6 +17,9 @@ export default new Selection({
     startareas: ['.views'],
     boundaries: ['.list'],
 
+    // Don't start selection if user opened the context-menu
+    validateStart: e => e.button !== 2,
+
     onStart(evt) {
 
         // Every non-ctrlKey causes a selection reset

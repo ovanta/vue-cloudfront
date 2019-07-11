@@ -7,11 +7,6 @@ export default {
     name: 'Selecting',
     shortcuts: [
         {
-            keys: ['Control', 'Shift'],
-            action: 'Select everything up to current element.'
-            // Handled by selectionjs
-        },
-        {
             keys: ['Control', 'a'],
             action: 'Select everything.',
             fn({nodes}) {

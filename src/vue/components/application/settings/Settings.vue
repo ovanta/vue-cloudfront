@@ -1,7 +1,6 @@
 <template>
     <div class="settings">
 
-        <!-- TODO: Generate that dynamic -->
         <div class="menu">
             <p>Settings</p>
             <button :class="{active: menu === 'credentials'}" @click="menu = 'credentials'">Credentials</button>

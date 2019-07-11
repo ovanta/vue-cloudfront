@@ -73,9 +73,9 @@
     );
 
     .dialog-box {
-        position: absolute;
         @include position(0, 0, 0, 0);
         @include flex(column, center, center);
+        position: absolute;
         background: RGBA(var(--primary-text-color), 0.125);
         opacity: 0;
         transition: all 0.3s;
@@ -146,7 +146,7 @@
                 text-transform: capitalize;
                 padding: 0.55em 1.25em 0.6em;
                 border-radius: 0.15em;
-                color: RGB(var(--primary-background-color));
+                color: RGB(var(--teritary-text-color));
                 transition: all 0.3s;
 
                 @each $type in $buttons {
@@ -156,7 +156,6 @@
                     &.#{$class-extension} {
                         background: $color;
                         border: 2px solid $color;
-                        color: RGB(var(--primary-text-color));
 
                         &:hover {
                             filter: brightness(0.925);
