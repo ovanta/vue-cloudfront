@@ -14,8 +14,8 @@ export default (el, attr, val) => {
 
     if (typeof attr === 'object') {
 
-        for (const prop in attr) {
-            style[prop] = unitify(attr[prop]);
+        for (const [prop, val] of Object.entries(attr)) {
+            style[prop] = unitify(val);
         }
 
     } else if (val == null) {

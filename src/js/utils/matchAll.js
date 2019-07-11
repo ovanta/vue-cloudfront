@@ -8,6 +8,10 @@
  */
 export default (str, regex) => {
     const matches = [];
-    for (let match; (match = regex.exec(str)); matches.push(match)) ;
+
+    for (let match; (match = regex.exec(str));) {
+        matches.push(match);
+    }
+
     return matches;
 }

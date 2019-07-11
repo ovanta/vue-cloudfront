@@ -48,7 +48,7 @@ export const auth = {
             switch (action) {
                 case 'logout': {
                     localStorage.removeItem('apikey');
-                    location.reload(true);
+                    location.reload();
                 }
             }
         }
@@ -56,10 +56,14 @@ export const auth = {
 
     actions: {
 
+        /**
+         * @param apikey
+         * @returns {Promise<T | never>}
+         */
         async logout({state: {apikey}}) {
             const done = () => {
                 localStorage.removeItem('apikey');
-                location.reload(true);
+                location.reload();
             };
 
             return this.dispatch('fetch', {
@@ -68,6 +72,10 @@ export const auth = {
             }).then(done).catch(done);
         },
 
+        /**
+         * @param apikey
+         * @returns {Promise<*>}
+         */
         async logoutEverywhere({state: {apikey}}) {
             return new Promise((resolve, reject) => {
 
