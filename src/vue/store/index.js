@@ -169,6 +169,13 @@ export default new Vuex.Store({
                 !silent && state.requestsActive--;
 
                 if (error) {
+
+                    // Check if api-key is invalid
+                    if (error.code === -1) {
+                        window.localStorage.removeItem('apikey');
+                        window.location.reload();
+                    }
+
                     throw error;
                 }
 
