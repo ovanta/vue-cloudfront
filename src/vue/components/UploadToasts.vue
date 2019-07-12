@@ -108,9 +108,9 @@
 
                         // Try to resolve error code
                         switch ((upload.error || {}).code) {
-                            case -1:
+                            case 105:
                                 return 'User not logged in. Please reload the page.';
-                            case 2:
+                            case 107:
                                 return `Upload limit of ${this.$utils.readableByteCount(this.auth.status.availableSpace)} exceed.`;
                             default:
                                 return 'Something went wrong...';
