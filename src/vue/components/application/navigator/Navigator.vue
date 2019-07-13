@@ -21,11 +21,6 @@
                    class="fas fa-fw fa-th"
                    @click="setViewType('grid')"></i>
 
-                <!-- Show settings -->
-                <i v-tooltip="'Show settings'"
-                   class="settings fas fa-fw fa-cog"
-                   @click="$store.commit('setActivePopup', 'Settings')"></i>
-
                 <!-- Show keyboard-shortcuts button -->
                 <i v-tooltip="'Show keyboard shortcuts'"
                    class="keyboard far fa-fw fa-keyboard"
@@ -95,7 +90,7 @@
 
         computed: {
             nodes() {
-                const calcFolderSize = this._appliedMediaQueries !== 'mobile' && this.$store.state.viewType === 'list';
+                const calcFolderSize = this.$mediaDevice !== 'mobile' && this.$store.state.viewType === 'list';
                 return this.$store.getters['nodes/currentDisplayedNodes'](calcFolderSize);
             },
 
@@ -177,13 +172,13 @@
                 };
 
                 // Check for navigation keys
-                if (keys.KeyArrowup || keys.KeyArrowleft) {
+                if (keys.get('ArrowUp') || keys.get('ArrowLeft')) {
                     this.keyboardSelectionIndex = (idx - 1) < 0 ? all.length - 1 : idx - 1;
                     update();
-                } else if (keys.KeyArrowdown || keys.KeyArrowright) {
+                } else if (keys.get('ArrowDown') || keys.get('ArrowRight')) {
                     this.keyboardSelectionIndex = (idx + 2) > all.length ? 0 : idx + 1;
                     update();
-                } else if (keys.KeyEnter) {
+                } else if (keys.get('Enter')) {
 
                     // Get last node
                     const {selection} = this.$store.state;
@@ -215,7 +210,7 @@
     .nav {
         @include flex(row);
         flex-shrink: 0;
-        border-bottom: 2px solid $palette-sick-white;
+        border-bottom: 2px solid RGB(var(--secondary-background-color));
         padding-bottom: 1em;
         margin: 2em 1.5em 0 1.5em;
 
@@ -226,7 +221,7 @@
             flex-shrink: 0;
 
             i {
-                color: $palette-decent-blue;
+                color: RGB(var(--secondary-text-color));
                 cursor: pointer;
                 margin-left: 0.5em;
                 transition: all 0.3s;
@@ -241,7 +236,7 @@
                 }
 
                 &:hover {
-                    color: $palette-theme-primary;
+                    color: RGB(var(--theme-primary));
                 }
             }
         }
@@ -271,7 +266,7 @@
             width: 100%;
             flex-grow: 1000;
             padding-bottom: 10%;
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
 
             p {
                 @include font(600, 0.9em);

@@ -46,8 +46,8 @@
 
     .tile {
         border-radius: 0.25em;
-        background: white;
-        border: 2px solid $palette-sick-white;
+        background: RGB(var(--primary-background-color));
+        border: 2px solid RGB(var(--secondary-background-color));
         padding: 2.5vh 0.75vw;
         opacity: 0;
         transform: translateY(-0.1em);
@@ -56,7 +56,7 @@
             @include flex(row, center);
             @include font(600, 1em);
             margin: 0 0 1em 0.25em;
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
 
             i {
                 font-size: 1em;
@@ -105,37 +105,6 @@
             to {
                 opacity: 1;
                 transform: none;
-            }
-        }
-    }
-
-    @include mq-phones {
-        .dashboard {
-            grid-template-rows: repeat(auto-fill, 1fr);
-            grid-template-columns: 1fr;
-            overflow: auto;
-        }
-
-        .tile {
-
-            &.digital-clock {
-                grid-area: 1;
-            }
-
-            &.data-statistics {
-                grid-area: 2;
-            }
-
-            &.group-statistics {
-                grid-area: 3;
-            }
-
-            &.active-sessions {
-                grid-area: 4;
-            }
-
-            &.error-log {
-                grid-area: 5;
             }
         }
     }

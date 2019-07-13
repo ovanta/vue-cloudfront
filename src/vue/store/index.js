@@ -7,8 +7,8 @@ import config from '../../../config/config.json';
 // Server-related nodes
 import {nodes}     from './app/nodes';
 import {auth}      from './app/auth';
-import {stats}     from './app/stats';
 import {data}      from './app/data';
+import {settings}  from './app/settings';
 import {dialogbox} from './virtual/dialogbox';
 
 // Virtual modules act only as visual helpers / representation
@@ -35,11 +35,11 @@ export default new Vuex.Store({
         // Holds a session key
         auth,
 
-        // Holds user related content
-        stats,
-
         // Responsible for uploading / downloading data
         data,
+
+        // User settings
+        settings,
 
         // Holds a single node where you are currently
         location,
@@ -144,16 +144,16 @@ export default new Vuex.Store({
             !silent && state.requestsActive++;
             return fetch(`${config.apiEndPoint}/${route}`, {
                 method: 'POST',
+                body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
-                },
-                body: JSON.stringify(body)
+                }
             }).then(async response => {
 
                 if (raw) {
                     return {
-                        response, done: () => state.requestsActive--
+                        response, done: () => !silent && state.requestsActive--
                     };
                 }
 
@@ -161,13 +161,20 @@ export default new Vuex.Store({
 
                     /* eslint-disable no-console */
                     console.warn(response);
-                    throw 'Fetch failed';
+                    !silent && state.requestsActive--;
+                    throw {code: 0, text: 'Try again later'};
                 }
 
                 const {error, data} = await response.json();
                 !silent && state.requestsActive--;
 
                 if (error) {
+
+                    // Check if api-key is invalid
+                    if (error.code === -1) {
+                        this.commit('auth/localLogout');
+                    }
+
                     throw error;
                 }
 

@@ -1,7 +1,10 @@
 {
     "env": {
-        "node": true,
+        "es6": true,
         "commonjs": true
+    },
+    "globals": {
+        "process": true
     },
     "extends": [
         "eslint:recommended",
@@ -20,7 +23,6 @@
     },
     "rules": {
         "no-cond-assign": "off",
-        "vue/require-v-for-key": "off",
         "vue/html-indent": [
             "error",
             4,

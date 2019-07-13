@@ -94,11 +94,16 @@
             <span class="name">Share</span>
         </div>
 
-        <div v-if="type === 'dir'" class="option sub">
-            <i class="fas fa-fw fa-palette"></i>
-            <span class="name">Change color</span>
-            <color-chooser class="sub-menu" @change="setColor"/>
-        </div>
+        <pickr ref="pickr"
+               :color="nodes.length ? nodes[0].color : undefined"
+               @save="setColor">
+
+            <!-- Activator -->
+            <div v-if="type === 'dir'" class="option sub">
+                <i class="fas fa-fw fa-palette"></i>
+                <span class="name">Change color</span>
+            </div>
+        </pickr>
 
     </div>
 </template>
@@ -106,14 +111,14 @@
 <script>
 
     // Components
-    import ColorChooser from './ColorChooser';
+    import Pickr from '../../../../ui/input/Pickr';
 
     // Vue stuff
     import {mapState} from 'vuex';
 
     export default {
 
-        components: {ColorChooser},
+        components: {Pickr},
 
         data() {
             return {
@@ -136,9 +141,9 @@
                     return 2;
                 } else if (amount) {
                     return 1;
-                } else {
-                    return 0;
                 }
+
+                return 0;
             },
 
             deleted() {
@@ -225,6 +230,7 @@
             // Event to hide the menu
             this.$on('hide', () => {
                 this.$utils.off(window, ['mousedown', 'touchstart'], detectOutsideClick);
+                this.$refs.pickr.hide();
                 this.open = false;
             });
         },
@@ -343,6 +349,7 @@
 
             setColor(color) {
                 this.$store.dispatch('nodes/changeColor', {nodes: this.nodes, color});
+                this.$emit('hide');
             },
 
             share() {
@@ -365,7 +372,7 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s;
-        background: white;
+        background: RGB(var(--primary-background-color));
         padding: 0.4em 0;
         box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.2);
         border-radius: 0.25em;
@@ -389,7 +396,7 @@
             font-size: 0.85em;
             cursor: pointer;
             transition: all 0.3s;
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
             padding: 0.6em 1em;
 
             i {
@@ -402,7 +409,7 @@
             }
 
             &:hover {
-                background: rgba($palette-asphalt, 0.09);
+                background: RGB(var(--secondary-background-color));
             }
 
             &.sub {
@@ -424,7 +431,7 @@
                     left: 105%;
                     bottom: -200%;
                     box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
-                    background: white;
+                    background: RGB(var(--primary-background-color));
                     padding: 1em;
                     pointer-events: none;
                     opacity: 0;
@@ -480,7 +487,7 @@
 
                 :hover,
                 &.delete:hover {
-                    color: $palette-asphalt;
+                    color: RGB(var(--primary-text-color));
                 }
 
                 &.sub {

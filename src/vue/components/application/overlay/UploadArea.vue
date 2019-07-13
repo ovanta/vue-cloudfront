@@ -72,7 +72,7 @@
         z-index: 155;
 
         i, p {
-            color: $palette-theme-primary;
+            color: RGB(var(--theme-primary));
             @include animate('0.5s ease-in-out') {
                 from {
                     transform: translateY(0.25em);

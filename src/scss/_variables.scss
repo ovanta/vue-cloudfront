@@ -2,19 +2,5 @@
 
 $font-family: 'Open Sans';
 
-// Color palette
-$palette-snow-white: #f5f6f7;
-$palette-decent-blue: #c5c8d1;
-$palette-blurry-gray: #d0d2d9;
-$palette-asphalt: #32374d;
-$palette-cloud-blue: #538afc;
-$palette-tomatoe-red: #e63b41;
-$palette-sunshine-yellow: #f5bd00;
-$palette-sick-white: mix($palette-asphalt, white, 3.75);
-
-// Theme colors
-$palette-theme-primary: #7062de;
-$palette-theme-secondary: #7c6ded;
-
 // Transparency pattern
 $pattern-transparency: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="rgba(155, 155, 155, 0.2)" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');

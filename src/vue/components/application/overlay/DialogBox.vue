@@ -13,6 +13,7 @@
             <div class="actions">
                 <button v-for="(btn, index) of dialogbox.buttons"
                         :class="btn.type"
+                        :key="btn.text"
                         @click="close(index)">{{ btn.text }}
                 </button>
             </div>
@@ -67,15 +68,15 @@
 <style lang="scss" scoped>
 
     $buttons: (
-        (class: 'accept', color: $palette-cloud-blue),
-        (class: 'cancel', color: $palette-tomatoe-red)
+        (class: 'accept', color: RGB(var(--focus-color))),
+        (class: 'cancel', color: RGB(var(--static-error-color)))
     );
 
     .dialog-box {
-        position: absolute;
         @include position(0, 0, 0, 0);
         @include flex(column, center, center);
-        background: rgba($palette-asphalt, 0.125);
+        position: absolute;
+        background: RGBA(var(--primary-text-color), 0.125);
         opacity: 0;
         transition: all 0.3s;
         pointer-events: none;
@@ -106,11 +107,11 @@
 
     .content {
         @include width(50vw, 5em, 25em);
-        background: $palette-snow-white;
-        color: $palette-asphalt;
+        background: RGB(var(--secondary-background-color));
+        color: RGB(var(--primary-text-color));
         padding: 0.75em 1.25em;
         border-radius: 0.15em;
-        box-shadow: 0 0.4em 1.5em rgba($palette-asphalt, 0.125);
+        box-shadow: 0 0.4em 1.5em RGBA(var(--primary-text-color), 0.125);
         opacity: 0;
         transform-origin: top center;
         transform: translateY(-0.5em) scale(0.95);
@@ -145,7 +146,7 @@
                 text-transform: capitalize;
                 padding: 0.55em 1.25em 0.6em;
                 border-radius: 0.15em;
-                color: white;
+                color: RGB(var(--teritary-text-color));
                 transition: all 0.3s;
 
                 @each $type in $buttons {
@@ -158,12 +159,6 @@
 
                         &:hover {
                             filter: brightness(0.925);
-                        }
-
-                        @if (lightness($color) > 75) {
-                            color: $palette-asphalt;
-                        } @else {
-                            color: $palette-snow-white;
                         }
                     }
                 }

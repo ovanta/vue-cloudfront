@@ -23,8 +23,8 @@ import * as _ from './utils';
  * @returns {{options: *, _init()}} A Draggable instance
  */
 export default function (opt) {
-
     const selectAll = (query, element = document) => Array.from(element.querySelectorAll(query));
+    const container = document.querySelector(opt.container || 'body');
 
     const that = {
 
@@ -66,7 +66,7 @@ export default function (opt) {
         },
 
         _onTapStart(evt) {
-            let {x, y} = _.simplifyEvent(evt);
+            const {x, y} = _.simplifyEvent(evt);
 
             // Resolve query selectors
             const draggable = selectAll(that.options.draggable);
@@ -114,7 +114,7 @@ export default function (opt) {
                     });
 
                     // Append to body
-                    document.body.appendChild(cloned);
+                    container.appendChild(cloned);
 
                     // Map ghost and return it
                     return mapGhost(cloned) || cloned;

@@ -45,7 +45,7 @@
 
                 /* eslint-disable vue/no-side-effects-in-computed-properties */
                 this.empty = false;
-                return this.$store.getters['buildStaticUrl'](this.node);
+                return this.$store.getters.buildStaticUrl(this.node);
             }
         }
     };

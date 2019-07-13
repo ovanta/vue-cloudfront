@@ -47,27 +47,38 @@ export const auth = {
         socketSync(_, {action}) {
             switch (action) {
                 case 'logout': {
-                    localStorage.removeItem('apikey');
-                    location.reload(true);
+                    this.commit('auth/localLogout');
                 }
             }
+        },
+
+        localLogout() {
+            localStorage.removeItem('apikey');
+            localStorage.removeItem('theme');
+            location.reload();
         }
     },
 
     actions: {
 
+        /**
+         * @param apikey
+         * @returns {Promise<T | never>}
+         */
         async logout({state: {apikey}}) {
-            const done = () => {
-                localStorage.removeItem('apikey');
-                location.reload(true);
-            };
-
-            return this.dispatch('fetch', {
+            await this.dispatch('fetch', {
+                silent: true,
                 route: 'logout',
                 body: {apikey}
-            }).then(done).catch(done);
+            });
+
+            this.commit('auth/localLogout');
         },
 
+        /**
+         * @param apikey
+         * @returns {Promise<*>}
+         */
         async logoutEverywhere({state: {apikey}}) {
             return new Promise((resolve, reject) => {
 
@@ -84,7 +95,6 @@ export const auth = {
                         if (index) {
 
                             // Logout live-sessions
-                            // TODO: Consider additional logging out on invalid apikey
                             websocket.broadcast('auth', 'logout');
 
                             // Remove all apikeys
@@ -92,8 +102,7 @@ export const auth = {
                                 route: 'logoutEverywhere',
                                 body: {apikey}
                             }).then(() => {
-                                localStorage.removeItem('apikey');
-                                location.reload(true);
+                                this.commit('auth/localLogout');
                                 resolve();
                             }).catch(reject);
                         }
@@ -126,8 +135,8 @@ export const auth = {
 
                 // Update nodes and perform first-time sync of stats
                 return Promise.all([
+                    this.dispatch('settings/update'),
                     this.dispatch('nodes/update'),
-                    this.dispatch('stats/update'),
                     this.dispatch('auth/status')
                 ]);
             });
@@ -154,11 +163,10 @@ export const auth = {
                 // Jump to dashboard
                 this.commit('setActiveTab', 'dashboard');
 
-                // Update nodes and perform first-time sync of stats
+                // Update nodes
                 return Promise.all([
                     this.dispatch('nodes/update'),
-                    this.dispatch('auth/status'),
-                    this.dispatch('stats/sync')
+                    this.dispatch('auth/status')
                 ]);
             });
         },
@@ -181,8 +189,8 @@ export const auth = {
 
                 // Update everything
                 return Promise.all([
+                    this.dispatch('settings/update'),
                     this.dispatch('nodes/update'),
-                    this.dispatch('stats/update'),
                     this.dispatch('auth/status')
                 ]);
             }).catch(() => {

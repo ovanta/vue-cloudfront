@@ -1,5 +1,5 @@
 <template>
-    <div v-if="stats.introBoxes.includes(id)"
+    <div v-if="settings.static.introBoxes.includes(id)"
          ref="introBox"
          class="intro-box"
          @click="toggle">
@@ -85,7 +85,7 @@
         },
 
         computed: {
-            ...mapState(['stats'])
+            ...mapState(['settings'])
         },
 
         methods: {
@@ -116,15 +116,15 @@
             },
 
             close() {
-                this.$store.dispatch('stats/change', stats => {
-                    stats.introBoxes = stats.introBoxes.filter(v => v !== this.id);
+                this.$store.dispatch('settings/change', stats => {
+                    stats.static.introBoxes = stats.static.introBoxes.filter(v => v !== this.id);
                     return stats;
                 });
             },
 
             closeAll() {
-                this.$store.dispatch('stats/change', stats => {
-                    stats.introBoxes = [];
+                this.$store.dispatch('settings/change', stats => {
+                    stats.static.introBoxes = [];
                     return stats;
                 });
             }
@@ -148,7 +148,7 @@
         margin: auto;
         overflow: visible;
         opacity: 0.9;
-        fill: $palette-theme-primary;
+        fill: RGB(var(--theme-primary));
         cursor: pointer;
 
         @include animate('1.5s ease-in-out infinite') {
@@ -168,8 +168,8 @@
 
     .inner-circle,
     .outer-circle {
-        position: absolute;
         @include position(0, 0, 0, 0);
+        position: absolute;
         margin: auto;
         display: inline-block;
         border-radius: 100%;
@@ -194,18 +194,18 @@
 
     .inner-circle {
         @include size(16px);
-        border: 2px solid $palette-theme-secondary;
+        border: 2px solid RGB(var(--theme-secondary));
         animation-delay: 0.25s;
     }
 
     .outer-circle {
         @include size(20px);
-        border: 2px solid $palette-theme-primary;
+        border: 2px solid RGB(var(--theme-primary));
     }
 
     .introduction {
         position: fixed;
-        background: white;
+        background: RGB(var(--primary-background-color));
         border-radius: 0.2em;
         width: 15em;
         z-index: 1;
@@ -213,7 +213,7 @@
         pointer-events: none;
         transform: translateY(2em) rotateX(-10deg) perspective(100px);
         transition: opacity 0.3s, transform 0.3s;
-        filter: drop-shadow(0 3px 8px rgba($palette-asphalt, 0.2));
+        filter: var(--drop-shadow-big);
 
         &.visible {
             opacity: 1;
@@ -227,13 +227,13 @@
             @include size(0);
             margin: auto;
             border: 10px solid transparent;
-            border-bottom-color: $palette-theme-primary;
+            border-bottom-color: RGB(var(--theme-primary));
         }
 
         .header {
             position: relative;
-            background: $palette-theme-primary;
-            padding: 0.2em 0.75em;
+            background: RGB(var(--theme-primary));
+            padding: 0.75em 0.75em;
             color: #fff;
             border-radius: 0.2em 0.2em 0 0;
             overflow: hidden;
@@ -253,7 +253,7 @@
                 transform: rotate(30deg);
                 margin: auto;
                 height: 150%;
-                fill: $palette-theme-secondary;
+                fill: RGB(var(--theme-secondary));
             }
         }
 
@@ -265,7 +265,7 @@
             p {
                 @include font(400, 0.8em);
                 line-height: 1.3em;
-                color: rgba($palette-asphalt, 0.75);
+                color: RGBA(var(--primary-text-color), 0.75);
             }
 
             .actions {
@@ -273,18 +273,18 @@
 
                 button {
                     @include flex(row, center);
-                    background: rgba(black, 0.1);
-                    padding: 0.5em 0.85em;
+                    background: RGBA(var(--primary-text-color), 0.1);
+                    padding: 0.5em 0.85em 0.55em;
                     margin-top: 1em;
                     margin-left: 1em;
-                    color: rgba(black, 0.5);
+                    color: RGBA(var(--primary-text-color), 0.5);
                     border-radius: 0.15em;
                     transition: all 0.3s;
                     @include font(600, 0.7em);
 
                     &:hover {
-                        background: $palette-theme-primary;
-                        color: white;
+                        background: RGB(var(--theme-primary));
+                        color: RGB(var(--primary-background-color));
                     }
 
                     i {
@@ -297,12 +297,12 @@
                 .skip {
                     font-size: 0.8em;
                     text-decoration: underline;
-                    color: rgba($palette-blurry-gray, 0.75);
+                    color: RGBA(var(--secondary-text-color), 0.75);
                     cursor: pointer;
                     transition: all 0.3s;
 
                     &:hover {
-                        color: $palette-theme-primary;
+                        color: RGB(var(--theme-primary));
                     }
                 }
             }
@@ -310,29 +310,8 @@
     }
 
     @include mq-tablets {
-        .content-wrap {
-            position: fixed;
-            @include position(0, 0, 0, 0);
-            @include flex(column, center, center);
-            z-index: 100;
-            background: rgba(black, 0.1);
-            transition: all 0.3s;
-            opacity: 0;
-            pointer-events: none;
-
-            &.visible {
-                pointer-events: all;
-                opacity: 1;
-            }
-
-            .introduction {
-                position: static;
-                margin: 0 !important;
-
-                &::before {
-                    content: none;
-                }
-            }
+        .intro-box {
+            display: none;
         }
     }
 

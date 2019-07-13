@@ -10,12 +10,12 @@
             <div class="input">
 
                 <div v-if="!registerMode" class="field">
-                    <text-input-field ref="loginUsername"
+                    <text-input-field v-model="username"
                                       :autofocus="!!auth.apikey"
                                       placeholder="Username"
                                       @submit="submit"/>
 
-                    <text-input-field ref="loginPassword"
+                    <text-input-field v-model="password"
                                       :password="true"
                                       placeholder="Password"
                                       @submit="submit"/>
@@ -23,16 +23,16 @@
 
 
                 <div v-if="registerMode" class="field">
-                    <text-input-field ref="registerUsername"
+                    <text-input-field v-model="username"
                                       placeholder="Username"
                                       @submit="submit"/>
 
-                    <text-input-field ref="registerPassword"
+                    <text-input-field v-model="password"
                                       :password="true"
                                       placeholder="Password"
                                       @submit="submit"/>
 
-                    <text-input-field ref="registerPasswordRepeat"
+                    <text-input-field v-model="passwordRepeat"
                                       :password="true"
                                       placeholder="Repeat Password"
                                       @submit="submit"/>
@@ -69,6 +69,10 @@
                 registerMode: false,
                 errorMsg: '',
 
+                username: '',
+                password: '',
+                passwordRepeat: '',
+
                 fadeAnimationActive: false,
                 shakeAnimationActive: false
             };
@@ -85,43 +89,39 @@
             },
 
             login() {
-                const {loginUsername, loginPassword} = this.$refs;
-                this.errorMsg = '';
+                const {username, password} = this;
 
                 this.$store.dispatch('auth/login', {
-                    username: loginUsername.value,
-                    password: loginPassword.value
+                    username, password
                 }).then(() => {
-                    [loginUsername, loginPassword].forEach(v => v.clear());
-                }).catch(msg => {
-                    this.errorMsg = msg;
+                    this.password = '';
+                    this.passwordRepeat = '';
+                }).catch(error => {
+                    this.errorMsg = error.text;
                     this.shakeAnimationActive = true;
                 });
             },
 
             register() {
-                const {registerUsername, registerPassword, registerPasswordRepeat} = this.$refs;
-                this.errorMsg = '';
+                const {username, password, passwordRepeat} = this;
 
                 // Validate
-                if (registerPassword.value !== registerPasswordRepeat.value) {
-                    this.errorMsg = 'Passwords are not indentical';
+                if (password !== passwordRepeat) {
                     return;
                 }
 
                 this.$store.dispatch('auth/register', {
-                    username: registerUsername.value,
-                    password: registerPassword.value
+                    username, password
                 }).then(() => {
-                    [registerUsername, registerPassword, registerPasswordRepeat].forEach(v => v.clear());
-                }).catch(msg => {
-                    this.errorMsg = msg;
+                    this.password = '';
+                    this.passwordRepeat = '';
+                }).catch(error => {
+                    this.errorMsg = error.text;
                     this.shakeAnimationActive = true;
                 });
             },
 
             switchAuthMode() {
-                this.errorMsg = '';
                 this.fadeAnimationActive = true;
                 this.registerMode = !this.registerMode;
             }
@@ -137,7 +137,7 @@
         @include flex(column, center, center);
         @include position(0, 0, 0, 0);
         z-index: 100;
-        background: white;
+        background: RGB(var(--primary-background-color));
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -186,14 +186,14 @@
         h1 {
             @include font(200, 2em);
             margin-bottom: 1em;
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
             opacity: 0.9;
             text-align: center;
         }
 
         .error {
             @include font(600, 0.75em);
-            color: $palette-tomatoe-red;
+            color: RGB(var(--static-error-color));
             margin-top: 1em;
             height: 1em;
         }
@@ -213,12 +213,12 @@
             span {
                 font-size: 0.85em;
                 text-decoration: underline;
-                color: $palette-decent-blue;
+                color: RGB(var(--secondary-text-color));
                 cursor: pointer;
                 transition: all 0.3s;
 
                 &:hover {
-                    color: $palette-theme-primary;
+                    color: RGB(var(--theme-primary));
                 }
             }
 
@@ -227,13 +227,11 @@
                 @include font(600, 0.75em);
                 border-radius: 0.15em;
                 transition: all 0.3s;
-                background: $palette-theme-primary;
-                box-shadow: 0 0.05em 0.3em rgba($palette-theme-primary, 0.25);
-                color: $palette-snow-white;
+                background: RGB(var(--theme-primary));
+                color: RGB(var(--secondary-background-color));
                 margin-left: auto;
 
                 &:hover {
-                    box-shadow: 0 0.05em 0.5em rgba($palette-theme-primary, 0.5);
                     filter: brightness(1.1);
                 }
             }

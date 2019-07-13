@@ -9,22 +9,49 @@ export default new Selection({
 
     class: 'selection-area',
 
-    // Single click is handled by GridView and ListView
-    singleClick: false,
-
     startThreshold: 10,
-
     disableTouch: true,
+    selectionAreaContainer: '#app',
 
     selectables: ['.file', '.dir'],
     startareas: ['.views'],
     boundaries: ['.list'],
+
+    // Don't start selection if user opened the context-menu
+    validateStart: e => e.button !== 2,
 
     onStart(evt) {
 
         // Every non-ctrlKey causes a selection reset
         if (!evt.originalEvent.ctrlKey) {
             store.commit('selection/clear');
+            this.clearSelection();
+        }
+    },
+
+    onSelect({selectedElements, originalEvent, target}) {
+        const selected = target.classList.contains('selected');
+        const targetHash = target.getAttribute('data-hash');
+
+        if (!originalEvent.ctrlKey && !originalEvent.metaKey) {
+            store.commit('selection/clear');
+
+            for (const el of selectedElements) {
+                el.classList.remove('selected');
+            }
+
+            this.clearSelection();
+        }
+
+        if (selected) {
+            this.removeFromSelection(target);
+        } else {
+            const selectedNode = store.state.nodes.find(v => v.id === targetHash);
+
+            if (selectedNode) {
+                store.commit('selection/append', [selectedNode]);
+                this.keepSelection();
+            }
         }
     },
 
@@ -38,11 +65,7 @@ export default new Selection({
         changedElements.removed.forEach(v => v.classList.remove('selected'));
     },
 
-    onStop(evt) {
-        const {selectedElements} = evt;
-
-        // Remove selected class, this is getting handled by vue
-        selectedElements.forEach(v => v.classList.remove('selected'));
+    onStop({selectedElements}) {
 
         /**
          * Every element has a data-hash property wich is used

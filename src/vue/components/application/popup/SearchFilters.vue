@@ -8,11 +8,15 @@
             <p>Examples</p>
         </div>
 
-        <div v-for="filter of filters" class="filter">
+        <div v-for="filter of filters"
+             :key="filter.description"
+             class="filter">
+
             <span class="description">{{ filter.description }}</span>
 
             <div class="examples">
-                <p v-for="example of filter.examples">{{ example }}</p>
+                <p v-for="example of filter.examples"
+                   :key="example">{{ example }}</p>
             </div>
         </div>
 
@@ -63,7 +67,7 @@
 
         p {
             @include font(600, 0.85em);
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
             width: 50%;
         }
     }
@@ -74,8 +78,8 @@
 
         .examples {
             @include flex(column);
-            background: $palette-snow-white;
-            color: rgba($palette-asphalt, 0.85);
+            background: RGB(var(--secondary-background-color));
+            color: RGBA(var(--primary-text-color), 0.85);
             font-family: monospace;
             padding: 0.5em 0.75em;
             border-radius: 0.15em;
@@ -87,7 +91,7 @@
             @include font(400, 0.8em);
             line-height: 1.3em;
             width: 50%;
-            color: darken($palette-blurry-gray, 15);
+            color: RGB(var(--secondary-text-color));
         }
     }
 

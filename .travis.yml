@@ -3,12 +3,11 @@ language: node_js
 node_js:
     - "stable"
 
+before_install:
+    - rm -rf package-lock.json
+
 install:
     - npm install
 
 script:
     - npm run build
-
-cache:
-    directories:
-        - "node_modules"

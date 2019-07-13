@@ -29,11 +29,12 @@
                 // Recalculate position
                 const bcr = el.getBoundingClientRect();
                 return {
+                    text,
+                    visible: visible && !this.$store.state.settings.user.hideTooltips,
                     style: {
                         top: `${bcr.top - 30}px`,
                         left: `${bcr.left + bcr.width / 2}px`
-                    },
-                    visible, text
+                    }
                 };
             }
         }
@@ -51,8 +52,8 @@
         padding: 0.4em 0.75em 0.5em;
         border-radius: 0.15em;
         @include font(600, 0.75em);
-        background: $palette-asphalt;
-        color: white;
+        background: RGB(var(--primary-text-color));
+        color: RGB(var(--primary-background-color));
         transform: translateY(5px) translateX(-50%);
         transition: transform 0.3s, opacity 0.3s;
 
@@ -67,7 +68,7 @@
             @include size(0);
             margin: auto;
             border: 5px solid transparent;
-            border-top-color: $palette-asphalt;
+            border-top-color: RGB(var(--primary-text-color));
         }
     }
 
