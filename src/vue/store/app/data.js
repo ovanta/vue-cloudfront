@@ -159,9 +159,9 @@ export const data = {
             // Upload files
             return this.dispatch('data/uploadFiles', {fileMap, stats}).then(() => {
                 stats.state = 'done';
-            }).catch(e => {
+            }).catch(error => {
                 stats.state = 'failed';
-                stats.error = e;
+                stats.error = error.text;
             });
         },
 

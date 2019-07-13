@@ -117,6 +117,7 @@
 
         input {
             @include font(400, 0.85em);
+            color: RGB(var(--primary-text-color));
             padding: 0.75em 0;
             width: 100%;
             z-index: 2;
@@ -124,7 +125,7 @@
 
         i {
             font-size: 0.8em;
-            color: RGB(var(--secondary-text-color));
+            color: RGB(var(--primary-text-color));
             cursor: pointer;
             transition: all 0.3s;
 
