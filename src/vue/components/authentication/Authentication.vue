@@ -96,8 +96,8 @@
                 }).then(() => {
                     this.password = '';
                     this.passwordRepeat = '';
-                }).catch(msg => {
-                    this.errorMsg = msg;
+                }).catch(error => {
+                    this.errorMsg = error.text;
                     this.shakeAnimationActive = true;
                 });
             },
@@ -115,8 +115,8 @@
                 }).then(() => {
                     this.password = '';
                     this.passwordRepeat = '';
-                }).catch(msg => {
-                    this.errorMsg = msg;
+                }).catch(error => {
+                    this.errorMsg = error.text;
                     this.shakeAnimationActive = true;
                 });
             },

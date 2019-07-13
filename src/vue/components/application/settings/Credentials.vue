@@ -79,7 +79,7 @@
                     this.$store.commit('dialogbox/show', {
                         type: 'error',
                         title: 'Failed to update settings',
-                        text: error,
+                        text: error.text,
                         buttons: [
                             {type: 'accept', text: 'Okay'}
                         ]
@@ -100,7 +100,7 @@
                     this.$store.commit('dialogbox/show', {
                         type: 'error',
                         title: 'Failed to delete accound',
-                        text: error,
+                        text: error.text,
                         buttons: [
                             {type: 'accept', text: 'Okay'}
                         ]

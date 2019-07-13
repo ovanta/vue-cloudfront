@@ -299,7 +299,7 @@ export const nodes = {
                     ]
                 });
 
-                throw err;
+                throw err.text;
             }).then(() => {
 
                 // Update nodes locally to save ressources
