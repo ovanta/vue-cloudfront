@@ -7,7 +7,8 @@
         </h1>
 
         <div class="groups">
-            <p v-for="{name, value} of stats">
+            <p v-for="{name, value} of stats"
+               :key="name">
                 <span>{{ name }}: </span> <b>{{ value || 'None' }}</b>
             </p>
         </div>
@@ -27,7 +28,7 @@
 
             stats() {
                 const {nodes} = this.$store.state;
-                let totalNodes = nodes.length;
+                const totalNodes = nodes.length;
                 let starredFiles = 0;
                 let starredFolders = 0;
                 let binFiles = 0;
@@ -67,7 +68,7 @@
 <style lang="scss" scoped>
 
     .groups {
-        color: $palette-asphalt;
+        color: RGB(var(--primary-text-color));
         margin-left: 0.5em;
         font-size: 0.9em;
 

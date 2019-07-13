@@ -21,18 +21,11 @@ export default (el, cb, val = () => true) => {
     }
 
     // Keys hold the currently pressed key
-    const keys = {};
-
-    /**
-     * Converts a string representation of a pressed character to a
-     * prefix attached key.
-     * 'e' => 'KeyE'
-     * 'delete' => 'KeyDelete'
-     */
-    const toKeyCode = e => `Key${e.key[0].toUpperCase() + e.key.substr(1).toLowerCase()}`;
+    const keys = new Map();
+    const transformKey = ({key}) => key.length === 1 ? key.toLowerCase() : key;
 
     // Listener to detect key-combinations
-    const onKeyUp = e => delete keys[toKeyCode(e)];
+    const onKeyUp = e => keys.set(transformKey(e), false);
     const onKeyDown = e => {
 
         // Check validator
@@ -40,12 +33,7 @@ export default (el, cb, val = () => true) => {
             return;
         }
 
-        keys['ctrlKey'] = e.ctrlKey;
-        keys['shiftKey'] = e.shiftKey;
-        keys['altKey'] = e.altKey;
-        keys['metaKey'] = e.metaKey;
-
-        keys[toKeyCode(e)] = true;
+        keys.set(transformKey(e), true);
         cb(keys, e);
     };
 

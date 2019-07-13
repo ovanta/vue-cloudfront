@@ -13,13 +13,13 @@ export default size => {
         case'KB':
             return amount * si;
         case'MB':
-            return amount * Math.pow(si, 2);
+            return amount * (si ** 2);
         case'GB':
-            return amount * Math.pow(si, 3);
+            return amount * (si ** 3);
         case'TB':
-            return amount * Math.pow(si, 4);
+            return amount * (si ** 4);
         case'PB':
-            return amount * Math.pow(si, 5);
+            return amount * (si ** 5);
         default:
             return amount;
     }

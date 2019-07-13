@@ -22,8 +22,8 @@ button {
     box-sizing: border-box;
 
     &::selection {
-        color: white;
-        background: $palette-theme-secondary;
+        color: RGB(var(--primary-background-color));
+        background: RGB(var(--theme-secondary));
     }
 }
 
@@ -33,10 +33,9 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: lighten($palette-blurry-gray, 10);
+    background-color: RGB(var(--secondary-text-color));
     border-radius: 0;
 }
-
 
 @include mq-phones {
     ::-webkit-scrollbar {

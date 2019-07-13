@@ -10,11 +10,9 @@
             <div class="flex-container">
                 <div v-double-tap="() => updateLocation(node)"
                      v-for="node of croppedNodes.dir"
+                     :key="node.id"
                      :class="{selected: node._selected, dir: 1, cutted: node._cutted}"
-                     :data-hash="node.id"
-                     @touchend="select($event, node)"
-                     @click.left="select($event, node)"
-                     @click.right="select($event, node)">
+                     :data-hash="node.id">
 
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                     <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
@@ -30,13 +28,12 @@
             <!-- Files -->
             <h1 v-if="nodes.file.length">Files</h1>
             <div class="grid-container">
-                <div v-for="(node, index) of croppedNodes.file" class="wrapper">
+                <div v-for="(node, index) of croppedNodes.file"
+                     :key="node.id"
+                     class="wrapper">
                     <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
                          :class="{selected: node._selected, file: 1, cutted: node._cutted}"
-                         :data-hash="node.id"
-                         @touchend="select($event, node)"
-                         @click.left="select($event, node)"
-                         @click.right="select($event, node)">
+                         :data-hash="node.id">
 
                         <file-type-preview :node="node"/>
 
@@ -126,7 +123,7 @@
         position: relative;
         display: inline-block;
         font-size: 0.85em;
-        color: $palette-asphalt;
+        color: RGB(var(--primary-text-color));
         padding: 0.15em 0 0.5em;
         border-radius: 0.15em;
         margin: 1.75em 0 0.35em;
@@ -172,8 +169,8 @@
         position: relative;
         border-radius: 0.2em;
         font-size: 0.8em;
-        box-shadow: 0 1px 3px 0 rgba(black, 0.1);
-        background: white;
+        box-shadow: var(--shadow-mini);
+        background: RGB(var(--primary-background-color));
         border: 1px solid transparent;
         padding: 0.5em 0.9em;
 
@@ -184,7 +181,7 @@
             opacity: 0;
             transform: translateY(-0.15em) rotate(10deg);
             transition: all 0.3s;
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
 
             &.visible {
                 opacity: 1;
@@ -195,24 +192,23 @@
         .extension {
             @include font(600, 0.85em);
             @include white-space-overflow;
-            background: $palette-asphalt;
+            background: RGB(var(--primary-text-color));
             max-width: 5em;
             flex-shrink: 0;
             padding: 0.25em 0.45em;
             text-transform: uppercase;
             border-radius: 0.15em;
-            color: white;
+            color: RGB(var(--primary-background-color));
         }
 
         &.selected,
         &.droppable {
-            border-color: rgba($palette-cloud-blue, 0.75);
-            box-shadow: 0 1px 3px 0 rgba($palette-cloud-blue, 0.5),
-            0 0 0 1px rgba($palette-cloud-blue, 0.75);
+            border-color: RGBA(var(--focus-color), 0.75);
+            box-shadow: var(--shadow-droppable-node-grid-item);
 
             &.droppable {
-                box-shadow: 0 1px 8px 0 rgba($palette-cloud-blue, 0.5),
-                0 0 0 1px rgba($palette-cloud-blue, 0.75);
+                box-shadow: 0 1px 8px 0 RGBA(var(--focus-color), 0.5),
+                0 0 0 1px RGBA(var(--focus-color), 0.75);
 
                 transform: translateY(-2px);
                 transition: all 0.3s;
@@ -225,7 +221,7 @@
 
         .name,
         .detail {
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
         }
 
         .name {
@@ -239,7 +235,7 @@
             width: 100%;
 
             &[contenteditable=true] {
-                border-color: $palette-theme-primary;
+                border-color: RGB(var(--theme-primary));
                 cursor: text;
                 outline: none;
             }

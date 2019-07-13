@@ -3,14 +3,19 @@
 </h1>
 
 <p align="center">
-    <a href="https://vuejs.org/"><img alt="VueJS 2" src="https://img.shields.io/badge/Vue-v2-98b23c.svg"/></a>
-    <a href="https://nodejs.org/en/"><img alt="NodeJS v10" src="https://img.shields.io/badge/Node-v10.x-43b23c.svg"/></a>
-    <a href="https://github.com/vue-cloudfront/vue-cloudfront/tree/master"><img alt="Stable Branch" src="https://img.shields.io/badge/Stable%20Branch-master-3FB27F.svg"/></a>
-    <a href="https://github.com/vue-cloudfront/vue-cloudfront/tree/dev"><img alt="Development Branch" src="https://img.shields.io/badge/Dev%20Branch-dev-3eacb2.svg"/></a>
-    <img alt="Product state: Alpha" src="https://img.shields.io/badge/State-pre--alpha-3c71b2.svg"/>
-    <a href="https://www.patreon.com/simonwep"><img alt="Support me" src="https://img.shields.io/badge/Patreon-support-553cb2.svg"></a>
+    <a href="https://travis-ci.org/ovanta/vue-cloudfront">
+       <img alt="Build" src="https://img.shields.io/travis/ovanta/vue-cloudfront.svg?style=flat-square">
+    </a>
+    <a href="https://github.com/vue-cloudfront/vue-cloudfront/tree/master">
+       <img alt="Stable Branch" src="https://img.shields.io/badge/Stable%20Branch-master-3FB27F.svg?style=flat-square"/>
+    </a>
+    <a href="https://github.com/vue-cloudfront/vue-cloudfront/tree/dev">
+       <img alt="Development Branch" src="https://img.shields.io/badge/Dev%20Branch-dev-3eacb2.svg?style=flat-square"/>
+    </a>
+    <a href="https://www.patreon.com/simonwep">
+       <img alt="Support me" src="https://img.shields.io/badge/Patreon-support-553cb2.svg?style=flat-square">
+    </a>
 </p>
-
 
 Vue Cloudfront is a blazing fast, standalone PWA cloudfront, basically for self-hosting purposes. 
 Currently the only backend-solution is the official [vue-cloudfront-api](https://github.com/ovanta/vue-cloudfront-api) which is a fully-featured RESTful api. This project is and will always be open source, anybody can contribute to it - it should, and hopefully will be, a massive improvement regarding cloud solutions in contrast to google-drive and drop-box. The project is currently in the **alpha** phase.
@@ -42,6 +47,7 @@ See [GitHub Projects](https://github.com/vue-cloudfront/vue-cloudfront/projects)
 * Modern Vue frontend with material-design - easy to design and customize.
 * Simply structure and just a few dependencies.
 * Clean dashboard to keep an overview over active sessions, files and more.
+* Dark and light theme.
 
 #### File Management
 * GridView with small file previews and draggable tiles.
@@ -61,6 +67,7 @@ See [GitHub Projects](https://github.com/vue-cloudfront/vue-cloudfront/projects)
 * Search in your cloud and get results under '< 500ms'.
 * Specify your search with file-type, size-range and more.
 * Full mobile support, enjoy it everywhere.
+* Enhanced detailed settings.
 
 ## Benchmarks
 As a comparison, I compared the upload stats with these from google drive.
@@ -117,12 +124,4 @@ See our [configuration docs](/docs/config.md) for further tweaks.
 A rough overview:
 ![architecture](https://user-images.githubusercontent.com/30767528/56807106-23ce0780-682e-11e9-9883-d6dc448e1f4b.png)
 
-### Screenshots
-![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810806-7e1f9600-6837-11e9-8784-ae3c10af9c58.png)
-![localhost_3000](https://user-images.githubusercontent.com/30767528/56865846-d5a63900-69d2-11e9-8b7b-6ba3bf4581f2.png)
-![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810808-7eb82c80-6837-11e9-9e51-0745f37a61c3.png)
-![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810809-7eb82c80-6837-11e9-8b86-91cc6eae53f5.png)
-![192 168 178 156_3000](https://user-images.githubusercontent.com/30767528/56810810-7eb82c80-6837-11e9-98bb-997b9e4ecf3c.png)
-
-
-GridView icons provided by [icons8](https://icons8.com)
+Thank's to [icons8](https://icons8.com) for providing icons!

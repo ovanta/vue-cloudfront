@@ -152,8 +152,8 @@
     .search-bar {
         position: relative;
         padding: 1em;
-        border-bottom: 2px solid $palette-sick-white;
-        background: white;
+        border-bottom: 2px solid RGB(var(--secondary-background-color));
+        background: RGB(var(--primary-background-color));
     }
 
     .search-field {
@@ -163,22 +163,22 @@
 
         &:focus-within {
             i {
-                color: $palette-theme-primary;
+                color: RGB(var(--theme-primary));
             }
         }
 
         input {
             @include font(400, 0.9em);
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
             flex-grow: 1;
 
             &::placeholder {
-                color: $palette-decent-blue;
+                color: RGB(var(--secondary-text-color));
             }
         }
 
         i {
-            color: $palette-decent-blue;
+            color: RGB(var(--secondary-text-color));
             padding: 0 0.6em;
             font-size: 1em;
             transition: all 0.5s;
@@ -197,7 +197,7 @@
                 }
 
                 &:hover {
-                    color: $palette-tomatoe-red;
+                    color: RGB(var(--static-error-color));
                 }
             }
         }
@@ -208,7 +208,7 @@
             transition: all 0.5s;
 
             &:hover {
-                color: $palette-theme-primary;
+                color: RGB(var(--theme-primary));
             }
         }
     }

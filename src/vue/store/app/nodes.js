@@ -67,9 +67,9 @@ export const nodes = {
                         return state.filter(v => v.marked && !v.bin);
                     } else if (activeTab === 'bin') {
                         return state.filter(v => v.bin);
-                    } else {
-                        return state.filter(v => !v.bin);
                     }
+                    return state.filter(v => !v.bin);
+
                 })();
 
                 const nodesAmount = nodes.length;
@@ -299,7 +299,7 @@ export const nodes = {
                     ]
                 });
 
-                throw err;
+                throw err.text;
             }).then(() => {
 
                 // Update nodes locally to save ressources
@@ -347,6 +347,7 @@ export const nodes = {
          * @param silent No user-approving will be required
          */
         async delete({state, rootState}, {nodes, permanently = false, silent = false}) {
+            const sprm = rootState.settings.user.immediateDeletion;
             const prm = permanently || nodes.every(v => v.bin);
 
             const finalize = () => {
@@ -355,7 +356,7 @@ export const nodes = {
                 this.commit('clipboard/clear');
 
                 return this.dispatch('fetch', {
-                    route: prm ? 'delete' : 'moveToBin',
+                    route: (prm || sprm) ? 'delete' : 'moveToBin',
                     body: {
                         apikey: rootState.auth.apikey,
                         nodes: nodes.map(v => v.id)
@@ -373,7 +374,7 @@ export const nodes = {
                             }
                         }
 
-                        if (prm) {
+                        if (prm || sprm) {
                             const idx = state.indexOf(node);
                             state.splice(idx, 1);
                         } else {
@@ -381,7 +382,7 @@ export const nodes = {
                         }
                     });
 
-                    if (!prm) {
+                    if (!prm && !sprm) {
                         nodes.forEach(v => {
                             v.bin = true;
                             v.lastModified = Date.now();

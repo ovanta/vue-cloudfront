@@ -28,11 +28,9 @@
             <!-- Folders -->
             <div v-double-tap="() => updateLocation(node)"
                  v-for="node of sortedNodes.dir"
+                 :key="node.id"
                  :class="{selected: node._selected, dir: 1, cutted: node._cutted}"
-                 :data-hash="node.id"
-                 @touchend="select($event, node)"
-                 @click.left="select($event, node)"
-                 @click.right="select($event, node)">
+                 :data-hash="node.id">
 
                 <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
 
@@ -45,18 +43,16 @@
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
 
             <!-- Files -->
             <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
                  v-for="(node, index) of sortedNodes.file"
+                 :key="node.id"
                  :class="{selected: node._selected, file: 1, cutted: node._cutted}"
-                 :data-hash="node.id"
-                 @touchend="select($event, node)"
-                 @click.left="select($event, node)"
-                 @click.right="select($event, node)">
+                 :data-hash="node.id">
 
                 <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">
@@ -68,8 +64,8 @@
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
-                <span v-if="_appliedMediaQueries !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
         </div>
 
@@ -185,19 +181,19 @@
         border-radius: 0.15em;
 
         &:nth-child(even) {
-            background: rgba($palette-asphalt, 0.02);
+            background: RGBA(var(--secondary-background-color), 0.85);
         }
 
         i {
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
             transition: all 0.3s;
             font-size: 1.25em;
             margin-bottom: 0.2em;
         }
 
         &.selected {
-            border-color: rgba($palette-cloud-blue, 0.75);
-            background: rgba($palette-cloud-blue, 0.1);
+            border-color: RGBA(var(--focus-color), 0.75);
+            background: RGBA(var(--focus-color), 0.1);
 
             &:nth-child(n+2) {
                 margin-top: -1px;
@@ -211,7 +207,7 @@
 
         .name,
         .detail {
-            color: $palette-asphalt;
+            color: RGB(var(--primary-text-color));
             transition: all 0.3s;
         }
 
@@ -225,7 +221,7 @@
             @include white-space-overflow;
 
             span[contenteditable=true] {
-                border-color: $palette-theme-primary;
+                border-color: RGB(var(--theme-primary));
                 cursor: text;
                 outline: none;
             }
@@ -265,10 +261,10 @@
             }
 
             &:hover {
-                color: $palette-theme-primary;
+                color: RGB(var(--theme-primary));
 
                 .sort {
-                    color: $palette-theme-primary;
+                    color: RGB(var(--theme-primary));
                 }
             }
 

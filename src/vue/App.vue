@@ -1,5 +1,7 @@
 <template>
-    <div id="app" @contextmenu.prevent="">
+    <div id="app"
+         :class="{[theme]: 1, 'disable-transitions': disableTransitions}"
+         @contextmenu.prevent="">
 
         <!-- Background shapes -->
         <div class="app-background">
@@ -30,6 +32,9 @@
     // Normalize css to look (almost) equal on all browsers
     import 'normalize.css';
 
+    // Themes
+    import '../scss/themes.scss';
+
     // Components
     import Cloudfront from './components/Cloudfront';
 
@@ -38,7 +43,27 @@
         components: {Cloudfront},
 
         data() {
-            return {};
+            return {
+                disableTransitions: false
+            };
+        },
+
+        computed: {
+            theme() {
+                const {theme} = this.$store.state.settings.user;
+                localStorage.setItem('theme', theme);
+
+                return theme;
+            }
+        },
+
+        watch: {
+            theme() {
+
+                // Disable transition during repaint
+                this.disableTransitions = true;
+                requestAnimationFrame(() => this.disableTransitions = false);
+            }
         },
 
         beforeCreate() {
@@ -54,6 +79,7 @@
             this.$store.commit('errors/listen');
         }
     };
+
 </script>
 
 <style lang="scss">
@@ -64,19 +90,24 @@
         width: 100%;
     }
 
-    body {
-        background: $palette-snow-white;
+    #app {
+        background: RGB(var(--secondary-background-color));
         font-family: $font-family;
+
+        &.disable-transitions {
+            * {
+                transition: none !important;
+            }
+        }
     }
 
     .app-background {
         position: fixed;
-        z-index: -1;
         @include position(0, 0, 0, 0);
 
         svg {
             position: fixed;
-            fill: $palette-theme-secondary;
+            fill: RGB(var(--theme-secondary));
             @include size(100vmax);
 
             @include animate('1s ease') {
@@ -107,12 +138,12 @@
         @include position(0, 0, 0, 0);
         border-radius: 0.5em;
         margin: auto;
-        box-shadow: 0 0.4em 3em 0 rgba($palette-asphalt, 0.15);
+        box-shadow: 0 0.4em 3em 0 rgba(black, 0.15);
     }
 
     .selection-area {
-        background: rgba($palette-cloud-blue, 0.02);
-        border: 1px solid rgba($palette-cloud-blue, 0.6);
+        background: RGBA(var(--focus-color), 0.02);
+        border: 1px solid RGBA(var(--focus-color), 0.6);
     }
 
     // Font awesome default size

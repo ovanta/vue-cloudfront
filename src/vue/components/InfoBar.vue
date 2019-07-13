@@ -56,8 +56,8 @@
             }
 
             &.offline {
-                background: $palette-tomatoe-red;
-                color: white;
+                background: RGB(var(--static-error-color));
+                color: RGB(var(--teritary-text-color));
             }
         }
     }

@@ -10,11 +10,11 @@
                    :autofocus="autofocus ? 'autofocus' : ''"
                    :class="{empty: !value}"
                    :type="password && !showPwd ? 'password' : 'text'"
-                   v-model="value"
+                   :value="value"
                    spellcheck="false"
                    @blur="focused = false"
                    @focus="focused = true"
-                   @input="$emit('update', value)"
+                   @input="$emit('input', $event.target.value)"
                    @keyup.enter="$emit('submit')">
 
 
@@ -25,7 +25,7 @@
 
             <!-- Clear input -->
             <i :class="{'clear fas fa-fw fa-times': 1, visible: value}"
-               @click="value = ''"></i>
+               @click="clear"></i>
         </div>
 
         <!-- Colored border to show focus -->
@@ -40,12 +40,12 @@
         props: {
             placeholder: {type: String, required: true},
             password: {type: Boolean, default: false},
-            autofocus: {type: Boolean, default: false}
+            autofocus: {type: Boolean, default: false},
+            value: {type: String, default: ''}
         },
 
         data() {
             return {
-                value: '',
                 showPwd: false,
                 focused: false,
                 labelId: `label-${(Date.now() + Math.floor(Math.random() * 1e15)).toString(36)}`
@@ -53,9 +53,8 @@
         },
 
         methods: {
-
             clear() {
-                this.value = '';
+                this.$emit('input', '');
             }
         }
     };
@@ -85,7 +84,7 @@
         &::after {
             @include pseudo();
             @include size(1px, 100%);
-            background: $palette-decent-blue;
+            background: RGB(var(--secondary-text-color));
         }
 
         &::after {
@@ -95,13 +94,13 @@
 
         &.active::after {
             width: 100%;
-            background: $palette-theme-primary;
+            background: RGB(var(--theme-primary));
         }
     }
 
     .placeholder {
         position: absolute;
-        color: $palette-decent-blue;
+        color: RGB(var(--teritary-text-color));
         transition: all 0.3s;
         @include font(400, 0.8em);
 
@@ -118,6 +117,7 @@
 
         input {
             @include font(400, 0.85em);
+            color: RGB(var(--teritary-text-color));
             padding: 0.75em 0;
             width: 100%;
             z-index: 2;
@@ -125,7 +125,7 @@
 
         i {
             font-size: 0.8em;
-            color: $palette-decent-blue;
+            color: RGB(var(--teritary-text-color));
             cursor: pointer;
             transition: all 0.3s;
 
@@ -133,7 +133,7 @@
                 @include fixed-width(1.25em);
 
                 &:hover {
-                    color: $palette-theme-primary;
+                    color: RGB(var(--theme-primary));
                 }
             }
 
@@ -144,7 +144,7 @@
                 max-width: 0;
 
                 &:hover {
-                    color: $palette-theme-primary;
+                    color: RGB(var(--theme-primary));
                 }
 
                 &.visible {

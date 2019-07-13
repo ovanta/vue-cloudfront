@@ -8,6 +8,7 @@ import store     from '../../../../store';
  */
 export default selectionjs => new Draggable({
     draggable: '.file,.dir',
+    container: '#app',
     include: '.selected',
     disableTouch: true,
     startThreshold: 4,

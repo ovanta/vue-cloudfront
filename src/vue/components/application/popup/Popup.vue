@@ -98,7 +98,7 @@
         opacity: 0;
         transform: translateY(-1em) rotateX(10deg);
         transition: all 0.3s;
-        background: rgba($palette-sick-white, 0.5);
+        background: RGBA(var(--secondary-background-color), 0.6);
         z-index: 10;
 
         &.open {
@@ -110,8 +110,7 @@
 
     .container {
         @include flex(column);
-        background: white;
-        box-shadow: 0 8px 25px 0 rgba(black, 0.08), 0 0 5px 0 rgba(black, 0.02);
+        background: RGB(var(--primary-background-color));
         padding: 1.25em 2em 2em;
         border-radius: 0.25em;
         max-height: 100%;
@@ -126,20 +125,20 @@
             margin-bottom: 1em;
 
             .title {
-                color: $palette-asphalt;
+                color: RGB(var(--primary-text-color));
                 font-weight: 600;
             }
 
             i {
                 margin-left: auto;
                 padding: 0 0 0.5em 1.5em;
-                color: $palette-decent-blue;
+                color: RGB(var(--secondary-text-color));
                 transition: all 0.3s;
                 cursor: pointer;
                 font-size: 0.95em;
 
                 &:hover {
-                    color: $palette-asphalt;
+                    color: RGB(var(--primary-text-color));
                 }
             }
         }
