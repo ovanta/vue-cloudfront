@@ -47,10 +47,14 @@ export const auth = {
         socketSync(_, {action}) {
             switch (action) {
                 case 'logout': {
-                    localStorage.removeItem('apikey');
-                    location.reload();
+                    this.commit('auth/localLogout');
                 }
             }
+        },
+
+        localLogout() {
+            localStorage.removeItem('apikey');
+            location.reload();
         }
     },
 
@@ -61,15 +65,13 @@ export const auth = {
          * @returns {Promise<T | never>}
          */
         async logout({state: {apikey}}) {
-            const done = () => {
-                localStorage.removeItem('apikey');
-                location.reload();
-            };
-
-            return this.dispatch('fetch', {
+            await this.dispatch('fetch', {
+                silent: true,
                 route: 'logout',
                 body: {apikey}
-            }).then(done).catch(done);
+            });
+
+            this.commit('auth/localLogout');
         },
 
         /**
@@ -91,7 +93,7 @@ export const auth = {
                     onResolve: index => {
                         if (index) {
 
-                            // Logout live-sessions+
+                            // Logout live-sessions
                             websocket.broadcast('auth', 'logout');
 
                             // Remove all apikeys
@@ -99,8 +101,7 @@ export const auth = {
                                 route: 'logoutEverywhere',
                                 body: {apikey}
                             }).then(() => {
-                                localStorage.removeItem('apikey');
-                                location.reload();
+                                this.commit('auth/localLogout');
                                 resolve();
                             }).catch(reject);
                         }

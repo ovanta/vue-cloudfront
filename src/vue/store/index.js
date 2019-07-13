@@ -172,8 +172,7 @@ export default new Vuex.Store({
 
                     // Check if api-key is invalid
                     if (error.code === -1) {
-                        window.localStorage.removeItem('apikey');
-                        window.location.reload();
+                        this.commit('auth/localLogout');
                     }
 
                     throw error;
