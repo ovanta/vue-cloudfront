@@ -54,6 +54,7 @@ export const auth = {
 
         localLogout() {
             localStorage.removeItem('apikey');
+            localStorage.removeItem('theme');
             location.reload();
         }
     },

@@ -50,7 +50,10 @@
 
         computed: {
             theme() {
-                return this.$store.state.settings.user.theme;
+                const {theme} = this.$store.state.settings.user;
+                localStorage.setItem('theme', theme);
+
+                return theme;
             }
         },
 

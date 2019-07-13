@@ -15,7 +15,7 @@ export const settings = {
             siPrefix: true,
             hideTooltips: false,
             immediateDeletion: false,
-            theme: 'default'
+            theme: localStorage.getItem('theme') || 'default'
         }
     },
 
