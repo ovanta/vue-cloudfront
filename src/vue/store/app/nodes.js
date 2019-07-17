@@ -576,29 +576,41 @@ export const nodes = {
         },
 
         /**
-         * Requests a static link for this specific node
+         * Removes static id's
          * @param rootState
+         * @param ids
          * @param node
          */
-        async removeStaticId({rootState}, {node, ids}) {
+        async removeStaticIds({state, rootState}, {ids}) {
             return this.dispatch('fetch', {
-                route: 'removeStaticId',
+                route: 'removeStaticIds',
                 body: {
                     apikey: rootState.auth.apikey,
-                    node: node.id,
                     ids
                 }
             }).then(() => {
+                const changedNodes = [];
 
-                // Append link
-                node.staticIds = node.staticIds || [];
-                node.staticIds = node.staticIds.filter(id => !ids.includes(id));
-                websocket.broadcast('nodes', 'change', [pick(node, 'id', 'staticIds')]);
+                // Update nodes
+                for (const node of state) {
+                    node.staticIds = node.staticIds || [];
+
+                    const previousIds = node.staticIds.length;
+                    node.staticIds = node.staticIds.filter(id => !ids.includes(id));
+
+                    // Check if any changes where made
+                    if (previousIds.length !== node.staticIds) {
+                        changedNodes.push(pick(node, 'id', 'staticIds'));
+                    }
+                }
+
+                websocket.broadcast('nodes', 'change', changedNodes);
             });
         },
 
         /**
          * Creates a zip-file out of a bunch of nodes
+         * @param state
          * @param rootState
          * @param nodes
          * @returns {Promise<void>}

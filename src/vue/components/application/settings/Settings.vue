@@ -65,6 +65,7 @@
         }
 
         .input {
+            width: 100%;
             padding-top: 0.75em;
             margin-top: 0.75em;
             border-top: 2px solid RGB(var(--secondary-background-color));

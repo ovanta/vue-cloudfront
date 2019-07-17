@@ -1,5 +1,6 @@
 <template>
     <section class="credentials">
+
         <div class="setting">
             <article>
                 To change your username and/or password please enter your current one
@@ -29,12 +30,26 @@
                 </div>
             </div>
         </div>
+
+        <div v-if="staticNodes.length" class="setting static-ids">
+            <article>
+                You currently got {{ staticNodes.length === 1 ? 'one' : staticNodes.length }}
+                {{ staticNodes.length === 1 ? 'file' : 'files' }} with public links.
+                If you wish you can revoke them all.
+            </article>
+
+            <div class="input">
+                <button @click="revokeStaticIds">Revoke all</button>
+            </div>
+        </div>
     </section>
 </template>
 
 <script>
     // Components
     import TextInputField from '../../../ui/input/TextInputField';
+
+    // TODO: Global button styles
 
     export default {
 
@@ -47,6 +62,13 @@
                 password: '',
                 passwordRepeat: ''
             };
+        },
+
+        computed: {
+
+            staticNodes() {
+                return this.$store.state.nodes.filter(v => v.staticIds.length);
+            }
         },
 
         methods: {
@@ -105,6 +127,12 @@
                             {type: 'accept', text: 'Okay'}
                         ]
                     });
+                });
+            },
+
+            revokeStaticIds() {
+                this.$store.dispatch('nodes/removeStaticIds', {
+                    ids: this.staticNodes.reduce((acc, val) => [...acc, ...val.staticIds], [])
                 });
             }
         }
@@ -177,6 +205,23 @@
                         filter: brightness(0.9);
                     }
                 }
+            }
+        }
+    }
+
+    .static-ids {
+        @include flex(column, flex-end);
+
+        button {
+            font-size: 0.85em;
+            color: RGB(var(--teritary-text-color));
+            border-radius: 0.15em;
+            padding: 0.55em 1.3em 0.6em;
+            transition: all 0.3s;
+            background: RGB(var(--theme-primary));
+
+            &:hover {
+                filter: brightness(0.9);
             }
         }
     }

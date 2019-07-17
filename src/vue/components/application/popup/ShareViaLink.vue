@@ -63,11 +63,11 @@
             },
 
             removeId(id) {
-                this.$store.dispatch('nodes/removeStaticId', {node: this.share.node, ids: [id]});
+                this.$store.dispatch('nodes/removeStaticIds', {ids: [id]});
             },
 
             removeAll() {
-                this.$store.dispatch('nodes/removeStaticId', {node: this.share.node, ids: this.share.node.staticIds});
+                this.$store.dispatch('nodes/removeStaticIds', {ids: this.share.node.staticIds});
             }
         }
     };
