@@ -111,7 +111,7 @@
                 background: RGB(var(--static-error-color));
                 @include font(600, 0.75em);
                 padding: 0.35em 0.5em;
-                color: RGB(var(--primary-background-color));
+                color: RGB(var(--teritary-text-color));
                 border-radius: 0.15em;
                 margin-left: 0.75em;
                 transition: all 0.3s;
@@ -137,7 +137,7 @@
 
         button {
             @include font(400, 0.85em);
-            color: RGB(var(--primary-background-color));
+            color: RGB(var(--teritary-text-color));
             padding: 0.5em 1em;
             border-radius: 0.15em;
             transition: all 0.3s;
