@@ -1,9 +1,9 @@
 <template>
-    <bordered-pie-chart v-slot="{item}"
-                        :values="fileTypes.values"
-                        :labels="fileTypes.names"
-                        :stroke-width="2.75"
-                        class="data-statistics">
+    <doughnut-chart v-slot="{item}"
+                    :values="fileTypes.values"
+                    :labels="fileTypes.names"
+                    :stroke-width="2.75"
+                    class="data-statistics">
 
         <!-- Label template -->
         <div :style="{'--color': item.color}"
@@ -13,17 +13,17 @@
             <p>{{ item.label }}</p>
         </div>
 
-    </bordered-pie-chart>
+    </doughnut-chart>
 </template>
 
 <script>
 
     // Components
-    import BorderedPieChart from '../../../../ui/specific/DoughnutChart';
+    import DoughnutChart from '../../../../ui/specific/DoughnutChart';
 
     export default {
 
-        components: {BorderedPieChart},
+        components: {DoughnutChart},
 
         data() {
             return {

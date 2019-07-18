@@ -18,7 +18,7 @@ export default new Selection({
     boundaries: ['.list'],
 
     // Don't start selection if user opened the context-menu
-    validateStart: e => e.button !== 2, // TODO: Opening a dialog directly don't work
+    validateStart: e => e.button !== 2 || !store.state.selection.length,
 
     onStart(evt) {
 
