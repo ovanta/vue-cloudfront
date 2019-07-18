@@ -1,0 +1,16 @@
+.vcf-btn {
+    @include font(600, 0.75em);
+    padding: 0.6em 1em 0.65em;
+    border-radius: 0.15em;
+    transition: all 0.3s;
+    background: RGB(var(--theme-primary));
+    color: RGB(var(--teritary-text-color));
+
+    &:hover {
+        filter: brightness(0.95);
+    }
+
+    &.red {
+        background: RGB(var(--static-error-color));
+    }
+}

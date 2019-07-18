@@ -46,7 +46,7 @@
             <!-- Button bar -->
             <div class="accept">
                 <span @click="switchAuthMode">{{ registerMode ? 'Login' : 'Register' }}</span>
-                <button @click="submit">{{ registerMode ? 'Create Account' : 'Login' }}</button>
+                <button class="vcf-btn" @click="submit">{{ registerMode ? 'Create Account' : 'Login' }}</button>
             </div>
         </div>
 
@@ -222,18 +222,8 @@
                 }
             }
 
-            button {
-                padding: 0.6em 1em 0.65em;
-                @include font(600, 0.75em);
-                border-radius: 0.15em;
-                transition: all 0.3s;
-                background: RGB(var(--theme-primary));
-                color: RGB(var(--secondary-background-color));
+            > button {
                 margin-left: auto;
-
-                &:hover {
-                    filter: brightness(1.1);
-                }
             }
         }
     }

@@ -25,8 +25,8 @@
                                   placeholder="Repeat New Password"/>
 
                 <div class="actions">
-                    <button class="delete-account" @click="deleteAccount">Delete Account</button>
-                    <button class="update" @click="update">Update</button>
+                    <button class="vcf-btn red" @click="deleteAccount">Delete Account</button>
+                    <button class="vcf-btn" @click="update">Update</button>
                 </div>
             </div>
         </div>
@@ -39,17 +39,16 @@
             </article>
 
             <div class="input">
-                <button @click="revokeStaticIds">Revoke all</button>
+                <button class="vcf-btn red" @click="revokeStaticIds">Revoke all</button>
             </div>
         </div>
     </section>
 </template>
 
 <script>
+
     // Components
     import TextInputField from '../../../ui/input/TextInputField';
-
-    // TODO: Global button styles
 
     export default {
 
@@ -180,50 +179,16 @@
 
         .actions {
             @include flex(row, center, space-between);
+            margin-top: 0.75em;
 
-            button {
-                @include font(400, 0.85em);
-                margin-top: 1.5em;
-                border-radius: 0.15em;
-                padding: 0.55em 1.3em 0.6em;
-                color: RGB(var(--teritary-text-color));
-                transition: all 0.3s;
-
-                &.delete-account {
-                    margin-right: 1em;
-                    background: RGB(var(--static-error-color));
-
-                    &:hover {
-                        filter: brightness(0.9);
-                    }
-                }
-
-                &.update {
-                    background: RGB(var(--theme-primary));
-
-                    &:hover {
-                        filter: brightness(0.9);
-                    }
-                }
+            button.delete-account {
+                margin-right: 1em;
             }
         }
     }
 
     .static-ids {
         @include flex(column, flex-end);
-
-        button {
-            font-size: 0.85em;
-            color: RGB(var(--teritary-text-color));
-            border-radius: 0.15em;
-            padding: 0.55em 1.3em 0.6em;
-            transition: all 0.3s;
-            background: RGB(var(--theme-primary));
-
-            &:hover {
-                filter: brightness(0.9);
-            }
-        }
     }
 
 </style>
