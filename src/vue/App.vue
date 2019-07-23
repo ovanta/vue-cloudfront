@@ -133,7 +133,7 @@
 
     .app-content {
         position: absolute;
-        @include width(70%, 0, 1400px);
+        @include width(90%, 0, 1400px);
         @include height(90%, 0, 950px);
         @include position(0, 0, 0, 0);
         border-radius: 0.5em;

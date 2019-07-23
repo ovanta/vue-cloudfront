@@ -91,9 +91,9 @@
 <style lang="scss" scoped>
 
     .popup {
-        position: absolute;
         @include position(0, 0, 0, 0);
         @include flex(row, center, center);
+        position: absolute;
         pointer-events: none;
         opacity: 0;
         transform: translateY(-1em) rotateX(10deg);
@@ -113,6 +113,8 @@
         background: RGB(var(--primary-background-color));
         padding: 1.25em 2em 2em;
         border-radius: 0.25em;
+        max-width: 100%;
+        max-height: 100%;
 
         .content {
             overflow: auto;
