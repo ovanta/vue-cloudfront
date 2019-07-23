@@ -113,8 +113,6 @@
         background: RGB(var(--primary-background-color));
         padding: 1.25em 2em 2em;
         border-radius: 0.25em;
-        max-height: 100%;
-        max-width: 52em;
 
         .content {
             overflow: auto;
