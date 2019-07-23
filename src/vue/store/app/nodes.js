@@ -125,8 +125,8 @@ export const nodes = {
         // Adds nodes to the collection
         put(state, {nodes}) {
             if (Array.isArray(nodes)) {
-                websocket.broadcast('nodes', 'put', nodes);
                 state.push(...nodes);
+                websocket.broadcast('nodes', 'put', nodes);
             }
         },
 

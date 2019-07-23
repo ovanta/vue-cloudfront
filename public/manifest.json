@@ -1,6 +1,10 @@
 {
     "name": "Vue Cloudfront",
     "short_name": "vue-cloudfront",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#F5F6FA",
+    "theme_color": "#673AB7",
     "icons": [
         {
             "src": "./img/icons/android-chrome-192x192.png",
@@ -62,9 +66,5 @@
             "sizes": "150x150",
             "type": "image/png"
         }
-    ],
-    "start_url": "/index.html",
-    "display": "standalone",
-    "background_color": "#F5F6FA",
-    "theme_color": "#673AB7"
+    ]
 }

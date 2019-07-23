@@ -18,7 +18,6 @@
         data() {
             return {};
         }
-
     };
 
 </script>

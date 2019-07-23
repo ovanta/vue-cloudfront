@@ -66,7 +66,7 @@
         computed: {
 
             staticNodes() {
-                return this.$store.state.nodes.filter(v => v.staticIds.length);
+                return this.$store.state.nodes.filter(v => (v.staticIds || []).length);
             }
         },
 

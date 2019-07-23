@@ -15,7 +15,7 @@
         <!-- List of active uploads -->
         <div ref="uploads" class="uploads">
             <div v-for="upload of uploads"
-                 :key="upload.total"
+                 :key="upload.timestamp"
                  class="upload">
 
                 <span class="info-message">{{ genStatusMessage(upload) }}</span>
@@ -25,7 +25,7 @@
                     <!-- Icons -->
                     <i v-if="upload.state === 'aborted'" class="fas fa-fw fa-trash"></i>
                     <i v-else-if="upload.state === 'failed'" class="fas fa-fw fa-exclamation"></i>
-                    <i v-else-if="upload.done / upload.total >= 1" class="fas fa-fw fa-check"></i>
+                    <i v-else-if="upload.state === 'done'" class="fas fa-fw fa-check"></i>
 
                     <circle-progress-bar v-if="(upload.done / upload.total < 1 || !upload.total) && !['aborted', 'failed'].includes(upload.state)"
                                          :indeterminate="['init', 'stardet', 'create-dirs'].includes(upload.state)"
@@ -61,7 +61,7 @@
         },
 
         computed: {
-            ...mapState(['auth']),
+            ...mapState(['auth', 'data']),
 
             activeUploadCount() {
 
@@ -76,7 +76,7 @@
 
             uploads() {
                 const sortMap = ['failed', 'aborted', 'done', 'upload-files', 'create-dirs', 'started', 'init'];
-                const uploads = [...this.$store.state.data.uploads];
+                const uploads = [...this.data.uploads];
 
                 uploads.sort((a, b) => sortMap.indexOf(a.state) - sortMap.indexOf(b.state));
                 return uploads;
@@ -167,7 +167,7 @@
         @include flex(row, center);
         background: linear-gradient(to bottom right, RGB(var(--theme-secondary)), RGB(var(--theme-primary)));
         padding: 0.75em 1em;
-        color: RGB(var(--primary-background-color));
+        color: RGB(var(--teritary-text-color));
 
         span {
             @include font(600, 0.75em);
