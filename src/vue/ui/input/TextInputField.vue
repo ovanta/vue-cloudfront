@@ -121,6 +121,10 @@
             padding: 0.75em 0;
             width: 100%;
             z-index: 2;
+
+            &::selection{
+                background: RGB(var(--primary-text-color));
+            }
         }
 
         i {

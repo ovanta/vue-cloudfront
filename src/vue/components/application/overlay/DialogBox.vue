@@ -139,6 +139,7 @@
         .actions {
             @include flex(row, center, flex-end);
             font-size: 0.95em;
+            margin-top: 1em;
 
             button {
                 @include font(600, 0.85em);

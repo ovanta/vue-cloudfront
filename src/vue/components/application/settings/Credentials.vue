@@ -24,6 +24,8 @@
                                   :password="true"
                                   placeholder="Repeat New Password"/>
 
+                <p v-show="credentialsError">{{ credentialsError }}</p>
+
                 <div class="actions">
                     <button class="vcf-btn red" @click="deleteAccount">Delete Account</button>
                     <button class="vcf-btn" @click="update">Update</button>
@@ -56,10 +58,11 @@
 
         data() {
             return {
+                credentialsError: null,
                 currentPassword: '',
-                username: '',
+                passwordRepeat: '',
                 password: '',
-                passwordRepeat: ''
+                username: ''
             };
         },
 
@@ -74,18 +77,16 @@
 
             update() {
                 const {currentPassword, username, password, passwordRepeat} = this;
+                this.credentialsError = '';
 
                 // Validate
-                if (password !== passwordRepeat || !password) {
+                if (password !== passwordRepeat && password) {
+                    this.credentialsError = 'Passwords are not indentical.';
+                }
 
-                    // Show error
-                    return this.$store.commit('dialogbox/show', {
-                        type: 'error',
-                        title: 'Passwords are no indentical or empty.',
-                        buttons: [
-                            {type: 'accept', text: 'Okay'}
-                        ]
-                    });
+                if (!username && !password && !passwordRepeat) {
+                    this.credentialsError = 'Nothing changed.';
+                    return;
                 }
 
                 this.$store.dispatch('auth/updateCredentials', {
@@ -95,37 +96,20 @@
                 }).then(() => {
                     this.currentPassword = this.username = this.password = this.passwordRepeat = '';
                 }).catch(error => {
-
-                    // Show error
-                    this.$store.commit('dialogbox/show', {
-                        type: 'error',
-                        title: 'Failed to update settings',
-                        text: error.text,
-                        buttons: [
-                            {type: 'accept', text: 'Okay'}
-                        ]
-                    });
+                    this.credentialsError = error.text;
                 });
             },
 
             deleteAccount() {
                 const {currentPassword} = this;
+                this.credentialsError = '';
 
                 this.$store.dispatch('auth/deleteAccount', {
                     password: currentPassword
                 }).then(() => {
                     this.currentPassword = '';
                 }).catch(error => {
-
-                    // Show error
-                    this.$store.commit('dialogbox/show', {
-                        type: 'error',
-                        title: 'Failed to delete accound',
-                        text: error.text,
-                        buttons: [
-                            {type: 'accept', text: 'Okay'}
-                        ]
-                    });
+                    this.credentialsError = error.text;
                 });
             },
 
@@ -146,6 +130,12 @@
     }
 
     .input {
+
+        > p {
+            @include font(600, 0.75em);
+            color: RGB(var(--static-error-color));
+            margin-top: 1em;
+        }
 
         .text-input-field {
             width: 100%;
