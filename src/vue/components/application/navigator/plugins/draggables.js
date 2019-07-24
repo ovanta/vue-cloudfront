@@ -16,14 +16,7 @@ export default selectionjs => new Draggable({
     ghostLimit: 10,
 
     mapGhost(element) {
-
-        // Remove inline file-preview
-        const embed = element.querySelector('.embed-file-preview');
-
-        if (embed) {
-            embed.parentElement.removeChild(embed);
-        }
-
+        element.classList.add(`draggable-ghost`);
         return element;
     },
 

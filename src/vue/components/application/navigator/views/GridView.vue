@@ -7,7 +7,7 @@
 
             <!-- Folders -->
             <h1 v-if="nodes.dir.length">Folders</h1>
-            <div class="grid-container">
+            <div class="grid-container small">
                 <div v-double-tap="() => updateLocation(node)"
                      v-for="node of croppedNodes.dir"
                      :key="node.id"
@@ -33,24 +33,24 @@
             <!-- Files -->
             <h1 v-if="nodes.file.length">Files</h1>
             <div class="grid-container">
-                <div v-for="(node, index) of croppedNodes.file"
+                <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
+                     v-for="(node, index) of croppedNodes.file"
                      :key="node.id"
+                     :class="{selected: node._selected, file: 1, cutted: node._cutted}"
+                     :data-hash="node.id"
                      class="wrapper">
-                    <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
-                         :class="{selected: node._selected, file: 1, cutted: node._cutted}"
-                         :data-hash="node.id">
-                        <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
 
-                        <file-type-preview :node="node"/>
+                    <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
 
-                        <div class="info">
-                            <span v-if="node.extension" class="extension">{{ node.extension }}</span>
-                            <span v-content-editable="node._editable"
-                                  v-select-all="node._editable"
-                                  class="name"
-                                  spellcheck="false"
-                                  @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
-                        </div>
+                    <file-type-preview :node="node"/>
+
+                    <div class="info">
+                        <span v-if="node.extension" class="extension">{{ node.extension }}</span>
+                        <span v-content-editable="node._editable"
+                              v-select-all="node._editable"
+                              class="name"
+                              spellcheck="false"
+                              @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
                     </div>
                 </div>
             </div>
@@ -109,6 +109,14 @@
 
 </script>
 
+<style>
+
+    .draggable-ghost {
+        width: 15em;
+    }
+
+</style>
+
 <style lang="scss" scoped>
 
     .grid-view {
@@ -137,12 +145,16 @@
         display: grid;
         grid-gap: 1em;
         grid-template-columns: repeat(auto-fill, minmax(13em, 1fr));
+
+        &.small {
+            grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+        }
     }
 
     .dir {
         > svg {
             @include size(5em);
-            margin: 2em auto;
+            margin: 1.5em auto;
         }
 
         .name {
@@ -171,9 +183,9 @@
         }
 
         .star {
-            @include position(-0.4em, -0.5em, auto, auto);
+            @include position(0.35em, 0.35em, auto, auto);
             position: absolute;
-            font-size: 0.85em;
+            font-size: 0.95em;
             opacity: 0;
             transform: translateY(-0.15em);
             transition: all 0.3s;
