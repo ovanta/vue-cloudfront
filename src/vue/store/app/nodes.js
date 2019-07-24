@@ -68,8 +68,8 @@ export const nodes = {
                     } else if (activeTab === 'bin') {
                         return state.filter(v => v.bin);
                     }
-                    return state.filter(v => !v.bin);
 
+                    return state.filter(v => !v.bin);
                 })();
 
                 const nodesAmount = nodes.length;

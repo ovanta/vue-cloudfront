@@ -18,7 +18,18 @@ export default new Selection({
     boundaries: ['.list'],
 
     // Don't start selection if user opened the context-menu
-    validateStart: e => e.button !== 2 || !store.state.selection.length,
+    validateStart: e => {
+        const selected = store.state.selection.length;
+
+        if (e.button !== 2 || !selected) {
+            return true;
+        } else if (selected === 1) {
+            store.commit('selection/clear');
+            return true;
+        }
+
+        return false;
+    },
 
     onStart(evt) {
 
