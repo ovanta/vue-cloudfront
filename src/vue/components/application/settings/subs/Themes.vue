@@ -40,7 +40,7 @@
 <script>
 
     // Theme stylesheet
-    import themeStyleSheet from '!raw-loader!../../../../scss/themes.scss';
+    import themeStyleSheet from '!raw-loader!../../../../../scss/themes.scss';
 
     export default {
 

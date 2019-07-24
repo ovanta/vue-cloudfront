@@ -5,16 +5,17 @@
             <p>Settings</p>
 
             <div class="btns">
-                <button :class="{active: menu === 'credentials'}" @click="menu = 'credentials'">Credentials</button>
-                <button :class="{active: menu === 'appereance'}" @click="menu = 'appereance'">Appereance</button>
-                <button :class="{active: menu === 'themes'}" @click="menu = 'themes'">Themes</button>
+                <button v-for="(sub, index) of subs"
+                        :key="index"
+                        :class="{active: active === sub.com}"
+                        @click="active = sub.com">
+                    {{ sub.name }}
+                </button>
             </div>
         </div>
 
         <div class="content">
-            <credentials v-show="menu === 'credentials'"/>
-            <appereance v-show="menu === 'appereance'"/>
-            <themes v-show="menu === 'themes'"/>
+            <component :is="active"/>
         </div>
 
     </div>
@@ -22,18 +23,20 @@
 
 <script>
 
-    // Setting parts
-    import Credentials from './Credentials';
-    import Appereance  from './Appereance';
-    import Themes      from './Themes';
+    // Sub-menus
+    const req = require.context('./subs', false, /\.(vue|js)$/i);
 
     export default {
-
-        components: {Appereance, Credentials, Themes},
-
         data() {
+            const subs = req.keys().map(key => {
+                const name = key.split('/').pop().replace(/\..*$/, '');
+                const com = require(`./subs/${name}`).default;
+                return {com, name};
+            }).sort((a, b) => b.name.length - a.name.length);
+
             return {
-                menu: 'credentials'
+                active: subs[0].com,
+                subs
             };
         }
     };
@@ -42,7 +45,7 @@
 
 <style lang="scss">
 
-    .setting {
+    .setting.setting {
         @include flex(column);
         margin: 1em 0;
         padding: 0.75em;

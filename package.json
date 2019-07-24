@@ -1,6 +1,6 @@
 {
     "name": "vue-cloudfront",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "private": true,
     "description": "vue-cloudfront - PWA for cloud storage with focus on design and performance. Made especially for self-hosting purposes. Build with vuejs2 and vuex. Always Open Source, MIT license.",
     "author": "Simon Reinisch",

@@ -122,7 +122,7 @@
             width: 100%;
             z-index: 2;
 
-            &::selection{
+            &::selection {
                 background: RGB(var(--primary-text-color));
             }
         }

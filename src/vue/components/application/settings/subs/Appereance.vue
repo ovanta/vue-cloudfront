@@ -43,7 +43,7 @@
 <script>
 
     // UI Stuff
-    import SwitchButton from '../../../ui/input/SwitchButton';
+    import SwitchButton from '../../../../ui/input/SwitchButton';
 
     // Vuex
     import {mapState} from 'vuex';

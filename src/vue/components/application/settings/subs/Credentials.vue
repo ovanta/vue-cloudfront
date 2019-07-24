@@ -50,7 +50,7 @@
 <script>
 
     // Components
-    import TextInputField from '../../../ui/input/TextInputField';
+    import TextInputField from '../../../../ui/input/TextInputField';
 
     export default {
 
