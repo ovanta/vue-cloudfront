@@ -34,9 +34,13 @@
         </div>
 
         <div v-if="staticNodes.length" class="setting static-ids">
-            <article>
-                You currently got {{ staticNodes.length === 1 ? 'one' : staticNodes.length }}
-                {{ staticNodes.length === 1 ? 'file' : 'files' }} with public links.
+            <article v-if="staticNodes.length === 1">
+                You currently got one file which is accessible through a public link.
+                If you wish you can revoke it.
+            </article>
+
+            <article v-else>
+                You currently got have {{ staticNodes.length }} files which can be accessed with a public link.
                 If you wish you can revoke them all.
             </article>
 
