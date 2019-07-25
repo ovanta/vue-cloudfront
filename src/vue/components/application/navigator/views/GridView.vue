@@ -201,12 +201,12 @@
             @include font(600, 0.85em);
             @include white-space-overflow;
             background: RGB(var(--primary-text-color));
+            color: RGB(var(--primary-background-color));
             max-width: 5em;
             flex-shrink: 0;
             padding: 0.25em 0.45em;
             text-transform: uppercase;
             border-radius: 0.15em;
-            color: RGB(var(--primary-background-color));
         }
 
         &.selected,
