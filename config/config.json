@@ -40,11 +40,7 @@
         "#9CCC65",
         "#D4E157",
         "#FFEE58",
-        "#FFCA28",
-        "#FFA726",
-        "#FF7043",
-        "#8D6E63",
-        "#BDBDBD"
+        "#FFCA28"
     ],
     "extensionMap": {
         "videos": ["3g2", "3gp", "avi", "flv", "h264", "m4v", "mkv", "mov", "mp4", "mpg", "mpeg", "rm", "swf", "vob", "wmv"],

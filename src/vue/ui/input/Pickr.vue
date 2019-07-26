@@ -89,6 +89,7 @@
 <style lang="scss">
 
     .pcr-app.pcr-app.pcr-app {
+        width: 13.5em;
         background: RGB(var(--primary-background-color));
 
         .pcr-selection {

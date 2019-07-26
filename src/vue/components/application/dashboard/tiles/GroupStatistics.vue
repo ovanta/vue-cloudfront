@@ -29,15 +29,13 @@
             stats() {
                 const {nodes} = this.$store.state;
                 const totalNodes = nodes.length;
-                let starredFiles = [];
-                let starredFolders = [];
-                let binFiles = [];
-                let binFolders = [];
-                let sharedFiles = [];
+                const starredFiles = [];
+                const starredFolders = [];
+                const binFiles = [];
+                const binFolders = [];
+                const sharedFiles = [];
 
-                for (let i = 0, l = nodes.length; i < l; i++) {
-                    const node = nodes[i];
-
+                for(const node of nodes) {
                     if (node.type === 'dir') {
                         node.marked && starredFolders.push(node);
                         node.bin && binFolders.push(node);
@@ -49,7 +47,7 @@
                 }
 
                 return [
-                    {name: 'Total files and folders', value: totalNodes},
+                    {name: 'Total files and folders', value: {length: totalNodes}},
                     {name: 'Starred files', value: starredFiles},
                     {name: 'Starred folders', value: starredFolders},
                     {name: 'Files moved to bin', value: binFiles},

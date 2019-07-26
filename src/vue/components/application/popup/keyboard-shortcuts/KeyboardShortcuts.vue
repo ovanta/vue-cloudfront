@@ -72,7 +72,7 @@
                 // Define nodes as function to prevent
                 // useless calculations. Returns, if there is, the search result
                 // or all nodes which are currently into view.
-                const nodes = () => this.$store.getters['nodes/currentDisplayedNodes']();
+                const nodes = this.$store.getters['nodes/currentDisplayedNodes'];
                 const shortcuts = handler.reduce((pv, cv) => pv.concat(cv.shortcuts), [])
                     .sort((a, b) => b.keys.length - a.keys.length);
 
