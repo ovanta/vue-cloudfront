@@ -223,7 +223,7 @@ export const data = {
                     stats.done += done - lastDone;
                     lastDone = done;
 
-                    if(stats.done >= stats.total) {
+                    if (stats.done >= stats.total) {
                         stats.state = 'process-files';
                     }
                 };

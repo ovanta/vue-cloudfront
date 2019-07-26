@@ -26,7 +26,7 @@ export const editable = {
 
             state.node = node;
         }
-
     }
+
 
 };

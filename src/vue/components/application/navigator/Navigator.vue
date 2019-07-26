@@ -92,8 +92,7 @@
             ...mapState(['activeTab', 'viewType', 'search']),
 
             nodes() {
-                const calcFolderSize = this.$mediaDevice !== 'mobile' && this.$store.state.viewType === 'list';
-                return this.$store.getters['nodes/currentDisplayedNodes'](calcFolderSize);
+                return this.$store.getters['nodes/currentDisplayedNodes'];
             }
         },
 

@@ -11,7 +11,7 @@
                 <div v-double-tap="() => updateLocation(node)"
                      v-for="node of croppedNodes.dir"
                      :key="node.id"
-                     :class="{selected: node._selected, dir: 1, cutted: node._cutted}"
+                     :class="{selected: selection.includes(node), dir: 1, cutted: cutted.includes(node)}"
                      :data-hash="node.id">
 
                     <svg :style="{fill: node.color}"
@@ -22,8 +22,9 @@
                     </svg>
 
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
-                    <span v-content-editable="node._editable"
-                          v-select-all="node._editable"
+
+                    <span v-content-editable="node === editable.node"
+                          v-select-all="node === editable.node"
                           class="name"
                           spellcheck="false"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
@@ -36,7 +37,7 @@
                 <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
                      v-for="(node, index) of croppedNodes.file"
                      :key="node.id"
-                     :class="{file: 1, selected: node._selected, cutted: node._cutted}"
+                     :class="{file: 1, selected: selection.includes(node), cutted: cutted.includes(node)}"
                      :data-hash="node.id">
 
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
@@ -45,8 +46,9 @@
 
                     <div class="info">
                         <span v-if="node.extension" class="extension">{{ node.extension }}</span>
-                        <span v-content-editable="node._editable"
-                              v-select-all="node._editable"
+
+                        <span v-content-editable="node === editable.node"
+                              v-select-all="node === editable.node"
                               class="name"
                               spellcheck="false"
                               @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
