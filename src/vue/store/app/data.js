@@ -222,6 +222,10 @@ export const data = {
                     const done = e.position || e.loaded;
                     stats.done += done - lastDone;
                     lastDone = done;
+
+                    if(stats.done >= stats.total) {
+                        stats.state = 'process-files';
+                    }
                 };
 
                 xhr.onreadystatechange = () => {

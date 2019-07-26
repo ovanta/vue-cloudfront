@@ -27,8 +27,8 @@
                     <i v-else-if="upload.state === 'failed'" class="fas fa-fw fa-exclamation"></i>
                     <i v-else-if="upload.state === 'done'" class="fas fa-fw fa-check"></i>
 
-                    <circle-progress-bar v-if="(upload.done / upload.total < 1 || !upload.total) && !['aborted', 'failed'].includes(upload.state)"
-                                         :indeterminate="['init', 'stardet', 'create-dirs'].includes(upload.state)"
+                    <circle-progress-bar v-if="!['done', 'aborted', 'failed'].includes(upload.state)"
+                                         :indeterminate="['init', 'stardet', 'create-dirs', 'process-files'].includes(upload.state)"
                                          :value="upload.done / upload.total"/>
 
                     <!-- Abort button -->
@@ -75,7 +75,7 @@
             },
 
             uploads() {
-                const sortMap = ['failed', 'aborted', 'done', 'upload-files', 'create-dirs', 'started', 'init'];
+                const sortMap = ['failed', 'aborted', 'process-files', 'done', 'upload-files', 'create-dirs', 'started', 'init'];
                 const uploads = [...this.data.uploads];
 
                 uploads.sort((a, b) => sortMap.indexOf(a.state) - sortMap.indexOf(b.state));
@@ -100,6 +100,8 @@
                         const percent = Math.round((this.$utils.limit(upload.done / upload.total, 0, 1)) * 100);
                         return `${percent}% - Uploading ${pluralify(upload.files)}`;
                     }
+                    case 'process-files':
+                        return 'Processing upload...';
                     case 'done':
                         return `Uploaded ${pluralify(upload.files)}!`;
                     case 'aborted':

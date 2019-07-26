@@ -27,7 +27,7 @@
     .overlay {
         @include position(0, 0, 0, 0);
         position: absolute;
-        background: RGB(var(--secondary-background-color));
+        background: RGB(var(--primary-background-color));
         z-index: 5;
         opacity: 0;
         pointer-events: none;
