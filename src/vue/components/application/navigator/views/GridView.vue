@@ -36,9 +36,8 @@
                 <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
                      v-for="(node, index) of croppedNodes.file"
                      :key="node.id"
-                     :class="{selected: node._selected, file: 1, cutted: node._cutted}"
-                     :data-hash="node.id"
-                     class="wrapper">
+                     :class="{file: 1, selected: node._selected, cutted: node._cutted}"
+                     :data-hash="node.id">
 
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
 

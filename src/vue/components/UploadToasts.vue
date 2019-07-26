@@ -141,7 +141,7 @@
         position: absolute;
         box-shadow: 0 0.15em 0.75em RGBA(var(--primary-text-color), 0.1);
         border-radius: 0.15em;
-        background: RGB(var(--secondary-background-color));
+        background: RGB(var(--primary-background-color));
         overflow: hidden;
         transition: all 0.5s;
 

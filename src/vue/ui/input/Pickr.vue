@@ -37,6 +37,7 @@
                 theme: 'nano',
 
                 swatches: this.$config.predefinedColors,
+                defaultRepresentation: 'HEXA',
                 components: {
 
                     // Main components
@@ -47,7 +48,6 @@
                     // Input / output Options
                     interaction: {
                         input: true,
-                        hex: true,
                         save: true
                     }
                 }
