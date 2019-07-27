@@ -65,7 +65,7 @@
                 </div>
 
                 <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
-                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ directorySize(node.id) | readableByteCount }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
             </div>
         </div>
 
@@ -112,9 +112,10 @@
             }),
 
             sortedNodes() {
-                const nodes = this.croppedNodes;
+                const {sortProp, croppedNodes} = this;
+                const file = [...croppedNodes.file];
+                const dir = [...croppedNodes.dir];
 
-                const {sortProp} = this;
                 if (sortProp) {
 
                     /**
@@ -128,11 +129,11 @@
                     const sortFn = (a, b) => a[sortProp] > b[sortProp] ? ra : rb;
 
                     // Sort pre-calulated nodes and re-render everything
-                    nodes.file.sort(sortFn);
-                    nodes.dir.sort(sortFn);
+                    file.sort(sortFn);
+                    dir.sort(sortFn);
                 }
 
-                return nodes;
+                return {file, dir};
             }
         },
 
