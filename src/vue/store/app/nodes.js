@@ -31,9 +31,13 @@ export const nodes = {
                         if (n.parent === id) {
 
                             // If folder, recursivly calculate it otherwise just append size
-                            const nodeSize = n.type === 'dir' ? calcDirectorySize(n.id) : n.size;
-                            map.set(id, nodeSize);
-                            size += nodeSize;
+                            if (n.type === 'dir') {
+                                const nodeSize = calcDirectorySize(n.id);
+                                map.set(id, nodeSize);
+                                size += nodeSize;
+                            } else if (n.type === 'file') {
+                                size += n.size;
+                            }
                         }
                     }
 
