@@ -12,7 +12,7 @@ export default {
             fn({nodes}) {
 
                 // Select all nodes which are currently under the current location
-                const nodesMap = nodes();
+                const nodesMap = nodes;
                 store.commit('selection/append', nodesMap.file.concat(nodesMap.dir));
             }
         },
@@ -25,7 +25,7 @@ export default {
                 store.commit('selection/clear');
 
                 // Select all folders which are currently under the current location
-                store.commit('selection/append', nodes().dir);
+                store.commit('selection/append', nodes.dir);
             }
         },
         {
@@ -37,14 +37,14 @@ export default {
                 store.commit('selection/clear');
 
                 // Select all files which are currently under the current location
-                store.commit('selection/append', nodes().file);
+                store.commit('selection/append', nodes.file);
             }
         },
         {
             keys: ['s', 'i'],
             action: 'Invert selection.',
             fn({nodes}) {
-                const nodesMap = nodes();
+                const nodesMap = nodes;
                 const notSelected = nodesMap.file.concat(nodesMap.dir).filter(v => !selection.includes(v));
 
                 // Clear selection

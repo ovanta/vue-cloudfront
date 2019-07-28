@@ -148,13 +148,13 @@
         grid-template-columns: repeat(auto-fill, minmax(13em, 1fr));
 
         &.small {
-            grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(8.5em, 1fr));
         }
     }
 
     .dir {
         > svg {
-            @include size(5em);
+            @include size(3.5em);
             margin: 1.5em auto;
         }
 
