@@ -35,7 +35,7 @@
                 const binFolders = [];
                 const sharedFiles = [];
 
-                for(const node of nodes) {
+                for (const node of nodes) {
                     if (node.type === 'dir') {
                         node.marked && starredFolders.push(node);
                         node.bin && binFolders.push(node);

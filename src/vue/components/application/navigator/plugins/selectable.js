@@ -1,25 +1,48 @@
-import Selection from '@simonwep/selection-js';
-import store     from '../../../../store';
+import Selection   from '@simonwep/selection-js';
+import {eventPath} from '../../../../../js/utils';
+import store       from '../../../../store';
+
+const {selection, nodes} = store.state;
+const strgPressed = e => e.ctrlKey || e.metaKey;
 
 /**
  * Is responsible for the selection area
  * @returns {*}
  */
 export default new Selection({
-
     class: 'selection-area',
-
     startThreshold: 10,
     disableTouch: true,
     selectionAreaContainer: '#app',
-
     selectables: ['.file', '.dir'],
     startareas: ['.views'],
     boundaries: ['.list'],
 
     // Don't start selection if user opened the context-menu
-    validateStart: e => {
-        const selected = store.state.selection.length;
+    validateStart(e) {
+        const selected = selection.length;
+
+        for (const el of eventPath(e)) {
+            if (el instanceof HTMLElement) {
+                const hash = el.getAttribute('data-hash');
+
+                // Check if element contains a node-hash and try to resolve the corresponding node
+                if (hash && !el.classList.contains('selected')) {
+                    const selectedNode = nodes.find(v => v.id === hash);
+
+                    if (selectedNode) {
+                        el.classList.add('selected');
+
+                        if (!strgPressed(e)) {
+                            store.commit('selection/clear');
+                        }
+
+                        store.commit('selection/append', [selectedNode]);
+                        return false;
+                    }
+                }
+            }
+        }
 
         if (e.button !== 2 || !selected) {
             return true;
@@ -31,22 +54,18 @@ export default new Selection({
         return false;
     },
 
-    onStart(evt) {
+    onStart({originalEvent}) {
 
         // Every non-ctrlKey causes a selection reset
-        if (!evt.originalEvent.ctrlKey) {
+        if (!originalEvent.ctrlKey) {
             store.commit('selection/clear');
             this.clearSelection();
         }
     },
 
     onSelect({selectedElements, originalEvent, target}) {
-        const selected = target.classList.contains('selected');
-        const targetHash = target.getAttribute('data-hash');
-
         if (!originalEvent.ctrlKey && !originalEvent.metaKey) {
             store.commit('selection/clear');
-
             for (const el of selectedElements) {
                 el.classList.remove('selected');
             }
@@ -54,10 +73,12 @@ export default new Selection({
             this.clearSelection();
         }
 
-        if (selected) {
+        const targetHash = target.getAttribute('data-hash');
+        const selected = target.classList.contains('selected');
+        if (selected && selection.length) {
             this.removeFromSelection(target);
         } else {
-            const selectedNode = store.state.nodes.find(v => v.id === targetHash);
+            const selectedNode = nodes.find(v => v.id === targetHash);
 
             if (selectedNode) {
                 store.commit('selection/append', [selectedNode]);
@@ -84,7 +105,7 @@ export default new Selection({
          * to the current selection.
          */
         const selectedHashes = selectedElements.map(v => v.getAttribute('data-hash'));
-        const selectedNodes = store.state.nodes.filter(v => selectedHashes.includes(v.id));
+        const selectedNodes = nodes.filter(v => selectedHashes.includes(v.id));
         store.commit('selection/append', selectedNodes);
     }
 });
