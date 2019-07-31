@@ -57,7 +57,7 @@
             @include font(600, 0.8em);
             line-height: 1.5em;
 
-            code {
+            kbd {
                 font-size: 0.8em;
                 background: RGB(var(--primary-text-color));
                 color: RGB(var(--secondary-background-color));
@@ -65,6 +65,14 @@
                 border-radius: 0.15em;
                 margin: 0 0.25em;
             }
+        }
+
+        > p {
+            background:RGB(var(--secondary-background-color));
+            width: 100%;
+            margin-top: 0.75em;
+            padding: 0.5em 0.75em;
+            border-radius: 0.15em;
         }
 
         .input {
@@ -81,7 +89,7 @@
 
     .settings {
         @include flex(row);
-        @include width(40vw, 35em, 60em);
+        @include width(50vw, 35em, 75em);
         margin: auto;
         padding: 5vh 0;
         flex-grow: 1;
