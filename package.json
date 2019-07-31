@@ -25,8 +25,8 @@
         "dev": "vue-cli-service serve"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.9.0",
-        "@simonwep/pickr": "^1.2.4",
+        "@fortawesome/fontawesome-free": "^5.10.0",
+        "@simonwep/pickr": "^1.2.6",
         "@simonwep/selection-js": "^1.1.1",
         "normalize.css": "^8.0.1",
         "register-service-worker": "^1.6.2",

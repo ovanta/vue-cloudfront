@@ -64,25 +64,25 @@ export default new Selection({
     },
 
     onSelect({selectedElements, originalEvent, target}) {
-        if (!originalEvent.ctrlKey && !originalEvent.metaKey) {
-            store.commit('selection/clear');
-            for (const el of selectedElements) {
-                el.classList.remove('selected');
-            }
-
-            this.clearSelection();
-        }
-
         const targetHash = target.getAttribute('data-hash');
-        const selected = target.classList.contains('selected');
-        if (selected && selection.length) {
-            this.removeFromSelection(target);
-        } else {
-            const selectedNode = nodes.find(v => v.id === targetHash);
+        const selectedNode = nodes.find(v => v.id === targetHash);
 
-            if (selectedNode) {
+        if (selectedNode) {
+            if (!originalEvent.ctrlKey && !originalEvent.metaKey) {
+                store.commit('selection/clear');
+
+                for (const el of selectedElements) {
+                    el.classList.remove('selected');
+                }
+
                 store.commit('selection/append', [selectedNode]);
+                target.classList.add('selected');
+                this.clearSelection();
                 this.keepSelection();
+            } else if (target.classList.contains('selected')) {
+                store.commit('selection/remove', [selectedNode]);
+                target.classList.remove('selected');
+                this.removeFromSelection(target);
             }
         }
     },
