@@ -68,7 +68,7 @@
         }
 
         > p {
-            background:RGB(var(--secondary-background-color));
+            background: RGB(var(--secondary-background-color));
             width: 100%;
             margin-top: 0.75em;
             padding: 0.5em 0.75em;

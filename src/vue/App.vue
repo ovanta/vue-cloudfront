@@ -1,5 +1,6 @@
 <template>
     <div id="app"
+         ref="app"
          :class="{[theme]: 1, 'disable-transitions': disableTransitions}"
          @contextmenu.prevent="">
 
@@ -50,9 +51,20 @@
 
         computed: {
             theme() {
-                const {theme} = this.$store.state.settings.user;
-                localStorage.setItem('theme', theme);
+                const {settings: {user}, features: {preferredColorScheme}} = this.$store.state;
 
+                // Check if user enabled to prefer the current color theme
+                if (user.usePreferredColorScheme && preferredColorScheme.value) {
+                    switch (preferredColorScheme.value) {
+                        case 'dark':
+                            return 'dark';
+                        case 'light':
+                            return 'light';
+                    }
+                }
+
+                const {theme} = user;
+                localStorage.setItem('theme', theme);
                 return theme;
             }
         },
@@ -63,10 +75,23 @@
                 // Disable transition during repaint
                 this.disableTransitions = true;
                 requestAnimationFrame(() => this.disableTransitions = false);
+
+                // Update page theme
+                const themeColor = `rgb(${getComputedStyle(this.$refs.app).getPropertyValue('--theme-primary')})`;
+                for (const name of ['theme-color', 'msapplication-navbutton-color', 'apple-mobile-web-app-status-bar-style']) {
+                    const element = document.head.querySelector(`[name="${name}"]`) || (() => {
+                        const newEl = document.createElement('meta');
+                        newEl.setAttribute('name', name);
+                        document.head.appendChild(newEl);
+                        return newEl;
+                    })();
+
+                    element.setAttribute('content', themeColor);
+                }
             }
         },
 
-        beforeCreate() {
+        created() {
 
             // Try to recreate session
             const apikey = localStorage.getItem('apikey');
@@ -77,6 +102,22 @@
 
             // Listen for logs
             this.$store.commit('errors/listen');
+
+            // Listen for prefers-color-scheme changes
+            const {features, settings} = this.$store.state;
+            if (features.preferredColorScheme.available) {
+                const submit = type => settings.user.usePreferredColorScheme && this.$store.commit('features/update', {
+                    name: 'preferredColorScheme',
+                    value: type
+                });
+
+                submit('unset');
+                for (const type of ['dark', 'light']) {
+                    const mql = matchMedia(`(prefers-color-scheme: ${type})`);
+                    mql.addEventListener('change', e => e.matches && submit(type));
+                    mql.matches && submit(type);
+                }
+            }
         }
     };
 
