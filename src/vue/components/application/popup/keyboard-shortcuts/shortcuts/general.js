@@ -66,7 +66,7 @@ export default {
             action: 'Go up in hierarchy.',
             fn() {
                 if (state.activeTab === 'home') {
-                    store.dispatch('location/goUp');
+                    store.commit('location/goUp');
                 }
             }
         },

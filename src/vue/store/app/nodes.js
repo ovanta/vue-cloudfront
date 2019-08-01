@@ -98,19 +98,28 @@ export const nodes = {
             return ret;
         },
 
+        isInBin(state) {
+            const binNodes = [];
+
+            for (let i = 0, count = state.length; i < count; i++) {
+                const n = state[i];
+
+                if (!binNodes.includes(n.id) && (n.bin || binNodes.includes(n.parent))) {
+                    binNodes.push(n.id);
+                    i = 0;
+                }
+            }
+
+            return id => binNodes.includes(id);
+        },
+
         /**
          * Calculates the current amount of space used
          * @param state
          * @returns {number}
          */
         totalSize(state) {
-            let size = 0;
-
-            for (let i = 0, l = state.length; i < l; i++) {
-                size += state[i].size || 0;
-            }
-
-            return size;
+            return state.reduce((acc, cv) => acc + (cv.size || 0), 0);
         }
     },
 
@@ -189,27 +198,6 @@ export const nodes = {
                     this.commit('location/update', locNode ? locNode : root);
                 } else {
                     this.commit('location/update', root);
-                }
-
-                /**
-                 * To prevent nodes from poppin' up during search find all
-                 * sub-nodes from every node which has been moved to the bin and mark
-                 * these via _subBin. These nodes will be skipped while searching.
-                 * @type {Array}
-                 */
-                const binDirs = [];
-                for (let i = 0, count = nodes.length; i < count; i++) {
-                    const n = nodes[i];
-
-                    if (!n._subBin && (n.bin || binDirs.includes(n.parent))) {
-
-                        if (n.type === 'dir') {
-                            binDirs.push(n.id);
-                        }
-
-                        n._subBin = true;
-                        i = 0;
-                    }
                 }
 
                 state.splice(0, state.length, ...nodes);
@@ -371,8 +359,6 @@ export const nodes = {
                         if (prm || sprm) {
                             const idx = state.indexOf(node);
                             state.splice(idx, 1);
-                        } else {
-                            node._subBin = true;
                         }
                     });
 
@@ -424,19 +410,6 @@ export const nodes = {
                     nodes: nodes.map(v => v.id)
                 }
             }).then(() => {
-
-                // Update nodes locally to save ressources
-                nodes.forEach(function rm(node) {
-                    if (node.type === 'dir') {
-                        for (let i = 0; i < state.length; i++) {
-                            if (state[i].parent === node.id) {
-                                rm(state[i]);
-                            }
-                        }
-                    }
-
-                    node._subBin = false;
-                });
 
                 nodes.forEach(v => {
                     v.bin = false;

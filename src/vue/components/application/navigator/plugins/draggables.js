@@ -53,8 +53,7 @@ export default selectionjs => new Draggable({
         lastDropTarget && lastDropTarget.classList.remove('droppable');
     },
 
-    onDragEnd(op) {
-        const {dropTarget} = op;
+    onDragEnd({dropTarget}) {
 
         // Check if dropTarget has a data-hash attribute and perform move-operation
         if (dropTarget && dropTarget.hasAttribute('data-hash')) {
@@ -74,7 +73,7 @@ export default selectionjs => new Draggable({
 
                     // Clear selection
                     store.commit('selection/clear');
-                });
+                }).catch(() => null); // Prevent error to get printed to console
             }
 
             // Remove class
