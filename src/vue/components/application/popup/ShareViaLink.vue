@@ -12,7 +12,7 @@
             <div v-for="id of share.node.staticIds"
                  :key="id"
                  class="link">
-                <span class="link" @contextmenu.stop="">{{ apiEndPoint }}/d/{{ id }}</span>
+                <span class="link" @contextmenu.stop="">{{ $utils.createDownloadUrl(id) }}</span>
                 <span class="delete" @click="removeId(id)">Delete</span>
             </div>
 
@@ -22,6 +22,7 @@
 
         </div>
 
+        <!-- TODO: Reduce to one single link, more would need a description or something like that -->
         <div class="actions">
             <button class="remove-all" @click="removeAll">Remove all</button>
             <button class="add" @click="requestId">Add link</button>
@@ -48,12 +49,7 @@
         },
 
         computed: {
-            ...mapState(['share']),
-
-            apiEndPoint() {
-                const {apiEndPoint} = this.$config;
-                return apiEndPoint.startsWith('http') ? apiEndPoint : location.origin + apiEndPoint;
-            }
+            ...mapState(['share'])
         },
 
         methods: {

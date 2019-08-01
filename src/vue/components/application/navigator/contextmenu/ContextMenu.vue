@@ -352,11 +352,24 @@
                 this.$emit('hide');
             },
 
-            share() {
+            async share() {
                 if (this.nodes.length === 1) {
-                    this.$store.commit('setActivePopup', 'ShareViaLink');
-                    this.$store.commit('share/set', this.nodes[0]);
-                    this.$emit('hide');
+                    const [node] = this.nodes;
+
+                    // Check for native share capabilities
+                    if (typeof navigator.share === 'function') {
+                        const staticId = node.staticIds[0] || (await this.$store.dispatch('nodes/addStaticId', {node}));
+
+                        navigator.share({
+                            title: node.name,
+                            text: `Download "${node.name}":`,
+                            url: this.$utils.createDownloadUrl(staticId)
+                        });
+                    } else {
+                        this.$store.commit('setActivePopup', 'ShareViaLink');
+                        this.$store.commit('share/set', node);
+                        this.$emit('hide');
+                    }
                 }
             }
         }
@@ -480,6 +493,7 @@
             }
 
             .option {
+                padding: 0.75em 1em;
 
                 .name {
                     margin-left: 1.5em;

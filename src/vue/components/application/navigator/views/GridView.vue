@@ -258,4 +258,19 @@
         }
     }
 
+    @include mq-phones {
+        .grid-container {
+            grid-gap: 0.75em;
+            grid-template-columns: repeat(auto-fill, minmax(8em, 1fr));
+
+            &.small {
+                grid-template-columns: repeat(auto-fill, minmax(7em, 1fr));
+            }
+        }
+
+        .dir > svg {
+            @include size(3em);
+        }
+    }
+
 </style>
