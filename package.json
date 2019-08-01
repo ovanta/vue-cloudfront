@@ -47,6 +47,7 @@
         "sassyfication": "^0.1.1",
         "vue-cli-plugin-webpack-bundle-analyzer": "^1.4.0",
         "vue-template-compiler": "^2.6.10",
-        "vue-thread-loader": "^0.1.0"
+        "vue-thread-loader": "^0.1.0",
+        "webapp-webpack-plugin": "^2.7.1"
     }
 }
