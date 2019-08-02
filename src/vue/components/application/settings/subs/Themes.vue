@@ -7,8 +7,12 @@
                 Your selected theme will be synchronized with other sessions.
             </article>
 
+            <div v-if="userSettings.usePreferredColorScheme" class="input">
+                <p>You're currently using your systems color theme. You can deactivate that to decide which theme should be used.</p>
+                <button class="vcf-btn" @click="change('usePreferredColorScheme', false)">Deactive</button>
+            </div>
 
-            <div class="input">
+            <div v-else class="input">
                 <div v-for="theme of themes"
                      :key="theme.name"
                      :class="{theme: 1, active: theme.name === activeTheme}"
@@ -42,6 +46,9 @@
     // Theme stylesheet
     import themeStyleSheet from '!raw-loader!../../../../../scss/themes.scss';
 
+    // Vuex stuff
+    import {mapState} from 'vuex';
+
     export default {
 
         data() {
@@ -67,9 +74,14 @@
         },
 
         computed: {
+            ...mapState(['settings']),
+
+            userSettings() {
+                return this.settings.user;
+            },
 
             activeTheme() {
-                return this.$store.state.settings.user.theme;
+                return this.userSettings.theme;
             }
         },
 
@@ -80,6 +92,13 @@
                     state.user.theme = theme;
                     return state;
                 });
+            },
+
+            change(prop, newVal) {
+                this.$store.dispatch('settings/change', state => {
+                    state.user[prop] = newVal;
+                    return state;
+                });
             }
         }
     };
@@ -87,6 +106,10 @@
 </script>
 
 <style lang="scss" scoped>
+
+    .input > p {
+        margin-bottom: 1em;
+    }
 
     .themes {
         width: 100%;

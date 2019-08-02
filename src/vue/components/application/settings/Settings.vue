@@ -67,7 +67,8 @@
             }
         }
 
-        > p {
+        > blockquote {
+            font-size: 0.75em;
             background: RGB(var(--secondary-background-color));
             width: 100%;
             margin-top: 0.75em;
@@ -80,6 +81,13 @@
             padding-top: 0.75em;
             margin-top: 0.75em;
             border-top: 2px solid RGB(var(--secondary-background-color));
+
+            > p {
+                @include font(600, 0.8em);
+                line-height: 1.5em;
+                color: RGB(var(--primary-text-color));
+                margin-right: 2em;
+            }
         }
     }
 

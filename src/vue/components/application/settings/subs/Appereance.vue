@@ -36,7 +36,7 @@
                 <switch-button :value="settings.user.usePreferredColorScheme" @input="change('usePreferredColorScheme', $event)"/>
             </div>
 
-            <p>Currently used: <b>{{ $store.state.features.preferredColorScheme.value }}</b></p>
+            <blockquote>Currently used: <b>{{ $store.state.features.preferredColorScheme.value }}</b></blockquote>
         </div>
 
         <div class="setting">
@@ -94,12 +94,6 @@
 
         .input {
             @include flex(row, center, space-between);
-        }
-
-        p {
-            @include font(600, 0.8em);
-            color: RGB(var(--primary-text-color));
-            margin-right: 2em;
         }
     }
 
