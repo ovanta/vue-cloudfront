@@ -9,7 +9,7 @@
 
             <div v-if="userSettings.usePreferredColorScheme" class="input">
                 <p>You're currently using your systems color theme. You can deactivate that to decide which theme should be used.</p>
-                <button class="vcf-btn" @click="change('usePreferredColorScheme', false)">Deactive</button>
+                <button class="vcf-btn" @click="change('usePreferredColorScheme', false)">Deactivate now</button>
             </div>
 
             <div v-else class="input">

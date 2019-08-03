@@ -36,7 +36,9 @@
                 <switch-button :value="settings.user.usePreferredColorScheme" @input="change('usePreferredColorScheme', $event)"/>
             </div>
 
-            <blockquote>Currently used: <b>{{ $store.state.features.preferredColorScheme.value }}</b></blockquote>
+            <blockquote v-if="settings.user.usePreferredColorScheme">
+                Currently used: <b>{{ $store.state.features.preferredColorScheme.value }}</b>
+            </blockquote>
         </div>
 
         <div class="setting">

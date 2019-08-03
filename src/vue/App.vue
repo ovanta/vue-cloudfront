@@ -51,10 +51,14 @@
 
         computed: {
             theme() {
-                const {settings: {user}, features: {preferredColorScheme}} = this.$store.state;
+                const {
+                    settings: {user},
+                    features: {preferredColorScheme},
+                    auth
+                } = this.$store.state;
 
                 // Check if user enabled to prefer the current color theme
-                if (user.usePreferredColorScheme && preferredColorScheme.value) {
+                if ((user.usePreferredColorScheme && preferredColorScheme.value) || !auth.apikey) {
                     switch (preferredColorScheme.value) {
                         case 'dark':
                             return 'dark';
@@ -64,7 +68,6 @@
                 }
 
                 const {theme} = user;
-                localStorage.setItem('theme', theme);
                 return theme;
             }
         },
@@ -91,22 +94,23 @@
             }
         },
 
-        created() {
+        async created() {
 
             // Try to recreate session
             const apikey = localStorage.getItem('apikey');
 
             if (apikey) {
-                this.$store.dispatch('auth/key', {apikey});
+                await this.$store.dispatch('auth/key', {apikey});
             }
 
             // Listen for logs
             this.$store.commit('errors/listen');
 
             // Listen for prefers-color-scheme changes
-            const {features, settings} = this.$store.state;
+            const {features} = this.$store.state;
+
             if (features.preferredColorScheme.available) {
-                const submit = type => settings.user.usePreferredColorScheme && this.$store.commit('features/update', {
+                const submit = type => this.$store.commit('features/update', {
                     name: 'preferredColorScheme',
                     value: type
                 });

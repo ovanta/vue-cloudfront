@@ -97,11 +97,12 @@
 
     .settings {
         @include flex(row);
-        @include width(50vw, 35em, 75em);
+        @include width(50vw, 35em, 47.5em);
         margin: auto;
         padding: 5vh 0;
         flex-grow: 1;
         color: RGB(var(--primary-text-color));
+        height: 100%;
 
         .menu {
             height: 100%;
