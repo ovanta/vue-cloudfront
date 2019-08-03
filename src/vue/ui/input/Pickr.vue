@@ -69,7 +69,7 @@
         },
 
         destroyed() {
-            this.pickr.destroyAndRemove(); // TODO: Mobile style broken
+            this.pickr.destroyAndRemove();
         },
 
         methods: {

@@ -71,7 +71,7 @@ See [GitHub Projects](https://github.com/vue-cloudfront/vue-cloudfront/projects)
 
 ## Benchmarks
 As a comparison, I compared the upload stats with these from google drive.
-All benchmarks are made with an upload speed of `9.89 Mbit/s` / a ping of `~9ms`
+All benchmarks are made with an upload speed of `~9.89 Mbit/s` / a ping of `~9ms`
 
 ##### Upload of node_modules (26.3MB, 7.567 Files and 590 Folders)
 * Vue Cloudfront: `~40 Seconds` / `2 Requests`
