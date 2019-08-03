@@ -51,6 +51,7 @@ export const data = {
                  */
                 state: 'init',
                 error: null,
+                timestamp: Date.now(),
                 total: 0, // Total upload bytes
                 done: 0,  // Bytes uploaded so far
                 dirs: [], // List of directory names
@@ -221,6 +222,10 @@ export const data = {
                     const done = e.position || e.loaded;
                     stats.done += done - lastDone;
                     lastDone = done;
+
+                    if (stats.done >= stats.total) {
+                        stats.state = 'process-files';
+                    }
                 };
 
                 xhr.onreadystatechange = () => {

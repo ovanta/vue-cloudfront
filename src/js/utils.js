@@ -12,3 +12,16 @@ export limit                      from './utils/limit';
 export readableStringSequence     from './utils/readableStringSequence';
 export formatDate                 from './utils/formatDate';
 export *                          from './utils/eventListener';
+
+import config from '../../config/config';
+
+/**
+ * Creates a download url out of a static id
+ * @param staticId
+ * @returns {string}
+ */
+export function createDownloadUrl(staticId) {
+    const {apiEndPoint} = config;
+    const base = apiEndPoint.startsWith('http') ? apiEndPoint : location.origin + apiEndPoint;
+    return `${base}/d/${staticId}`;
+}

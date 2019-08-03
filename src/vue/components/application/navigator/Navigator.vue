@@ -89,12 +89,11 @@
         },
 
         computed: {
-            nodes() {
-                const calcFolderSize = this.$mediaDevice !== 'mobile' && this.$store.state.viewType === 'list';
-                return this.$store.getters['nodes/currentDisplayedNodes'](calcFolderSize);
-            },
+            ...mapState(['activeTab', 'viewType', 'search']),
 
-            ...mapState(['activeTab', 'viewType', 'search'])
+            nodes() {
+                return this.$store.getters['nodes/currentDisplayedNodes'];
+            }
         },
 
         mounted() {
@@ -103,19 +102,37 @@
                 // Clear selection if nodes change
                 this.$store.watch(store => store.nodes, () => this.$store.commit('selection/clear')),
 
-                this.$store.subscribe(mutation => {
+                this.$store.subscribe(async mutation => {
 
-                    // Cancel selection / close menu on new location
-                    if (mutation.type === 'location/update') {
+                    switch (mutation.type) {
 
-                        // Hide menu
-                        this.$refs.contextMenu.$emit('hide');
+                        // Cancel selection / close menu on new location
+                        case 'location/update': {
 
-                        // Clear selection
-                        this.$store.commit('selection/clear');
+                            // Hide menu
+                            this.$refs.contextMenu.$emit('hide');
 
-                        // Clear selected element index
-                        this.keyboardSelectionIndex = -1;
+                            // Clear selection
+                            this.$store.commit('selection/clear');
+
+                            // Clear selected element index
+                            this.keyboardSelectionIndex = -1;
+                            break;
+                        }
+
+                        // Go up if the current location got deleted in another session
+                        case 'nodes/socketSync': {
+                            if (['delete', 'change'].includes(mutation.payload.action)) {
+                                const inBin = this.$store.getters['nodes/isInBin'];
+                                const {location, nodes} = this.$store.state;
+
+                                let id = location.node.id;
+                                while (!nodes.find(v => v.id === id && !inBin(v.id))) {
+                                    this.$store.commit('location/goUp');
+                                    id = location.node.id;
+                                }
+                            }
+                        }
                     }
                 }),
 

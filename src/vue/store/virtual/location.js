@@ -27,7 +27,6 @@ export const location = {
 
             return hierarchy;
         }
-
     },
 
     mutations: {
@@ -47,19 +46,16 @@ export const location = {
             }
 
             state.node = node;
-        }
-    },
-
-    actions: {
+        },
 
         /**
          * Goes one up in the hierarchy
          */
-        goUp({state, rootState}) {
+        goUp(state) {
 
             // Find parent
             const curParentHash = state.node.parent;
-            const parent = rootState.nodes.find(v => v.id === curParentHash);
+            const parent = this.state.nodes.find(v => v.id === curParentHash);
             if (parent) {
                 state.node = parent;
             }

@@ -48,9 +48,10 @@ export const search = {
          * Updates the current search
          * @param state
          * @param rootState
+         * @param rootGetters
          * @param rawQuery
          */
-        update({state, rootState}, rawQuery) {
+        update({state, rootState, rootGetters}, rawQuery) {
 
             // If the query is empty, search should be disabled
             state.active = !!rawQuery;
@@ -114,11 +115,12 @@ export const search = {
                 );
 
                 state.nodes = [];
+                const inBin = rootGetters['nodes/isInBin'];
                 const {nodes} = rootState;
                 for (let i = 0, a = nodes.length, n; n = nodes[i], i < a; i++) {
 
                     // Check type, if root or if in trash
-                    if ((type !== 'all' && n.type !== type) || n.parent === 'root' || n._subBin) {
+                    if ((type !== 'all' && n.type !== type) || n.parent === 'root' || inBin(n.id)) {
                         continue;
                     }
 

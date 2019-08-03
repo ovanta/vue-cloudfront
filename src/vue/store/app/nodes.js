@@ -12,6 +12,41 @@ export const nodes = {
 
     getters: {
 
+
+        /**
+         * Calcualtes the directory size including all sub-nodes
+         * @param state
+         * @returns {Function}
+         */
+        directorySize(state) {
+            const map = new Map();
+            const entry = state.find(n => n.parent === 'root');
+
+            if (entry) {
+                (function calcDirectorySize(id) {
+                    let size = 0;
+
+                    // Find childrens of current location
+                    for (let i = 0, n, total = state.length; n = state[i], i < total; i++) {
+                        if (n.parent === id) {
+
+                            // If folder, recursivly calculate it otherwise just append size
+                            if (n.type === 'dir') {
+                                size += calcDirectorySize(n.id);
+                            } else if (n.type === 'file') {
+                                size += n.size;
+                            }
+                        }
+                    }
+
+                    map.set(id, size);
+                    return size;
+                })(entry.id);
+            }
+
+            return id => map.get(id);
+        },
+
         /**
          * Returns a object with file and folder props which are each
          * an array of nodes which are currently visible to the user.
@@ -21,87 +56,61 @@ export const nodes = {
         currentDisplayedNodes(state, getters, rootState) {
             const {search, location, activeTab} = rootState;
 
-            const calcFolderSize = (() => {
-                const memoization = new Map();
-
-                return hash => {
-                    let size = 0;
-
-                    if (memoization.has(hash)) {
-                        return memoization.get(hash);
-                    }
-
-                    // Find childrens of current location
-                    for (let i = 0, n, total = state.length; n = state[i], i < total; i++) {
-                        if (n.parent === hash) {
-                            const {type} = n;
-
-                            // If folder, recursivly calculate it otherwise just append size
-                            if (type === 'dir') {
-                                size += calcFolderSize(n.id);
-                            } else if (type === 'file') {
-                                size += n.size;
-                            }
-                        }
-                    }
-
-                    memoization.set(hash, size);
-                    return size;
-                };
-            })();
-
             /**
-             * Return a function which expects as argument if the size
-             * of each folder should be calculated.
+             * The nodes which should be shown changed if
+             * the user performs a search of want to see all currently starred nodes.
              */
-            return includeFolderSize => {
-
-                /**
-                 * The nodes which should be shown changed if
-                 * the user performs a search of want to see all currently starred nodes.
-                 */
-                const nodes = (() => {
-                    if (search.active) {
-                        return search.nodes;
-                    } else if (activeTab === 'marked') {
-                        return state.filter(v => v.marked && !v.bin);
-                    } else if (activeTab === 'bin') {
-                        return state.filter(v => v.bin);
-                    }
-                    return state.filter(v => !v.bin);
-
-                })();
-
-                const nodesAmount = nodes.length;
-                const locHash = location.node && location.node.id;
-                const ret = {file: [], dir: []}; // Seperate files and folders
-
-                // Find folder and files which has the current locations as parent
-                // and calculate size
-                const autoAdd = activeTab === 'marked' || activeTab === 'bin' || search.active;
-                for (let i = 0, n; n = nodes[i], i < nodesAmount; i++) {
-
-                    // Check if parent is the current location
-                    if (autoAdd || n.parent === locHash) {
-                        const {type} = n;
-
-                        // Calculate recursivly the size of each folder
-                        if (includeFolderSize && type === 'dir') {
-                            n.size = calcFolderSize(n.id);
-                        }
-
-                        // Extract extension and raw name
-                        if (type === 'file') {
-                            const extensionCut = n.name.lastIndexOf('.');
-                            n.extension = ~extensionCut ? n.name.substring(extensionCut + 1) : '?';
-                        }
-
-                        ret[type].push(n);
-                    }
+            const nodes = (() => {
+                if (search.active) {
+                    return search.nodes;
+                } else if (activeTab === 'marked') {
+                    return state.filter(v => v.marked && !v.bin);
+                } else if (activeTab === 'bin') {
+                    return state.filter(v => v.bin);
                 }
 
-                return ret;
-            };
+                return state.filter(v => !v.bin);
+            })();
+
+            const nodesAmount = nodes.length;
+            const locHash = location.node && location.node.id;
+            const ret = {file: [], dir: []}; // Seperate files and folders
+
+            // Find folder and files which has the current locations as parent
+            // and calculate size
+            const autoAdd = activeTab === 'marked' || activeTab === 'bin' || search.active;
+            for (let i = 0, n; n = nodes[i], i < nodesAmount; i++) {
+
+                // Check if parent is the current location
+                if (autoAdd || n.parent === locHash) {
+                    const {type} = n;
+
+                    // Extract extension and raw name
+                    if (type === 'file') {
+                        const extensionCut = n.name.lastIndexOf('.');
+                        n.extension = ~extensionCut ? n.name.substring(extensionCut + 1) : '?';
+                    }
+
+                    ret[type].push(n);
+                }
+            }
+
+            return ret;
+        },
+
+        isInBin(state) {
+            const binNodes = [];
+
+            for (let i = 0, count = state.length; i < count; i++) {
+                const n = state[i];
+
+                if (!binNodes.includes(n.id) && (n.bin || binNodes.includes(n.parent))) {
+                    binNodes.push(n.id);
+                    i = 0;
+                }
+            }
+
+            return id => binNodes.includes(id);
         },
 
         /**
@@ -110,13 +119,7 @@ export const nodes = {
          * @returns {number}
          */
         totalSize(state) {
-            let size = 0;
-
-            for (let i = 0, l = state.length; i < l; i++) {
-                size += state[i].size || 0;
-            }
-
-            return size;
+            return state.reduce((acc, cv) => acc + (cv.size || 0), 0);
         }
     },
 
@@ -125,8 +128,8 @@ export const nodes = {
         // Adds nodes to the collection
         put(state, {nodes}) {
             if (Array.isArray(nodes)) {
-                websocket.broadcast('nodes', 'put', nodes);
                 state.push(...nodes);
+                websocket.broadcast('nodes', 'put', nodes);
             }
         },
 
@@ -195,27 +198,6 @@ export const nodes = {
                     this.commit('location/update', locNode ? locNode : root);
                 } else {
                     this.commit('location/update', root);
-                }
-
-                /**
-                 * To prevent nodes from poppin' up during search find all
-                 * sub-nodes from every node which has been moved to the bin and mark
-                 * these via _subBin. These nodes will be skipped while searching.
-                 * @type {Array}
-                 */
-                const binDirs = [];
-                for (let i = 0, count = nodes.length; i < count; i++) {
-                    const n = nodes[i];
-
-                    if (!n._subBin && (n.bin || binDirs.includes(n.parent))) {
-
-                        if (n.type === 'dir') {
-                            binDirs.push(n.id);
-                        }
-
-                        n._subBin = true;
-                        i = 0;
-                    }
                 }
 
                 state.splice(0, state.length, ...nodes);
@@ -377,8 +359,6 @@ export const nodes = {
                         if (prm || sprm) {
                             const idx = state.indexOf(node);
                             state.splice(idx, 1);
-                        } else {
-                            node._subBin = true;
                         }
                     });
 
@@ -430,19 +410,6 @@ export const nodes = {
                     nodes: nodes.map(v => v.id)
                 }
             }).then(() => {
-
-                // Update nodes locally to save ressources
-                nodes.forEach(function rm(node) {
-                    if (node.type === 'dir') {
-                        for (let i = 0; i < state.length; i++) {
-                            if (state[i].parent === node.id) {
-                                rm(state[i]);
-                            }
-                        }
-                    }
-
-                    node._subBin = false;
-                });
 
                 nodes.forEach(v => {
                     v.bin = false;
@@ -576,29 +543,41 @@ export const nodes = {
         },
 
         /**
-         * Requests a static link for this specific node
+         * Removes static id's
          * @param rootState
+         * @param ids
          * @param node
          */
-        async removeStaticId({rootState}, {node, ids}) {
+        async removeStaticIds({state, rootState}, {ids}) {
             return this.dispatch('fetch', {
-                route: 'removeStaticId',
+                route: 'removeStaticIds',
                 body: {
                     apikey: rootState.auth.apikey,
-                    node: node.id,
                     ids
                 }
             }).then(() => {
+                const changedNodes = [];
 
-                // Append link
-                node.staticIds = node.staticIds || [];
-                node.staticIds = node.staticIds.filter(id => !ids.includes(id));
-                websocket.broadcast('nodes', 'change', [pick(node, 'id', 'staticIds')]);
+                // Update nodes
+                for (const node of state) {
+                    node.staticIds = node.staticIds || [];
+
+                    const previousIds = node.staticIds.length;
+                    node.staticIds = node.staticIds.filter(id => !ids.includes(id));
+
+                    // Check if any changes where made
+                    if (previousIds.length !== node.staticIds) {
+                        changedNodes.push(pick(node, 'id', 'staticIds'));
+                    }
+                }
+
+                websocket.broadcast('nodes', 'change', changedNodes);
             });
         },
 
         /**
          * Creates a zip-file out of a bunch of nodes
+         * @param state
          * @param rootState
          * @param nodes
          * @returns {Promise<void>}

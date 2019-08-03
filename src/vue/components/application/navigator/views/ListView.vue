@@ -29,36 +29,36 @@
             <div v-double-tap="() => updateLocation(node)"
                  v-for="node of sortedNodes.dir"
                  :key="node.id"
-                 :class="{selected: node._selected, dir: 1, cutted: node._cutted}"
+                 :class="{selected: selection.includes(node), dir: 1, cutted: cutted.includes(node)}"
                  :data-hash="node.id">
 
                 <i :style="{color: node.color}" class="fas fa-fw fa-folder"></i>
 
                 <div class="name" spellcheck="false">
 
-                    <span v-content-editable="node._editable"
-                          v-select-all="node._editable"
+                    <span v-content-editable="node === editable.node"
+                          v-select-all="node === editable.node"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
 
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
                 <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
-                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ node.size | readableByteCount }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ directorySize(node.id) | readableByteCount }}</span>
             </div>
 
             <!-- Files -->
             <div v-double-tap="() => $store.commit('filepreview/show', {nodes: nodes.file, index})"
                  v-for="(node, index) of sortedNodes.file"
                  :key="node.id"
-                 :class="{selected: node._selected, file: 1, cutted: node._cutted}"
+                 :class="{selected: selection.includes(node), file: 1, cutted: cutted.includes(node)}"
                  :data-hash="node.id">
 
                 <i class="fas fa-fw fa-file"></i>
                 <div class="name" spellcheck="false">
 
-                    <span v-content-editable="node._editable"
-                          v-select-all="node._editable"
+                    <span v-content-editable="node === editable.node"
+                          v-select-all="node === editable.node"
                           @keydown.enter.prevent="renameNode($event, node)">{{ node.name }}</span>
 
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
@@ -78,6 +78,9 @@
     import Selectable from '../plugins/selectable';
 
     import shared from './shared';
+
+    // Vuex stuff
+    import {mapGetters} from 'vuex';
 
     export default {
         props: {
@@ -104,10 +107,15 @@
         computed: {
             ...shared.computed,
 
-            sortedNodes() {
-                const nodes = this.croppedNodes;
+            ...mapGetters({
+                'directorySize': 'nodes/directorySize'
+            }),
 
-                const {sortProp} = this;
+            sortedNodes() {
+                const {sortProp, croppedNodes} = this;
+                const file = [...croppedNodes.file];
+                const dir = [...croppedNodes.dir];
+
                 if (sortProp) {
 
                     /**
@@ -121,11 +129,11 @@
                     const sortFn = (a, b) => a[sortProp] > b[sortProp] ? ra : rb;
 
                     // Sort pre-calulated nodes and re-render everything
-                    nodes.file.sort(sortFn);
-                    nodes.dir.sort(sortFn);
+                    file.sort(sortFn);
+                    dir.sort(sortFn);
                 }
 
-                return nodes;
+                return {file, dir};
             }
         },
 

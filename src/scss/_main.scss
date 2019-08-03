@@ -1,3 +1,48 @@
 @import '~sassyfication';
 @import 'variables';
-@import 'custom-reset';
+@import 'com/buttons';
+
+button,
+textarea,
+input {
+    font-family: $font-family;
+    outline: none;
+    border: none;
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    &::selection {
+        color: RGB(var(--primary-background-color));
+        background: RGB(var(--theme-secondary));
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0.3em;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: RGB(var(--secondary-text-color));
+    border-radius: 0;
+}
+
+@include mq-phones {
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+}

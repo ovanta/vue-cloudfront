@@ -100,7 +100,8 @@
                     return null;
                 }
 
-                const nodes = this.$store.getters['nodes/currentDisplayedNodes']();
+                const nodes = this.$store.getters['nodes/currentDisplayedNodes'];
+
                 return {
                     file: nodes.file.length,
                     dir: nodes.dir.length

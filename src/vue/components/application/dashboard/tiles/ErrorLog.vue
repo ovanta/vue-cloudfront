@@ -3,7 +3,7 @@
 
         <h1>
             <i class="fas fa-fw fa-exclamation-circle"></i>
-            <span>Errors and warnings</span>
+            <span>Problems</span>
         </h1>
 
         <div :class="{logs: 1, empty: !errors.logs.length}">

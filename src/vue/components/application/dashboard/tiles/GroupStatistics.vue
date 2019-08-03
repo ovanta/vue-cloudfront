@@ -29,36 +29,34 @@
             stats() {
                 const {nodes} = this.$store.state;
                 const totalNodes = nodes.length;
-                let starredFiles = 0;
-                let starredFolders = 0;
-                let binFiles = 0;
-                let binFolders = 0;
+                const starredFiles = [];
+                const starredFolders = [];
+                const binFiles = [];
+                const binFolders = [];
+                const sharedFiles = [];
 
-                for (let i = 0, l = nodes.length; i < l; i++) {
-                    const node = nodes[i];
-
-                    if (node.marked) {
-                        if (node.type === 'dir') {
-                            starredFolders++;
-                        } else if (node.type === 'file') {
-                            starredFiles++;
-                        }
-                    } else if (node.bin) {
-                        if (node.type === 'dir') {
-                            binFolders++;
-                        } else if (node.type === 'file') {
-                            binFiles++;
-                        }
+                for (const node of nodes) {
+                    if (node.type === 'dir') {
+                        node.marked && starredFolders.push(node);
+                        node.bin && binFolders.push(node);
+                    } else if (node.type === 'file') {
+                        node.marked && starredFiles.push(node);
+                        node.bin && binFiles.push(node);
+                        node.staticIds.length && sharedFiles.push(node);
                     }
                 }
 
                 return [
-                    {name: 'Total files and folders', value: totalNodes},
+                    {name: 'Total files and folders', value: {length: totalNodes}},
                     {name: 'Starred files', value: starredFiles},
                     {name: 'Starred folders', value: starredFolders},
                     {name: 'Files moved to bin', value: binFiles},
-                    {name: 'Folders moved to bin', value: binFolders}
-                ];
+                    {name: 'Folders moved to bin', value: binFolders},
+                    {name: 'Shared files', value: sharedFiles}
+                ].map(({name, value}) => {
+                    value = value.length === 1 ? value[0].name : value.length;
+                    return {value, name};
+                });
             }
         }
     };

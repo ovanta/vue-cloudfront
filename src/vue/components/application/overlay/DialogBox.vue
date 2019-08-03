@@ -76,7 +76,7 @@
         @include position(0, 0, 0, 0);
         @include flex(column, center, center);
         position: absolute;
-        background: RGBA(var(--primary-text-color), 0.125);
+        background: RGBA(var(--primary-background-color), 0.6);
         opacity: 0;
         transition: all 0.3s;
         pointer-events: none;
@@ -107,11 +107,11 @@
 
     .content {
         @include width(50vw, 5em, 25em);
-        background: RGB(var(--secondary-background-color));
+        background: RGB(var(--primary-background-color));
         color: RGB(var(--primary-text-color));
         padding: 0.75em 1.25em;
         border-radius: 0.15em;
-        box-shadow: 0 0.4em 1.5em RGBA(var(--primary-text-color), 0.125);
+        box-shadow: 0 0.4em 1.5em RGBA(var(--secondary-background-color), 1);
         opacity: 0;
         transform-origin: top center;
         transform: translateY(-0.5em) scale(0.95);
@@ -139,6 +139,7 @@
         .actions {
             @include flex(row, center, flex-end);
             font-size: 0.95em;
+            margin-top: 1em;
 
             button {
                 @include font(600, 0.85em);

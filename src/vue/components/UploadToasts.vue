@@ -15,7 +15,7 @@
         <!-- List of active uploads -->
         <div ref="uploads" class="uploads">
             <div v-for="upload of uploads"
-                 :key="upload.total"
+                 :key="upload.timestamp"
                  class="upload">
 
                 <span class="info-message">{{ genStatusMessage(upload) }}</span>
@@ -25,10 +25,10 @@
                     <!-- Icons -->
                     <i v-if="upload.state === 'aborted'" class="fas fa-fw fa-trash"></i>
                     <i v-else-if="upload.state === 'failed'" class="fas fa-fw fa-exclamation"></i>
-                    <i v-else-if="upload.done / upload.total >= 1" class="fas fa-fw fa-check"></i>
+                    <i v-else-if="upload.state === 'done'" class="fas fa-fw fa-check"></i>
 
-                    <circle-progress-bar v-if="(upload.done / upload.total < 1 || !upload.total) && !['aborted', 'failed'].includes(upload.state)"
-                                         :indeterminate="['init', 'stardet', 'create-dirs'].includes(upload.state)"
+                    <circle-progress-bar v-if="!['done', 'aborted', 'failed'].includes(upload.state)"
+                                         :indeterminate="['init', 'stardet', 'create-dirs', 'process-files'].includes(upload.state)"
                                          :value="upload.done / upload.total"/>
 
                     <!-- Abort button -->
@@ -61,7 +61,7 @@
         },
 
         computed: {
-            ...mapState(['auth']),
+            ...mapState(['auth', 'data']),
 
             activeUploadCount() {
 
@@ -75,8 +75,8 @@
             },
 
             uploads() {
-                const sortMap = ['failed', 'aborted', 'done', 'upload-files', 'create-dirs', 'started', 'init'];
-                const uploads = [...this.$store.state.data.uploads];
+                const sortMap = ['failed', 'aborted', 'process-files', 'done', 'upload-files', 'create-dirs', 'started', 'init'];
+                const uploads = [...this.data.uploads];
 
                 uploads.sort((a, b) => sortMap.indexOf(a.state) - sortMap.indexOf(b.state));
                 return uploads;
@@ -100,6 +100,8 @@
                         const percent = Math.round((this.$utils.limit(upload.done / upload.total, 0, 1)) * 100);
                         return `${percent}% - Uploading ${pluralify(upload.files)}`;
                     }
+                    case 'process-files':
+                        return 'Processing upload...';
                     case 'done':
                         return `Uploaded ${pluralify(upload.files)}!`;
                     case 'aborted':
@@ -141,7 +143,7 @@
         position: absolute;
         box-shadow: 0 0.15em 0.75em RGBA(var(--primary-text-color), 0.1);
         border-radius: 0.15em;
-        background: RGB(var(--secondary-background-color));
+        background: RGB(var(--primary-background-color));
         overflow: hidden;
         transition: all 0.5s;
 
@@ -167,7 +169,7 @@
         @include flex(row, center);
         background: linear-gradient(to bottom right, RGB(var(--theme-secondary)), RGB(var(--theme-primary)));
         padding: 0.75em 1em;
-        color: RGB(var(--primary-background-color));
+        color: RGB(var(--teritary-text-color));
 
         span {
             @include font(600, 0.75em);

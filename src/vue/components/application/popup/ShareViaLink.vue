@@ -12,7 +12,7 @@
             <div v-for="id of share.node.staticIds"
                  :key="id"
                  class="link">
-                <span class="link" @contextmenu.stop="">{{ apiEndPoint }}/d/{{ id }}</span>
+                <span class="link" @contextmenu.stop="">{{ $utils.createDownloadUrl(id) }}</span>
                 <span class="delete" @click="removeId(id)">Delete</span>
             </div>
 
@@ -22,6 +22,7 @@
 
         </div>
 
+        <!-- TODO: Reduce to one single link, more would need a description or something like that -->
         <div class="actions">
             <button class="remove-all" @click="removeAll">Remove all</button>
             <button class="add" @click="requestId">Add link</button>
@@ -48,12 +49,7 @@
         },
 
         computed: {
-            ...mapState(['share']),
-
-            apiEndPoint() {
-                const {apiEndPoint} = this.$config;
-                return apiEndPoint.startsWith('http') ? apiEndPoint : location.origin + apiEndPoint;
-            }
+            ...mapState(['share'])
         },
 
         methods: {
@@ -63,11 +59,11 @@
             },
 
             removeId(id) {
-                this.$store.dispatch('nodes/removeStaticId', {node: this.share.node, ids: [id]});
+                this.$store.dispatch('nodes/removeStaticIds', {ids: [id]});
             },
 
             removeAll() {
-                this.$store.dispatch('nodes/removeStaticId', {node: this.share.node, ids: this.share.node.staticIds});
+                this.$store.dispatch('nodes/removeStaticIds', {ids: this.share.node.staticIds});
             }
         }
     };
@@ -111,7 +107,7 @@
                 background: RGB(var(--static-error-color));
                 @include font(600, 0.75em);
                 padding: 0.35em 0.5em;
-                color: RGB(var(--primary-background-color));
+                color: RGB(var(--teritary-text-color));
                 border-radius: 0.15em;
                 margin-left: 0.75em;
                 transition: all 0.3s;
@@ -137,7 +133,7 @@
 
         button {
             @include font(400, 0.85em);
-            color: RGB(var(--primary-background-color));
+            color: RGB(var(--teritary-text-color));
             padding: 0.5em 1em;
             border-radius: 0.15em;
             transition: all 0.3s;

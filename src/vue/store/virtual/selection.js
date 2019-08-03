@@ -45,6 +45,5 @@ export const selection = {
         clear(state) {
             state.splice(0, state.length);
         }
-
     }
 };

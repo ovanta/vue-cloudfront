@@ -1,6 +1,7 @@
+const WebappWebpackPlugin = require('webapp-webpack-plugin');
+const vueThreadLoader = require('vue-thread-loader');
 const manifestJSON = require('./public/manifest');
 const args = process.argv;
-const vueThreadLoader = require('vue-thread-loader');
 
 module.exports = {
 
@@ -12,7 +13,10 @@ module.exports = {
         }
     },
 
-    configureWebpack: vueThreadLoader(),
+    configureWebpack(config) {
+        config.plugins.push(new WebappWebpackPlugin('./src/assets/favicon.png'));
+        vueThreadLoader()(config);
+    },
 
     devServer: {
         host: '0.0.0.0',
@@ -30,7 +34,7 @@ module.exports = {
 
     pwa: {
         themeColor: manifestJSON.theme_color,
-        msTileColor: '#F5F6FA',
+        msTileColor: '#f5f6fa',
         manifestPath: 'manifest.json',
         workboxPluginMode: 'GenerateSW'
     }

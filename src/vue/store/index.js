@@ -23,6 +23,7 @@ import {share}       from './virtual/share';
 import {errors}      from './virtual/errors';
 import {connection}  from './virtual/connection';
 import {elements}    from './virtual/elements';
+import {features}    from './virtual/features';
 
 Vue.use(Vuex);
 
@@ -78,7 +79,10 @@ export default new Vuex.Store({
         connection,
 
         // Global available elements
-        elements
+        elements,
+
+        // Browser features and more
+        features
     },
 
     state: {

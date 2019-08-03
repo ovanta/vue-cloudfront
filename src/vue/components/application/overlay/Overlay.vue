@@ -18,7 +18,6 @@
         data() {
             return {};
         }
-
     };
 
 </script>
@@ -26,9 +25,9 @@
 <style lang="scss" scoped>
 
     .overlay {
-        position: absolute;
         @include position(0, 0, 0, 0);
-        background: RGB(var(--secondary-background-color));
+        position: absolute;
+        background: RGB(var(--primary-background-color));
         z-index: 5;
         opacity: 0;
         pointer-events: none;

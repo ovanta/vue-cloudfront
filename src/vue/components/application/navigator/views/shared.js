@@ -1,5 +1,5 @@
-// Config stuff
 import {visibleNodesChunkSize} from '../../../../../../config/config';
+import {mapState}              from 'vuex';
 
 export default {
 
@@ -69,11 +69,15 @@ export default {
     },
 
     computed: {
+        ...mapState(['selection', 'editable', 'clipboard']),
+
+        cutted() {
+            const {clipboard} = this;
+            return clipboard.type === 'move' ? clipboard.nodes : [];
+        },
+
         croppedNodes() {
             const {fileLimit, dirLimit} = this;
-            const {selection, clipboard, editable} = this.$store.state;
-            const clipboardNodes = clipboard.nodes;
-            const editableNode = editable.node;
 
             const createSubPart = (type, limit) => {
                 const nodes = this.nodes[type];
@@ -81,14 +85,7 @@ export default {
                 const list = new Array(amount);
 
                 for (let i = 0; i < amount; i++) {
-                    const n = nodes[i];
-
-                    // Inject props
-                    n._cutted = clipboard.type === 'move' && clipboardNodes.includes(n);
-                    n._selected = selection.includes(n);
-                    n._editable = n === editableNode;
-
-                    list[i] = n;
+                    list[i] = nodes[i];
                 }
 
                 return list;

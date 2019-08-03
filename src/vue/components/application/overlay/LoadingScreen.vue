@@ -1,8 +1,9 @@
 <template>
     <overlay :open="loadingData.open" class="loading-screen">
-        <div class="box"></div>
 
+        <div class="box"></div>
         <p v-if="loadingData.message" class="message">{{ loadingData.message }}...</p>
+
     </overlay>
 </template>
 
@@ -42,8 +43,8 @@
                 } else if (typeof msgs === 'string') {
                     return msgs;
                 }
-                return null;
 
+                return null;
             }
         }
     };
@@ -58,8 +59,8 @@
     }
 
     .box {
-        position: relative;
         @include size(2.5em);
+        position: relative;
         background: RGB(var(--theme-primary));
         animation-play-state: paused;
 

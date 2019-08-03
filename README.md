@@ -47,7 +47,7 @@ See [GitHub Projects](https://github.com/vue-cloudfront/vue-cloudfront/projects)
 * Modern Vue frontend with material-design - easy to design and customize.
 * Simply structure and just a few dependencies.
 * Clean dashboard to keep an overview over active sessions, files and more.
-* Dark and light theme.
+* Dark and light theme as well as setting to use the preferred color scheme by your os.
 
 #### File Management
 * GridView with small file previews and draggable tiles.
@@ -55,10 +55,11 @@ See [GitHub Projects](https://github.com/vue-cloudfront/vue-cloudfront/projects)
 * Easy drag 'n drop as well as selection functionality.
 * Files and folders can be marked _(for example to have quick access to them)_.
 * Custom colors and color picker for faster content recognition.
-* Almost no latency during a search.
+* No latency during a search - get instant results within milliseconds.
 * Copy, cut and move files and folders like on your notebook.
 * Simultaneous uploads with a neat upload popup to control and see current uploads.
 * Download entire directorie structures as zip file.
+* Bookmark files and folders to directly access them in a seperate tab.
 
 #### General
 * Tooltips and introduction boxes to quickly understand how everything works.
@@ -67,11 +68,10 @@ See [GitHub Projects](https://github.com/vue-cloudfront/vue-cloudfront/projects)
 * Search in your cloud and get results under '< 500ms'.
 * Specify your search with file-type, size-range and more.
 * Full mobile support, enjoy it everywhere.
-* Enhanced detailed settings.
 
 ## Benchmarks
 As a comparison, I compared the upload stats with these from google drive.
-All benchmarks are made with an upload speed of `9.89 Mbit/s` / a ping of `~9ms`
+All benchmarks are made with an upload speed of `~9.89 Mbit/s` / a ping of `~9ms`
 
 ##### Upload of node_modules (26.3MB, 7.567 Files and 590 Folders)
 * Vue Cloudfront: `~40 Seconds` / `2 Requests`
@@ -83,7 +83,6 @@ All benchmarks are made with an upload speed of `9.89 Mbit/s` / a ping of `~9ms`
 
 ##### Lighthouse analysis
 ![Lighthouse result](https://user-images.githubusercontent.com/30767528/51075890-f2239d00-1691-11e9-93e5-a34daad6fb0c.png)
-
 
 ## Documentation and table of contents
 

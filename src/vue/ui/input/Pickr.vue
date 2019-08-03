@@ -8,7 +8,7 @@
 
     // Components
     import '@simonwep/pickr/dist/themes/nano.min.css';
-    import Pickr from '@simonwep/pickr/dist/pickr.min';
+    import Pickr from '@simonwep/pickr';
 
     export default {
 
@@ -37,6 +37,7 @@
                 theme: 'nano',
 
                 swatches: this.$config.predefinedColors,
+                defaultRepresentation: 'HEXA',
                 components: {
 
                     // Main components
@@ -47,7 +48,6 @@
                     // Input / output Options
                     interaction: {
                         input: true,
-                        hex: true,
                         save: true
                     }
                 }
@@ -69,7 +69,7 @@
         },
 
         destroyed() {
-            this.pickr && this.pickr.destroy();
+            this.pickr.destroyAndRemove();
         },
 
         methods: {
@@ -89,6 +89,7 @@
 <style lang="scss">
 
     .pcr-app.pcr-app.pcr-app {
+        width: 13.5em;
         background: RGB(var(--primary-background-color));
 
         .pcr-selection {

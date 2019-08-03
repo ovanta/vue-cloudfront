@@ -1,5 +1,6 @@
 <template>
     <section class="credentials">
+
         <div class="setting">
             <article>
                 To change your username and/or password please enter your current one
@@ -23,18 +24,37 @@
                                   :password="true"
                                   placeholder="Repeat New Password"/>
 
+                <p v-show="credentialsError">{{ credentialsError }}</p>
+
                 <div class="actions">
-                    <button class="delete-account" @click="deleteAccount">Delete Account</button>
-                    <button class="update" @click="update">Update</button>
+                    <button class="vcf-btn red" @click="deleteAccount">Delete Account</button>
+                    <button class="vcf-btn" @click="update">Update</button>
                 </div>
+            </div>
+        </div>
+
+        <div v-if="staticNodes.length" class="setting static-ids">
+            <article v-if="staticNodes.length === 1">
+                You currently got one file which is accessible through a public link.
+                If you wish you can revoke it.
+            </article>
+
+            <article v-else>
+                You currently got have {{ staticNodes.length }} files which can be accessed with a public link.
+                If you wish you can revoke them all.
+            </article>
+
+            <div class="input">
+                <button class="vcf-btn red" @click="revokeStaticIds">Revoke all</button>
             </div>
         </div>
     </section>
 </template>
 
 <script>
+
     // Components
-    import TextInputField from '../../../ui/input/TextInputField';
+    import TextInputField from '../../../../ui/input/TextInputField';
 
     export default {
 
@@ -42,29 +62,35 @@
 
         data() {
             return {
+                credentialsError: null,
                 currentPassword: '',
-                username: '',
+                passwordRepeat: '',
                 password: '',
-                passwordRepeat: ''
+                username: ''
             };
+        },
+
+        computed: {
+
+            staticNodes() {
+                return this.$store.state.nodes.filter(v => (v.staticIds || []).length);
+            }
         },
 
         methods: {
 
             update() {
                 const {currentPassword, username, password, passwordRepeat} = this;
+                this.credentialsError = '';
 
                 // Validate
-                if (password !== passwordRepeat || !password) {
+                if (password !== passwordRepeat && password) {
+                    this.credentialsError = 'Passwords are not indentical.';
+                }
 
-                    // Show error
-                    return this.$store.commit('dialogbox/show', {
-                        type: 'error',
-                        title: 'Passwords are no indentical or empty.',
-                        buttons: [
-                            {type: 'accept', text: 'Okay'}
-                        ]
-                    });
+                if (!username && !password && !passwordRepeat) {
+                    this.credentialsError = 'Nothing changed.';
+                    return;
                 }
 
                 this.$store.dispatch('auth/updateCredentials', {
@@ -74,37 +100,26 @@
                 }).then(() => {
                     this.currentPassword = this.username = this.password = this.passwordRepeat = '';
                 }).catch(error => {
-
-                    // Show error
-                    this.$store.commit('dialogbox/show', {
-                        type: 'error',
-                        title: 'Failed to update settings',
-                        text: error.text,
-                        buttons: [
-                            {type: 'accept', text: 'Okay'}
-                        ]
-                    });
+                    this.credentialsError = error.text;
                 });
             },
 
             deleteAccount() {
                 const {currentPassword} = this;
+                this.credentialsError = '';
 
                 this.$store.dispatch('auth/deleteAccount', {
                     password: currentPassword
                 }).then(() => {
                     this.currentPassword = '';
                 }).catch(error => {
+                    this.credentialsError = error.text;
+                });
+            },
 
-                    // Show error
-                    this.$store.commit('dialogbox/show', {
-                        type: 'error',
-                        title: 'Failed to delete accound',
-                        text: error.text,
-                        buttons: [
-                            {type: 'accept', text: 'Okay'}
-                        ]
-                    });
+            revokeStaticIds() {
+                this.$store.dispatch('nodes/removeStaticIds', {
+                    ids: this.staticNodes.reduce((acc, val) => [...acc, ...val.staticIds], [])
                 });
             }
         }
@@ -119,6 +134,12 @@
     }
 
     .input {
+
+        > p {
+            @include font(600, 0.75em);
+            color: RGB(var(--static-error-color));
+            margin-top: 1em;
+        }
 
         .text-input-field {
             width: 100%;
@@ -152,33 +173,16 @@
 
         .actions {
             @include flex(row, center, space-between);
+            margin-top: 0.75em;
 
-            button {
-                @include font(400, 0.85em);
-                margin-top: 1.5em;
-                border-radius: 0.15em;
-                padding: 0.55em 1.3em 0.6em;
-                color: RGB(var(--teritary-text-color));
-                transition: all 0.3s;
-
-                &.delete-account {
-                    margin-right: 1em;
-                    background: RGB(var(--static-error-color));
-
-                    &:hover {
-                        filter: brightness(0.9);
-                    }
-                }
-
-                &.update {
-                    background: RGB(var(--theme-primary));
-
-                    &:hover {
-                        filter: brightness(0.9);
-                    }
-                }
+            button.delete-account {
+                margin-right: 1em;
             }
         }
+    }
+
+    .static-ids {
+        @include flex(column, flex-end);
     }
 
 </style>

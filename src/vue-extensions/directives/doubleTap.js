@@ -12,7 +12,7 @@ Vue.directive('doubleTap', (() => {
             map.set(el, binding.value);
 
             let lastTap = 0;
-            on(el, 'mouseup', ev => {
+            on(el, 'click', ev => {
                 const {button} = ev;
                 const value = map.get(el);
 

@@ -4,7 +4,7 @@
         <div class="setting">
             <article>
                 Using the SI Prefix means using the Internationla System of Units and therefore representing
-                all number with the base of <code>10</code> instead of <code>2</code>
+                all number with the base of <kbd>10</kbd> instead of <kbd>2</kbd>
             </article>
 
             <div class="input">
@@ -15,7 +15,7 @@
 
         <div class="setting">
             <article>
-                Deleting something while pressing the <code>shift</code> key or removing it from the bin
+                Deleting something while pressing the <kbd>shift</kbd> key or removing it from the bin
                 means it's ereased forever. Check this if you want to delete everything by default forever (makes the bin redundant)
             </article>
 
@@ -23,6 +23,22 @@
                 <p>Delete everything forever</p>
                 <switch-button :value="settings.user.immediateDeletion" @input="change('immediateDeletion', $event)"/>
             </div>
+        </div>
+
+        <div v-if="$store.state.features.preferredColorScheme.available" class="setting">
+            <article>
+                Some operation systems have an option where you can decide if you wish to use a dark or light color-theme.
+                Enable this setting to use the theme of your OS.
+            </article>
+
+            <div class="input">
+                <p>Use system color scheme</p>
+                <switch-button :value="settings.user.usePreferredColorScheme" @input="change('usePreferredColorScheme', $event)"/>
+            </div>
+
+            <blockquote v-if="settings.user.usePreferredColorScheme">
+                Currently used: <b>{{ $store.state.features.preferredColorScheme.value }}</b>
+            </blockquote>
         </div>
 
         <div class="setting">
@@ -43,7 +59,7 @@
 <script>
 
     // UI Stuff
-    import SwitchButton from '../../../ui/input/SwitchButton';
+    import SwitchButton from '../../../../ui/input/SwitchButton';
 
     // Vuex
     import {mapState} from 'vuex';
@@ -61,6 +77,8 @@
         },
 
         methods: {
+            matchMedia: q => window.matchMedia(q),
+
             change(prop, newVal) {
                 this.$store.dispatch('settings/change', state => {
                     state.user[prop] = newVal;
@@ -78,12 +96,6 @@
 
         .input {
             @include flex(row, center, space-between);
-        }
-
-        p {
-            @include font(600, 0.8em);
-            color: RGB(var(--primary-text-color));
-            margin-right: 2em;
         }
     }
 
