@@ -3,7 +3,7 @@
            store-prop="ShareViaLink"
            class="share-via-link">
 
-        <h3>Everyone with the link can download  <b>{{ share.node.name }}</b></h3>
+        <h3 v-if="share.node">Everyone with the link can download  <b>{{ share.node.name }}</b></h3>
 
         <svg xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 80 80">

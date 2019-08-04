@@ -73,7 +73,8 @@
         },
 
         watch: {
-            theme() {
+            theme(theme) {
+                localStorage.setItem('theme', theme);
 
                 // Disable transition during repaint
                 this.disableTransitions = true;
