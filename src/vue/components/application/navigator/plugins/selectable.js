@@ -16,96 +16,64 @@ export default new Selection({
     selectionAreaContainer: '#app',
     selectables: ['.file', '.dir'],
     startareas: ['.views'],
-    boundaries: ['.list'],
-
-    // Don't start selection if user opened the context-menu
-    validateStart(e) {
-        const selected = selection.length;
-
-        for (const el of eventPath(e)) {
-            if (el instanceof HTMLElement) {
-                const hash = el.getAttribute('data-hash');
-
-                // Check if element contains a node-hash and try to resolve the corresponding node
-                if (hash && !el.classList.contains('selected')) {
-                    const selectedNode = nodes.find(v => v.id === hash);
-
-                    if (selectedNode) {
-                        el.classList.add('selected');
-
-                        if (!strgPressed(e)) {
-                            store.commit('selection/clear');
-                        }
-
-                        store.commit('selection/append', [selectedNode]);
-                        return false;
-                    }
-                }
-            }
-        }
-
-        if (e.button !== 2 || !selected) {
-            return true;
-        } else if (selected === 1) {
-            store.commit('selection/clear');
-            return true;
-        }
-
-        return false;
-    },
-
-    onStart({originalEvent}) {
-
-        // Every non-ctrlKey causes a selection reset
-        if (!originalEvent.ctrlKey) {
-            store.commit('selection/clear');
-            this.clearSelection();
-        }
-    },
-
-    onSelect({selectedElements, originalEvent, target}) {
-        const targetHash = target.getAttribute('data-hash');
-        const selectedNode = nodes.find(v => v.id === targetHash);
-
-        if (selectedNode) {
-            if (!originalEvent.ctrlKey && !originalEvent.metaKey) {
-                store.commit('selection/clear');
-
-                for (const el of selectedElements) {
-                    el.classList.remove('selected');
-                }
-
-                store.commit('selection/append', [selectedNode]);
-                target.classList.add('selected');
-                this.clearSelection();
-                this.keepSelection();
-            } else if (target.classList.contains('selected')) {
-                store.commit('selection/remove', [selectedNode]);
-                target.classList.remove('selected');
-                this.removeFromSelection(target);
-            }
-        }
-    },
-
-    onMove(evt) {
-        const {changedElements} = evt;
-
-        /**
-         * Only add / remove selected class to increase selection performance.
-         */
-        changedElements.added.forEach(v => v.classList.add('selected'));
-        changedElements.removed.forEach(v => v.classList.remove('selected'));
-    },
-
-    onStop({selectedElements}) {
-
-        /**
-         * Every element has a data-hash property wich is used
-         * to find the selected nodes. Find these and append they
-         * to the current selection.
-         */
-        const selectedHashes = selectedElements.map(v => v.getAttribute('data-hash'));
-        const selectedNodes = nodes.filter(v => selectedHashes.includes(v.id));
-        store.commit('selection/append', selectedNodes);
+    boundaries: ['.list']
+}).on('beforestart', ({inst, oe}) => {
+    if (strgPressed(oe)) {
+        return;
     }
+
+    for (const el of eventPath(oe)) {
+        if (el instanceof HTMLElement) {
+            const hash = el.getAttribute('data-hash');
+
+            // Check if element contains a node-hash and try to resolve the corresponding node
+            if (hash && !el.classList.contains('selected')) {
+                const selectedNode = nodes.find(v => v.id === hash);
+
+                if (selectedNode) {
+                    el.classList.add('selected');
+                    store.commit('selection/clear');
+                    store.commit('selection/append', [selectedNode]);
+                    inst.clearSelection();
+                    inst.select(el);
+                    inst.keepSelection();
+                    return false;
+                }
+            }
+        }
+    }
+
+    const selected = selection.length;
+    if (oe.button !== 2 || !selected) {
+        return;
+    } else if (selected === 1) {
+        store.commit('selection/clear');
+        return;
+    }
+
+    return false;
+}).on('start', ({inst, oe}) => {
+
+    // Every non-ctrlKey causes a selection reset
+    if (!strgPressed(oe)) {
+        store.commit('selection/clear');
+        inst.clearSelection();
+    }
+}).on('move', ({changed: {added, removed}}) => {
+
+    /**
+     * Only add / remove selected class to increase selection performance.
+     */
+    added.forEach(v => v.classList.add('selected'));
+    removed.forEach(v => v.classList.remove('selected'));
+}).on('stop', ({selected}) => {
+
+    /**
+     * Every element has a data-hash property wich is used
+     * to find the selected nodes. Find these and append they
+     * to the current selection.
+     */
+    const selectedHashes = selected.map(v => v.getAttribute('data-hash'));
+    const selectedNodes = nodes.filter(v => selectedHashes.includes(v.id));
+    store.commit('selection/append', selectedNodes);
 });
