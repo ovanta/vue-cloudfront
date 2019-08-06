@@ -81,7 +81,6 @@
             this.$store.commit('elements/set', {key: 'searchBarInputField', element: this.$refs.input});
 
             this.$callOnDestroy(
-
                 // If nodes getting deleted / added update search.
                 this.$store.watch(state => state.nodes, () => this.updateSearch()),
 
@@ -228,7 +227,7 @@
 
     @include mq-phones {
         .search-bar {
-            padding: 0.75em;
+            padding: 0.75em 0.5em;
         }
 
         .search-field {

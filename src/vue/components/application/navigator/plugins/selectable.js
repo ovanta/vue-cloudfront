@@ -12,7 +12,6 @@ const strgPressed = e => e.ctrlKey || e.metaKey;
 export default new Selection({
     class: 'selection-area',
     startThreshold: 10,
-    disableTouch: true,
     selectionAreaContainer: '#app',
     selectables: ['.file', '.dir'],
     startareas: ['.views'],

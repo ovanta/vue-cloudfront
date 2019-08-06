@@ -180,8 +180,31 @@
             padding: 0;
             min-width: 100vw;
 
+            .content {
+                padding: 0 1em;
+            }
+
             .menu {
                 height: auto;
+
+                .btns {
+                    @include flex(row, center);
+
+                    button {
+                        &:not(:first-child):not(:last-child) {
+                            margin-left: 0.5em;
+                            margin-right: 0.5em;
+                        }
+
+                        &:first-child:not(:last-child) {
+                            margin-right: 0.5em;
+                        }
+
+                        &:last-child:not(:first-child) {
+                            margin-left: 0.5em;
+                        }
+                    }
+                }
 
                 > p {
                     display: none;

@@ -285,6 +285,11 @@
 
     @include mq-phones {
         .dir,
+        .file {
+            padding: calc(0.25em + 2px) 0.5em 0.25em;
+        }
+
+        .dir,
         .file,
         .header {
             font-size: 0.85em;
