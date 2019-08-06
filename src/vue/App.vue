@@ -73,24 +73,21 @@
         },
 
         watch: {
-            theme(theme) {
-                localStorage.setItem('theme', theme);
+            theme: {
+                deep: true,
+                handler(theme) {
+                    localStorage.setItem('theme', theme);
 
-                // Disable transition during repaint
-                this.disableTransitions = true;
-                requestAnimationFrame(() => this.disableTransitions = false);
+                    // Disable transition during repaint
+                    this.disableTransitions = true;
+                    requestAnimationFrame(() => {
+                        this.disableTransitions = false;
 
-                // Update page theme
-                const themeColor = `rgb(${getComputedStyle(this.$refs.app).getPropertyValue('--theme-primary')})`;
-                for (const name of ['theme-color', 'msapplication-navbutton-color', 'apple-mobile-web-app-status-bar-style']) {
-                    const element = document.head.querySelector(`[name="${name}"]`) || (() => {
-                        const newEl = document.createElement('meta');
-                        newEl.setAttribute('name', name);
-                        document.head.appendChild(newEl);
-                        return newEl;
-                    })();
-
-                    element.setAttribute('content', themeColor);
+                        // Update page theme
+                        this.$utils.updatePageTheme(
+                            `rgb(${getComputedStyle(this.$refs.app).getPropertyValue('--primary-background-color')})`
+                        );
+                    });
                 }
             }
         },
