@@ -58,6 +58,7 @@ export default new Selection({
         store.commit('selection/clear');
         inst.clearSelection();
     }
+
 }).on('move', ({changed: {added, removed}}) => {
 
     /**
