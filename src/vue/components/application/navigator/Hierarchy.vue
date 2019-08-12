@@ -23,8 +23,8 @@
             <span v-if="search.query"> for <b>{{ search.query }}</b></span>
 
             <div class="filters">
-                <span v-for="filter of search.filters"
-                      :key="filter">{{ filter }}</span>
+                <span v-for="(filter, index) of search.filters"
+                      :key="index">{{ filter }}</span>
             </div>
         </div>
 
@@ -107,7 +107,6 @@
                     dir: nodes.dir.length
                 };
             }
-
         },
 
         methods: {
@@ -116,7 +115,6 @@
                 this.$store.commit('location/update', node);
             }
         }
-
     };
 
 </script>

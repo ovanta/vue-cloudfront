@@ -25,8 +25,8 @@ export const search = {
             regex: false
         },
 
-        // Current serach filters
-        filter: []
+        // Current search filters
+        filters: []
     },
 
     mutations: {
