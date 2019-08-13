@@ -47,7 +47,7 @@
                 }
 
                 return [
-                    {name: 'Total files and folders', value: {length: totalNodes}},
+                    {name: 'Total files and folders', value: [totalNodes]},
                     {name: 'Starred files', value: starredFiles},
                     {name: 'Starred folders', value: starredFolders},
                     {name: 'Files moved to bin', value: binFiles},
