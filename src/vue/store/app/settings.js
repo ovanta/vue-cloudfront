@@ -17,7 +17,7 @@ export const settings = {
             immediateDeletion: false,
             usePreferredColorScheme: false,
             defaultFolderColor: '#333',
-            theme: localStorage.getItem('theme') || 'default'
+            theme: null
         }
     },
 

@@ -143,32 +143,15 @@ export const auth = {
         },
 
         /**
+         * TODO: Use preferred color-scheme upon registration?
          * Authenticates a user
-         * @param state
          * @param credentials username, password and so on.
          */
-        async register({state}, credentials) {
+        async register(_, credentials) {
             return this.dispatch('fetch', {
                 route: 'register',
                 body: credentials
-            }).then(({apikey}) => {
-
-                // Save apikey to localstorage and update module
-                localStorage.setItem('apikey', apikey);
-                state.apikey = apikey;
-
-                // Register websocket
-                websocket.register(apikey);
-
-                // Jump to dashboard
-                this.commit('setActiveTab', 'dashboard');
-
-                // Update nodes
-                return Promise.all([
-                    this.dispatch('nodes/update'),
-                    this.dispatch('auth/status')
-                ]);
-            });
+            }).then(({apikey}) => this.dispatch('auth/key', {apikey}));
         },
 
         /**

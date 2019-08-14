@@ -53,22 +53,22 @@
             theme() {
                 const {
                     settings: {user},
-                    features: {preferredColorScheme},
-                    auth
+                    features: {preferredColorScheme}
                 } = this.$store.state;
 
                 // Check if user enabled to prefer the current color theme
-                if ((user.usePreferredColorScheme && preferredColorScheme.value) || !auth.apikey) {
+                if (user.usePreferredColorScheme && preferredColorScheme.value) {
                     switch (preferredColorScheme.value) {
                         case 'dark':
                             return 'dark';
                         case 'light':
                             return 'light';
                     }
+                } else if (!user.theme) {
+                    return localStorage.getItem('theme') || 'light';
                 }
 
-                const {theme} = user;
-                return theme;
+                return user.theme;
             }
         },
 

@@ -61,7 +61,7 @@
 
                     for (const [, variant, styles] of sections) {
                         themes.push({
-                            name: variant || 'default',
+                            name: variant || 'light',
                             colors: matchAll(styles, /--([\w-]+): ([\d]+, [\d]+, [\d]+);/g)
                                 .filter(v => !v[1].startsWith('static'))
                                 .map(v => `rgb(${v[2]})`)

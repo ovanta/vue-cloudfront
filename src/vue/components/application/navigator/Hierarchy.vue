@@ -69,7 +69,7 @@
                     v = {...v};
 
                     // Convert to a rgb string which can be used as part of rgba()
-                    const [, r, g, b] = (v.color || '#ffffff').match(/#(..)(..)(..)/);
+                    const [, r, g, b] = (v.color || '#fff').match(/#(..)(..)(..)/);
                     v.colorVariable = `${parseInt(r, 16)}, ${parseInt(g, 16)}, ${parseInt(b, 16)}`;
 
                     return v;
