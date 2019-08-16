@@ -195,19 +195,9 @@
                 .btns {
                     @include flex(row, center);
 
-                    button {
-                        &:not(:first-child):not(:last-child) {
-                            margin-left: 0.5em;
-                            margin-right: 0.5em;
-                        }
-
-                        &:first-child:not(:last-child) {
-                            margin-right: 0.5em;
-                        }
-
-                        &:last-child:not(:first-child) {
-                            margin-left: 0.5em;
-                        }
+                    > button {
+                        @include margin-between-h(0.5em);
+                        padding: 0.75em;
                     }
                 }
 

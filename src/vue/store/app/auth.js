@@ -143,7 +143,6 @@ export const auth = {
         },
 
         /**
-         * TODO: Use preferred color-scheme upon registration?
          * Authenticates a user
          * @param credentials username, password and so on.
          */
