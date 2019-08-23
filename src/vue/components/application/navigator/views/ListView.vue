@@ -43,7 +43,7 @@
                     <i :class="{'fas fa-fw fa-star star': 1, visible: node.marked}" :style="{color: node.color}"></i>
                 </div>
 
-                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ $utils.formatDate('HH:mm - DD. MMM YYYY', node.lastModified) }}</span>
+                <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ $utils.formatDate('DD. MMM YYYY - HH:mm', node.lastModified) }}</span>
                 <span v-if="$mediaDevice !== 'mobile'" class="detail">{{ directorySize(node.id) | readableByteCount }}</span>
             </div>
 
@@ -178,39 +178,39 @@
     }
 
     .dir,
+    .file {
+        cursor: pointer;
+        border: 1px solid transparent;
+        padding: calc(0.075em + 2px) 0.5em 0.075em;
+        margin-bottom: -1px;
+
+        &.selected {
+            border-color: RGBA(var(--focus-color), 0.7);
+            background: RGBA(var(--focus-color), 0.1);
+        }
+
+        &.cutted {
+            opacity: 0.75;
+        }
+
+        &:not(.selected):hover {
+            border-color: RGBA(var(--focus-color), 0.3);
+            background: RGBA(var(--focus-color), 0.05);
+        }
+    }
+
+    .dir,
     .file,
     .header {
         @include flex(row, center);
         user-select: none;
-        padding: 0.3em 0.5em;
-        cursor: pointer;
         font-size: 0.8em;
-        border: 1px solid transparent;
-        border-radius: 0.15em;
-
-        &:nth-child(even) {
-            background: RGBA(var(--secondary-background-color), 0.85);
-        }
 
         i {
             color: RGB(var(--primary-text-color));
             transition: all 0.3s;
             font-size: 1.25em;
             margin-bottom: 0.2em;
-        }
-
-        &.selected {
-            border-color: RGBA(var(--focus-color), 0.75);
-            background: RGBA(var(--focus-color), 0.1);
-
-            &:nth-child(n+2) {
-                margin-top: -1px;
-                padding: calc(0.3em + 1px) 0.5em 0.3em 0.5em;
-            }
-        }
-
-        &.cutted {
-            opacity: 0.75;
         }
 
         .name,
@@ -284,6 +284,11 @@
     }
 
     @include mq-phones {
+        .dir,
+        .file {
+            padding: calc(0.25em + 2px) 0.5em 0.25em;
+        }
+
         .dir,
         .file,
         .header {

@@ -11,6 +11,7 @@ export fileSystem                 from './utils/fileSystem';
 export limit                      from './utils/limit';
 export readableStringSequence     from './utils/readableStringSequence';
 export formatDate                 from './utils/formatDate';
+export updatePageTheme            from './utils/updatePageTheme';
 export *                          from './utils/eventListener';
 
 import config from '../../config/config';

@@ -7,7 +7,7 @@
                 to verify it's you.
             </article>
 
-            <div class="input">
+            <div class="input col">
                 <text-input-field v-model="currentPassword"
                                   :password="true"
                                   placeholder="Current password"/>

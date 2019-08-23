@@ -7,12 +7,12 @@
                 Your selected theme will be synchronized with other sessions.
             </article>
 
-            <div v-if="userSettings.usePreferredColorScheme" class="input">
+            <div v-if="userSettings.usePreferredColorScheme" class="input col">
                 <p>You're currently using your systems color theme. You can deactivate that to decide which theme should be used.</p>
                 <button class="vcf-btn" @click="change('usePreferredColorScheme', false)">Deactivate now</button>
             </div>
 
-            <div v-else class="input">
+            <div v-else class="input col">
                 <div v-for="theme of themes"
                      :key="theme.name"
                      :class="{theme: 1, active: theme.name === activeTheme}"
@@ -61,7 +61,7 @@
 
                     for (const [, variant, styles] of sections) {
                         themes.push({
-                            name: variant || 'default',
+                            name: variant || 'light',
                             colors: matchAll(styles, /--([\w-]+): ([\d]+, [\d]+, [\d]+);/g)
                                 .filter(v => !v[1].startsWith('static'))
                                 .map(v => `rgb(${v[2]})`)

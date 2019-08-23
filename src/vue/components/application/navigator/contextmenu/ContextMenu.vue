@@ -96,6 +96,7 @@
 
         <pickr ref="pickr"
                :color="nodes.length ? nodes[0].color : undefined"
+               :options="pickrOptions"
                @save="setColor">
 
             <!-- Activator -->
@@ -125,7 +126,12 @@
                 open: false,
                 type: '',
                 nodes: [],
-                style: {}
+                style: {},
+
+                pickrOptions: {
+                    position: 'right-middle',
+                    useAsButton: true
+                }
             };
         },
 

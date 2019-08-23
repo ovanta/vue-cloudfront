@@ -53,43 +53,41 @@
             theme() {
                 const {
                     settings: {user},
-                    features: {preferredColorScheme},
-                    auth
+                    features: {preferredColorScheme}
                 } = this.$store.state;
 
                 // Check if user enabled to prefer the current color theme
-                if ((user.usePreferredColorScheme && preferredColorScheme.value) || !auth.apikey) {
+                if (user.usePreferredColorScheme && preferredColorScheme.value) {
                     switch (preferredColorScheme.value) {
                         case 'dark':
                             return 'dark';
                         case 'light':
                             return 'light';
                     }
+                } else if (!user.theme) {
+                    return localStorage.getItem('theme') || 'light';
                 }
 
-                const {theme} = user;
-                return theme;
+                return user.theme;
             }
         },
 
         watch: {
-            theme() {
+            theme: {
+                deep: true,
+                handler(theme) {
+                    localStorage.setItem('theme', theme);
 
-                // Disable transition during repaint
-                this.disableTransitions = true;
-                requestAnimationFrame(() => this.disableTransitions = false);
+                    // Disable transition during repaint
+                    this.disableTransitions = true;
+                    requestAnimationFrame(() => {
+                        this.disableTransitions = false;
 
-                // Update page theme
-                const themeColor = `rgb(${getComputedStyle(this.$refs.app).getPropertyValue('--theme-primary')})`;
-                for (const name of ['theme-color', 'msapplication-navbutton-color', 'apple-mobile-web-app-status-bar-style']) {
-                    const element = document.head.querySelector(`[name="${name}"]`) || (() => {
-                        const newEl = document.createElement('meta');
-                        newEl.setAttribute('name', name);
-                        document.head.appendChild(newEl);
-                        return newEl;
-                    })();
-
-                    element.setAttribute('content', themeColor);
+                        // Update page theme
+                        this.$utils.updatePageTheme(
+                            `rgb(${getComputedStyle(this.$refs.app).getPropertyValue('--primary-background-color')})`
+                        );
+                    });
                 }
             }
         },

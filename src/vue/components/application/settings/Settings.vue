@@ -77,10 +77,15 @@
         }
 
         .input {
+            @include flex(row, center, space-between);
             width: 100%;
             padding-top: 0.75em;
             margin-top: 0.75em;
             border-top: 2px solid RGB(var(--secondary-background-color));
+
+            &.col {
+                @include flex(column, stretch, stretch);
+            }
 
             > p {
                 @include font(600, 0.8em);
@@ -180,8 +185,21 @@
             padding: 0;
             min-width: 100vw;
 
+            .content {
+                padding: 0 1em;
+            }
+
             .menu {
                 height: auto;
+
+                .btns {
+                    @include flex(row, center);
+
+                    > button {
+                        @include margin-between-h(0.5em);
+                        padding: 0.75em;
+                    }
+                }
 
                 > p {
                     display: none;

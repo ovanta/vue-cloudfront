@@ -49,7 +49,8 @@
 
             <div class="input">
                 <p>Hide tooltips</p>
-                <switch-button :value="settings.user.hideTooltips" @input="change('hideTooltips', $event)"/>
+                <switch-button :value="settings.user.hideTooltips"
+                               @input="change('hideTooltips', $event)"/>
             </div>
         </div>
 
@@ -89,14 +90,3 @@
     };
 
 </script>
-
-<style lang="scss" scoped>
-
-    .appereance {
-
-        .input {
-            @include flex(row, center, space-between);
-        }
-    }
-
-</style>

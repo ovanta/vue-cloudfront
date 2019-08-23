@@ -73,6 +73,7 @@
                             if (!this.$utils.eventPath(e).includes(popupContent)) {
                                 this.close();
                             }
+
                         }, {useCapture: false});
                     });
                 }

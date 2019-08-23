@@ -16,7 +16,8 @@ export const settings = {
             hideTooltips: false,
             immediateDeletion: false,
             usePreferredColorScheme: false,
-            theme: 'default'
+            defaultFolderColor: '#333',
+            theme: null
         }
     },
 

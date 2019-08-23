@@ -13,7 +13,8 @@
     export default {
 
         props: {
-            color: {type: String, default: '#7c6ded'}
+            color: {type: String, default: '#7c6ded'},
+            options: {type: Object, default: null}
         },
 
         data() {
@@ -25,15 +26,15 @@
 
         watch: {
             color(newVal) {
-                this.pickr && this.pickr.setColor(newVal, true);
+                this.pickr && this.pickr.setColor(newVal);
             }
         },
 
         mounted() {
             this.pickr = new Pickr({
                 el: this.$refs.pickr,
-                position: 'right-middle',
-                useAsButton: true,
+                lockOpacity: true,
+                default: this.color,
                 theme: 'nano',
 
                 swatches: this.$config.predefinedColors,
@@ -43,21 +44,22 @@
                     // Main components
                     preview: true,
                     hue: true,
-                    lockOpacity: true,
 
                     // Input / output Options
                     interaction: {
                         input: true,
                         save: true
                     }
-                }
+                },
+
+                ...this.options
             }).on('save', color => {
                 this.$emit('save', color.toHEXA().toString());
             });
 
             const {app} = this.pickr.getRoot();
 
-            // Move pickr-app to css-variablen scope
+            // Move pickr-app to css-variables scope
             app.remove();
             document.getElementById('app').appendChild(app);
 

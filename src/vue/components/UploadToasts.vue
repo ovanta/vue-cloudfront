@@ -141,7 +141,7 @@
     .upload-bar {
         @include position(auto, 0.75em, 0.75em, auto);
         position: absolute;
-        box-shadow: 0 0.15em 0.75em RGBA(var(--primary-text-color), 0.1);
+        box-shadow: var(--shadow-mini);
         border-radius: 0.15em;
         background: RGB(var(--primary-background-color));
         overflow: hidden;
